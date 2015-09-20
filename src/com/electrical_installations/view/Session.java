@@ -43,6 +43,10 @@ public class Session {
         return instance;        
     }//Fin del método getInstance
 
+    /**
+     * Método que recibe como parámetro el usuario a mantener en sesión.
+     * @param user 
+     */
     public void session_data(User user){
         this.nationality = user.getNationality();
         this.dni = user.getDni();
@@ -51,7 +55,7 @@ public class Session {
         this.address = user.getAddress();
         this.phone = user.getPhone();
         this.userName = user.getUserName();
-    }
+    }//Fin del método
     
     /**
      * Este método elimina la referencia en memoria para el objeto instance.
