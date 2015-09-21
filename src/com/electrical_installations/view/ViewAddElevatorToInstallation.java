@@ -6,7 +6,7 @@
 package com.electrical_installations.view;
 
 import com.electrical_installations.controller.ControllerElevatorInInstallation;
-import com.electrical_installations.controller.ControllerVoltageInCharge;
+import com.electrical_installations.controller.ControllerCharge;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JRadioButton;

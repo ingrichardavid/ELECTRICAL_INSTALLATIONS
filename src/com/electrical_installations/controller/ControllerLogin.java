@@ -8,6 +8,7 @@ package com.electrical_installations.controller;
 import com.electrical_installations.configuration.Messages;
 import com.electrical_installations.configuration.MessagesStructure;
 import com.electrical_installations.model.entity.User;
+import com.electrical_installations.model.service.ServiceHorsePorwer;
 import com.electrical_installations.model.service.ServiceUser;
 import com.electrical_installations.view.Session;
 import com.electrical_installations.view.ViewLogin;

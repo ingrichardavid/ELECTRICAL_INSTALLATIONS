@@ -6,7 +6,6 @@
 package com.electrical_installations.model.implementation;
 
 import com.electrical_installations.configuration.Messages;
-import com.electrical_installations.configuration.MessagesStructure;
 import com.electrical_installations.model.DataBaseConnection;
 import com.electrical_installations.model.dao.ChargesInAreasDAO;
 import com.electrical_installations.model.entity.Area;

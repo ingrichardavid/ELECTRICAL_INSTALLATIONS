@@ -353,7 +353,21 @@ public class Messages {
     /**
      * Por favor, seleccione la acometida.
      */    
-    public final static String RUSH_NO_FOUND = "RUSH_NO_FOUND";    
+    public final static String RUSH_NO_FOUND = "RUSH_NO_FOUND"; 
+    
+    //Mesajes para Caballo de Potencia
+    
+    /**
+     * No existen caballo de potencia registrados.
+     */
+    public final static String HORSES_POWER_NO_FOUND = "HORSES_POWER_NO_FOUND";   
+    
+    //Mesajes para Porcentajes de Motores Monofásicos.
+    
+    /**
+     * No existen porcentajes de motores monofásicos registrados.
+     */
+    public final static String PERCENTAGE_SINGLE_PHASE_MOTORS_NO_FOUND = "PERCENTAGE_SINGLE_PHASE_MOTORS_NO_FOUND";   
            
     /**
      * Constructor de la clase, es privado para cumplir con el patrón Singlenton.

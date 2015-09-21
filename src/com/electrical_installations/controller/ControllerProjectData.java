@@ -9,23 +9,20 @@ import com.electrical_installations.configuration.Messages;
 import com.electrical_installations.configuration.MessagesStructure;
 import com.electrical_installations.global.method.Methods;
 import com.electrical_installations.model.entity.Area;
-import com.electrical_installations.model.entity.AreaIluminariaPowerPoint;
 import com.electrical_installations.model.entity.Charge;
 import com.electrical_installations.model.entity.ChargesInAreas;
 import com.electrical_installations.model.entity.Elevator;
 import com.electrical_installations.model.entity.ElevatorInInstallation;
 import com.electrical_installations.model.entity.Project;
 import com.electrical_installations.model.entity.TypeOfInstallation;
-import com.electrical_installations.model.enums.TypeOfBranchCircuitInArea;
 import com.electrical_installations.model.service.ServiceArea;
-import com.electrical_installations.model.service.ServiceCharge;
 import com.electrical_installations.model.service.ServiceChargesInAreas;
 import com.electrical_installations.model.service.ServiceElevator;
 import com.electrical_installations.model.service.ServiceElevatorInInstallation;
 import com.electrical_installations.view.ViewAddElevatorToInstallation;
 import com.electrical_installations.view.ViewArea;
 import com.electrical_installations.view.ViewProyectData;
-import com.electrical_installations.view.ViewVoltageInCharge;
+import com.electrical_installations.view.ViewCharge;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -34,7 +31,6 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
-import java.util.ArrayList;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
 
@@ -50,7 +46,7 @@ public class ControllerProjectData implements ActionListener, WindowListener, Ke
     private final ViewProyectData viewProjectData;
     private static final Messages messages = Messages.getInstance();
     private ViewArea viewArea;
-    private ViewVoltageInCharge viewVoltageInArea;
+    private ViewCharge viewVoltageInArea;
     private ViewAddElevatorToInstallation viewAddElevatorToInstallation;
     private Area area;
     private List<ElevatorInInstallation> elevatorInInstallation;
@@ -330,7 +326,7 @@ public class ControllerProjectData implements ActionListener, WindowListener, Ke
 ////        try {         
 ////            row_area = viewProjectData.getTblArea().getSelectedRow();
 ////////            rows = viewProjectData.getTblCharges().getSelectedRows();                             
-////            viewVoltageInArea = new ViewVoltageInCharge(null, true);
+////            viewVoltageInArea = new ViewCharge(null, true);
 ////            viewVoltageInArea.setVisible(true);
 ////
 ////            if (viewVoltageInArea.getVoltage() != 0){
@@ -456,7 +452,7 @@ public class ControllerProjectData implements ActionListener, WindowListener, Ke
             viewProjectData.dispose();
         } 
         else if (e.getSource().equals(viewProjectData.getBtnAddCharge())){
-            this.viewVoltageInArea = new ViewVoltageInCharge(null, true);
+            this.viewVoltageInArea = new ViewCharge(null, true);
             this.viewVoltageInArea.setVisible(true);
         }
         else if (e.getSource().equals(viewProjectData.getBtnDeleteChargesInAreas())){

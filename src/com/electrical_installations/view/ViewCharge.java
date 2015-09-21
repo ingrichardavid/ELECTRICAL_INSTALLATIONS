@@ -5,24 +5,22 @@
  */
 package com.electrical_installations.view;
 
-import com.electrical_installations.controller.ControllerVoltageInCharge;
+import com.electrical_installations.controller.ControllerCharge;
 import java.awt.Font;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
-import javax.swing.JRadioButton;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 
 /**
- * Clave ViewArea.
- *
+ * Clase ViewCharge
  * @author Ing. Richard David
  * @version 1
  * @since 2015-08-01
  */
-public class ViewVoltageInCharge extends javax.swing.JDialog {
+public class ViewCharge extends javax.swing.JDialog {
 
-    private final ControllerVoltageInCharge controller;
+    private final ControllerCharge controller;
     private int voltage;
     private String temperature;
     private String material;
@@ -30,13 +28,13 @@ public class ViewVoltageInCharge extends javax.swing.JDialog {
     private final Font fuente;
 
     /**
-     * Constructor de ViewArea, por ser subclase de JDialog recibe como
+     * Constructor de ViewCharge, por ser subclase de JDialog recibe como
      * parámetro el padre y true en caso de que sea modal.
      *
      * @param parent
      * @param modal
      */
-    public ViewVoltageInCharge(java.awt.Frame parent, boolean modal) {
+    public ViewCharge(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
 
@@ -53,10 +51,21 @@ public class ViewVoltageInCharge extends javax.swing.JDialog {
 
         voltage = 0;
 
-        controller = new ControllerVoltageInCharge(this);
+        controller = new ControllerCharge(this);
+        controller.fill_table_charges();
+        controller.fill_combobox_HP();
+        controller.fill_combobox_percentage_single_phase_motors();
+        controller.fill_combos_phases();
+        controller.fill_combos_temperatures();
+        controller.fill_combos_voltages();
+        controller.fill_combos_calibers();
+        controller.fill_combos_ducts();
+        controller.fill_combos_materials();
+        
         txtFindCharge.addKeyListener(controller);
         this.btnAdd.addActionListener(controller);
         this.btnClose.addActionListener(controller);
+        this.txtFindCharge.addKeyListener(controller);
         this.addWindowListener(controller);
 
         this.setLocationRelativeTo(null);
@@ -65,6 +74,22 @@ public class ViewVoltageInCharge extends javax.swing.JDialog {
 
     //Getters y Setters
 
+    public JComboBox getCmbPercentageSinglePhaseMotors() {
+        return cmbPercentageSinglePhaseMotors;
+    }
+
+    public void setCmbPercentageSinglePhaseMotors(JComboBox cmbPercentageSinglePhaseMotors) {
+        this.cmbPercentageSinglePhaseMotors = cmbPercentageSinglePhaseMotors;
+    }
+
+    public JComboBox getCmbHP() {
+        return cmbHP;
+    }
+
+    public void setCmbHP(JComboBox cmbHP) {
+        this.cmbHP = cmbHP;
+    }
+    
     public JComboBox getCmbCaliber() {
         return cmbCaliber;
     }
@@ -208,7 +233,7 @@ public class ViewVoltageInCharge extends javax.swing.JDialog {
         jLabel18 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         jLabel10 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox();
+        cmbPercentageSinglePhaseMotors = new javax.swing.JComboBox();
         lblStaticPotency = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         lblPotency = new javax.swing.JLabel();
@@ -219,12 +244,12 @@ public class ViewVoltageInCharge extends javax.swing.JDialog {
         jLabel13 = new javax.swing.JLabel();
         jSpinner1 = new javax.swing.JSpinner();
         jLabel14 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
         jButton2 = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         cmbDuct = new javax.swing.JComboBox();
+        jspAngle = new javax.swing.JSpinner();
         jPanel1 = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
         btnAdd = new javax.swing.JButton();
@@ -238,8 +263,8 @@ public class ViewVoltageInCharge extends javax.swing.JDialog {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Agregar Carga");
-        setMinimumSize(new java.awt.Dimension(790, 403));
-        setPreferredSize(new java.awt.Dimension(790, 403));
+        setMinimumSize(new java.awt.Dimension(919, 372));
+        setPreferredSize(new java.awt.Dimension(919, 372));
         setResizable(false);
         getContentPane().setLayout(new java.awt.GridBagLayout());
 
@@ -377,6 +402,7 @@ public class ViewVoltageInCharge extends javax.swing.JDialog {
         jPanel4.add(jLabel16, gridBagConstraints);
 
         jSpinner2.setFont(new java.awt.Font("DejaVu Sans", 0, 12)); // NOI18N
+        jSpinner2.setModel(new javax.swing.SpinnerNumberModel(Float.valueOf(0.1f), Float.valueOf(0.1f), Float.valueOf(3.0f), Float.valueOf(0.1f)));
         jSpinner2.setMinimumSize(new java.awt.Dimension(100, 21));
         jSpinner2.setPreferredSize(new java.awt.Dimension(100, 21));
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -396,7 +422,6 @@ public class ViewVoltageInCharge extends javax.swing.JDialog {
         jPanel4.add(jLabel17, gridBagConstraints);
 
         jLabel18.setFont(new java.awt.Font("DejaVu Sans", 0, 12)); // NOI18N
-        jLabel18.setText("HE1 ");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 6;
@@ -417,7 +442,7 @@ public class ViewVoltageInCharge extends javax.swing.JDialog {
         jPanel4.add(jButton1, gridBagConstraints);
 
         jLabel10.setFont(new java.awt.Font("DejaVu Sans", 1, 12)); // NOI18N
-        jLabel10.setText("No se:");
+        jLabel10.setText("% In:");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 5;
@@ -425,8 +450,7 @@ public class ViewVoltageInCharge extends javax.swing.JDialog {
         gridBagConstraints.insets = new java.awt.Insets(7, 3, 0, 0);
         jPanel4.add(jLabel10, gridBagConstraints);
 
-        jComboBox1.setFont(new java.awt.Font("DejaVu Sans", 0, 12)); // NOI18N
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cmbPercentageSinglePhaseMotors.setFont(new java.awt.Font("DejaVu Sans", 0, 12)); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 5;
@@ -434,7 +458,7 @@ public class ViewVoltageInCharge extends javax.swing.JDialog {
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
         gridBagConstraints.insets = new java.awt.Insets(7, 12, 0, 3);
-        jPanel4.add(jComboBox1, gridBagConstraints);
+        jPanel4.add(cmbPercentageSinglePhaseMotors, gridBagConstraints);
 
         lblStaticPotency.setFont(new java.awt.Font("DejaVu Sans", 1, 12)); // NOI18N
         lblStaticPotency.setText("Potencia:");
@@ -465,7 +489,6 @@ public class ViewVoltageInCharge extends javax.swing.JDialog {
         jPanel4.add(lblPotency, gridBagConstraints);
 
         cmbHP.setFont(new java.awt.Font("DejaVu Sans", 0, 12)); // NOI18N
-        cmbHP.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         cmbHP.setMinimumSize(new java.awt.Dimension(100, 21));
         cmbHP.setPreferredSize(new java.awt.Dimension(100, 21));
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -520,6 +543,7 @@ public class ViewVoltageInCharge extends javax.swing.JDialog {
         jPanel8.add(jLabel13, gridBagConstraints);
 
         jSpinner1.setFont(new java.awt.Font("DejaVu Sans", 0, 12)); // NOI18N
+        jSpinner1.setModel(new javax.swing.SpinnerNumberModel(Float.valueOf(0.1f), Float.valueOf(0.1f), Float.valueOf(9999999.0f), Float.valueOf(0.1f)));
         jSpinner1.setMinimumSize(new java.awt.Dimension(100, 21));
         jSpinner1.setPreferredSize(new java.awt.Dimension(100, 21));
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -543,17 +567,6 @@ public class ViewVoltageInCharge extends javax.swing.JDialog {
         gridBagConstraints.insets = new java.awt.Insets(7, 0, 0, 0);
         jPanel8.add(jLabel14, gridBagConstraints);
 
-        jTextField1.setFont(new java.awt.Font("DejaVu Sans", 0, 12)); // NOI18N
-        jTextField1.setMinimumSize(new java.awt.Dimension(100, 21));
-        jTextField1.setPreferredSize(new java.awt.Dimension(100, 21));
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 6;
-        gridBagConstraints.gridy = 2;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
-        gridBagConstraints.insets = new java.awt.Insets(7, 0, 0, 3);
-        jPanel8.add(jTextField1, gridBagConstraints);
-
         jButton2.setFont(new java.awt.Font("DejaVu Sans", 1, 14)); // NOI18N
         jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/electrical_installations/resource/image/agregar.png"))); // NOI18N
         jButton2.setText("Calcular");
@@ -575,7 +588,7 @@ public class ViewVoltageInCharge extends javax.swing.JDialog {
         jPanel8.add(jLabel4, gridBagConstraints);
 
         jLabel5.setFont(new java.awt.Font("DejaVu Sans", 0, 12)); // NOI18N
-        jLabel5.setText("HE");
+        jLabel5.setText("0,0%");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 4;
@@ -603,6 +616,14 @@ public class ViewVoltageInCharge extends javax.swing.JDialog {
         gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
         gridBagConstraints.insets = new java.awt.Insets(3, 0, 0, 3);
         jPanel8.add(cmbDuct, gridBagConstraints);
+
+        jspAngle.setFont(new java.awt.Font("DejaVu Sans", 0, 12)); // NOI18N
+        jspAngle.setModel(new javax.swing.SpinnerNumberModel(Float.valueOf(0.0f), Float.valueOf(0.0f), Float.valueOf(9999999.0f), Float.valueOf(0.1f)));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 6;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        jPanel8.add(jspAngle, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
@@ -760,12 +781,12 @@ public class ViewVoltageInCharge extends javax.swing.JDialog {
     private javax.swing.JComboBox cmbDuct;
     private javax.swing.JComboBox cmbHP;
     private javax.swing.JComboBox cmbMaterial;
+    private javax.swing.JComboBox cmbPercentageSinglePhaseMotors;
     private javax.swing.JComboBox cmbPhases;
     private javax.swing.JComboBox cmbTemperature;
     private javax.swing.JComboBox cmbVoltage;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
-    private javax.swing.JComboBox jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -795,7 +816,7 @@ public class ViewVoltageInCharge extends javax.swing.JDialog {
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JSpinner jSpinner1;
     private javax.swing.JSpinner jSpinner2;
-    private javax.swing.JTextField jTextField1;
+    private javax.swing.JSpinner jspAngle;
     private javax.swing.JLabel lblPotency;
     private javax.swing.JLabel lblStaticPotency;
     private javax.swing.JPanel p1;

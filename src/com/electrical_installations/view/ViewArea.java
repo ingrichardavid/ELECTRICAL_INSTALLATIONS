@@ -966,7 +966,7 @@ public class ViewArea extends javax.swing.JDialog {
         jPanel8.add(jLabel4, gridBagConstraints);
 
         lblBreakdownVoltageIlumiaria.setFont(new java.awt.Font("DejaVu Sans", 0, 12)); // NOI18N
-        lblBreakdownVoltageIlumiaria.setText("0.0%");
+        lblBreakdownVoltageIlumiaria.setText("0,0%");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 4;
