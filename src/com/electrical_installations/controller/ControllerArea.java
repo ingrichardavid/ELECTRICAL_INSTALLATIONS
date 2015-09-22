@@ -72,6 +72,7 @@ public class ControllerArea implements ActionListener, KeyListener, WindowListen
     private String caliberUseIluminaria, caliberUsePowerPoint;
     private Caliber caliberSelectedIluminaria, caliberSelectedPowerPoint;
     
+    private String ejemplo;    
     /**
      * Contructor de la clase, recibe un objeto ViewArea
      *
