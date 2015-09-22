@@ -11,6 +11,7 @@ import com.electrical_installations.model.entity.AreaIluminariaPowerPoint;
 import com.electrical_installations.model.entity.masters.Voltage;
 import com.electrical_installations.model.enums.TypeRush;
 import java.util.List;
+import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
@@ -155,7 +156,156 @@ public class ViewArea extends javax.swing.JDialog {
             }
         }
     }//Fin del Método
+
     
+    
+    //Getters y Setters
+    
+    public JButton getBtnCalculateBreakdownSubFeeder() {
+        return btnCalculateBreakdownSubFeeder;
+    }
+
+    public void setBtnCalculateBreakdownSubFeeder(JButton btnCalculateBreakdownSubFeeder) {
+        this.btnCalculateBreakdownSubFeeder = btnCalculateBreakdownSubFeeder;
+    }
+
+    public JButton getBtnCalculateCurrentCapacitySubFeeder() {
+        return btnCalculateCurrentCapacitySubFeeder;
+    }
+
+    public void setBtnCalculateCurrentCapacitySubFeeder(JButton btnCalculateCurrentCapacitySubFeeder) {
+        this.btnCalculateCurrentCapacitySubFeeder = btnCalculateCurrentCapacitySubFeeder;
+    }
+
+    public ButtonGroup getBtnGroupRushIluminaria() {
+        return btnGroupRushIluminaria;
+    }
+
+    public void setBtnGroupRushIluminaria(ButtonGroup btnGroupRushIluminaria) {
+        this.btnGroupRushIluminaria = btnGroupRushIluminaria;
+    }
+
+    public ButtonGroup getBtnGroupRushPowerPoint() {
+        return btnGroupRushPowerPoint;
+    }
+
+    public void setBtnGroupRushPowerPoint(ButtonGroup btnGroupRushPowerPoint) {
+        this.btnGroupRushPowerPoint = btnGroupRushPowerPoint;
+    }
+
+    public JComboBox getCmbCalibersSubFeeder() {
+        return cmbCalibersSubFeeder;
+    }
+
+    public void setCmbCalibersSubFeeder(JComboBox cmbCalibersSubFeeder) {
+        this.cmbCalibersSubFeeder = cmbCalibersSubFeeder;
+    }
+
+    public JComboBox getCmbDuctSubFeeder() {
+        return cmbDuctSubFeeder;
+    }
+
+    public void setCmbDuctSubFeeder(JComboBox cmbDuctSubFeeder) {
+        this.cmbDuctSubFeeder = cmbDuctSubFeeder;
+    }
+
+    public JComboBox getCmbMaterialSubFeeder() {
+        return cmbMaterialSubFeeder;
+    }
+
+    public void setCmbMaterialSubFeeder(JComboBox cmbMaterialSubFeeder) {
+        this.cmbMaterialSubFeeder = cmbMaterialSubFeeder;
+    }
+
+    public JComboBox getCmbPhasesSubFeeder() {
+        return cmbPhasesSubFeeder;
+    }
+
+    public void setCmbPhasesSubFeeder(JComboBox cmbPhasesSubFeeder) {
+        this.cmbPhasesSubFeeder = cmbPhasesSubFeeder;
+    }
+
+    public JComboBox getCmbTemperatureSubFeeder() {
+        return cmbTemperatureSubFeeder;
+    }
+
+    public void setCmbTemperatureSubFeeder(JComboBox cmbTemperatureSubFeeder) {
+        this.cmbTemperatureSubFeeder = cmbTemperatureSubFeeder;
+    }
+
+    public JComboBox getCmbVoltageSubFeeder() {
+        return cmbVoltageSubFeeder;
+    }
+
+    public void setCmbVoltageSubFeeder(JComboBox cmbVoltageSubFeeder) {
+        this.cmbVoltageSubFeeder = cmbVoltageSubFeeder;
+    }
+
+    public JSpinner getJspAngleSubFeeder() {
+        return jspAngleSubFeeder;
+    }
+
+    public void setJspAngleSubFeeder(JSpinner jspAngleSubFeeder) {
+        this.jspAngleSubFeeder = jspAngleSubFeeder;
+    }
+
+    public JSpinner getJspLengthSubFeeder() {
+        return jspLengthSubFeeder;
+    }
+
+    public void setJspLengthSubFeeder(JSpinner jspLengthSubFeeder) {
+        this.jspLengthSubFeeder = jspLengthSubFeeder;
+    }
+
+    public JSpinner getJspPowerSubFeeder() {
+        return jspPowerSubFeeder;
+    }
+
+    public void setJspPowerSubFeeder(JSpinner jspPowerSubFeeder) {
+        this.jspPowerSubFeeder = jspPowerSubFeeder;
+    }
+
+    public JLabel getLblBreakdownVoltageSubFeeder() {
+        return lblBreakdownVoltageSubFeeder;
+    }
+
+    public void setLblBreakdownVoltageSubFeeder(JLabel lblBreakdownVoltageSubFeeder) {
+        this.lblBreakdownVoltageSubFeeder = lblBreakdownVoltageSubFeeder;
+    }
+
+    public JLabel getLblCaliberSubFeeder() {
+        return lblCaliberSubFeeder;
+    }
+
+    public void setLblCaliberSubFeeder(JLabel lblCaliberSubFeeder) {
+        this.lblCaliberSubFeeder = lblCaliberSubFeeder;
+    }
+
+    public JLabel getLblSubFeeder() {
+        return lblSubFeeder;
+    }
+
+    public void setLblSubFeeder(JLabel lblSubFeeder) {
+        this.lblSubFeeder = lblSubFeeder;
+    }
+
+    public JRadioButton getrBtnAirSubFeeder() {
+        return rBtnAirSubFeeder;
+    }
+
+    public void setrBtnAirSubFeeder(JRadioButton rBtnAirSubFeeder) {
+        this.rBtnAirSubFeeder = rBtnAirSubFeeder;
+    }
+
+    public JRadioButton getrBtnGroundSubFeeder() {
+        return rBtnGroundSubFeeder;
+    }
+
+    public void setrBtnGroundSubFeeder(JRadioButton rBtnGroundSubFeeder) {
+        this.rBtnGroundSubFeeder = rBtnGroundSubFeeder;
+    }
+    
+        
     public AreaIluminariaPowerPoint getAreaIluminariaPowerPointsIluminaria() {
         return areaIluminariaPowerPointsIluminaria;
     }
@@ -168,7 +318,7 @@ public class ViewArea extends javax.swing.JDialog {
         return areaIluminariaPowerPointsPowerPoint;
     }
 
-    //Getters y Setters
+ 
     public void setAreaIluminariaPowerPointsPowerPoint(AreaIluminariaPowerPoint areaIluminariaPowerPointsPowerPoint) {
         this.areaIluminariaPowerPointsPowerPoint = areaIluminariaPowerPointsPowerPoint;
     }
@@ -582,6 +732,40 @@ public class ViewArea extends javax.swing.JDialog {
         jLabel31 = new javax.swing.JLabel();
         cmbDuctPowerPoint = new javax.swing.JComboBox();
         jspAnglePowerPoint = new javax.swing.JSpinner();
+        p3 = new javax.swing.JPanel();
+        jPanel5 = new javax.swing.JPanel();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
+        cmbVoltageSubFeeder = new javax.swing.JComboBox();
+        jLabel18 = new javax.swing.JLabel();
+        jLabel27 = new javax.swing.JLabel();
+        cmbTemperatureSubFeeder = new javax.swing.JComboBox();
+        cmbPhasesSubFeeder = new javax.swing.JComboBox();
+        jLabel32 = new javax.swing.JLabel();
+        jPanel7 = new javax.swing.JPanel();
+        cmbMaterialSubFeeder = new javax.swing.JComboBox();
+        jLabel33 = new javax.swing.JLabel();
+        pa2 = new javax.swing.JPanel();
+        rBtnAirSubFeeder = new javax.swing.JRadioButton();
+        rBtnGroundSubFeeder = new javax.swing.JRadioButton();
+        jLabel34 = new javax.swing.JLabel();
+        jspPowerSubFeeder = new javax.swing.JSpinner();
+        jLabel35 = new javax.swing.JLabel();
+        lblCaliberSubFeeder = new javax.swing.JLabel();
+        btnCalculateCurrentCapacitySubFeeder = new javax.swing.JButton();
+        lblSubFeeder = new javax.swing.JLabel();
+        jPanel12 = new javax.swing.JPanel();
+        jLabel36 = new javax.swing.JLabel();
+        cmbCalibersSubFeeder = new javax.swing.JComboBox();
+        jLabel37 = new javax.swing.JLabel();
+        jspLengthSubFeeder = new javax.swing.JSpinner();
+        jLabel38 = new javax.swing.JLabel();
+        btnCalculateBreakdownSubFeeder = new javax.swing.JButton();
+        jLabel39 = new javax.swing.JLabel();
+        lblBreakdownVoltageSubFeeder = new javax.swing.JLabel();
+        jLabel40 = new javax.swing.JLabel();
+        cmbDuctSubFeeder = new javax.swing.JComboBox();
+        jspAngleSubFeeder = new javax.swing.JSpinner();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(570, 420));
@@ -985,6 +1169,8 @@ public class ViewArea extends javax.swing.JDialog {
         jPanel8.add(jLabel11, gridBagConstraints);
 
         cmbDuctIluminaria.setFont(new java.awt.Font("DejaVu Sans", 0, 12)); // NOI18N
+        cmbDuctIluminaria.setMinimumSize(new java.awt.Dimension(30, 21));
+        cmbDuctIluminaria.setPreferredSize(new java.awt.Dimension(30, 21));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 6;
         gridBagConstraints.gridy = 0;
@@ -1353,6 +1539,338 @@ public class ViewArea extends javax.swing.JDialog {
 
         jtpPanels.addTab("Toma Corriente", p2);
 
+        p3.setLayout(new java.awt.GridBagLayout());
+
+        jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Capacidad de Corriente", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("DejaVu Sans", 1, 12))); // NOI18N
+        java.awt.GridBagLayout jPanel5Layout = new java.awt.GridBagLayout();
+        jPanel5Layout.columnWidths = new int[] {0, 5, 0, 5, 0, 5, 0};
+        jPanel5Layout.rowHeights = new int[] {0, 0, 0, 0, 0, 0, 0, 0, 0};
+        jPanel5.setLayout(jPanel5Layout);
+
+        jLabel5.setFont(new java.awt.Font("DejaVu Sans", 1, 12)); // NOI18N
+        jLabel5.setText("P. Total:");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.insets = new java.awt.Insets(3, 3, 0, 0);
+        jPanel5.add(jLabel5, gridBagConstraints);
+
+        jLabel10.setFont(new java.awt.Font("DejaVu Sans", 1, 12)); // NOI18N
+        jLabel10.setText("Voltaje:");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 4;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.insets = new java.awt.Insets(3, 0, 0, 0);
+        jPanel5.add(jLabel10, gridBagConstraints);
+
+        cmbVoltageSubFeeder.setFont(new java.awt.Font("DejaVu Sans", 0, 12)); // NOI18N
+        cmbVoltageSubFeeder.setMinimumSize(new java.awt.Dimension(100, 21));
+        cmbVoltageSubFeeder.setPreferredSize(new java.awt.Dimension(100, 21));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 6;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
+        gridBagConstraints.insets = new java.awt.Insets(3, 0, 0, 3);
+        jPanel5.add(cmbVoltageSubFeeder, gridBagConstraints);
+
+        jLabel18.setFont(new java.awt.Font("DejaVu Sans", 1, 12)); // NOI18N
+        jLabel18.setText("Temperatura:");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 4;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.insets = new java.awt.Insets(4, 0, 4, 0);
+        jPanel5.add(jLabel18, gridBagConstraints);
+
+        jLabel27.setFont(new java.awt.Font("DejaVu Sans", 1, 12)); // NOI18N
+        jLabel27.setText("Material:");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.insets = new java.awt.Insets(4, 3, 4, 0);
+        jPanel5.add(jLabel27, gridBagConstraints);
+
+        cmbTemperatureSubFeeder.setFont(new java.awt.Font("DejaVu Sans", 0, 12)); // NOI18N
+        cmbTemperatureSubFeeder.setMinimumSize(new java.awt.Dimension(100, 21));
+        cmbTemperatureSubFeeder.setPreferredSize(new java.awt.Dimension(100, 21));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 6;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
+        gridBagConstraints.insets = new java.awt.Insets(4, 0, 4, 3);
+        jPanel5.add(cmbTemperatureSubFeeder, gridBagConstraints);
+
+        cmbPhasesSubFeeder.setFont(new java.awt.Font("DejaVu Sans", 0, 12)); // NOI18N
+        cmbPhasesSubFeeder.setMinimumSize(new java.awt.Dimension(148, 21));
+        cmbPhasesSubFeeder.setPreferredSize(new java.awt.Dimension(148, 21));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 6;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(0, 12, 0, 0);
+        jPanel5.add(cmbPhasesSubFeeder, gridBagConstraints);
+
+        jLabel32.setFont(new java.awt.Font("DejaVu Sans", 1, 12)); // NOI18N
+        jLabel32.setText("Fases:");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 6;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.insets = new java.awt.Insets(0, 3, 0, 0);
+        jPanel5.add(jLabel32, gridBagConstraints);
+
+        jPanel7.setLayout(new java.awt.GridBagLayout());
+
+        cmbMaterialSubFeeder.setFont(new java.awt.Font("DejaVu Sans", 0, 12)); // NOI18N
+        cmbMaterialSubFeeder.setMinimumSize(new java.awt.Dimension(148, 21));
+        cmbMaterialSubFeeder.setPreferredSize(new java.awt.Dimension(148, 21));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        jPanel7.add(cmbMaterialSubFeeder, gridBagConstraints);
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(4, 12, 4, 0);
+        jPanel5.add(jPanel7, gridBagConstraints);
+
+        jLabel33.setFont(new java.awt.Font("DejaVu Sans", 1, 12)); // NOI18N
+        jLabel33.setText("Acometida:");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 4;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.insets = new java.awt.Insets(0, 3, 4, 0);
+        jPanel5.add(jLabel33, gridBagConstraints);
+
+        pa2.setLayout(new java.awt.GridBagLayout());
+
+        rBtnAirSubFeeder.setFont(new java.awt.Font("DejaVu Sans", 0, 12)); // NOI18N
+        rBtnAirSubFeeder.setText("Aérea");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 0;
+        pa2.add(rBtnAirSubFeeder, gridBagConstraints);
+
+        rBtnGroundSubFeeder.setFont(new java.awt.Font("DejaVu Sans", 0, 12)); // NOI18N
+        rBtnGroundSubFeeder.setText("Subterránea");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        pa2.add(rBtnGroundSubFeeder, gridBagConstraints);
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 4;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(0, 12, 4, 0);
+        jPanel5.add(pa2, gridBagConstraints);
+
+        jLabel34.setFont(new java.awt.Font("DejaVu Sans", 1, 12)); // NOI18N
+        jLabel34.setText("F. Potencia:");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 4;
+        gridBagConstraints.gridy = 4;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.insets = new java.awt.Insets(0, 0, 4, 0);
+        jPanel5.add(jLabel34, gridBagConstraints);
+
+        jspPowerSubFeeder.setFont(new java.awt.Font("DejaVu Sans", 0, 12)); // NOI18N
+        jspPowerSubFeeder.setModel(new javax.swing.SpinnerNumberModel(Float.valueOf(0.1f), Float.valueOf(0.1f), Float.valueOf(3.0f), Float.valueOf(0.1f)));
+        jspPowerSubFeeder.setMinimumSize(new java.awt.Dimension(100, 21));
+        jspPowerSubFeeder.setPreferredSize(new java.awt.Dimension(100, 21));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 6;
+        gridBagConstraints.gridy = 4;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
+        gridBagConstraints.insets = new java.awt.Insets(0, 0, 4, 3);
+        jPanel5.add(jspPowerSubFeeder, gridBagConstraints);
+
+        jLabel35.setFont(new java.awt.Font("DejaVu Sans", 1, 12)); // NOI18N
+        jLabel35.setText("Conductor:");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 8;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.insets = new java.awt.Insets(4, 3, 0, 0);
+        jPanel5.add(jLabel35, gridBagConstraints);
+
+        lblCaliberSubFeeder.setFont(new java.awt.Font("DejaVu Sans", 0, 12)); // NOI18N
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 8;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(4, 16, 0, 0);
+        jPanel5.add(lblCaliberSubFeeder, gridBagConstraints);
+
+        btnCalculateCurrentCapacitySubFeeder.setFont(new java.awt.Font("DejaVu Sans", 1, 14)); // NOI18N
+        btnCalculateCurrentCapacitySubFeeder.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/electrical_installations/resource/image/agregar.png"))); // NOI18N
+        btnCalculateCurrentCapacitySubFeeder.setText("Calcular");
+        btnCalculateCurrentCapacitySubFeeder.setOpaque(false);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 6;
+        gridBagConstraints.gridy = 8;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
+        gridBagConstraints.insets = new java.awt.Insets(4, 0, 0, 3);
+        jPanel5.add(btnCalculateCurrentCapacitySubFeeder, gridBagConstraints);
+
+        lblSubFeeder.setText("nose");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.ipadx = 1;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.insets = new java.awt.Insets(0, 12, 0, 0);
+        jPanel5.add(lblSubFeeder, gridBagConstraints);
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 5);
+        p3.add(jPanel5, gridBagConstraints);
+
+        jPanel12.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Caída de Voltaje", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("DejaVu Sans", 1, 12))); // NOI18N
+        java.awt.GridBagLayout jPanel12Layout = new java.awt.GridBagLayout();
+        jPanel12Layout.columnWidths = new int[] {0, 5, 0, 5, 0, 5, 0};
+        jPanel12Layout.rowHeights = new int[] {0, 0, 0, 0, 0};
+        jPanel12.setLayout(jPanel12Layout);
+
+        jLabel36.setFont(new java.awt.Font("DejaVu Sans", 1, 12)); // NOI18N
+        jLabel36.setText("Conductores:");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.insets = new java.awt.Insets(3, 3, 0, 0);
+        jPanel12.add(jLabel36, gridBagConstraints);
+
+        cmbCalibersSubFeeder.setMinimumSize(new java.awt.Dimension(100, 21));
+        cmbCalibersSubFeeder.setPreferredSize(new java.awt.Dimension(100, 21));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(3, 0, 0, 0);
+        jPanel12.add(cmbCalibersSubFeeder, gridBagConstraints);
+
+        jLabel37.setFont(new java.awt.Font("DejaVu Sans", 1, 12)); // NOI18N
+        jLabel37.setText("Longitud:");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.insets = new java.awt.Insets(6, 3, 0, 0);
+        jPanel12.add(jLabel37, gridBagConstraints);
+
+        jspLengthSubFeeder.setFont(new java.awt.Font("DejaVu Sans", 0, 12)); // NOI18N
+        jspLengthSubFeeder.setModel(new javax.swing.SpinnerNumberModel(Float.valueOf(0.1f), Float.valueOf(0.1f), Float.valueOf(9999999.0f), Float.valueOf(0.1f)));
+        jspLengthSubFeeder.setMinimumSize(new java.awt.Dimension(100, 21));
+        jspLengthSubFeeder.setPreferredSize(new java.awt.Dimension(100, 21));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(6, 0, 0, 0);
+        jPanel12.add(jspLengthSubFeeder, gridBagConstraints);
+
+        jLabel38.setFont(new java.awt.Font("DejaVu Sans", 1, 12)); // NOI18N
+        jLabel38.setText("Ángulo:");
+        jLabel38.setMaximumSize(new java.awt.Dimension(84, 15));
+        jLabel38.setMinimumSize(new java.awt.Dimension(84, 15));
+        jLabel38.setPreferredSize(new java.awt.Dimension(84, 15));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 4;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.insets = new java.awt.Insets(6, 0, 0, 0);
+        jPanel12.add(jLabel38, gridBagConstraints);
+
+        btnCalculateBreakdownSubFeeder.setFont(new java.awt.Font("DejaVu Sans", 1, 14)); // NOI18N
+        btnCalculateBreakdownSubFeeder.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/electrical_installations/resource/image/agregar.png"))); // NOI18N
+        btnCalculateBreakdownSubFeeder.setText("Calcular");
+        btnCalculateBreakdownSubFeeder.setOpaque(false);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 6;
+        gridBagConstraints.gridy = 4;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_END;
+        gridBagConstraints.insets = new java.awt.Insets(5, 0, 0, 3);
+        jPanel12.add(btnCalculateBreakdownSubFeeder, gridBagConstraints);
+
+        jLabel39.setFont(new java.awt.Font("DejaVu Sans", 1, 12)); // NOI18N
+        jLabel39.setText("%:");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 4;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
+        gridBagConstraints.insets = new java.awt.Insets(5, 3, 0, 0);
+        jPanel12.add(jLabel39, gridBagConstraints);
+
+        lblBreakdownVoltageSubFeeder.setFont(new java.awt.Font("DejaVu Sans", 0, 12)); // NOI18N
+        lblBreakdownVoltageSubFeeder.setText("0,0%");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 4;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(5, 0, 0, 0);
+        jPanel12.add(lblBreakdownVoltageSubFeeder, gridBagConstraints);
+
+        jLabel40.setFont(new java.awt.Font("DejaVu Sans", 1, 12)); // NOI18N
+        jLabel40.setText("Ducto:");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 4;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.VERTICAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
+        jPanel12.add(jLabel40, gridBagConstraints);
+
+        cmbDuctSubFeeder.setFont(new java.awt.Font("DejaVu Sans", 0, 12)); // NOI18N
+        cmbDuctSubFeeder.setMinimumSize(new java.awt.Dimension(30, 21));
+        cmbDuctSubFeeder.setPreferredSize(new java.awt.Dimension(30, 21));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 6;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_END;
+        jPanel12.add(cmbDuctSubFeeder, gridBagConstraints);
+
+        jspAngleSubFeeder.setFont(new java.awt.Font("DejaVu Sans", 0, 12)); // NOI18N
+        jspAngleSubFeeder.setModel(new javax.swing.SpinnerNumberModel(Float.valueOf(0.0f), Float.valueOf(0.0f), Float.valueOf(9999999.0f), Float.valueOf(0.1f)));
+        jspAngleSubFeeder.setMinimumSize(new java.awt.Dimension(100, 21));
+        jspAngleSubFeeder.setPreferredSize(new java.awt.Dimension(100, 21));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 6;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_END;
+        jPanel12.add(jspAngleSubFeeder, gridBagConstraints);
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 5);
+        p3.add(jPanel12, gridBagConstraints);
+
+        jtpPanels.addTab("Sub Alimentador", p3);
+
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 1;
@@ -1369,8 +1887,10 @@ public class ViewArea extends javax.swing.JDialog {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCalculateBreakdownIluminaria;
     private javax.swing.JButton btnCalculateBreakdownPowerPoint;
+    private javax.swing.JButton btnCalculateBreakdownSubFeeder;
     private javax.swing.JButton btnCalculateCurrentCapacityIluminaria;
     private javax.swing.JButton btnCalculateCurrentCapacityPowerPoint;
+    private javax.swing.JButton btnCalculateCurrentCapacitySubFeeder;
     private javax.swing.JButton btnClose;
     private javax.swing.ButtonGroup btnGroupRushIluminaria;
     private javax.swing.ButtonGroup btnGroupRushPowerPoint;
@@ -1378,17 +1898,24 @@ public class ViewArea extends javax.swing.JDialog {
     private javax.swing.JButton btnRegister;
     private javax.swing.JComboBox cmbCalibersIluminaria;
     private javax.swing.JComboBox cmbCalibersPowerPoint;
+    private javax.swing.JComboBox cmbCalibersSubFeeder;
     private javax.swing.JComboBox cmbDuctIluminaria;
     private javax.swing.JComboBox cmbDuctPowerPoint;
+    private javax.swing.JComboBox cmbDuctSubFeeder;
     private javax.swing.JComboBox cmbMaterialIluminaria;
     private javax.swing.JComboBox cmbMaterialPowerPoint;
+    private javax.swing.JComboBox cmbMaterialSubFeeder;
     private javax.swing.JComboBox cmbPhasesIluminaria;
     private javax.swing.JComboBox cmbPhasesPowerPoint;
+    private javax.swing.JComboBox cmbPhasesSubFeeder;
     private javax.swing.JComboBox cmbTemperatureIlimunaria;
     private javax.swing.JComboBox cmbTemperaturePowerPoint;
+    private javax.swing.JComboBox cmbTemperatureSubFeeder;
     private javax.swing.JComboBox cmbVoltageIluminaria;
     private javax.swing.JComboBox cmbVoltagePowerPoint;
+    private javax.swing.JComboBox cmbVoltageSubFeeder;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
@@ -1396,6 +1923,7 @@ public class ViewArea extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
+    private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
@@ -1405,12 +1933,23 @@ public class ViewArea extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel24;
     private javax.swing.JLabel jLabel25;
     private javax.swing.JLabel jLabel26;
+    private javax.swing.JLabel jLabel27;
     private javax.swing.JLabel jLabel28;
     private javax.swing.JLabel jLabel29;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel30;
     private javax.swing.JLabel jLabel31;
+    private javax.swing.JLabel jLabel32;
+    private javax.swing.JLabel jLabel33;
+    private javax.swing.JLabel jLabel34;
+    private javax.swing.JLabel jLabel35;
+    private javax.swing.JLabel jLabel36;
+    private javax.swing.JLabel jLabel37;
+    private javax.swing.JLabel jLabel38;
+    private javax.swing.JLabel jLabel39;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel40;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
@@ -1418,32 +1957,45 @@ public class ViewArea extends javax.swing.JDialog {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel11;
+    private javax.swing.JPanel jPanel12;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
+    private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
+    private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
     private javax.swing.JSpinner jspAngle;
     private javax.swing.JSpinner jspAnglePowerPoint;
+    private javax.swing.JSpinner jspAngleSubFeeder;
     private javax.swing.JSpinner jspArea;
     private javax.swing.JSpinner jspLengthIluminaria;
     private javax.swing.JSpinner jspLengthPowerPoint;
+    private javax.swing.JSpinner jspLengthSubFeeder;
     private javax.swing.JSpinner jspPowerFactor;
     private javax.swing.JSpinner jspPowerFactorPowerPoint;
+    private javax.swing.JSpinner jspPowerSubFeeder;
     private javax.swing.JTabbedPane jtpPanels;
     private javax.swing.JLabel lblBreakdownVoltageIlumiaria;
     private javax.swing.JLabel lblBreakdownVoltagePowerPoint;
+    private javax.swing.JLabel lblBreakdownVoltageSubFeeder;
     private javax.swing.JLabel lblCaliberIluminaria;
     private javax.swing.JLabel lblCaliberPowerPoint;
+    private javax.swing.JLabel lblCaliberSubFeeder;
+    private javax.swing.JLabel lblSubFeeder;
     private javax.swing.JPanel p1;
     private javax.swing.JPanel p2;
+    private javax.swing.JPanel p3;
     private javax.swing.JPanel pa;
     private javax.swing.JPanel pa1;
+    private javax.swing.JPanel pa2;
     private javax.swing.JRadioButton rBtnAirIluminaria;
     private javax.swing.JRadioButton rBtnAirPowerPoint;
+    private javax.swing.JRadioButton rBtnAirSubFeeder;
     private javax.swing.JRadioButton rBtnGroundIluminaria;
     private javax.swing.JRadioButton rBtnGroundPowerPoint;
+    private javax.swing.JRadioButton rBtnGroundSubFeeder;
     private javax.swing.JTextField txtName;
     private javax.swing.JSpinner txtQuantityPowerPoint;
     // End of variables declaration//GEN-END:variables
