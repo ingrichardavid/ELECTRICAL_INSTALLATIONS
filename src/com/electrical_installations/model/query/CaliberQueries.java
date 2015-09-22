@@ -47,6 +47,7 @@ public class CaliberQueries {
                                                 "	t.codigo = ? \n" +
                                                 "AND\n" +
                                                 "	? <= (i.intensidad * ?) \n" +
+                                                "ORDER BY i.intensidad ASC\n"+ 
                                                 "LIMIT 1;";
        
 }
