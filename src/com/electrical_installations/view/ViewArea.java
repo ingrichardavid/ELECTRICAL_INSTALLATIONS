@@ -109,6 +109,7 @@ public class ViewArea extends javax.swing.JDialog {
      */
     public void fill_fields(Area area, List<AreaIluminariaPowerPoint> areaIluminariaPowerPoints){
         this.txtName.setText(area.getName());
+        this.lblPotencyTotalSubFeeder.setText(String.valueOf(area.getPotency_total()));
         for (AreaIluminariaPowerPoint areaIluminariaPowerPoint : areaIluminariaPowerPoints) {
             switch(areaIluminariaPowerPoint.getTypeOfBranchCircuitInArea()){
                 case ILUMINARIA:
@@ -282,11 +283,11 @@ public class ViewArea extends javax.swing.JDialog {
     }
 
     public JLabel getLblSubFeeder() {
-        return lblSubFeeder;
+        return lblPotencyTotalSubFeeder;
     }
 
     public void setLblSubFeeder(JLabel lblSubFeeder) {
-        this.lblSubFeeder = lblSubFeeder;
+        this.lblPotencyTotalSubFeeder = lblSubFeeder;
     }
 
     public JRadioButton getrBtnAirSubFeeder() {
@@ -753,7 +754,7 @@ public class ViewArea extends javax.swing.JDialog {
         jLabel35 = new javax.swing.JLabel();
         lblCaliberSubFeeder = new javax.swing.JLabel();
         btnCalculateCurrentCapacitySubFeeder = new javax.swing.JButton();
-        lblSubFeeder = new javax.swing.JLabel();
+        lblPotencyTotalSubFeeder = new javax.swing.JLabel();
         jPanel12 = new javax.swing.JPanel();
         jLabel36 = new javax.swing.JLabel();
         cmbCalibersSubFeeder = new javax.swing.JComboBox();
@@ -1169,8 +1170,6 @@ public class ViewArea extends javax.swing.JDialog {
         jPanel8.add(jLabel11, gridBagConstraints);
 
         cmbDuctIluminaria.setFont(new java.awt.Font("DejaVu Sans", 0, 12)); // NOI18N
-        cmbDuctIluminaria.setMinimumSize(new java.awt.Dimension(30, 21));
-        cmbDuctIluminaria.setPreferredSize(new java.awt.Dimension(30, 21));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 6;
         gridBagConstraints.gridy = 0;
@@ -1548,7 +1547,7 @@ public class ViewArea extends javax.swing.JDialog {
         jPanel5.setLayout(jPanel5Layout);
 
         jLabel5.setFont(new java.awt.Font("DejaVu Sans", 1, 12)); // NOI18N
-        jLabel5.setText("P. Total:");
+        jLabel5.setText("Potencia Total:");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
@@ -1724,14 +1723,15 @@ public class ViewArea extends javax.swing.JDialog {
         gridBagConstraints.insets = new java.awt.Insets(4, 0, 0, 3);
         jPanel5.add(btnCalculateCurrentCapacitySubFeeder, gridBagConstraints);
 
-        lblSubFeeder.setText("nose");
+        lblPotencyTotalSubFeeder.setFont(new java.awt.Font("DejaVu Sans", 0, 12)); // NOI18N
+        lblPotencyTotalSubFeeder.setText("1000 W");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 0;
         gridBagConstraints.ipadx = 1;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.insets = new java.awt.Insets(0, 12, 0, 0);
-        jPanel5.add(lblSubFeeder, gridBagConstraints);
+        jPanel5.add(lblPotencyTotalSubFeeder, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
@@ -1840,8 +1840,6 @@ public class ViewArea extends javax.swing.JDialog {
         jPanel12.add(jLabel40, gridBagConstraints);
 
         cmbDuctSubFeeder.setFont(new java.awt.Font("DejaVu Sans", 0, 12)); // NOI18N
-        cmbDuctSubFeeder.setMinimumSize(new java.awt.Dimension(30, 21));
-        cmbDuctSubFeeder.setPreferredSize(new java.awt.Dimension(30, 21));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 6;
         gridBagConstraints.gridy = 0;
@@ -1869,7 +1867,7 @@ public class ViewArea extends javax.swing.JDialog {
         gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 5);
         p3.add(jPanel12, gridBagConstraints);
 
-        jtpPanels.addTab("Sub Alimentador", p3);
+        jtpPanels.addTab("Sub-Alimentador", p3);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
@@ -1983,7 +1981,7 @@ public class ViewArea extends javax.swing.JDialog {
     private javax.swing.JLabel lblCaliberIluminaria;
     private javax.swing.JLabel lblCaliberPowerPoint;
     private javax.swing.JLabel lblCaliberSubFeeder;
-    private javax.swing.JLabel lblSubFeeder;
+    private javax.swing.JLabel lblPotencyTotalSubFeeder;
     private javax.swing.JPanel p1;
     private javax.swing.JPanel p2;
     private javax.swing.JPanel p3;
