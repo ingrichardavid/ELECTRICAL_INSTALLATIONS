@@ -218,9 +218,11 @@ public class ControllerArea implements ActionListener, KeyListener, WindowListen
             for (Temperature temperature : temperaturesFound){
                 viewArea.getCmbTemperatureIlimunaria().addItem(temperature);
                 viewArea.getCmbTemperaturePowerPoint().addItem(temperature);
+                viewArea.getCmbTemperatureSubFeeder().addItem(temperature);
             }     
             viewArea.getCmbTemperatureIlimunaria().setSelectedIndex(0);
             viewArea.getCmbTemperaturePowerPoint().setSelectedIndex(0);
+            viewArea.getCmbTemperatureSubFeeder().setSelectedIndex(0);
         } else {
             MessagesStructure.Warning(MessagesStructure.format(200, messages.getProperty(Messages.TEMPERATURES_NO_FOUND), MessagesStructure.justify));
             viewArea.dispose();
@@ -236,9 +238,11 @@ public class ControllerArea implements ActionListener, KeyListener, WindowListen
             for (Phase phase : phasesFound){
                 viewArea.getCmbPhasesIluminaria().addItem(phase);
                 viewArea.getCmbPhasesPowerPoint().addItem(phase);
+                viewArea.getCmbPhasesSubFeeder().addItem(phase);
             }     
                 viewArea.getCmbPhasesIluminaria().setSelectedIndex(0);
                 viewArea.getCmbPhasesPowerPoint().setSelectedIndex(0);
+                viewArea.getCmbPhasesSubFeeder().setSelectedIndex(0);
         } else {
             MessagesStructure.Warning(MessagesStructure.format(200, messages.getProperty(Messages.PHASES_NO_FOUND), MessagesStructure.justify));
             viewArea.dispose();
@@ -254,9 +258,11 @@ public class ControllerArea implements ActionListener, KeyListener, WindowListen
             for (Voltage voltage : voltagesFound){
                 viewArea.getCmbVoltageIluminaria().addItem(voltage);
                 viewArea.getCmbVoltagePowerPoint().addItem(voltage);
+                viewArea.getCmbVoltageSubFeeder().addItem(voltage);
             }     
                 viewArea.getCmbVoltageIluminaria().setSelectedIndex(0);
                 viewArea.getCmbVoltagePowerPoint().setSelectedIndex(0);
+                viewArea.getCmbVoltageSubFeeder().setSelectedIndex(0);
         } else {
             MessagesStructure.Warning(MessagesStructure.format(200, messages.getProperty(Messages.VOLTAGES_NO_FOUND), MessagesStructure.justify));
             viewArea.dispose();
@@ -272,9 +278,11 @@ public class ControllerArea implements ActionListener, KeyListener, WindowListen
             for (Caliber caliber : calibersFound){
                 viewArea.getCmbCalibersIluminaria().addItem(caliber);
                 viewArea.getCmbCalibersPowerPoint().addItem(caliber);
+                viewArea.getCmbCalibersSubFeeder().addItem(caliber);
             }     
                 viewArea.getCmbCalibersIluminaria().setSelectedIndex(0);
                 viewArea.getCmbCalibersPowerPoint().setSelectedIndex(0);
+                viewArea.getCmbCalibersSubFeeder().setSelectedIndex(0);
         } else {
             MessagesStructure.Warning(MessagesStructure.format(200, messages.getProperty(Messages.CALIBERS_NO_FOUND), MessagesStructure.justify));
             viewArea.dispose();
@@ -290,9 +298,11 @@ public class ControllerArea implements ActionListener, KeyListener, WindowListen
             for (Duct duct : ductsFound){
                 viewArea.getCmbDuctIluminaria().addItem(duct);
                 viewArea.getCmbDuctPowerPoint().addItem(duct);
+                viewArea.getCmbDuctSubFeeder().addItem(duct);
             }     
                 viewArea.getCmbDuctIluminaria().setSelectedIndex(0);
                 viewArea.getCmbDuctPowerPoint().setSelectedIndex(0);
+                viewArea.getCmbDuctSubFeeder().setSelectedIndex(0);
         } else {
             MessagesStructure.Warning(MessagesStructure.format(200, messages.getProperty(Messages.DUCTS_NO_FOUND), MessagesStructure.justify));
             viewArea.dispose();
@@ -308,9 +318,11 @@ public class ControllerArea implements ActionListener, KeyListener, WindowListen
             for (Material material : materialsFound){
                 viewArea.getCmbMaterialIluminaria().addItem(material);
                 viewArea.getCmbMaterialPowerPoint().addItem(material);
+                viewArea.getCmbMaterialSubFeeder().addItem(material);
             }     
                 viewArea.getCmbMaterialIluminaria().setSelectedIndex(0);
                 viewArea.getCmbMaterialPowerPoint().setSelectedIndex(0);
+                viewArea.getCmbMaterialSubFeeder().setSelectedIndex(0);
         } else {
             MessagesStructure.Warning(MessagesStructure.format(200, messages.getProperty(Messages.MATERIALS_NO_FOUND), MessagesStructure.justify));
             viewArea.dispose();
