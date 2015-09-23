@@ -55,7 +55,7 @@ public class ControllerArea implements ActionListener, KeyListener, WindowListen
     private final ViewArea viewArea;
     private static final Messages messages = Messages.getInstance();
     private Area area;
-    private Calibers caliberFoundIluminaria,caliberFoundPowerPoint;
+    private Calibers caliberFoundIluminaria,caliberFoundPowerPoint, caliberFoundSubFeeder;
     private Breaker breakerFoundIluminaria,breakerFoundPorwerPoint;
     private ResistanceReactance resistance,reactance;
     private char character;
@@ -513,6 +513,34 @@ public class ControllerArea implements ActionListener, KeyListener, WindowListen
         }
     }//Fin del Método
     
+     //ojo con fases 
+     /**
+     * Método para calcular la Intensidad en Sub Alimentador
+     *  
+     */ 
+
+    //viewArea.getArea().getPotency_total() esto creo es lo que esta mal porque el mandaba 0.0 cuando hacia el 
+    //system.out
+    private void IntensitySubFeeder(){
+        System.err.println(viewArea.getArea().getPotency_total());
+        System.err.println(((Voltage)viewArea.getCmbVoltageSubFeeder().getSelectedItem()).getVoltage());
+        System.err.println(Double.valueOf(viewArea.getJspPowerSubFeeder().getValue().toString()));
+        System.err.println(viewArea.getCmbPhasesIluminaria().getSelectedIndex());
+       MethodsForCalculatiosGlobal.intensity(
+               viewArea.getArea().getPotency_total(), 
+               ((Voltage)viewArea.getCmbVoltageSubFeeder().getSelectedItem()).getVoltage(),
+               Double.valueOf(viewArea.getJspPowerSubFeeder().getValue().toString()),
+               viewArea.getCmbPhasesIluminaria().getSelectedIndex());
+       caliberFoundSubFeeder = MethodsForCalculatiosGlobal.calculateCaliberIluminariaPowerPoint(
+               viewArea.getArea().getPotency_total(),
+               (Voltage)viewArea.getCmbVoltageSubFeeder().getSelectedItem(),
+               (Material)viewArea.getCmbMaterialSubFeeder().getSelectedItem(), 
+               (Temperature)viewArea.getCmbTemperatureSubFeeder().getSelectedItem(),
+               Double.valueOf(viewArea.getJspPowerSubFeeder().getValue().toString()),
+               viewArea.getCmbPhasesIluminaria().getSelectedIndex());
+               System.out.print(caliberFoundSubFeeder.getCaliber().getName());
+    }//Fin del Método
+    
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource().equals(viewArea.getBtnRegister())) {
@@ -530,7 +558,9 @@ public class ControllerArea implements ActionListener, KeyListener, WindowListen
         } else if (e.getSource().equals(viewArea.getBtnClose())) {
             viewArea.setModify(false);
             viewArea.dispose();
-        }
+        } else if(e.getSource().equals(viewArea.getBtnCalculateCurrentCapacitySubFeeder())){
+            IntensitySubFeeder();
+        } 
     }
 
     @Override
