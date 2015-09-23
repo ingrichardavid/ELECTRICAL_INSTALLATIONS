@@ -755,6 +755,10 @@ public class ViewArea extends javax.swing.JDialog {
         lblCaliberSubFeeder = new javax.swing.JLabel();
         btnCalculateCurrentCapacitySubFeeder = new javax.swing.JButton();
         lblPotencyTotalSubFeeder = new javax.swing.JLabel();
+        jLabel41 = new javax.swing.JLabel();
+        jLabel42 = new javax.swing.JLabel();
+        jLabel43 = new javax.swing.JLabel();
+        jLabel44 = new javax.swing.JLabel();
         jPanel12 = new javax.swing.JPanel();
         jLabel36 = new javax.swing.JLabel();
         cmbCalibersSubFeeder = new javax.swing.JComboBox();
@@ -1069,7 +1073,7 @@ public class ViewArea extends javax.swing.JDialog {
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 5);
+        gridBagConstraints.insets = new java.awt.Insets(5, 5, 16, 5);
         p1.add(jPanel4, gridBagConstraints);
 
         jPanel8.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Caída de Voltaje", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("DejaVu Sans", 1, 12))); // NOI18N
@@ -1194,7 +1198,7 @@ public class ViewArea extends javax.swing.JDialog {
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 5);
+        gridBagConstraints.insets = new java.awt.Insets(16, 5, 0, 5);
         p1.add(jPanel8, gridBagConstraints);
 
         jtpPanels.addTab("Iluminaria", p1);
@@ -1405,7 +1409,7 @@ public class ViewArea extends javax.swing.JDialog {
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 5);
+        gridBagConstraints.insets = new java.awt.Insets(5, 5, 15, 5);
         p2.add(jPanel9, gridBagConstraints);
 
         jPanel11.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Caída de Voltaje", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("DejaVu Sans", 1, 12))); // NOI18N
@@ -1533,7 +1537,7 @@ public class ViewArea extends javax.swing.JDialog {
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 5);
+        gridBagConstraints.insets = new java.awt.Insets(17, 5, 0, 5);
         p2.add(jPanel11, gridBagConstraints);
 
         jtpPanels.addTab("Toma Corriente", p2);
@@ -1543,7 +1547,7 @@ public class ViewArea extends javax.swing.JDialog {
         jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Capacidad de Corriente", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("DejaVu Sans", 1, 12))); // NOI18N
         java.awt.GridBagLayout jPanel5Layout = new java.awt.GridBagLayout();
         jPanel5Layout.columnWidths = new int[] {0, 5, 0, 5, 0, 5, 0};
-        jPanel5Layout.rowHeights = new int[] {0, 0, 0, 0, 0, 0, 0, 0, 0};
+        jPanel5Layout.rowHeights = new int[] {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
         jPanel5.setLayout(jPanel5Layout);
 
         jLabel5.setFont(new java.awt.Font("DejaVu Sans", 1, 12)); // NOI18N
@@ -1559,9 +1563,9 @@ public class ViewArea extends javax.swing.JDialog {
         jLabel10.setText("Voltaje:");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 4;
-        gridBagConstraints.gridy = 0;
+        gridBagConstraints.gridy = 2;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.insets = new java.awt.Insets(3, 0, 0, 0);
+        gridBagConstraints.insets = new java.awt.Insets(4, 0, 4, 0);
         jPanel5.add(jLabel10, gridBagConstraints);
 
         cmbVoltageSubFeeder.setFont(new java.awt.Font("DejaVu Sans", 0, 12)); // NOI18N
@@ -1569,18 +1573,18 @@ public class ViewArea extends javax.swing.JDialog {
         cmbVoltageSubFeeder.setPreferredSize(new java.awt.Dimension(100, 21));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 6;
-        gridBagConstraints.gridy = 0;
+        gridBagConstraints.gridy = 2;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
-        gridBagConstraints.insets = new java.awt.Insets(3, 0, 0, 3);
+        gridBagConstraints.insets = new java.awt.Insets(4, 0, 4, 3);
         jPanel5.add(cmbVoltageSubFeeder, gridBagConstraints);
 
         jLabel18.setFont(new java.awt.Font("DejaVu Sans", 1, 12)); // NOI18N
         jLabel18.setText("Temperatura:");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 4;
-        gridBagConstraints.gridy = 2;
+        gridBagConstraints.gridy = 4;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.insets = new java.awt.Insets(4, 0, 4, 0);
+        gridBagConstraints.insets = new java.awt.Insets(0, 0, 4, 0);
         jPanel5.add(jLabel18, gridBagConstraints);
 
         jLabel27.setFont(new java.awt.Font("DejaVu Sans", 1, 12)); // NOI18N
@@ -1597,9 +1601,9 @@ public class ViewArea extends javax.swing.JDialog {
         cmbTemperatureSubFeeder.setPreferredSize(new java.awt.Dimension(100, 21));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 6;
-        gridBagConstraints.gridy = 2;
+        gridBagConstraints.gridy = 4;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
-        gridBagConstraints.insets = new java.awt.Insets(4, 0, 4, 3);
+        gridBagConstraints.insets = new java.awt.Insets(0, 0, 4, 3);
         jPanel5.add(cmbTemperatureSubFeeder, gridBagConstraints);
 
         cmbPhasesSubFeeder.setFont(new java.awt.Font("DejaVu Sans", 0, 12)); // NOI18N
@@ -1610,7 +1614,7 @@ public class ViewArea extends javax.swing.JDialog {
         gridBagConstraints.gridy = 6;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(0, 12, 0, 0);
+        gridBagConstraints.insets = new java.awt.Insets(0, 12, 4, 0);
         jPanel5.add(cmbPhasesSubFeeder, gridBagConstraints);
 
         jLabel32.setFont(new java.awt.Font("DejaVu Sans", 1, 12)); // NOI18N
@@ -1619,7 +1623,7 @@ public class ViewArea extends javax.swing.JDialog {
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 6;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.insets = new java.awt.Insets(0, 3, 0, 0);
+        gridBagConstraints.insets = new java.awt.Insets(0, 3, 4, 0);
         jPanel5.add(jLabel32, gridBagConstraints);
 
         jPanel7.setLayout(new java.awt.GridBagLayout());
@@ -1677,7 +1681,7 @@ public class ViewArea extends javax.swing.JDialog {
         jLabel34.setText("F. Potencia:");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 4;
-        gridBagConstraints.gridy = 4;
+        gridBagConstraints.gridy = 6;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.insets = new java.awt.Insets(0, 0, 4, 0);
         jPanel5.add(jLabel34, gridBagConstraints);
@@ -1688,7 +1692,7 @@ public class ViewArea extends javax.swing.JDialog {
         jspPowerSubFeeder.setPreferredSize(new java.awt.Dimension(100, 21));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 6;
-        gridBagConstraints.gridy = 4;
+        gridBagConstraints.gridy = 6;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
         gridBagConstraints.insets = new java.awt.Insets(0, 0, 4, 3);
         jPanel5.add(jspPowerSubFeeder, gridBagConstraints);
@@ -1699,7 +1703,7 @@ public class ViewArea extends javax.swing.JDialog {
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 8;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.insets = new java.awt.Insets(4, 3, 0, 0);
+        gridBagConstraints.insets = new java.awt.Insets(4, 3, 4, 0);
         jPanel5.add(jLabel35, gridBagConstraints);
 
         lblCaliberSubFeeder.setFont(new java.awt.Font("DejaVu Sans", 0, 12)); // NOI18N
@@ -1709,7 +1713,7 @@ public class ViewArea extends javax.swing.JDialog {
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(4, 16, 0, 0);
+        gridBagConstraints.insets = new java.awt.Insets(0, 16, 4, 0);
         jPanel5.add(lblCaliberSubFeeder, gridBagConstraints);
 
         btnCalculateCurrentCapacitySubFeeder.setFont(new java.awt.Font("DejaVu Sans", 1, 14)); // NOI18N
@@ -1718,7 +1722,7 @@ public class ViewArea extends javax.swing.JDialog {
         btnCalculateCurrentCapacitySubFeeder.setOpaque(false);
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 6;
-        gridBagConstraints.gridy = 8;
+        gridBagConstraints.gridy = 10;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
         gridBagConstraints.insets = new java.awt.Insets(4, 0, 0, 3);
         jPanel5.add(btnCalculateCurrentCapacitySubFeeder, gridBagConstraints);
@@ -1730,8 +1734,44 @@ public class ViewArea extends javax.swing.JDialog {
         gridBagConstraints.gridy = 0;
         gridBagConstraints.ipadx = 1;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.insets = new java.awt.Insets(0, 12, 0, 0);
+        gridBagConstraints.insets = new java.awt.Insets(3, 12, 0, 0);
         jPanel5.add(lblPotencyTotalSubFeeder, gridBagConstraints);
+
+        jLabel41.setFont(new java.awt.Font("DejaVu Sans", 1, 12)); // NOI18N
+        jLabel41.setText("Neutro:");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 4;
+        gridBagConstraints.gridy = 8;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
+        gridBagConstraints.insets = new java.awt.Insets(4, 0, 4, 0);
+        jPanel5.add(jLabel41, gridBagConstraints);
+
+        jLabel42.setFont(new java.awt.Font("DejaVu Sans", 0, 12)); // NOI18N
+        jLabel42.setText("n1");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 6;
+        gridBagConstraints.gridy = 8;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_END;
+        gridBagConstraints.insets = new java.awt.Insets(4, 0, 4, 3);
+        jPanel5.add(jLabel42, gridBagConstraints);
+
+        jLabel43.setFont(new java.awt.Font("DejaVu Sans", 1, 12)); // NOI18N
+        jLabel43.setText("Neutro:");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 4;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
+        gridBagConstraints.insets = new java.awt.Insets(3, 0, 0, 0);
+        jPanel5.add(jLabel43, gridBagConstraints);
+
+        jLabel44.setFont(new java.awt.Font("DejaVu Sans", 0, 12)); // NOI18N
+        jLabel44.setText("n2");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 6;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_END;
+        gridBagConstraints.insets = new java.awt.Insets(3, 0, 0, 3);
+        jPanel5.add(jLabel44, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
@@ -1739,7 +1779,7 @@ public class ViewArea extends javax.swing.JDialog {
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 5);
+        gridBagConstraints.insets = new java.awt.Insets(6, 5, 4, 5);
         p3.add(jPanel5, gridBagConstraints);
 
         jPanel12.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Caída de Voltaje", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("DejaVu Sans", 1, 12))); // NOI18N
@@ -1864,7 +1904,7 @@ public class ViewArea extends javax.swing.JDialog {
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 5);
+        gridBagConstraints.insets = new java.awt.Insets(6, 5, 0, 5);
         p3.add(jPanel12, gridBagConstraints);
 
         jtpPanels.addTab("Sub-Alimentador", p3);
@@ -1947,6 +1987,10 @@ public class ViewArea extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel39;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel40;
+    private javax.swing.JLabel jLabel41;
+    private javax.swing.JLabel jLabel42;
+    private javax.swing.JLabel jLabel43;
+    private javax.swing.JLabel jLabel44;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
