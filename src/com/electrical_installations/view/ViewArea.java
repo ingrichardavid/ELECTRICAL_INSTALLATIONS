@@ -68,6 +68,8 @@ public class ViewArea extends javax.swing.JDialog {
         rBtnGroundIluminaria.addChangeListener(controllerArea);
         btnCalculateCurrentCapacityPowerPoint.addActionListener(controllerArea);
         btnCalculateBreakdownPowerPoint.addActionListener(controllerArea);
+        btnCalculateBreakdownSubFeeder.addActionListener(controllerArea);
+        btnCalculateCurrentCapacitySubFeeder.addActionListener(controllerArea);
         rBtnAirPowerPoint.addChangeListener(controllerArea);
         rBtnGroundPowerPoint.addChangeListener(controllerArea);
         txtName.addKeyListener(controllerArea);
