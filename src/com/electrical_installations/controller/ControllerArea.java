@@ -72,7 +72,7 @@ public class ControllerArea implements ActionListener, KeyListener, WindowListen
     private String caliberUseIluminaria, caliberUsePowerPoint;
     private Caliber caliberSelectedIluminaria, caliberSelectedPowerPoint;
     
-    private String ejemplo;    
+      
     /**
      * Contructor de la clase, recibe un objeto ViewArea
      *
@@ -522,16 +522,13 @@ public class ControllerArea implements ActionListener, KeyListener, WindowListen
     //viewArea.getArea().getPotency_total() esto creo es lo que esta mal porque el mandaba 0.0 cuando hacia el 
     //system.out
     private void IntensitySubFeeder(){
-        System.err.println(viewArea.getArea().getPotency_total());
-        System.err.println(((Voltage)viewArea.getCmbVoltageSubFeeder().getSelectedItem()).getVoltage());
-        System.err.println(Double.valueOf(viewArea.getJspPowerSubFeeder().getValue().toString()));
-        System.err.println(viewArea.getCmbPhasesIluminaria().getSelectedIndex());
-       MethodsForCalculatiosGlobal.intensity(
+
+       MethodsForCalculationsGlobal.intensity(
                viewArea.getArea().getPotency_total(), 
                ((Voltage)viewArea.getCmbVoltageSubFeeder().getSelectedItem()).getVoltage(),
                Double.valueOf(viewArea.getJspPowerSubFeeder().getValue().toString()),
                viewArea.getCmbPhasesIluminaria().getSelectedIndex());
-       caliberFoundSubFeeder = MethodsForCalculatiosGlobal.calculateCaliberIluminariaPowerPoint(
+       caliberFoundSubFeeder = MethodsForCalculationsGlobal.calculateCaliberForSubFeeder(
                viewArea.getArea().getPotency_total(),
                (Voltage)viewArea.getCmbVoltageSubFeeder().getSelectedItem(),
                (Material)viewArea.getCmbMaterialSubFeeder().getSelectedItem(), 
