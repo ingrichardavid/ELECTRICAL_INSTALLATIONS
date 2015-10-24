@@ -18,8 +18,8 @@ public interface TemperatureDAO {
 
     /**
      * Listar todas las Temperaturas.
-     * @param temperature
      * @return Retorna una lista de Areas
      */
     public List<Temperature> find_temperatures();
+    
 }

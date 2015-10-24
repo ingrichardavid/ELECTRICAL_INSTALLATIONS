@@ -19,8 +19,8 @@ import com.electrical_installations.model.entity.masters.ResistanceReactance;
 import com.electrical_installations.model.entity.masters.Temperature;
 import com.electrical_installations.model.entity.masters.Voltage;
 import com.electrical_installations.model.enums.TypeBrandsCalibers;
-import com.electrical_installations.model.enums.TypeCalibers;
 import com.electrical_installations.model.enums.TypeMaterials;
+import com.electrical_installations.model.enums.TypeNumbersCalibers;
 import com.electrical_installations.model.enums.TypeResistancesAndReactances;
 import com.electrical_installations.model.enums.TypeRush;
 import com.electrical_installations.model.enums.TypeOfBranchCircuitInArea;
@@ -28,6 +28,7 @@ import com.electrical_installations.model.enums.TypePhases;
 import com.electrical_installations.model.enums.TypeTemperature;
 import com.electrical_installations.model.service.ServiceArea;
 import com.electrical_installations.model.service.ServiceBreaker;
+import com.electrical_installations.model.service.ServiceIntensity;
 import com.electrical_installations.model.service.ServiceResistanceReactance;
 
 /**
@@ -94,6 +95,15 @@ public class MethodsForCalculationsIluminariaPowerPoint {
     public static double intensity(double potency,int voltage, double powerFactor, int phase){
         return (phase == 2) ? Methods.round(potency / (Math.sqrt(squareRootOfN) * voltage * powerFactor),5) : Methods.round((potency / voltage), 5);
     }// Fin del Método
+
+    /**
+     * Método para calcular la intensidad de diseño a partir de un calibre dado.
+     * @param calibers
+     * @return 
+     */
+    public static Intensity calculate_instensity_design(Calibers calibers){
+        return ServiceIntensity.find_intensity_design(calibers);
+    }
     
     /**
      * Método para calcular la intensidad final.
@@ -175,8 +185,8 @@ public class MethodsForCalculationsIluminariaPowerPoint {
      */
     public static boolean validate_caliber(Caliber caliber){  
         boolean exist = false;
-        for (TypeCalibers typeCalibers : TypeCalibers.values()) {
-            if (typeCalibers.getCaliber().equals(caliber.getName())){       
+        for (TypeNumbersCalibers typeCalibers : TypeNumbersCalibers.values()) {
+            if (typeCalibers.getNumberCaliber().equals(caliber.getName())){       
                 exist = true;
             }
         }
@@ -196,7 +206,7 @@ public class MethodsForCalculationsIluminariaPowerPoint {
             return "2 Cables";
         } else if (phase.getName().equalsIgnoreCase(TypePhases.SINGLE_PHASE_THREE_THREAD.getPhase())){
             return "3 Cables";
-        } else if (phase.getName().equalsIgnoreCase(TypePhases.PASHE_FOUR_THREAD.getPhase())){
+        } else if (phase.getName().equalsIgnoreCase(TypePhases.PHASE_FOUR_THREAD.getPhase())){
             return "4 Cables";
         }
         return "0 Cables";
@@ -221,9 +231,7 @@ public class MethodsForCalculationsIluminariaPowerPoint {
         }  
         return breaker;
     }//Fin del método
-    
-    
-    
+      
     /**
      * Método para calcular número de interruptores.
      * @param phase
@@ -235,7 +243,7 @@ public class MethodsForCalculationsIluminariaPowerPoint {
             return "1x" + intensity;
         } else if (phase.getName().equalsIgnoreCase(TypePhases.SINGLE_PHASE_THREE_THREAD.getPhase())){
             return "2x" + intensity;
-        } else if (phase.getName().equalsIgnoreCase(TypePhases.PASHE_FOUR_THREAD.getPhase())){
+        } else if (phase.getName().equalsIgnoreCase(TypePhases.PHASE_FOUR_THREAD.getPhase())){
             return "3x" + intensity;
         }
         return "0x" + intensity;
@@ -260,7 +268,7 @@ public class MethodsForCalculationsIluminariaPowerPoint {
      * @return Retorna la resistencia encontrada
      */
     public static ResistanceReactance calculate_resistance(Material material, Caliber caliber, Duct duct){
-        if (caliber.getName().equals(TypeCalibers.CALIBER_14.getCaliber()) && material.getName().equals(TypeMaterials.ALUMINIUM.getMaterial())){            
+        if (caliber.getName().equals(TypeNumbersCalibers.CALIBER_14.getNumberCaliber()) && material.getName().equals(TypeMaterials.ALUMINIUM.getMaterial())){            
             MessagesStructure.Warning(MessagesStructure.format(200,messages.getProperty(Messages.CALIBER_RESISTANCE_NO_FOUND), MessagesStructure.left));
             return null;
         } else {

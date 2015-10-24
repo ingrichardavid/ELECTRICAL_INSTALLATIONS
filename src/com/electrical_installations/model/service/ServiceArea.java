@@ -136,7 +136,7 @@ public class ServiceArea {
      * @return Retorna un calibre
      */
     public static Calibers find_caliber_iluminaria_power_point(Calibers calibers,double roominess){
-        return areaImplDAO.find_caliber_ilumiaria_power_point(calibers, roominess);
+        return areaImplDAO.find_caliber_iluminaria_power_point(calibers, roominess);
     }//Fin del servicio
     
     /**

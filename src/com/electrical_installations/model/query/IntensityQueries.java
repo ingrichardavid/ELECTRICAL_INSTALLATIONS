@@ -19,5 +19,14 @@ public class IntensityQueries {
      * Buscar Intensidades.
      */
     public static final String SELECT_ALL = "SELECT i.codigo,CONCAT(i.intensidad,' ',u.nombre) AS intensidad FROM maestros.\"INTENSIDAD\" AS i JOIN maestros.\"UNIDAD\" AS u ON (i.unidad_codigo=u.codigo);";
-
+ 
+    /**
+     * Consulta para calcular la intensidad de diseño a partir de un conductor.
+     */
+    public static final String CALCULATE_INTENSITY_OF_DESIGN = "SELECT i.codigo, i.intensidad\n" +
+                                                            "FROM maestros.\"CALIBRES\" as c\n" +
+                                                            "JOIN maestros.\"INTENSIDAD\" as i\n" +
+                                                            "ON (c.intensidad_codigo = i.codigo)\n" +
+                                                            "WHERE calibre_codigo = ? AND material_codigo = ? AND temperatura_codigo =?;";
+    
 }

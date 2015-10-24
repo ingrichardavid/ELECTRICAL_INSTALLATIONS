@@ -18,12 +18,25 @@ public class PersonNumber {
     private int quantity;
 
     /**
-     * Constructor para insertar, modificar, eliminar y buscar número de personas
+     * Constructor para eliminar y buscar número de personas
      * @param codigo 
      */
     public PersonNumber(int codigo) {
         this.codigo = codigo;
     }//Fin del constructor
+
+    
+    /**
+     * Constructor para Insertar,Modificar ,Eliminar y buscar número de personas.
+     * @param codigo
+     * @param quantity 
+     */
+    public PersonNumber(int codigo, int quantity) {
+        this.codigo = codigo;
+        this.quantity = quantity;
+    }
+    
+    
     
     //Getter y Setters
 

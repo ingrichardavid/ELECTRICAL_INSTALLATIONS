@@ -16,31 +16,47 @@ public class ChargesInAreasQueries {
     /**
      * Insertar Carga en Área.
      */
-    public static final String INSERT_CHARGE_IN_AREA = "INSERT INTO negocio.\"CARGAS_EN_AREAS\"(\n" +
-                                                       "    carga_codigo, area_codigo, cantidad, consumo_potencia, voltaje, temperatura, material, fase)\n" +
-                                                       "    VALUES (?, ?, ?, ?, ?, ?, ? ,?);"; 
+    public static final String INSERT_CHARGE_IN_AREA =  "INSERT INTO negocio.\"CARGAS_EN_AREAS\"(\n" +
+                                                        "            codigo_carga, codigo_area, potencia, cantidad, calibre_fase, \n" +
+                                                        "            calibre_neutro, calibre_tierra, fase_codigo)\n" +
+                                                        "    VALUES (?, ?, ?, ?, ?, \n" +
+                                                        "            ?, ?, ?);"; 
+    /**
+     * Modificar un área luego de haber insertado una carga.
+     */
+    public static final String UPDATE_AREA_AFTER_INSERT_CHARGE = "UPDATE negocio.\"AREA\" SET potencia_total= potencia_total + ?, neutro = neutro + ? WHERE codigo = ?;";
+    
+    /**
+     * Modificar un área luego de haber eliminado una carga.
+     */
+    public static final String UPDATE_AREA_AFTER_DELETE_CHARGE = "UPDATE negocio.\"AREA\" SET potencia_total= ?,neutro = ? WHERE codigo = ?;";
+    
     
     /**
      * Consultar todas las cargas asignadas a un área.
      */
     public static final String SELECT_ALL_CHARGES_IN_AREA = "SELECT\n" +
-                                                            "	ca.area_codigo,ca.carga_codigo,CONCAT(c.nombre,' ',e.cantidad,' ',u.nombre),ca.cantidad,ca.consumo_potencia,ca.voltaje\n" +
+                                                            "	cea.codigo_area,cea.codigo_carga,CONCAT(c.nombre,' ',e.cantidad,' ',u.nombre),cea.cantidad,cea.potencia,cea.fase_codigo,tp.codigo,tp.tipo\n" +
                                                             "FROM\n" +
-                                                            "	negocio.\"CARGAS_EN_AREAS\" AS ca\n" +
+                                                            "	negocio.\"CARGAS_EN_AREAS\" AS cea\n" +
                                                             "JOIN\n" +
-                                                            "	negocio.\"CARGA\" AS c\n" +
+                                                            "	maestros.\"CARGA\" AS c\n" +
                                                             "ON \n" +
-                                                            "	(ca.carga_codigo = c.codigo)\n" +
+                                                            "	(cea.codigo_carga = c.codigo)\n" + 
+                                                            "JOIN\n" +
+                                                            "	maestros.\"TIPO_CARGA\" AS tp\n" +
+                                                            "ON \n" +
+                                                            "	(c.tipo_carga_codigo = tp.codigo)\n" +
                                                             "LEFT JOIN\n" +
-                                                            "	negocio.\"ENERGIA\" as e\n" +
+                                                            "	maestros.\"ENERGIA\" AS e\n" +
                                                             "ON\n" +
                                                             "	(c.energia_codigo = e.codigo)\n" +
                                                             "LEFT JOIN\n" +
-                                                            "	negocio.\"UNIDAD_DE_ENERGIA\" AS u\n" +
+                                                            "	maestros.\"UNIDAD\" AS u\n" +
                                                             "ON\n" +
-                                                            "	(e.unidad_energia_codigo = u.codigo)\n" +
+                                                            "	(e.unidad_codigo = u.codigo)\n" +
                                                             "WHERE\n" +
-                                                            "	ca.area_codigo = ?\n" +
+                                                            "	cea.codigo_area = ?\n" +
                                                             "ORDER BY\n" +
                                                             "	c.nombre\n" +
                                                             "ASC;";
@@ -49,43 +65,90 @@ public class ChargesInAreasQueries {
      * Consultar todas las cargas asignadas a un área filtradas por nombre.
      */
     public static final String FILTER_BY_NAME = "SELECT\n" +
-                                                            "	ca.area_codigo,ca.carga_codigo,CONCAT(c.nombre,' ',e.cantidad,' ',u.nombre),ca.cantidad,ca.consumo_potencia,ca.voltaje\n" +
-                                                            "FROM\n" +
-                                                            "	negocio.\"CARGAS_EN_AREAS\" AS ca\n" +
-                                                            "JOIN\n" +
-                                                            "	negocio.\"CARGA\" AS c\n" +
-                                                            "ON \n" +
-                                                            "	(ca.carga_codigo = c.codigo)\n" +
-                                                            "LEFT JOIN\n" +
-                                                            "	negocio.\"ENERGIA\" as e\n" +
-                                                            "ON\n" +
-                                                            "	(c.energia_codigo = e.codigo)\n" +
-                                                            "LEFT JOIN\n" +
-                                                            "	negocio.\"UNIDAD_DE_ENERGIA\" AS u\n" +
-                                                            "ON\n" +
-                                                            "	(e.unidad_energia_codigo = u.codigo)\n" +
-                                                            "WHERE\n" +
-                                                            "	TRIM(LOWER(CONCAT(c.nombre,' ',e.cantidad,' ',u.nombre))) LIKE TRIM(LOWER(?)) AND ca.area_codigo = ?\n" +
-                                                            "ORDER BY\n" +
-                                                            "	c.nombre\n" +
-                                                            "ASC;";
-    
-    /**
-     * Modificar la cantidad de una carga asignada a una área.
-     */
-    public static final String UPDATE_CHARGE_IN_AREA = "UPDATE \n" +
-                                                       "	negocio.\"CARGAS_EN_AREAS\"\n" +
-                                                       "SET \n" +
-                                                       "	cantidad=cantidad+1\n" +
-                                                       "WHERE \n" +
-                                                       "	carga_codigo=? AND area_codigo=?;";
-    
+                                                "	cea.codigo_area,cea.codigo_carga,CONCAT(c.nombre,' ',e.cantidad,' ',u.nombre),cea.cantidad,cea.potencia,cea.fase_codigo,tp.codigo,tp.tipo\n" +
+                                                "FROM\n" +
+                                                "	negocio.\"CARGAS_EN_AREAS\" AS cea\n" +
+                                                "JOIN\n" +
+                                                "	maestros.\"CARGA\" AS c\n" +
+                                                "ON \n" +
+                                                "       (cea.codigo_carga = c.codigo)\n" + 
+                                                "JOIN\n" +
+                                                "	maestros.\"TIPO_CARGA\" AS tp\n" +
+                                                "ON \n" +
+                                                "	(c.tipo_carga_codigo = tp.codigo)\n" +
+                                                "LEFT JOIN\n" +
+                                                "	maestros.\"ENERGIA\" AS e\n" +
+                                                "ON\n" +
+                                                "	(c.energia_codigo = e.codigo)\n" +
+                                                "LEFT JOIN\n" +
+                                                "	maestros.\"UNIDAD\" AS u\n" +
+                                                "ON\n" +
+                                                "	(e.unidad_codigo = u.codigo)\n" +
+                                                "WHERE\n" +
+                                                "	TRIM(LOWER(CONCAT(c.nombre,' ',e.cantidad,' ',u.nombre))) LIKE TRIM(LOWER(?)) AND cea.codigo_area = ?\n" +
+                                                "ORDER BY\n" +
+                                                "	c.nombre\n" +
+                                                "ASC;";
+        
     /**
      * Eliminar carga en un área.
      */
     public static final String DELETE_CHARGE_IN_AREA = "DELETE FROM\n" +
                                                        "	negocio.\"CARGAS_EN_AREAS\"\n" +
                                                        "WHERE \n" +
-                                                       "	carga_codigo=? AND area_codigo=?;";
+                                                       "	codigo_carga=? AND codigo_area=?;";
+    
+    /**
+     * Validar que una carga ya haya sido asignada a un área.
+     */
+    public static final String VALIDATE_CHARGE_IN_AREA = "SELECT codigo_carga FROM\n" +
+                                                         "  negocio.\"CARGAS_EN_AREAS\"\n" +
+                                                         "WHERE \n" +
+                                                         "  codigo_carga=? AND codigo_area=?;";
+    
+    /**
+     * Insertar Alimentador Principal.
+     */
+    public static final String INSERT_MAIN_FEEDER_TYPE_CHARGE =  "INSERT INTO negocio.\"ALIMENTADOR_PRINCIPAL\"(\n" +
+                                                                 "            proyecto_codigo, proyecto_tipo, tipo_carga_codigo, potencia, \n" +
+                                                                 "            cantidad, intensidad)\n" +
+                                                                 "    VALUES (?, ?, ?, ?, \n" +
+                                                                 "            ?, ?);"; 
+    
+     /**
+     * Modificar tipo de carga en la entidad alimentador principal.
+     */
+    public static final String UPDATE_MAIN_FEEDER_TYPE_CHARGE = "UPDATE negocio.\"ALIMENTADOR_PRINCIPAL\"\n" +
+                                                                "SET potencia= potencia + ?, cantidad= cantidad + ?, intensidad= intensidad + ?\n" +
+                                                                "WHERE proyecto_codigo=? AND proyecto_tipo=? AND tipo_carga_codigo=?;";
+    /**
+     * Validar existencia de tipo de carga en la entidad alimentador principal.
+     */
+    public static final String VALIDATE_MAIN_FEEDER_EXIST = "SELECT \n" +
+                                                            "	proyecto_codigo\n" +
+                                                            "FROM\n" +
+                                                            "	negocio.\"ALIMENTADOR_PRINCIPAL\"\n" +
+                                                            "WHERE \n" +
+                                                            "	proyecto_codigo=? AND proyecto_tipo=? AND tipo_carga_codigo=?;";
+    /**
+     * Modificar tipo de carga en entidad alimentador principal una vez eliminada una carga de un área.
+     */
+    public static final String DELETE_CHARGE_UPDATE_MAIN_FEEDER_TYPE_CHARGE = "UPDATE negocio.\"ALIMENTADOR_PRINCIPAL\"\n" +
+                                                                "SET potencia= potencia - ?, cantidad= cantidad - ?, intensidad= intensidad - ?\n" +
+                                                                "WHERE proyecto_codigo=? AND proyecto_tipo=? AND tipo_carga_codigo=?;";
+    
+    /**
+     * Elimina tipo de carga de la entidad alimentador principal.
+     */
+    public static final String DELETE_CHARGE_MAIN_FEEDER = "DELETE FROM negocio.\"ALIMENTADOR_PRINCIPAL\"\n" +
+                                                           " WHERE proyecto_codigo=? AND proyecto_tipo=? AND tipo_carga_codigo=?;";
+    
+    /**
+     * Validate si Intensidad, Potencia o Cantidad es igual a 0.
+     */
+    public static final String VALIDATE_MAIN_FEEDER_I_P_C ="SELECT proyecto_codigo\n" +
+                                                         "FROM negocio.\"ALIMENTADOR_PRINCIPAL\"\n" +
+                                                         "WHERE proyecto_codigo=? AND proyecto_tipo=? AND tipo_carga_codigo=? \n" +
+                                                         "AND cantidad = 0 AND intensidad = 0 AND potencia = 0;";
     
 }

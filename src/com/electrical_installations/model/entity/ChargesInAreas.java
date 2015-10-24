@@ -5,6 +5,8 @@
  */
 package com.electrical_installations.model.entity;
 
+import com.electrical_installations.model.entity.masters.Phase;
+
 /**
  * Clase Entidad Cargas en Áreas.
  * @author Ing. Richard David
@@ -16,63 +18,45 @@ public class ChargesInAreas {
     //Objetos, variables y constantes
     private Charge charge;
     private Area area;
+    private double potency;
     private int quantity;
-    private int voltage;
-    private String temperature;
-    private String material;
-    private String phase;
-    
+    private String caliberPhase;
+    private String caliberNeutral;
+    private String caliberHearth;
+    private Phase phase;
+
     /**
-     * Constructor para la inserción, modificación, eliminación y búsqueda de Cargas en Áreas
+     * Constructor para almacenar, insertar, modificar y eliminar cargas en un área.
      * @param charge
      * @param area
+     * @param potency
      * @param quantity
-     * @param voltage
+     * @param caliberPhase
+     * @param caliberNeutral
+     * @param caliberHearth 
+     * @param phase 
      */
-    public ChargesInAreas(Charge charge, Area area, int quantity, int voltage, String temperature, String material, String phase){
+    public ChargesInAreas(Charge charge, Area area, double potency, int quantity, String caliberPhase, String caliberNeutral, String caliberHearth, Phase phase) {
         this.charge = charge;
         this.area = area;
+        this.potency = potency;
         this.quantity = quantity;
-        this.voltage = voltage;
-        this.temperature = temperature;
-        this.material = material;
+        this.caliberPhase = caliberPhase;
+        this.caliberNeutral = caliberNeutral;
+        this.caliberHearth = caliberHearth;
         this.phase = phase;
-    }//Fin del constructor
-            
+    }//Fin del constructor 
+    
     //Getters y Setters
 
-    public String getTemperature() {
-        return temperature;
-    }
-
-    public void setTemperature(String temperature) {
-        this.temperature = temperature;
-    }
-
-    public String getMaterial() {
-        return material;
-    }
-
-    public void setMaterial(String material) {
-        this.material = material;
-    }
-
-    public String getPhase() {
+    public Phase getPhase() {
         return phase;
     }
 
-    public void setPhase(String phase) {
+    public void setPhase(Phase phase) {
         this.phase = phase;
     }
 
-    public int getVoltage(){
-        return voltage;
-    }
-    
-    public void setVoltage(int voltage){
-        this.voltage = voltage;
-    }
-    
     public Charge getCharge() {
         return charge;
     }
@@ -89,12 +73,44 @@ public class ChargesInAreas {
         this.area = area;
     }
 
+    public double getPotency() {
+        return potency;
+    }
+
+    public void setPotency(double potency) {
+        this.potency = potency;
+    }
+
     public int getQuantity() {
         return quantity;
     }
 
     public void setQuantity(int quantity) {
         this.quantity = quantity;
-    }    
+    }
 
+    public String getCaliberPhase() {
+        return caliberPhase;
+    }
+
+    public void setCaliberPhase(String caliberPhase) {
+        this.caliberPhase = caliberPhase;
+    }
+
+    public String getCaliberNeutral() {
+        return caliberNeutral;
+    }
+
+    public void setCaliberNeutral(String caliberNeutral) {
+        this.caliberNeutral = caliberNeutral;
+    }
+
+    public String getCaliberHearth() {
+        return caliberHearth;
+    }
+
+    public void setCaliberHearth(String caliberHearth) {
+        this.caliberHearth = caliberHearth;
+    }
+    
 }

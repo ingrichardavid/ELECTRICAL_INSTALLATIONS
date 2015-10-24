@@ -5,6 +5,7 @@
  */
 package com.electrical_installations.model.dao;
 
+import com.electrical_installations.model.entity.masters.Calibers;
 import com.electrical_installations.model.entity.masters.Intensity;
 import java.util.List;
 
@@ -23,4 +24,12 @@ public interface IntensityDAO {
      * @return Retorna una lista de Intensidades
      */
     public List<Intensity> find_Intensitys();
+    
+    /**
+     * Método para calcular la intensidad de diseño a partir de un calibre dado.
+     * @param calibers
+     * @return 
+     */
+    public Intensity calculate_intensity_design(Calibers calibers);
+    
 }

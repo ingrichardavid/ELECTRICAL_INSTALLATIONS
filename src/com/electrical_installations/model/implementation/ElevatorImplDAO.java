@@ -7,7 +7,10 @@ package com.electrical_installations.model.implementation;
 
 import com.electrical_installations.model.DataBaseConnection;
 import com.electrical_installations.model.dao.ElevatorDAO;
-import com.electrical_installations.model.entity.Elevator;
+import com.electrical_installations.model.entity.masters.Elevator;
+import com.electrical_installations.model.entity.masters.PersonNumber;
+import com.electrical_installations.model.entity.masters.Potency;
+import com.electrical_installations.model.entity.masters.Speed;
 import com.electrical_installations.model.query.ElevatorQueries;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -66,7 +69,7 @@ public class ElevatorImplDAO implements ElevatorDAO{
             preparedStatement = connection.getConexion().prepareStatement(ElevatorQueries.SELECT_ALL);
             result = preparedStatement.executeQuery();
             while(result.next()){
-                elevators.add(new Elevator(result.getInt(1), result.getInt(2), result.getDouble(3), result.getInt(4)));
+                elevators.add(new Elevator(result.getInt(1),new PersonNumber(0, result.getInt(2)), new Speed(0, result.getDouble(3)), new Potency(0, null, result.getInt(4))));
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -85,10 +88,10 @@ public class ElevatorImplDAO implements ElevatorDAO{
         elevators = new ArrayList<>();
         try {
             preparedStatement = connection.getConexion().prepareStatement(ElevatorQueries.FILTER_BY_NAME);
-            preparedStatement.setString(1,"%"+elevator.getElevator_name()+"%");
+            preparedStatement.setString(1,"%"+elevator.getPotency().getUnit().getName()+"%");
             result = preparedStatement.executeQuery();
             while(result.next()){
-                elevators.add(new Elevator(result.getInt(1), result.getInt(2), result.getDouble(3), result.getInt(4)));
+                elevators.add(new Elevator(result.getInt(1),new PersonNumber(0, result.getInt(2)), new Speed(0, result.getDouble(3)), new Potency(0, null, result.getInt(4))));
             }
         } catch (SQLException e) {
             e.printStackTrace();

@@ -75,11 +75,15 @@ public class Voltage {
     }
 
     //hashCode y Equals
+
     @Override
     public int hashCode() {
-        int hash = 7;
+        int hash = 3;
+        hash = 17 * hash + this.code;
+        hash = 17 * hash + this.voltage;
+        hash = 17 * hash + Objects.hashCode(this.unit);
         return hash;
-    }
+    }    
 
     @Override
     public boolean equals(Object obj) {

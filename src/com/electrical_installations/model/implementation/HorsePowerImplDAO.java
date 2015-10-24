@@ -8,6 +8,8 @@ package com.electrical_installations.model.implementation;
 import com.electrical_installations.model.DataBaseConnection;
 import com.electrical_installations.model.dao.HorsePowerDAO;
 import com.electrical_installations.model.entity.masters.HorsePower;
+import com.electrical_installations.model.entity.masters.HorsesPowers;
+import com.electrical_installations.model.entity.masters.Intensity;
 import com.electrical_installations.model.query.HorsePowerQueries;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -29,6 +31,7 @@ public class HorsePowerImplDAO implements HorsePowerDAO{
     private PreparedStatement preparedStatement;
     private ResultSet result;
     private List<HorsePower> horsePorwerFounds;
+    private HorsesPowers horsesPowersFound;
 
     /**
      * Constructor de la clase, es privado para cumplir con el patrón Singlenton.
@@ -66,7 +69,7 @@ public class HorsePowerImplDAO implements HorsePowerDAO{
             preparedStatement = connection.getConexion().prepareStatement(HorsePowerQueries.SELECT_ALL);
             result = preparedStatement.executeQuery();
             while(result.next()){
-                horsePorwerFounds.add(new HorsePower(result.getInt(1), result.getString(2)));
+                horsePorwerFounds.add(new HorsePower(result.getInt(1), result.getString(2),result.getDouble(3)));
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -75,5 +78,29 @@ public class HorsePowerImplDAO implements HorsePowerDAO{
         }
         return horsePorwerFounds;
     }//Fin del método 
+    
+    /**
+     * Buscar intensidad por Caballo de fuerza y voltaje.
+     * @param horsesPowers
+     * @return Rertorna un objeto HorsesPowers con la intensidad 
+     */
+    @Override
+    public HorsesPowers find_intensity_horses_power(HorsesPowers horsesPowers) {
+        horsesPowersFound = null;
+        try {
+            preparedStatement = connection.getConexion().prepareStatement(HorsePowerQueries.SELECT_INTENSITY_HORSE_POWER);
+            preparedStatement.setString(1, horsesPowers.getHorsePower().getName());
+            preparedStatement.setInt(2, horsesPowers.getVoltage().getVoltage());
+            result = preparedStatement.executeQuery();
+            while(result.next()){
+                horsesPowersFound = new HorsesPowers(result.getInt(1), null, null, new Intensity(result.getInt(2), null, result.getDouble(3)));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            connection.closeConnection();
+        }
+        return horsesPowersFound;
+    }//Fin del método
     
 }

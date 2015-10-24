@@ -58,6 +58,9 @@ public class ViewProject extends javax.swing.JFrame {
         }
 
         controllerProject = new ControllerProject(this);
+        controllerProject.fill_types_of_installation();
+        controllerProject.fill_table();
+        
         btnFind.addActionListener(controllerProject);
         btnClean.addActionListener(controllerProject);
         btnRegister.addActionListener(controllerProject);
@@ -73,7 +76,6 @@ public class ViewProject extends javax.swing.JFrame {
         this.addWindowListener(controllerProject);
 
         this.txtName.requestFocus();
-        this.cmbType.addItem(new TypeOfInstallation(0, "-- Seleccione --"));
         this.lblCurrentDate.setText(Methods.get_date());
         this.enable_jtextFields(true, false);
         this.enable_buttons(true, true, false, false, true);
@@ -91,7 +93,7 @@ public class ViewProject extends javax.swing.JFrame {
         this.lblPowerTotal.setText("0");
         this.txtFind.setText(null);
         this.lblCurrentDate.setText(Methods.get_date());
-        this.cmbType.setSelectedIndex(1);
+        this.cmbType.setSelectedIndex(0);
         this.cmbFilter.setSelectedIndex(0);
         this.tabbedPane.setSelectedIndex(0);
         Methods.removeRows(tblData);

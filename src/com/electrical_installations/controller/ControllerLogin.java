@@ -11,8 +11,11 @@ import com.electrical_installations.model.entity.User;
 import com.electrical_installations.model.service.ServiceHorsePorwer;
 import com.electrical_installations.model.service.ServiceUser;
 import com.electrical_installations.view.Session;
+import com.electrical_installations.view.ViewArea;
+import com.electrical_installations.view.ViewCharge;
 import com.electrical_installations.view.ViewLogin;
 import com.electrical_installations.view.ViewProject;
+import com.electrical_installations.view.ViewProyectData;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -71,6 +74,16 @@ public class ControllerLogin implements ActionListener, WindowListener, KeyListe
             user = ServiceUser.login(new User(viewLogin.getTxtUserName().getText(),viewLogin.getTxtPassword().getText()));
             if (user != null){ 
                 session.session_data(user);
+                
+                viewProject = new ViewProject();
+                viewProject.dispose();
+                ViewProyectData v = new ViewProyectData(null, true);
+                v.dispose();
+                ViewCharge vc = new ViewCharge(null, true);
+                v.dispose();
+                ViewArea va = new ViewArea(null, true,"");
+                va.dispose();
+                
                 viewLogin.dispose();
                 viewProject = new ViewProject();
                 viewProject.setVisible(true);

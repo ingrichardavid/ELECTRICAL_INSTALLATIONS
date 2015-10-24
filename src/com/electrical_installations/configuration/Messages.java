@@ -5,8 +5,6 @@
  */
 package com.electrical_installations.configuration;
 
-
-
 import java.io.IOException;
 import java.util.Properties;
 import java.util.logging.Level;
@@ -250,6 +248,11 @@ public class Messages {
     public final static String AREA_NAME_NO_FOUND = "AREA_NAME_NO_FOUND";
     
     /**
+     * Por favor, calcule la Potencia Total.
+     */
+    public final static String AREA_POTENCY_TOTAL_NO_FOUND = "AREA_POTENCY_TOTAL_NO_FOUND";
+    
+    /**
      * Por favor, calcule el conductor para Iluminaria.
      */
     public final static String AREA_CONDUCTOR_ILUMINARIA_NO_FOUND = "AREA_CONDUCTOR_ILUMINARIA_NO_FOUND";
@@ -258,6 +261,11 @@ public class Messages {
      * Por favor, calcule el conductor para Toma Corrientes.
      */
     public final static String AREA_CONDUCTOR_POWER_POINT_NO_FOUND = "AREA_CONDUCTOR_POWER_POINT_NO_FOUND";
+        
+    /**
+     * Por favor, cálcule el conductor Sub-Alimentador.
+     */
+    public final static String AREA_CONDUCTOR_SUB_FEEDER_NO_FOUND = "AREA_CONDUCTOR_SUB_FEEDER_NO_FOUND";
     
     /**
      * Por favor, introduza el área en iluminaria.
@@ -278,6 +286,11 @@ public class Messages {
      * Por favor, introduza el voltaje en toma corrientes.
      */    
     public final static String AREA_VOLTAGE_POWERPOINT_NO_FOUND = "AREA_VOLTAGE_POWERPOINT_NO_FOUND";
+    
+    /**
+     * Por favor, calcule la Capacidad de Corriente..
+     */    
+    public final static String AREA_CAPACITY_INTENSITY_NO_FOUND = "AREA_CAPACITY_INTENSITY_NO_FOUND";
         
     /**
      * Por favor, seleccione un área.
@@ -325,6 +338,11 @@ public class Messages {
     public final static String CALIBERS_NO_FOUND = "CALIBERS_NO_FOUND";
     
     /**
+     * No existe calibre asociado a esta combinación de datos.
+     */
+    public final static String CALIBER_NO_FOUND = "CALIBER_NO_FOUND";
+    
+    /**
      * El calibre seleccionado no posee resistencia asociada para el tipo de material elegido. 
      */
     public final static String CALIBER_RESISTANCE_NO_FOUND = "CALIBER_RESISTANCE_NO_FOUND";
@@ -361,6 +379,11 @@ public class Messages {
      * No existen caballo de potencia registrados.
      */
     public final static String HORSES_POWER_NO_FOUND = "HORSES_POWER_NO_FOUND";   
+    
+    /**
+     * No existe intensidad asociada a la combinación HP y Voltaje.
+     */
+    public final static String HORSES_POWER_INTENSITY_NO_FOUND = "HORSES_POWER_INTENSITY_NO_FOUND"; 
     
     //Mesajes para Porcentajes de Motores Monofásicos.
     

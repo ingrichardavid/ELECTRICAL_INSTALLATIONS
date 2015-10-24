@@ -6,6 +6,7 @@
 package com.electrical_installations.model.service;
 
 import com.electrical_installations.configuration.Messages; 
+import com.electrical_installations.model.entity.masters.Calibers;
 import com.electrical_installations.model.entity.masters.Intensity;
 import com.electrical_installations.model.implementation.IntensityImplDAO;
 import java.util.List;
@@ -34,6 +35,15 @@ public class ServiceIntensity {
      */
     public static List<Intensity> find_intensitys(){
         return intensityImplDAO.find_Intensitys();
+    }//Fin del servicio
+    
+    /**
+     * Serivicio para encontrar la intensidad de diseño de un calibre.
+     * @param calibers
+     * @return 
+     */
+    public static Intensity find_intensity_design(Calibers calibers){
+        return intensityImplDAO.calculate_intensity_design(calibers);
     }//Fin del servicio
                    
 }

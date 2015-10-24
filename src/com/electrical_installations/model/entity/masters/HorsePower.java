@@ -19,18 +19,29 @@ public class HorsePower {
     private int code;
     private String name;
     private Unit unit;
+    private double value;
 
     /**
      * Constructor para encontrar valores de capacidades.
      * @param code
-     * @param name 
+     * @param name
+     * @param value
      */
-    public HorsePower(int code, String name) {
+    public HorsePower(int code, String name, double value) {
         this.code = code;
         this.name = name;
+        this.value = value;
     }//Fin del constructor
 
     //Getters y Setters
+
+    public double getValue() {
+        return value;
+    }
+
+    public void setValue(double value) {
+        this.value = value;
+    }
     
     public int getCode() {
         return code;

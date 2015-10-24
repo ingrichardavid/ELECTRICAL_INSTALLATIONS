@@ -6,6 +6,7 @@
 package com.electrical_installations.model.service;
 
 import com.electrical_installations.configuration.Messages;
+import com.electrical_installations.model.entity.Area;
 import com.electrical_installations.model.entity.ChargesInAreas;
 import com.electrical_installations.model.implementation.ChargesInAreasImplDAO;
 import java.util.List;
@@ -31,10 +32,11 @@ public class ServiceChargesInAreas {
     /**
      * Servicio para la creación de cargas en áreas, recibe un objeto ChargesInAreas.
      * @param chargesInAreas 
+     * @param area 
      * @return Retorna true si el proceso de registro a finalizado con exito 
      */
-    public static boolean create_charge_in_area(ChargesInAreas chargesInAreas){
-        return chargesInAreasImplDAO.insert_charge_in_area(chargesInAreas);  
+    public static boolean create_charge_in_area(ChargesInAreas chargesInAreas, Area area){
+        return chargesInAreasImplDAO.insert_charge_in_area(chargesInAreas, area);  
     }//Fin del servicio
            
     /**
@@ -58,10 +60,20 @@ public class ServiceChargesInAreas {
     /**
      * Servicio para la eliminar cargas de un área, recibe un objeto ChargesInAreas.
      * @param chargesInAreas 
+     * @param area 
      * @return Retorna true si el proceso de registro a finalizado con exito 
      */
-    public static boolean delete_charge_in_area(ChargesInAreas chargesInAreas){
-        return chargesInAreasImplDAO.delete_charge_in_area(chargesInAreas);  
+    public static boolean delete_charge_in_area(ChargesInAreas chargesInAreas, Area area){
+        return chargesInAreasImplDAO.delete_charge_in_area(chargesInAreas,area);  
     }//Fin del servicio
+        
+    /**
+     * Servicio para validar que una carga ya no haya sido asignada a un área.
+     * @param chargesInAreas
+     * @return Retorna true en caso de que la carga ya haya sido asignada. Caso contrario retorna false.
+     */
+    public static boolean validate_charge_in_area(ChargesInAreas chargesInAreas){
+        return chargesInAreasImplDAO.validate_charge_in_area(chargesInAreas);
+    }//FIn del Servicio
     
 }

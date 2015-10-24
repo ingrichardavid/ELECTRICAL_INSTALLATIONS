@@ -11,10 +11,14 @@ import com.electrical_installations.global.method.Methods;
 import com.electrical_installations.model.entity.Area;
 import com.electrical_installations.model.entity.Charge;
 import com.electrical_installations.model.entity.ChargesInAreas;
-import com.electrical_installations.model.entity.Elevator;
+import com.electrical_installations.model.entity.masters.Elevator;
 import com.electrical_installations.model.entity.ElevatorInInstallation;
 import com.electrical_installations.model.entity.Project;
+import com.electrical_installations.model.entity.TypeCharges;
 import com.electrical_installations.model.entity.TypeOfInstallation;
+import com.electrical_installations.model.entity.masters.Potency;
+import com.electrical_installations.model.entity.masters.Unit;
+import com.electrical_installations.model.enums.TypeSubTypeCharge;
 import com.electrical_installations.model.service.ServiceArea;
 import com.electrical_installations.model.service.ServiceChargesInAreas;
 import com.electrical_installations.model.service.ServiceElevator;
@@ -46,7 +50,7 @@ public class ControllerProjectData implements ActionListener, WindowListener, Ke
     private final ViewProyectData viewProjectData;
     private static final Messages messages = Messages.getInstance();
     private ViewArea viewArea;
-    private ViewCharge viewVoltageInArea;
+    private ViewCharge viewCharge;
     private ViewAddElevatorToInstallation viewAddElevatorToInstallation;
     private Area area;
     private List<ElevatorInInstallation> elevatorInInstallation;
@@ -68,46 +72,17 @@ public class ControllerProjectData implements ActionListener, WindowListener, Ke
     /**
      * Método para llenar tabla Elevadores.
      */
-    private void fill_table_type_elevators(){
+    public void fill_table_type_elevators(){
         elevators = ServiceElevator.find_elevators();
         if (elevators != null){            
             Methods.removeRows(viewProjectData.getTblTypesOfElevators());
             for (Elevator elevator_data : elevators) {
-                Object[] data = {elevator_data.getCode(),elevator_data.getNumber_persons(),Methods.round(elevator_data.getSpeed(),2),elevator_data.getPotency()};
+                Object[] data = {elevator_data.getCode(),elevator_data.getPersonNumber().getQuantity(),Methods.round(elevator_data.getSpeed().getSpeed(),2),elevator_data.getPotency().getQuantity()};
                 ((DefaultTableModel) viewProjectData.getTblTypesOfElevators().getModel()).addRow(data);
             }
         }
     }//Fin del método
-    
-////    /**
-////     * Método para llenar tabla Cargas.
-////     */
-////    private void fill_table_charges(){
-////        charges = ServiceCharge.find_charges();
-////        if (charges != null){            
-////            Methods.removeRows(viewProjectData.getTblCharges());
-////            for (Charge charge_data : charges) {
-////                Object[] data = {charge_data.getCode(),charge_data.getName(),charge_data.getPotency()};
-////                ((DefaultTableModel) viewProjectData.getTblCharges().getModel()).addRow(data);
-////            }
-////        }
-////    }//Fin del método
-    
-////    /**
-////     * Método para llenar tabla con datos de cargas filtrados por nombre.
-////     * @param name 
-////     */
-////    private void fill_table_names_of_charges(String name){        
-////        charges = ServiceCharge.filter_by_name(new Charge(name));
-////        if (charges != null){         
-////            Methods.removeRows(viewProjectData.getTblCharges());
-////            for (Charge charge_data : charges) {
-////                Object[] data = {charge_data.getCode(),charge_data.getName(),charge_data.getPotency()};
-////                ((DefaultTableModel) viewProjectData.getTblCharges().getModel()).addRow(data);
-////            }
-////        }
-////    }//Fin del método 
-    
+     
     /**
      * Método para llenar tabla con datos cargas en áreas filtrados por nombres.
      * @param name 
@@ -115,11 +90,11 @@ public class ControllerProjectData implements ActionListener, WindowListener, Ke
     private void fill_table_charges_in_area(String name){        
         try {
             int row = viewProjectData.getTblArea().getSelectedRow();
-            chargesInAreas = ServiceChargesInAreas.filter_by_name(new ChargesInAreas(new Charge(0, name, 0), new Area(Integer.valueOf(viewProjectData.getTblArea().getValueAt(row, 0).toString())), 0,0, null, null, null));
+            chargesInAreas = ServiceChargesInAreas.filter_by_name(new ChargesInAreas(new Charge(0, name, 0,true,false,false,null), new Area(Integer.valueOf(viewProjectData.getTblArea().getValueAt(row, 0).toString())), 0,0, null, null, null, null));
             if (chargesInAreas != null){            
                 Methods.removeRows(viewProjectData.getTblAreasCharges());
                 for (ChargesInAreas charges_in_areas_data : chargesInAreas) {
-                    Object[] data = {charges_in_areas_data.getArea().getCode(),charges_in_areas_data.getCharge().getCode(),charges_in_areas_data.getCharge().getName(),charges_in_areas_data.getQuantity(),charges_in_areas_data.getCharge().getPotency(),charges_in_areas_data.getVoltage()};
+                    Object[] data = {charges_in_areas_data.getArea().getCode(),charges_in_areas_data.getCharge().getCode(),charges_in_areas_data.getCharge().getName(),charges_in_areas_data.getQuantity(),charges_in_areas_data.getPotency(),charges_in_areas_data.getPhase().getCode(),charges_in_areas_data.getCharge().getTypeCharges().getType()};
                     ((DefaultTableModel) viewProjectData.getTblAreasCharges().getModel()).addRow(data);
                 }
             }
@@ -137,11 +112,11 @@ public class ControllerProjectData implements ActionListener, WindowListener, Ke
     private void fill_table_type_elevators(String name){        
         try {
             int row = viewProjectData.getTblTypesOfElevators().getSelectedRow();
-            elevators = ServiceElevator.filter_by_name(new Elevator(name));
+            elevators = ServiceElevator.filter_by_name(new Elevator(0, null, null, new Potency(0, new Unit(0, name), 0)));
             if (elevators != null){            
                 Methods.removeRows(viewProjectData.getTblTypesOfElevators());
                 for (Elevator elevator_data : elevators) {
-                    Object[] data = {elevator_data.getCode(),elevator_data.getNumber_persons(),Methods.round(elevator_data.getSpeed(),2),elevator_data.getPotency()};
+                    Object[] data = {elevator_data.getCode(),elevator_data.getPersonNumber().getQuantity(),Methods.round(elevator_data.getSpeed().getSpeed(),2),elevator_data.getPotency().getQuantity()};
                     ((DefaultTableModel) viewProjectData.getTblTypesOfElevators().getModel()).addRow(data);
                 }
             }
@@ -151,26 +126,11 @@ public class ControllerProjectData implements ActionListener, WindowListener, Ke
             viewProjectData.getTblArea().requestFocus();       
         }
     }//Fin del método 
-    
-    /**
-     * Método para calcular la potencia total en iluminaria y toma corrientes
-     *
-     * @param potencyInIluminaria
-     * @param potencyInPowerPoint
-     * @return Retorna la potencia total
-     */
-    private double calculate_potencyTotal(double potencyInIluminaria, double potencyInPowerPoint) {
-        if ((potencyInIluminaria + potencyInPowerPoint) > 3000) {
-            return (((potencyInIluminaria + potencyInPowerPoint) - 3000) * this.potencyTotalRoominess) + 3000;
-        } else {
-            return potencyInIluminaria + potencyInPowerPoint;
-        }
-    }//Fin del Método
-    
+
     /**
      * Método para llenar tabla Áreas.
      */
-    private void fill_areas(){
+    public void fill_areas(){
         areas = ServiceArea.find_areas(new Area(
                 0, 
                 null, 
@@ -217,11 +177,11 @@ public class ControllerProjectData implements ActionListener, WindowListener, Ke
     private void fill_table_charges_in_areas(){   
         try {
             int row = viewProjectData.getTblArea().getSelectedRow();
-            chargesInAreas = ServiceChargesInAreas.find_charges_in_areas(new ChargesInAreas(null, new Area(Integer.valueOf(viewProjectData.getTblArea().getValueAt(row, 0).toString())), 0,0, null, null, null));
+            chargesInAreas = ServiceChargesInAreas.find_charges_in_areas(new ChargesInAreas(null, new Area(Integer.valueOf(viewProjectData.getTblArea().getValueAt(row, 0).toString())), 0,0, null, null, null, null));
             if (chargesInAreas != null){            
                 Methods.removeRows(viewProjectData.getTblAreasCharges());
                 for (ChargesInAreas charges_in_areas_data : chargesInAreas) {
-                    Object[] data = {charges_in_areas_data.getArea().getCode(),charges_in_areas_data.getCharge().getCode(),charges_in_areas_data.getCharge().getName(),charges_in_areas_data.getQuantity(),charges_in_areas_data.getCharge().getPotency(),charges_in_areas_data.getVoltage()};
+                    Object[] data = {charges_in_areas_data.getArea().getCode(),charges_in_areas_data.getCharge().getCode(),charges_in_areas_data.getCharge().getName(),charges_in_areas_data.getQuantity(),charges_in_areas_data.getPotency(),charges_in_areas_data.getPhase().getCode(),charges_in_areas_data.getCharge().getTypeCharges().getCode(),charges_in_areas_data.getCharge().getTypeCharges().getType()};
                     ((DefaultTableModel) viewProjectData.getTblAreasCharges().getModel()).addRow(data);
                 }
             }
@@ -232,16 +192,41 @@ public class ControllerProjectData implements ActionListener, WindowListener, Ke
     }//Fin del método
     
     /**
+     * Método para desplegar la Vista Cargas y agregar una nueva carga a una Área seleccionada.
+     */
+    private void add_charge(){    
+        try {
+            int row = viewProjectData.getTblArea().getSelectedRow();
+            viewCharge = new ViewCharge(null, true);
+            area = new Area(
+                    Integer.valueOf(viewProjectData.getTblArea().getValueAt(row, 0).toString()), 
+                    viewProjectData.getTblArea().getValueAt(row, 1).toString(), 
+                    new Project(viewProjectData.getProjectCode(), null, new TypeOfInstallation(viewProjectData.getType_installation_code(), null), null, 0, null), 
+                    Double.valueOf(viewProjectData.getTblArea().getValueAt(row, 2).toString()), 
+                    Double.valueOf(viewProjectData.getTblArea().getValueAt(row, 3).toString()), 
+                    Integer.valueOf(viewProjectData.getTblArea().getValueAt(row, 4).toString()));
+            viewCharge.setArea(area);
+            viewCharge.setTitle("Área: " + area.getName() + ". " + viewCharge.getTitle());
+            viewCharge.setVisible(true);  
+            this.fill_areas();
+            viewProjectData.getTblArea().setRowSelectionInterval(row, row); 
+            this.fill_table_charges_in_areas();
+        } catch (ArrayIndexOutOfBoundsException e) {
+            MessagesStructure.Warning(MessagesStructure.format(200, messages.getProperty(Messages.NOT_SELECT_ROW), MessagesStructure.justify));
+            viewProjectData.getTblArea().requestFocus();
+        }  
+    }//Fin del Método.
+    
+    /**
      * Método para desplegar la vista ViewArea y registrar una nueva área.
      */
     private void area_register(){
-        viewArea = new ViewArea(null, true);
-        viewArea.setTitle("Agregar Área");
+        viewArea = new ViewArea(null, true,"Agregar Área");
         viewArea.setArea(new Area(0, null, new Project(viewProjectData.getProjectCode(), null, new TypeOfInstallation(viewProjectData.getType_installation_code(), null), null, 0, null), 0, 0, 0));
         viewArea.visible_buttons(false, true, true);
         viewArea.setVisible(true);
         Methods.removeRows(viewProjectData.getTblAreasCharges());
-        this.fill_areas();    
+        this.fill_areas();      
     }//Fin del método
     
     /**
@@ -250,8 +235,6 @@ public class ControllerProjectData implements ActionListener, WindowListener, Ke
     private void modify_area(){
         try {
             int row = viewProjectData.getTblArea().getSelectedRow();
-            viewArea = new ViewArea(null, true);
-            viewArea.setTitle("Modificar Área");
             area = new Area(
                     Integer.valueOf(viewProjectData.getTblArea().getValueAt(row, 0).toString()), 
                     viewProjectData.getTblArea().getValueAt(row, 1).toString(), 
@@ -259,9 +242,11 @@ public class ControllerProjectData implements ActionListener, WindowListener, Ke
                     Double.valueOf(viewProjectData.getTblArea().getValueAt(row, 2).toString()), 
                     Double.valueOf(viewProjectData.getTblArea().getValueAt(row, 3).toString()), 
                     Integer.valueOf(viewProjectData.getTblArea().getValueAt(row, 4).toString()));
+            viewArea = new ViewArea(null, true,"Modificar Área");
             viewArea.setArea(area);
             viewArea.setAreaIluminariaPowerPoints(ServiceArea.find_iluminaria_powerPoint(area));
             viewArea.fill_fields(area,viewArea.getAreaIluminariaPowerPoints());
+            viewArea.fill_fields_combos(viewArea.getAreaIluminariaPowerPoints());
             viewArea.visible_buttons(true, false, true);
             viewArea.setVisible(true);
             if (viewArea.getModify()){                
@@ -292,20 +277,55 @@ public class ControllerProjectData implements ActionListener, WindowListener, Ke
         }
     }//Fin del método
     
-    
     /**
      * Método para eliminar Cargas de un Áreas.
      */
     private void remove_charges_in_areas(){ 
         int row_area = viewProjectData.getTblArea().getSelectedRow();
-        int[] rows = viewProjectData.getTblAreasCharges().getSelectedRows();        
+        double potency_total = Double.valueOf(viewProjectData.getTblArea().getValueAt(row_area, 2).toString());
+        double neutral = Double.valueOf(viewProjectData.getTblArea().getValueAt(row_area, 3).toString());
+        int[] rows = viewProjectData.getTblAreasCharges().getSelectedRows(); 
         try {       
-            for (int i = 0; i < rows.length; i++){    
+            for (int i = 0; i < rows.length; i++) {    
+                if (Integer.valueOf(viewProjectData.getTblAreasCharges().getValueAt(rows[i], 5).toString()) == 1){
+                   potency_total = potency_total - ((Integer.valueOf(viewProjectData.getTblAreasCharges().getValueAt(rows[i], 3).toString())) * (Double.valueOf(viewProjectData.getTblAreasCharges().getValueAt(rows[i], 4).toString())));
+                   neutral = neutral - ((Integer.valueOf(viewProjectData.getTblAreasCharges().getValueAt(rows[i], 3).toString())) * (Double.valueOf(viewProjectData.getTblAreasCharges().getValueAt(rows[i], 4).toString())));
+                } else {
+                   potency_total = potency_total - ((Integer.valueOf(viewProjectData.getTblAreasCharges().getValueAt(rows[i], 3).toString())) * (Double.valueOf(viewProjectData.getTblAreasCharges().getValueAt(rows[i], 4).toString())));
+                }          
+                Area area_to_modify = new Area(
+                            Integer.valueOf(viewProjectData.getTblArea().getValueAt(row_area, 0).toString()), 
+                            viewProjectData.getTblArea().getValueAt(row_area, 1).toString(), 
+                            new Project(viewProjectData.getProjectCode(), null, new TypeOfInstallation(viewProjectData.getType_installation_code(), null), null, 0, null), 
+                            potency_total, 
+                            neutral, 
+                            Integer.valueOf(viewProjectData.getTblArea().getValueAt(row_area, 4).toString()));
+                double quantityPotencyIntensity = 0;
+                if (viewProjectData.getTblAreasCharges().getValueAt(rows[i], 7).toString().equalsIgnoreCase(TypeSubTypeCharge.POTENCY.getSubTypeCharge())){
+                    quantityPotencyIntensity = Integer.valueOf(viewProjectData.getTblAreasCharges().getValueAt(rows[i], 3).toString()) * 
+                                        Double.valueOf(viewProjectData.getTblAreasCharges().getValueAt(rows[i], 4).toString());                         
+                } else if (viewProjectData.getTblAreasCharges().getValueAt(rows[i], 7).toString().equalsIgnoreCase(TypeSubTypeCharge.QUANTITY.getSubTypeCharge())) {
+                    quantityPotencyIntensity = Double.valueOf(viewProjectData.getTblAreasCharges().getValueAt(rows[i], 3).toString());
+                } else {
+                    quantityPotencyIntensity = Integer.valueOf(viewProjectData.getTblAreasCharges().getValueAt(rows[i], 3).toString()) * 
+                                        Double.valueOf(viewProjectData.getTblAreasCharges().getValueAt(rows[i], 4).toString());
+                }
                 ServiceChargesInAreas.delete_charge_in_area(new ChargesInAreas(
                         new Charge(Integer.valueOf(viewProjectData.getTblAreasCharges().getValueAt(rows[i], 1).toString()), 
                                 null, 
-                                0), 
-                        new Area(Integer.parseInt(viewProjectData.getTblAreasCharges().getValueAt(rows[i], 0).toString())), 0,0, null, null, null));                
+                                0,
+                                true,
+                                false,
+                                false,
+                                new TypeCharges(Integer.valueOf(viewProjectData.getTblAreasCharges().getValueAt(rows[i], 6).toString()), null, viewProjectData.getTblAreasCharges().getValueAt(rows[i], 7).toString())), 
+                        new Area(Integer.parseInt(viewProjectData.getTblAreasCharges().getValueAt(rows[i], 0).toString())), 
+                        quantityPotencyIntensity,
+                        0, 
+                        null, 
+                        null, 
+                        null, 
+                        null),
+                        area_to_modify);                
             }
             Methods.removeRows(viewProjectData.getTblAreasCharges());
             this.fill_areas(); 
@@ -316,47 +336,7 @@ public class ControllerProjectData implements ActionListener, WindowListener, Ke
             viewProjectData.getTblAreasCharges().requestFocus();            
         }
     }//Fin del método
-       
-    /**
-     * Método para agregar cargas en área.
-     */
-////    private void insert_charge_in_area(){     
-////        int row_area = -1;
-////        int[] rows = null;  
-////        try {         
-////            row_area = viewProjectData.getTblArea().getSelectedRow();
-////////            rows = viewProjectData.getTblCharges().getSelectedRows();                             
-////            viewVoltageInArea = new ViewCharge(null, true);
-////            viewVoltageInArea.setVisible(true);
-////
-////            if (viewVoltageInArea.getVoltage() != 0){
-////                for (int i = 0; i < rows.length; i++){                
-////                    if (ServiceChargesInAreas.create_charge_in_area(new ChargesInAreas(
-////                            new Charge(Integer.valueOf(viewProjectData.getTblCharges().getValueAt(rows[i], 0).toString()), 
-////                                    viewProjectData.getTblCharges().getValueAt(rows[i], 1).toString(), 
-////                                    Integer.valueOf(viewProjectData.getTblCharges().getValueAt(rows[i], 2).toString())), 
-////                            new Area(Integer.parseInt(viewProjectData.getTblArea().getValueAt(row_area, 0).toString())), 1,
-////                            viewVoltageInArea.getVoltage(),
-////                            viewVoltageInArea.getCmbTemperature().getSelectedItem().toString(),
-////                            viewVoltageInArea.getMaterial(),
-////                            viewVoltageInArea.getCmbPhases().getSelectedItem().toString()))){                       
-////                        this.fill_table_charges_in_areas();                    
-////                    } 
-////                }
-////                this.fill_areas();
-////                viewProjectData.getTblArea().setRowSelectionInterval(row_area, row_area);
-////            }
-////        } catch (ArrayIndexOutOfBoundsException e) {
-////            if (row_area < 0){            
-////                MessagesStructure.Warning(MessagesStructure.format(200, messages.getProperty(Messages.AREA_NOT_SELECTED), MessagesStructure.justify));
-////                viewProjectData.getTblArea().requestFocus();
-////            } else {
-////                MessagesStructure.Warning(MessagesStructure.format(200, messages.getProperty(Messages.CHARGE_NOT_SELECTED), MessagesStructure.justify));
-////                viewProjectData.getTblCharges().requestFocus();
-////            }            
-////        }
-////    }//Fin del método
-    
+      
     /**
      * Método para llenar tabla elevadores en instalación.
      */
@@ -378,45 +358,45 @@ public class ControllerProjectData implements ActionListener, WindowListener, Ke
         }
     }//Fin del método
     
-    /**
-     * Método para agregar elevador a una instalación.
-     */
-    private void insert_elevator_in_installation(){      
-        int rows[] = viewProjectData.getTblTypesOfElevators().getSelectedRows();  
-        try {                                    
-            viewAddElevatorToInstallation = new ViewAddElevatorToInstallation(null, true);
-            viewAddElevatorToInstallation.setVisible(true);
-
-            if (viewAddElevatorToInstallation.getVoltage() != 0){
-                for (int i = 0; i < rows.length; i++){                
-                    if (ServiceElevatorInInstallation.insert_elevator_in_installation(new ElevatorInInstallation(new Project(viewProjectData.getProjectCode(), null, new TypeOfInstallation(viewProjectData.getType_installation_code(), null), null, 0, null), new Elevator(Integer.valueOf(viewProjectData.getTblTypesOfElevators().getValueAt(rows[i], 0).toString()), 0, 0, 0), 1, Integer.valueOf(viewProjectData.getTblTypesOfElevators().getValueAt(rows[i], 3).toString()), 
-                            viewAddElevatorToInstallation.getTemperature(), viewAddElevatorToInstallation.getMaterial(), viewAddElevatorToInstallation.getPhase(), viewAddElevatorToInstallation.getVoltage()))){                       
-                        this.fill_table_elevators_in_installation();                    
-                    } 
-                }
-            }
-        } catch (ArrayIndexOutOfBoundsException e) {   
-            MessagesStructure.Warning(MessagesStructure.format(200, messages.getProperty(Messages.NOT_SELECT_ROW), MessagesStructure.justify));
-            viewProjectData.getTblArea().requestFocus();                      
-        }
-    }//Fin del método
+////    /**
+////     * Método para agregar elevador a una instalación.
+////     */
+////    private void insert_elevator_in_installation(){      
+////        int rows[] = viewProjectData.getTblTypesOfElevators().getSelectedRows();  
+////        try {                                    
+////            viewAddElevatorToInstallation = new ViewAddElevatorToInstallation(null, true);
+////            viewAddElevatorToInstallation.setVisible(true);
+////
+////            if (viewAddElevatorToInstallation.getVoltage() != 0){
+////                for (int i = 0; i < rows.length; i++){                
+////                    if (ServiceElevatorInInstallation.insert_elevator_in_installation(new ElevatorInInstallation(new Project(viewProjectData.getProjectCode(), null, new TypeOfInstallation(viewProjectData.getType_installation_code(), null), null, 0, null), new Elevator(Integer.valueOf(viewProjectData.getTblTypesOfElevators().getValueAt(rows[i], 0).toString()), 0, 0, 0), 1, Integer.valueOf(viewProjectData.getTblTypesOfElevators().getValueAt(rows[i], 3).toString()), 
+////                            viewAddElevatorToInstallation.getTemperature(), viewAddElevatorToInstallation.getMaterial(), viewAddElevatorToInstallation.getPhase(), viewAddElevatorToInstallation.getVoltage()))){                       
+////                        this.fill_table_elevators_in_installation();                    
+////                    } 
+////                }
+////            }
+////        } catch (ArrayIndexOutOfBoundsException e) {   
+////            MessagesStructure.Warning(MessagesStructure.format(200, messages.getProperty(Messages.NOT_SELECT_ROW), MessagesStructure.justify));
+////            viewProjectData.getTblArea().requestFocus();                      
+////        }
+////    }//Fin del método
         
-    /**
-     * Método para eliminar Elevadores de una instalación.
-     */
-    private void remove_elevators_in_installation(){ 
-        int[] rows = viewProjectData.getTblElevators().getSelectedRows();        
-        try {       
-            for (int i = 0; i < rows.length; i++){    
-                ServiceElevatorInInstallation.delete_elevator_in_installation(new ElevatorInInstallation(new Project(Integer.valueOf(viewProjectData.getTblElevators().getValueAt(rows[i], 0).toString()), null, new TypeOfInstallation(Integer.valueOf(viewProjectData.getTblElevators().getValueAt(rows[i], 1).toString()), null), null, 0, null), new Elevator(Integer.valueOf(viewProjectData.getTblElevators().getValueAt(rows[i], 2).toString()), 0, 0, 0), 0, 0, null, null, null, 0));
-            }
-            Methods.removeRows(viewProjectData.getTblElevators());
-            this.fill_table_elevators_in_installation();           
-        } catch (Exception e) {
-            MessagesStructure.Warning(MessagesStructure.format(200, messages.getProperty(Messages.NOT_SELECT_ROW), MessagesStructure.justify));
-            viewProjectData.getTblElevators().requestFocus();            
-        }
-    }//Fin del método
+////    /**
+////     * Método para eliminar Elevadores de una instalación.
+////     */
+////    private void remove_elevators_in_installation(){ 
+////        int[] rows = viewProjectData.getTblElevators().getSelectedRows();        
+////        try {       
+////            for (int i = 0; i < rows.length; i++){    
+////                ServiceElevatorInInstallation.delete_elevator_in_installation(new ElevatorInInstallation(new Project(Integer.valueOf(viewProjectData.getTblElevators().getValueAt(rows[i], 0).toString()), null, new TypeOfInstallation(Integer.valueOf(viewProjectData.getTblElevators().getValueAt(rows[i], 1).toString()), null), null, 0, null), new Elevator(Integer.valueOf(viewProjectData.getTblElevators().getValueAt(rows[i], 2).toString()), 0, 0, 0), 0, 0, null, null, null, 0));
+////            }
+////            Methods.removeRows(viewProjectData.getTblElevators());
+////            this.fill_table_elevators_in_installation();           
+////        } catch (Exception e) {
+////            MessagesStructure.Warning(MessagesStructure.format(200, messages.getProperty(Messages.NOT_SELECT_ROW), MessagesStructure.justify));
+////            viewProjectData.getTblElevators().requestFocus();            
+////        }
+////    }//Fin del método
     
     /**
      * Método para llenar tabla elevadores en instalación filtrados por nombre.
@@ -451,24 +431,20 @@ public class ControllerProjectData implements ActionListener, WindowListener, Ke
         } else if (e.getSource().equals(viewProjectData.getBtnClose())){
             viewProjectData.dispose();
         } 
-        else if (e.getSource().equals(viewProjectData.getBtnAddCharge())){
-            this.viewVoltageInArea = new ViewCharge(null, true);
-            this.viewVoltageInArea.setVisible(true);
+        else if (e.getSource().equals(viewProjectData.getBtnAddCharge())){          
+            add_charge();
         }
         else if (e.getSource().equals(viewProjectData.getBtnDeleteChargesInAreas())){
             remove_charges_in_areas();
         } else if (e.getSource().equals(viewProjectData.getBtnAddElevators())){
-            insert_elevator_in_installation();
+//            insert_elevator_in_installation();
         } else if (e.getSource().equals(viewProjectData.getBtnDeleteElevatorInInstallation())){
-            remove_elevators_in_installation();
+//            remove_elevators_in_installation();
         } 
     }
 
     @Override
     public void windowOpened(WindowEvent e) {
-        this.fill_areas();
-////        this.fill_table_charges();
-        this.fill_table_type_elevators();
         this.fill_table_elevators_in_installation();
     }
 

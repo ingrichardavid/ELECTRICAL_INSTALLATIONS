@@ -6,6 +6,7 @@
 package com.electrical_installations.model.dao;
 
 import com.electrical_installations.model.entity.masters.HorsePower;
+import com.electrical_installations.model.entity.masters.HorsesPowers;
 import java.util.List;
 
 /**
@@ -22,5 +23,10 @@ public interface HorsePowerDAO {
      */
     public List<HorsePower> find_horses_power();
     
+    /**
+     * Buscar intensidad por Caballo de fuerza y voltaje.
+     * @return Rertorna un objeto HorsesPowers con la intensidad 
+     */
+    public HorsesPowers find_intensity_horses_power(HorsesPowers horsesPowers);
     
 }

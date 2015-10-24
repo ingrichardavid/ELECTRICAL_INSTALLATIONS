@@ -82,7 +82,7 @@ public interface AreaDAO {
      * @param roominess
      * @return Retorna el código del registro, el código y nombre del calibre.
      */
-    public Calibers find_caliber_ilumiaria_power_point(Calibers calibers,double roominess);
+    public Calibers find_caliber_iluminaria_power_point(Calibers calibers,double roominess);
     
     /**
      * Método para encontrar la Iluminaria y Toma corriente de un Área.

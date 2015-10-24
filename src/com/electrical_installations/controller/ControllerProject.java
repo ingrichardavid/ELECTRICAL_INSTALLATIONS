@@ -78,18 +78,11 @@ public class ControllerProject implements ActionListener, KeyListener, ChangeLis
      * @return Retorna true en caso de que los campos sean completados
      */
     private boolean validate_fields(){
-        if (!validate_name()){
-            return false;
-        } else if (viewProject.getCmbType().getSelectedIndex() == 0){
-            MessagesStructure.Warning(MessagesStructure.format(200, messages.getProperty(Messages.PROJECT_TYPE_NO_FOUND), MessagesStructure.justify));
-            viewProject.getCmbType().requestFocus();
-            return false;
-        }
-        return true;
+        return validate_name();
     }//Fin del método
     
     /**
-     * Método para llenar todos los campos de la vista ViewProject1, recibe como parámetro un objeto Project.
+     * Método para llenar todos los campos de la vista ViewProject, recibe como parámetro un objeto Project.
      * @param project 
      */
     private void fill_fields(Project project){
@@ -122,7 +115,7 @@ public class ControllerProject implements ActionListener, KeyListener, ChangeLis
     /**
      * Método para llenar tabla con datos de projectos.
      */
-    private void fill_table(){
+    public void fill_table(){
         projects = ServiceProject.find_projects(new User(session.getNationality(), session.getDni()));
         if (projects != null){            
             Methods.removeRows(viewProject.getTblData());
@@ -225,13 +218,13 @@ public class ControllerProject implements ActionListener, KeyListener, ChangeLis
     /**
      * Método para llenar combo Tipo de Instalación.
      */
-    private void fill_types_of_installation(){
+    public void fill_types_of_installation(){
         typeOfInstallations = ServiceTypeOfInstallation.find_type_of_installations();
         if (typeOfInstallations != null){
             for (TypeOfInstallation typeOfInstallation : typeOfInstallations){
                 viewProject.getCmbType().addItem(typeOfInstallation);
             }     
-            viewProject.getCmbType().setSelectedIndex(1);
+            viewProject.getCmbType().setSelectedIndex(0);
         } else {
             MessagesStructure.Warning(MessagesStructure.format(200, messages.getProperty(Messages.TYPE_INSTALLATIONS_NO_FOUND), MessagesStructure.justify));
             viewProject.dispose();
@@ -251,6 +244,7 @@ public class ControllerProject implements ActionListener, KeyListener, ChangeLis
                     viewProject.getTblData().getValueAt(row, 1).toString(), 
                     Integer.valueOf(viewProject.getTblData().getValueAt(row, 4).toString()), 
                     viewProject.getTblData().getValueAt(row, 5).toString()));
+            viewProjectData.controllerProjectData.fill_areas();
             viewProjectData.setTitle("Proyecto: " + viewProjectData.getLblName().getText());
             viewProjectData.setVisible(true);
             this.clean_all();
@@ -337,8 +331,6 @@ public class ControllerProject implements ActionListener, KeyListener, ChangeLis
 
     @Override
     public void windowOpened(WindowEvent e) {
-        fill_types_of_installation();
-        fill_table();
     }
 
     @Override

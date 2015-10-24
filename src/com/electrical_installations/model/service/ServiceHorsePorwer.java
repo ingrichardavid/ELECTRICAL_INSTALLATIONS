@@ -6,6 +6,7 @@
 package com.electrical_installations.model.service;
 
 import com.electrical_installations.model.entity.masters.HorsePower;
+import com.electrical_installations.model.entity.masters.HorsesPowers;
 import com.electrical_installations.model.implementation.HorsePowerImplDAO;
 import java.util.List;
 
@@ -32,6 +33,15 @@ public class ServiceHorsePorwer {
      */
     public static List<HorsePower> find_horses_power(){
         return horsePowerImplDAO.find_horses_power();
+    }//Fin del servicio
+        
+    /**
+     * Servicio para buscar intensidad por Caballo de fuerza y voltaje.
+     * @param horsesPowers
+     * @return Rertorna un objeto HorsesPowers con la intensidad 
+     */
+    public static HorsesPowers find_intensity_horses_power(HorsesPowers horsesPowers){
+        return horsePowerImplDAO.find_intensity_horses_power(horsesPowers);
     }//Fin del servicio
          
 }

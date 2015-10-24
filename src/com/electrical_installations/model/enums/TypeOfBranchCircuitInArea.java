@@ -6,14 +6,14 @@
 package com.electrical_installations.model.enums;
 
 /**
- * Clase enumerada para almacenar los tipos de circuitos ramales en un Área, (Iluminaria y Toma Corriente).
+ * Clase enumerada para almacenar los tipos de circuitos ramales en un Área, (Iluminaria, Toma Corriente y Sub-Alimentador).
  * @author Ing. Richard David
  * @version 1
  * @since 2015-09-13
  */
 public enum TypeOfBranchCircuitInArea {
     
-    ILUMINARIA("I"),POWER_POINT("T");
+    ILUMINARIA("I"),POWER_POINT("T"),SUB_FEEDER("A"),NEUTRAL("N");
     
     //Objetos, variables y constantes
     private final String type;

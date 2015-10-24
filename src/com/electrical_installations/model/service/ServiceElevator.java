@@ -6,7 +6,7 @@
 package com.electrical_installations.model.service;
 
 import com.electrical_installations.configuration.Messages;
-import com.electrical_installations.model.entity.Elevator;
+import com.electrical_installations.model.entity.masters.Elevator;
 import com.electrical_installations.model.implementation.ElevatorImplDAO;
 import java.util.List;
 

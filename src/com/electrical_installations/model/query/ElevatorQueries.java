@@ -16,12 +16,48 @@ public class ElevatorQueries {
     /**
      * Mostrar todos todos los Elevadores
      */
-    public static final String SELECT_ALL = "SELECT codigo,numero_de_personas_codigo,velocidad_codigo,potencia_codigo FROM maestros.\"ELEVADOR\" ORDER BY numero_de_personas_codigo,velocidad_codigo ASC;";
+    public static final String SELECT_ALL = "SELECT \n" +
+                                            "	e.codigo,np.cantidad AS cant_persona,v.velocidad AS velocidad,(p.cantidad / 1000) AS cant_potencia \n" +
+                                            "FROM \n" +
+                                            "	maestros.\"ELEVADOR\" AS e\n" +
+                                            "JOIN \n" +
+                                            "	maestros.\"NUMERO_DE_PERSONAS\" AS np\n" +
+                                            "ON \n" +
+                                            "	e.numero_de_personas_codigo = np.codigo\n" +
+                                            "JOIN \n" +
+                                            "	maestros.\"VELOCIDAD\" AS v\n" +
+                                            "ON  \n" +
+                                            "	e.velocidad_codigo = v.codigo\n" +
+                                            "JOIN \n" +
+                                            "	maestros.\"POTENCIA\" AS p\n" +
+                                            "ON \n" +
+                                            "	e.potencia_codigo = p.codigo \n" +
+                                            "ORDER BY \n" +
+                                            "	e.numero_de_personas_codigo,e.velocidad_codigo ASC;";
       
     /**
      * Mostrar todos todas los Elevadores filtrados por nombre.
      */
-    public static final String FILTER_BY_NAME = "SELECT e.codigo,e.numero_de_personas,e.velocidad,e.potencia FROM negocio.\"ELEVADOR\" AS e WHERE TRIM(LOWER(CONCAT(e.numero_de_personas,' ',e.velocidad,' ',e.potencia))) LIKE TRIM(LOWER(?)) ORDER BY e.numero_de_personas,e.velocidad ASC;";
+    public static final String FILTER_BY_NAME = "SELECT \n" +
+                                                "	e.codigo,np.cantidad AS cant_persona,v.velocidad AS velocidad,(p.cantidad / 1000) AS cant_potencia \n" +
+                                                "FROM \n" +
+                                                "	maestros.\"ELEVADOR\" AS e\n" +
+                                                "JOIN \n" +
+                                                "	maestros.\"NUMERO_DE_PERSONAS\" AS np\n" +
+                                                "ON \n" +
+                                                "	e.numero_de_personas_codigo = np.codigo\n" +
+                                                "JOIN \n" +
+                                                "	maestros.\"VELOCIDAD\" AS v\n" +
+                                                "ON  \n" +
+                                                "	e.velocidad_codigo = v.codigo\n" +
+                                                "JOIN \n" +
+                                                "	maestros.\"POTENCIA\" AS p\n" +
+                                                "ON \n" +
+                                                "	e.potencia_codigo = p.codigo\n" +
+                                                "WHERE \n" +
+                                                "	TRIM(LOWER(CONCAT(np.cantidad,' ',v.velocidad ,' ',p.cantidad))) LIKE TRIM(LOWER(?))\n" +
+                                                "ORDER BY \n" +
+                                                "	e.numero_de_personas_codigo,e.velocidad_codigo ASC;";
       
     
 }

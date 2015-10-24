@@ -5,7 +5,9 @@
  */
 package com.electrical_installations.model.dao;
 
+import com.electrical_installations.model.DataBaseConnection;
 import com.electrical_installations.model.entity.ChargesInAreas;
+import com.electrical_installations.model.entity.Area;
 import java.util.List;
 /**
  * Intefaz para el acoplamiento de la Entidad Cargas en Áreas
@@ -18,24 +20,28 @@ public interface ChargesInAreasDAO {
     /**
      * Insertar carga en área.
      * @param chargesInAreas
+     * @param area
      * @return Retorna true en caso de que los datos se hayan insertado con éxito.
      */
-    public boolean insert_charge_in_area(ChargesInAreas chargesInAreas);
-    
-    /**
-     * Modificar cantidad de una carga en área.
-     * @param chargesInAreas
-     * @return Retorna true en caso de que los datos se hayan insertado con éxito.
-     */
-    public boolean modify_charge_in_area(ChargesInAreas chargesInAreas);
-    
+    public boolean insert_charge_in_area(ChargesInAreas chargesInAreas, Area area);
+  
     /**
      * Eliminar carga de un área.
      * @param chargesInAreas
+     * @param area
      * @return Retorna true en caso de que los datos se hayan insertado con éxito.
      */
-    public boolean delete_charge_in_area(ChargesInAreas chargesInAreas);
+    public boolean delete_charge_in_area(ChargesInAreas chargesInAreas, Area area);
             
+    /**
+     * Eliminar un tipo de carga de la entidad alimentador principal
+     * @param chargesInAreas
+     * @param area
+     * @param dataBaseConnection
+     * @return 
+     */
+    public boolean delete_charge_main_feeder(ChargesInAreas chargesInAreas, Area area, DataBaseConnection dataBaseConnection);
+    
     /**
      * Consultar todas las cargas asociadas a un área.
      * @param chargesInAreas
@@ -49,5 +55,12 @@ public interface ChargesInAreasDAO {
      * @return Retorna una lista de Cargas
      */
     public List<ChargesInAreas> filter_by_name(ChargesInAreas chargesInAreas);
+    
+    /**
+     * Validar que una carga ya no haya sido asignada a un área.
+     * @param chargesInAreas
+     * @return Retorna true en caso de que la carga ya haya sido asignada. Caso contrario retorna false.
+     */
+    public boolean validate_charge_in_area(ChargesInAreas chargesInAreas);
     
 }

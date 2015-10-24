@@ -136,6 +136,7 @@ public class AreaImplDAO implements AreaDAO{
                 return false;
             }            
         } catch (SQLException e) {
+            e.printStackTrace();
             try {
                 connection.getConexion().rollback();
             } catch (SQLException ex) {
@@ -189,7 +190,6 @@ public class AreaImplDAO implements AreaDAO{
                     preparedStatement.setInt(15, areaIluminariaPowerPoint.getCode());
                     if (preparedStatement.executeUpdate() > 0){ 
                         status = true;
-                        System.out.println("AQUI: "+ areaIluminariaPowerPoint.getCode());
                     } else {
                         status = false;
                         break;
@@ -391,7 +391,7 @@ public class AreaImplDAO implements AreaDAO{
      * @return Retorna el calibre deseado.
      */
     @Override
-    public Calibers find_caliber_ilumiaria_power_point(Calibers calibers,double roominess){
+    public Calibers find_caliber_iluminaria_power_point(Calibers calibers,double roominess){
         calibersFound = null;
         try {
             preparedStatement = connection.getConexion().prepareStatement(CaliberQueries.FIND_CALIBER);
@@ -400,7 +400,7 @@ public class AreaImplDAO implements AreaDAO{
             preparedStatement.setDouble(3, calibers.getIntensity().getIntensity());
             preparedStatement.setDouble(4, roominess);
             result = preparedStatement.executeQuery();
-            while(result.next()) return calibersFound = new Calibers(result.getInt(1),new Caliber(result.getInt(2), result.getString(3)));
+            while(result.next()) calibersFound = new Calibers(result.getInt(1),new Caliber(result.getInt(2), result.getString(3)));
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
@@ -434,7 +434,10 @@ public class AreaImplDAO implements AreaDAO{
                                 new Caliber(result.getInt(9), result.getString(10))), 
                         new Voltage(result.getInt(11), result.getInt(12), new Unit(0, String.valueOf(result.getInt(12) + " V"))), 
                         new Phase(result.getInt(13), result.getString(14)), 
-                        result.getString(15).equalsIgnoreCase(TypeOfBranchCircuitInArea.ILUMINARIA.getType()) ? TypeOfBranchCircuitInArea.ILUMINARIA : TypeOfBranchCircuitInArea.POWER_POINT, 
+                        result.getString(15).equalsIgnoreCase(TypeOfBranchCircuitInArea.ILUMINARIA.getType()) ? TypeOfBranchCircuitInArea.ILUMINARIA : 
+                                result.getString(15).equalsIgnoreCase(TypeOfBranchCircuitInArea.POWER_POINT.getType()) ? TypeOfBranchCircuitInArea.POWER_POINT :
+                                        result.getString(15).equalsIgnoreCase(TypeOfBranchCircuitInArea.SUB_FEEDER.getType()) ? TypeOfBranchCircuitInArea.SUB_FEEDER :
+                                                result.getString(15).equalsIgnoreCase(TypeOfBranchCircuitInArea.NEUTRAL.getType()) ? TypeOfBranchCircuitInArea.NEUTRAL : null, 
                         result.getDouble(16), 
                         0, 
                         result.getDouble(17), 

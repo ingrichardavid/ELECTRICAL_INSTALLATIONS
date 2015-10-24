@@ -8,6 +8,7 @@ package com.electrical_installations.model.implementation;
 import com.electrical_installations.model.DataBaseConnection;
 import com.electrical_installations.model.dao.ChargeDAO;
 import com.electrical_installations.model.entity.Charge;
+import com.electrical_installations.model.entity.TypeCharges;
 import com.electrical_installations.model.query.ChargeQueries;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -66,7 +67,7 @@ public class ChargeImplDAO implements ChargeDAO{
             preparedStatement = connection.getConexion().prepareStatement(ChargeQueries.SELECT_ALL);
             result = preparedStatement.executeQuery();
             while(result.next()){
-                charges.add(new Charge(result.getInt(1), result.getString(2),result.getInt(3)));
+                charges.add(new Charge(result.getInt(1), result.getString(2),result.getInt(3),result.getBoolean(4),result.getBoolean(5),result.getBoolean(6),new TypeCharges(result.getInt(7), null, result.getString(8))));
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -88,7 +89,7 @@ public class ChargeImplDAO implements ChargeDAO{
             preparedStatement.setString(1,"%"+charge.getName()+"%");
             result = preparedStatement.executeQuery();
             while(result.next()){
-                charges.add(new Charge(result.getInt(1), result.getString(2),result.getInt(3)));
+                charges.add(new Charge(result.getInt(1), result.getString(2),result.getInt(3),result.getBoolean(4),result.getBoolean(5),result.getBoolean(6),new TypeCharges(result.getInt(7), null, result.getString(8))));
             }
         } catch (SQLException e) {
             e.printStackTrace();

@@ -60,8 +60,7 @@ public class CaliberImplDAO implements CaliberDAO {
     }//Fin del método
 
     /**
-     * Método para encontrar todos los nombres de los calibres
-     *
+     * Método para encontrar todos los nombres de los calibres     *
      * @return Retorna una lista de calibres
      */
   
@@ -81,7 +80,5 @@ public class CaliberImplDAO implements CaliberDAO {
         }
         return calibersFound;
     }//Fin del método     
-
- 
 
 }

@@ -7,6 +7,7 @@ package com.electrical_installations.model.implementation;
 
 import com.electrical_installations.model.DataBaseConnection;
 import com.electrical_installations.model.dao.IntensityDAO;
+import com.electrical_installations.model.entity.masters.Calibers;
 import com.electrical_installations.model.entity.masters.Intensity;
 import com.electrical_installations.model.entity.masters.Unit;
 import com.electrical_installations.model.query.IntensityQueries;
@@ -32,7 +33,8 @@ public class IntensityImplDAO implements IntensityDAO {
     private PreparedStatement preparedStatement;
     private ResultSet result;
     private List<Intensity> intensitysFound;
-
+    private Intensity intensityFound;
+    
     /**
      * Constructor de la clase, es privado para cumplir con el patrón
      * Singlenton.
@@ -82,5 +84,30 @@ public class IntensityImplDAO implements IntensityDAO {
         }
         return intensitysFound;
     }//Fin del método     
+
+    /**
+     * Método para calcular la intensidad de diseño a partir de un calibre dado.
+     * @param calibers
+     * @return 
+     */
+    @Override
+    public Intensity calculate_intensity_design(Calibers calibers) {
+        intensityFound = null;
+        try {
+            preparedStatement = connection.getConexion().prepareStatement(IntensityQueries.CALCULATE_INTENSITY_OF_DESIGN);
+            preparedStatement.setInt(1, calibers.getCaliber().getCode());
+            preparedStatement.setInt(2, calibers.getMaterial().getCode());
+            preparedStatement.setInt(3, calibers.getTemperature().getCode());
+            result = preparedStatement.executeQuery();
+            while(result.next()){
+                intensityFound = new Intensity(result.getInt(1), null, result.getDouble(2));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            connection.closeConnection();
+        }
+        return intensityFound;
+    }//Fin del método
 
 }

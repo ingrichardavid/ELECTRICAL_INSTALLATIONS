@@ -25,7 +25,7 @@ import javax.swing.JTextField;
 public class ViewProyectData extends javax.swing.JDialog {
 
     //Objectos, variables y constantes
-    private final ControllerProjectData controllerProjectData;
+    public final ControllerProjectData controllerProjectData;
     private final Font fuente;
     private int projectCode;
     private int type_installation_code;
@@ -58,7 +58,16 @@ public class ViewProyectData extends javax.swing.JDialog {
         tblAreasCharges.getColumnModel().getColumn(1).setMaxWidth(0);
         tblAreasCharges.getColumnModel().getColumn(1).setMinWidth(0);
         tblAreasCharges.getColumnModel().getColumn(1).setPreferredWidth(0); 
-        int[] anchos2 = {0, 0, 100, 30, 45,30};
+        tblAreasCharges.getColumnModel().getColumn(5).setMaxWidth(0);
+        tblAreasCharges.getColumnModel().getColumn(5).setMinWidth(0);
+        tblAreasCharges.getColumnModel().getColumn(5).setPreferredWidth(0); 
+        tblAreasCharges.getColumnModel().getColumn(6).setMaxWidth(0);
+        tblAreasCharges.getColumnModel().getColumn(6).setMinWidth(0);
+        tblAreasCharges.getColumnModel().getColumn(6).setPreferredWidth(0); 
+        tblAreasCharges.getColumnModel().getColumn(7).setMaxWidth(0);
+        tblAreasCharges.getColumnModel().getColumn(7).setMinWidth(0);
+        tblAreasCharges.getColumnModel().getColumn(7).setPreferredWidth(0); 
+        int[] anchos2 = {0, 0, 100, 30, 45, 0, 0, 0};
         for (int i = 0; i < tblAreasCharges.getColumnCount(); i++) {
             tblAreasCharges.getColumnModel().getColumn(i).setPreferredWidth(anchos2[i]);
         }
@@ -92,6 +101,7 @@ public class ViewProyectData extends javax.swing.JDialog {
         }
         
         controllerProjectData = new ControllerProjectData(this);
+        controllerProjectData.fill_table_type_elevators();
         this.btnNew.addActionListener(controllerProjectData);
         this.btnModify.addActionListener(controllerProjectData);
         this.btnDelete.addActionListener(controllerProjectData);
@@ -131,11 +141,11 @@ public class ViewProyectData extends javax.swing.JDialog {
         
     //Getters y Setters  
 
-    public JButton getBtnAddCharge() {
+    public JMenuItem getBtnAddCharge() {
         return btnAddCharge;
     }
 
-    public void setBtnAddCharge(JButton btnAddCharge) {
+    public void setBtnAddCharge(JMenuItem btnAddCharge) {
         this.btnAddCharge = btnAddCharge;
     }
 
@@ -358,6 +368,8 @@ public class ViewProyectData extends javax.swing.JDialog {
         java.awt.GridBagConstraints gridBagConstraints;
 
         subMenu = new javax.swing.JPopupMenu();
+        btnAddCharge = new javax.swing.JMenuItem();
+        jSeparator1 = new javax.swing.JPopupMenu.Separator();
         btnModify = new javax.swing.JMenuItem();
         jSeparator3 = new javax.swing.JPopupMenu.Separator();
         btnDelete = new javax.swing.JMenuItem();
@@ -396,8 +408,6 @@ public class ViewProyectData extends javax.swing.JDialog {
         jPanel9 = new javax.swing.JPanel();
         jLabel10 = new javax.swing.JLabel();
         txtFindAreasCharge = new javax.swing.JTextField();
-        jPanel6 = new javax.swing.JPanel();
-        btnAddCharge = new javax.swing.JButton();
         jPanel15 = new javax.swing.JPanel();
         lblAmperage = new javax.swing.JLabel();
         jPanelElevadores = new javax.swing.JPanel();
@@ -415,6 +425,12 @@ public class ViewProyectData extends javax.swing.JDialog {
         tblTypesOfElevators = new javax.swing.JTable();
         jPanel4 = new javax.swing.JPanel();
         btnClose = new javax.swing.JButton();
+
+        btnAddCharge.setFont(new java.awt.Font("DejaVu Sans", 1, 14)); // NOI18N
+        btnAddCharge.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/electrical_installations/resource/image/agregar.png"))); // NOI18N
+        btnAddCharge.setText("Agregar Carga");
+        subMenu.add(btnAddCharge);
+        subMenu.add(jSeparator1);
 
         btnModify.setFont(new java.awt.Font("DejaVu Sans", 1, 14)); // NOI18N
         btnModify.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/electrical_installations/resource/image/modificar.png"))); // NOI18N
@@ -667,14 +683,14 @@ public class ViewProyectData extends javax.swing.JDialog {
 
             },
             new String [] {
-                "Código de Área", "Código de Carga", "Carga", "Cantidad", "Potencia(W)", "Voltaje(V) "
+                "Código de Área", "Código de Carga", "Carga", "Cantidad", "Potencia(W)", "Código Fase", "Código Tipo de Carga", "Tipo de Carga"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.Integer.class, java.lang.String.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class
+                java.lang.Integer.class, java.lang.Integer.class, java.lang.String.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false
+                false, false, false, false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -688,6 +704,11 @@ public class ViewProyectData extends javax.swing.JDialog {
         tblAreasCharges.setComponentPopupMenu(subMenuChargesInAreas);
         tblAreasCharges.getTableHeader().setReorderingAllowed(false);
         jScrollPane6.setViewportView(tblAreasCharges);
+        if (tblAreasCharges.getColumnModel().getColumnCount() > 0) {
+            tblAreasCharges.getColumnModel().getColumn(5).setResizable(false);
+            tblAreasCharges.getColumnModel().getColumn(6).setResizable(false);
+            tblAreasCharges.getColumnModel().getColumn(7).setResizable(false);
+        }
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
@@ -728,20 +749,6 @@ public class ViewProyectData extends javax.swing.JDialog {
         gridBagConstraints.gridy = 1;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         jPanel5.add(jPanel9, gridBagConstraints);
-
-        jPanel6.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT));
-
-        btnAddCharge.setFont(new java.awt.Font("DejaVu Sans", 1, 14)); // NOI18N
-        btnAddCharge.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/electrical_installations/resource/image/agregar.png"))); // NOI18N
-        btnAddCharge.setMnemonic('A');
-        btnAddCharge.setText("Agregar");
-        jPanel6.add(btnAddCharge);
-
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        jPanel5.add(jPanel6, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
@@ -980,7 +987,7 @@ public class ViewProyectData extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnAddCharge;
+    private javax.swing.JMenuItem btnAddCharge;
     private javax.swing.JMenuItem btnAddCharges;
     private javax.swing.JMenuItem btnAddElevators;
     private javax.swing.JButton btnClose;
@@ -1007,7 +1014,6 @@ public class ViewProyectData extends javax.swing.JDialog {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
-    private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
@@ -1017,6 +1023,7 @@ public class ViewProyectData extends javax.swing.JDialog {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JScrollPane jScrollPane6;
+    private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JPopupMenu.Separator jSeparator3;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTabbedPane jTabbedPane2;

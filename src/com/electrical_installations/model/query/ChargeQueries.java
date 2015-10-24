@@ -17,30 +17,34 @@ public class ChargeQueries {
      * Mostrar todos todas las Cargas.
      */
     public static final String SELECT_ALL = "SELECT \n" +
-                                            "	c.codigo,CONCAT(c.nombre,' ',e.cantidad,' ',u.nombre),p.cantidad\n" +
-                                            "FROM\n" +
-                                            "	maestros.\"CARGA\" AS c\n" +
-                                            "LEFT JOIN\n" +
-                                            "	maestros.\"ENERGIA\" AS e\n" +
-                                            "ON\n" +
-                                            "	(c.energia_codigo = e.codigo)\n" +
-                                            "JOIN\n" +
-                                            "	maestros.\"POTENCIA\" AS p\n" +
-                                            "ON\n" +
-                                            "	(c.potencia_codigo = p.codigo)\n" +
-                                            "LEFT JOIN\n" +
-                                            "	maestros.\"UNIDAD\" AS u\n" +
-                                            "ON\n" +
-                                            "	(e.unidad_codigo = u.codigo)\n" +
-                                            "ORDER BY \n" +
-                                            "	c.nombre\n" +
-                                            "ASC;";
+                                                "	c.codigo,CONCAT(c.nombre,' ',e.cantidad,' ',u.nombre),p.cantidad,c.caballo_de_fuerza,c.secadora,c.cocina_electrica,tc.codigo,tc.tipo\n" +
+                                                "FROM\n" +
+                                                "	maestros.\"CARGA\" AS c\n" +
+                                                "LEFT JOIN\n" +
+                                                "	maestros.\"ENERGIA\" AS e\n" +
+                                                "ON\n" +
+                                                "	(c.energia_codigo = e.codigo)\n" +
+                                                "JOIN\n" +
+                                                "	maestros.\"POTENCIA\" AS p \n" +
+                                                "ON\n" +
+                                                "	(c.potencia_codigo = p.codigo)\n" +
+                                                "LEFT JOIN\n" +
+                                                "	maestros.\"UNIDAD\" AS u\n" +
+                                                "ON\n" +
+                                                "	(e.unidad_codigo = u.codigo)\n" +
+                                                "JOIN\n" +
+                                                "	maestros.\"TIPO_CARGA\" AS tc\n" +
+                                                "ON\n" +
+                                                "	(c.tipo_carga_codigo = tc.codigo)\n" +
+                                                "ORDER BY \n" +
+                                                "	c.nombre \n" +
+                                                "ASC;";
   
     /**
      * Mostrar todos todas las Cargas filtradas por nombre.
      */
     public static final String FILTER_BY_NAME = "SELECT \n" +
-                                                "	c.codigo,CONCAT(c.nombre,' ',e.cantidad,' ',u.nombre),p.cantidad\n" +
+                                                "	c.codigo,CONCAT(c.nombre,' ',e.cantidad,' ',u.nombre),p.cantidad,c.caballo_de_fuerza,c.secadora,c.cocina_electrica,tc.codigo,tc.tipo\n" +
                                                 "FROM\n" +
                                                 "	maestros.\"CARGA\" AS c\n" +
                                                 "LEFT JOIN\n" +
@@ -55,6 +59,10 @@ public class ChargeQueries {
                                                 "	maestros.\"UNIDAD\" AS u\n" +
                                                 "ON\n" +
                                                 "	(e.unidad_codigo = u.codigo)\n" +
+                                                "JOIN\n" +
+                                                "	maestros.\"TIPO_CARGA\" AS tc\n" +
+                                                "ON\n" +
+                                                "	(c.tipo_carga_codigo = tc.codigo)\n" +            
                                                 "WHERE \n" +
                                                 "	LOWER(c.nombre) LIKE LOWER(?) \n" +
                                                 "ORDER BY \n" +

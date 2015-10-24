@@ -14,23 +14,34 @@ package com.electrical_installations.model.entity.masters;
 public class Elevator {
     
     //Objetos, variables y constantes
+    private int code;
     private PersonNumber personNumber;
     private Speed speed;
     private Potency potency;
 
     /**
      * Constructor para crear, modificar, eliminar y encontrar elevadores.
+     * @param code
      * @param personNumber
      * @param speed
      * @param potency 
      */
-    public Elevator(PersonNumber personNumber, Speed speed, Potency potency) {
+    public Elevator(int code,PersonNumber personNumber, Speed speed, Potency potency) {
+        this.code = code;
         this.personNumber = personNumber;
         this.speed = speed;
         this.potency = potency;
     }//Fin del constructor
 
     //Getters y Setters
+
+    public int getCode() {
+        return code;
+    }
+
+    public void setCode(int code) {
+        this.code = code;
+    }
     
     public PersonNumber getPersonNumber() {
         return personNumber;

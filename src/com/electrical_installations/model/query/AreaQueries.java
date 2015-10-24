@@ -215,6 +215,6 @@ public class AreaQueries {
                                                             "ON\n" +
                                                             "	(ait.ducto_codigo = d.codigo)\n" +
                                                             "WHERE\n" +
-                                                            "	a.codigo = ?";
-    
+                                                            "	a.codigo = ?"; 
+
 }

@@ -13,7 +13,7 @@ package com.electrical_installations.model.enums;
  */
 public enum TypePhases {
     
-    SINGLE_PHASE_TWO_THREAD("Monofásico 2 Hilos"), SINGLE_PHASE_THREE_THREAD("Monofásico 3 Hilos"), PASHE_FOUR_THREAD("Trifásico 4 Hilos");
+    SINGLE_PHASE_TWO_THREAD("Monofásico 2 Hilos"), SINGLE_PHASE_THREE_THREAD("Monofásico 3 Hilos"), PHASE_FOUR_THREAD("Trifásico 4 Hilos");
     
     //Objetos, variables y constantes
     private final String phase;
