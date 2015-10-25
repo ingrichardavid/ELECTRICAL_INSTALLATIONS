@@ -220,14 +220,15 @@ public class MethodsForCalculationsIluminariaPowerPoint {
      * @param material
      * @param powerFactor
      * @param phase
+     * @param intensityDesign
      * @return Retorna un Interruptor
      */
-    public static Breaker find_breaker(TypeOfBranchCircuitInArea type,double areaOrQuantityPowerPoint,Voltage voltage,Material material,double powerFactor,int phase){
+    public static Breaker find_breaker(TypeOfBranchCircuitInArea type,double areaOrQuantityPowerPoint,Voltage voltage,Material material,double powerFactor,int phase, Intensity intensityDesign){
         breaker = null;
         if (type.equals(TypeOfBranchCircuitInArea.ILUMINARIA)) {
-            breaker = ServiceBreaker.find_breaker_by_capacity(new Breaker(0, calculateIntesityFinal(intensity(potencyInIluminaria(areaOrQuantityPowerPoint), voltage.getVoltage(), powerFactor, phase), currentLimitIluminaria)));
+            breaker = ServiceBreaker.find_breaker_by_capacity(new Breaker(0, (calculateIntesityFinal(intensity(potencyInIluminaria(areaOrQuantityPowerPoint), voltage.getVoltage(), powerFactor, phase), currentLimitIluminaria) + intensityDesign.getIntensity()) / 2));
         } else if (type.equals(TypeOfBranchCircuitInArea.POWER_POINT)) {
-            breaker = ServiceBreaker.find_breaker_by_capacity(new Breaker(0, calculateIntesityFinal(intensity(potencyInIluminaria(areaOrQuantityPowerPoint), voltage.getVoltage(), powerFactor, phase), currentLimitPowerPoint)));
+            breaker = ServiceBreaker.find_breaker_by_capacity(new Breaker(0, (calculateIntesityFinal(intensity(potencyInIluminaria(areaOrQuantityPowerPoint), voltage.getVoltage(), powerFactor, phase), currentLimitPowerPoint) + intensityDesign.getIntensity()) / 2));
         }  
         return breaker;
     }//Fin del método

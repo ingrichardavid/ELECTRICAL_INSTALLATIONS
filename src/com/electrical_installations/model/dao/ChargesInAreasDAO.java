@@ -62,5 +62,12 @@ public interface ChargesInAreasDAO {
      * @return Retorna true en caso de que la carga ya haya sido asignada. Caso contrario retorna false.
      */
     public boolean validate_charge_in_area(ChargesInAreas chargesInAreas);
+ 
+    /**
+     * Método para contar el número de cargas asignadas a un área.
+     * @param area
+     * @return Retorna el número de áreas asignadas a un área.
+     */
+    public int count_charges_in_area(Area area);
     
 }

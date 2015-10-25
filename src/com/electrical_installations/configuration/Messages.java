@@ -308,6 +308,11 @@ public class Messages {
      * La carga ya fue seleccionada.
      */
     public final static String CHARGE_SELECTED = "CHARGE_SELECTED";
+    
+    /**
+     * El área no puede ser eliminada ya que contiene cargas asociadas.
+     */
+    public final static String CHARGES_ASSOCIATED_TO_AREA = "CHARGES_ASSOCIATED_TO_AREA";
        
     //Mensajes para Temperatura
     

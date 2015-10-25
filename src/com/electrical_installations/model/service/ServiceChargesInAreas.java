@@ -75,5 +75,13 @@ public class ServiceChargesInAreas {
     public static boolean validate_charge_in_area(ChargesInAreas chargesInAreas){
         return chargesInAreasImplDAO.validate_charge_in_area(chargesInAreas);
     }//FIn del Servicio
-    
+ 
+    /**
+     * Servicio para contar el número de cargas asignadas a un área.
+     * @param area
+     * @return Retorna el número de áreas asignadas a un área.
+     */
+    public static int count_charges_in_area(Area area){
+        return chargesInAreasImplDAO.count_charges_in_area(area);
+    }//Fin del servicio
 }

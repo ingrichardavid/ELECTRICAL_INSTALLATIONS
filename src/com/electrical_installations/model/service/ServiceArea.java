@@ -116,14 +116,19 @@ public class ServiceArea {
      * @return Retorna true en caso de que la operación sea exitosa 
      */   
     public static boolean delete_area(Area area){
-        if (MessagesStructure.ConfirmationMessage(MessagesStructure.format(200, messages.getProperty(Messages.AREA_CONFIRM_DELETED), MessagesStructure.justify)) == 0){  
-            if (areaImplDAO.validate_existence(area) == 0){
-                MessagesStructure.Warning(MessagesStructure.format(200, messages.getProperty(Messages.AREA_NO_FOUND), MessagesStructure.justify));
-                return false;
-            } else {
-                if (areaImplDAO.delete(area)){
-                    return true;
-                } 
+        if (ServiceChargesInAreas.count_charges_in_area(area) > 0){
+            MessagesStructure.Warning(MessagesStructure.format(200, messages.getProperty(Messages.CHARGES_ASSOCIATED_TO_AREA), MessagesStructure.justify));
+            return false;
+        } else {          
+            if (MessagesStructure.ConfirmationMessage(MessagesStructure.format(200, messages.getProperty(Messages.AREA_CONFIRM_DELETED), MessagesStructure.justify)) == 0){  
+                if (areaImplDAO.validate_existence(area) == 0){
+                    MessagesStructure.Warning(MessagesStructure.format(200, messages.getProperty(Messages.AREA_NO_FOUND), MessagesStructure.justify));
+                    return false;
+                } else {  
+                    if (areaImplDAO.delete(area)){
+                        return true;
+                    }
+                }
             }
         }
         return false;

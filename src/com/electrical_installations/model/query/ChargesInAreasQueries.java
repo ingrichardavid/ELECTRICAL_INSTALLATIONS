@@ -150,5 +150,15 @@ public class ChargesInAreasQueries {
                                                          "FROM negocio.\"ALIMENTADOR_PRINCIPAL\"\n" +
                                                          "WHERE proyecto_codigo=? AND proyecto_tipo=? AND tipo_carga_codigo=? \n" +
                                                          "AND cantidad = 0 AND intensidad = 0 AND potencia = 0;";
+ 
+    /**
+     * Calcular la cantidad de cargas que se encuentran asignadas a un Área.
+     */
+    public static final String COUNT_CHARGES_IN_AREA = "SELECT\n" +
+                                                    "	COUNT(ca.codigo_area) AS cantidad\n" +
+                                                    "FROM\n" +
+                                                    "	negocio.\"CARGAS_EN_AREAS\" AS ca\n" +
+                                                    "WHERE\n" +
+                                                    "	ca.codigo_area = ?;";
     
 }

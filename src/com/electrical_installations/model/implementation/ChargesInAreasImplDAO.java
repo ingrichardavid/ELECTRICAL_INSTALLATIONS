@@ -369,5 +369,25 @@ public class ChargesInAreasImplDAO implements ChargesInAreasDAO{
         }
         return false;
     }//Fin del método
+ 
+    /**
+     * Método para contar el número de cargas asignadas a un área.
+     * @param area
+     * @return Retorna el número de áreas asignadas a un área.
+     */
+    @Override
+    public int count_charges_in_area(Area area){
+        int quantity = 0;
+        try {
+            preparedStatement = connection.getConexion().prepareStatement(ChargesInAreasQueries.COUNT_CHARGES_IN_AREA);
+            preparedStatement.setInt(1, area.getCode());
+            result = preparedStatement.executeQuery();
+            while (result.next()){
+                quantity = result.getInt(1);
+            }
+        } catch (Exception e) {
+        }
+        return quantity;
+    }//Fin del método
             
 }

@@ -8,7 +8,6 @@ package com.electrical_installations.controller;
 import com.electrical_installations.configuration.Messages;
 import com.electrical_installations.configuration.MessagesStructure;
 import com.electrical_installations.model.entity.User;
-import com.electrical_installations.model.service.ServiceHorsePorwer;
 import com.electrical_installations.model.service.ServiceUser;
 import com.electrical_installations.view.Session;
 import com.electrical_installations.view.ViewArea;
@@ -33,7 +32,10 @@ public class ControllerLogin implements ActionListener, WindowListener, KeyListe
 
     //Campos de la clase
     private final ViewLogin viewLogin;
-    private ViewProject viewProject;
+    private ViewProject viewProject; 
+    private ViewProyectData viewProyectData;
+    private ViewCharge viewCharge;
+    private ViewArea viewArea;
     private static final Messages messages = Messages.getInstance();
     private static final Session session = Session.getInstance();
     private char character;
@@ -74,19 +76,18 @@ public class ControllerLogin implements ActionListener, WindowListener, KeyListe
             user = ServiceUser.login(new User(viewLogin.getTxtUserName().getText(),viewLogin.getTxtPassword().getText()));
             if (user != null){ 
                 session.session_data(user);
-                
-                viewProject = new ViewProject();
-                viewProject.dispose();
-                ViewProyectData v = new ViewProyectData(null, true);
-                v.dispose();
-                ViewCharge vc = new ViewCharge(null, true);
-                v.dispose();
-                ViewArea va = new ViewArea(null, true,"");
-                va.dispose();
-                
-                viewLogin.dispose();
-                viewProject = new ViewProject();
-                viewProject.setVisible(true);
+                this.viewLogin.setVisible(false);                     
+                this.viewProject = new ViewProject();
+                this.viewProject.dispose();
+                this.viewProyectData = new ViewProyectData(null, true);
+                this.viewProyectData.dispose();
+                this.viewCharge = new ViewCharge(null, true);
+                this.viewCharge.dispose();
+                this.viewArea = new ViewArea(null, true,"");
+                this.viewArea.dispose(); 
+                this.viewLogin.dispose();
+                this.viewProject = new ViewProject();
+                this.viewProject.setVisible(true);
             }
         }
     }//Fin del método

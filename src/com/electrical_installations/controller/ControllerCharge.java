@@ -4,7 +4,6 @@
  * and open the template in the editor.
  */
 package com.electrical_installations.controller;
-
  
 import com.electrical_installations.configuration.Messages;
 import com.electrical_installations.configuration.MessagesStructure;
@@ -22,6 +21,7 @@ import com.electrical_installations.model.entity.masters.CalibersHearth;
 import com.electrical_installations.model.entity.masters.Duct;
 import com.electrical_installations.model.entity.masters.HorsePower;
 import com.electrical_installations.model.entity.masters.HorsesPowers;
+import com.electrical_installations.model.entity.masters.Intensity;
 import com.electrical_installations.model.entity.masters.Material;
 import com.electrical_installations.model.entity.masters.PercentageSinglePhaseMotors;
 import com.electrical_installations.model.entity.masters.Phase;
@@ -81,7 +81,7 @@ public class ControllerCharge implements ActionListener, WindowListener , KeyLis
     private List<HorsePower> horsesPowerFound;
     private Calibers caliberPhaseFound, caliberNeutralFound;
     private ResistanceReactance resistance,reactance;
-    private Breaker breakerPhaseFound;
+    private Breaker breakerPhaseFound, breakerPhasePersistFound;
     private List<PercentageSinglePhaseMotors> percentageSinglePhaseMotorsFound;
     private char character;
     private TypeRush typeCaliber;
@@ -92,6 +92,7 @@ public class ControllerCharge implements ActionListener, WindowListener , KeyLis
     private HorsesPowers horsesPowersFound;
     private String caliberPhase, caliberNeutral, caliberHearth;
     private double potency;
+    private Intensity intensityDesignFound;
     private static final Messages messages = Messages.getInstance();
 
     /**
@@ -102,6 +103,7 @@ public class ControllerCharge implements ActionListener, WindowListener , KeyLis
     public ControllerCharge(ViewCharge viewVoltageInCharge) {
         this.viewVoltageInCharge = viewVoltageInCharge;
         this.phasesFound = null;
+        this.intensityDesignFound = null;
     }//Fin del constructor 
 
     /**
@@ -351,13 +353,21 @@ public class ControllerCharge implements ActionListener, WindowListener , KeyLis
                         (Voltage)viewVoltageInCharge.getCmbVoltage().getSelectedItem(), 
                         Double.valueOf(viewVoltageInCharge.getJspPowerFactor().getValue().toString()), 
                         viewVoltageInCharge.getCmbPhases().getSelectedIndex());
+                            
+                intensityDesignFound = MethodsForCalculationsIluminariaPowerPoint.calculate_instensity_design(new Calibers(
+                        0, 
+                        (Material)viewVoltageInCharge.getCmbMaterial().getSelectedItem(), 
+                        (Temperature)viewVoltageInCharge.getCmbTemperature().getSelectedItem(), 
+                        null, 
+                        caliberPhaseFound.getCaliber()));
                 
                 breakerPhaseFound = MethodsForCalculationsGlobal1.find_breaker_dryer(
                         viewVoltageInCharge.getCharge().getPotency(), 
                         (Voltage)viewVoltageInCharge.getCmbVoltage().getSelectedItem(),                     
                         (Material)viewVoltageInCharge.getCmbMaterial().getSelectedItem(),  
                         Double.valueOf(viewVoltageInCharge.getJspPowerFactor().getValue().toString()), 
-                        viewVoltageInCharge.getCmbPhases().getSelectedIndex());    
+                        viewVoltageInCharge.getCmbPhases().getSelectedIndex(),
+                        intensityDesignFound);    
                 
                 if (caliberPhaseFound == null){
                     MessagesStructure.Warning(MessagesStructure.format(200, messages.getProperty(Messages.CALIBER_NO_FOUND), MessagesStructure.justify));
@@ -406,12 +416,20 @@ public class ControllerCharge implements ActionListener, WindowListener , KeyLis
                         Double.valueOf(viewVoltageInCharge.getJspPowerFactor().getValue().toString()), 
                         viewVoltageInCharge.getCmbPhases().getSelectedIndex());
 
+                intensityDesignFound = MethodsForCalculationsIluminariaPowerPoint.calculate_instensity_design(new Calibers(
+                        0, 
+                        (Material)viewVoltageInCharge.getCmbMaterial().getSelectedItem(), 
+                        (Temperature)viewVoltageInCharge.getCmbTemperature().getSelectedItem(), 
+                        null, 
+                        caliberPhaseFound.getCaliber()));
+                
                 breakerPhaseFound = MethodsForCalculationsGlobal1.find_breaker(
                         viewVoltageInCharge.getCharge().getPotency(), 
                         (Voltage)viewVoltageInCharge.getCmbVoltage().getSelectedItem(),                     
                         (Material)viewVoltageInCharge.getCmbMaterial().getSelectedItem(),  
                         Double.valueOf(viewVoltageInCharge.getJspPowerFactor().getValue().toString()), 
-                        viewVoltageInCharge.getCmbPhases().getSelectedIndex());
+                        viewVoltageInCharge.getCmbPhases().getSelectedIndex(),
+                        intensityDesignFound);
                 if (caliberPhaseFound == null){
                     MessagesStructure.Warning(MessagesStructure.format(200, messages.getProperty(Messages.CALIBER_NO_FOUND), MessagesStructure.justify));
                 } else {
@@ -453,12 +471,20 @@ public class ControllerCharge implements ActionListener, WindowListener , KeyLis
                         Double.valueOf(viewVoltageInCharge.getJspPowerFactor().getValue().toString()), 
                         viewVoltageInCharge.getCmbPhases().getSelectedIndex());
 
+                intensityDesignFound = MethodsForCalculationsIluminariaPowerPoint.calculate_instensity_design(new Calibers(
+                        0, 
+                        (Material)viewVoltageInCharge.getCmbMaterial().getSelectedItem(), 
+                        (Temperature)viewVoltageInCharge.getCmbTemperature().getSelectedItem(), 
+                        null, 
+                        caliberPhaseFound.getCaliber()));
+                
                 breakerPhaseFound = MethodsForCalculationsGlobal1.find_breaker(
                         viewVoltageInCharge.getCharge().getPotency(), 
                         (Voltage)viewVoltageInCharge.getCmbVoltage().getSelectedItem(),                     
                         (Material)viewVoltageInCharge.getCmbMaterial().getSelectedItem(),  
                         Double.valueOf(viewVoltageInCharge.getJspPowerFactor().getValue().toString()), 
-                        viewVoltageInCharge.getCmbPhases().getSelectedIndex());
+                        viewVoltageInCharge.getCmbPhases().getSelectedIndex(),
+                        intensityDesignFound);
                 if (caliberPhaseFound == null){
                     MessagesStructure.Warning(MessagesStructure.format(200, messages.getProperty(Messages.CALIBER_NO_FOUND), MessagesStructure.justify));
                 } else {
@@ -543,7 +569,58 @@ public class ControllerCharge implements ActionListener, WindowListener , KeyLis
                             resistance.getValue().getValour(), 
                             Double.valueOf(viewVoltageInCharge.getJspAngle().getValue().toString()));   
                     viewVoltageInCharge.getLblBreakdownVoltage().setText(String.valueOf(breakdownVoltage) + " %"); 
-                    caliberSelected = (Caliber)viewVoltageInCharge.getCmbCaliber().getSelectedItem();   
+                    caliberSelected = (Caliber)viewVoltageInCharge.getCmbCaliber().getSelectedItem(); 
+                    
+                    if (viewVoltageInCharge.getCharge().isHorsePower()){
+                        breakerPhasePersistFound = MethodsForCalculationsGlobal1.find_braker_dishwasherAndCrusher(
+                            horsesPowersFound.getIntensity().getIntensity(), 
+                            ((PercentageSinglePhaseMotors)viewVoltageInCharge.getCmbPercentageSinglePhaseMotors().getSelectedItem()).getPercentage());                    
+                    } else if (viewVoltageInCharge.getCharge().isDryer()){                             
+                        intensityDesignFound = MethodsForCalculationsIluminariaPowerPoint.calculate_instensity_design(new Calibers(
+                                0, 
+                                (Material)viewVoltageInCharge.getCmbMaterial().getSelectedItem(), 
+                                (Temperature)viewVoltageInCharge.getCmbTemperature().getSelectedItem(), 
+                                null, 
+                                (Caliber)viewVoltageInCharge.getCmbCaliber().getSelectedItem()));
+                        breakerPhasePersistFound = MethodsForCalculationsGlobal1.find_breaker_dryer(
+                                viewVoltageInCharge.getCharge().getPotency(), 
+                                (Voltage)viewVoltageInCharge.getCmbVoltage().getSelectedItem(),                     
+                                (Material)viewVoltageInCharge.getCmbMaterial().getSelectedItem(),  
+                                Double.valueOf(viewVoltageInCharge.getJspPowerFactor().getValue().toString()), 
+                                viewVoltageInCharge.getCmbPhases().getSelectedIndex(),
+                                intensityDesignFound);                    
+                    } else if (viewVoltageInCharge.getCharge().isElectricKitchen()){ 
+                        intensityDesignFound = MethodsForCalculationsIluminariaPowerPoint.calculate_instensity_design(new Calibers(
+                                0, 
+                                (Material)viewVoltageInCharge.getCmbMaterial().getSelectedItem(), 
+                                (Temperature)viewVoltageInCharge.getCmbTemperature().getSelectedItem(), 
+                                null, 
+                                (Caliber)viewVoltageInCharge.getCmbCaliber().getSelectedItem()));
+
+                        breakerPhasePersistFound = MethodsForCalculationsGlobal1.find_breaker(
+                                viewVoltageInCharge.getCharge().getPotency(), 
+                                (Voltage)viewVoltageInCharge.getCmbVoltage().getSelectedItem(),                     
+                                (Material)viewVoltageInCharge.getCmbMaterial().getSelectedItem(),  
+                                Double.valueOf(viewVoltageInCharge.getJspPowerFactor().getValue().toString()), 
+                                viewVoltageInCharge.getCmbPhases().getSelectedIndex(),
+                                intensityDesignFound);
+                    } else {   
+                        intensityDesignFound = MethodsForCalculationsIluminariaPowerPoint.calculate_instensity_design(new Calibers(
+                                0, 
+                                (Material)viewVoltageInCharge.getCmbMaterial().getSelectedItem(), 
+                                (Temperature)viewVoltageInCharge.getCmbTemperature().getSelectedItem(), 
+                                null, 
+                                (Caliber)viewVoltageInCharge.getCmbCaliber().getSelectedItem()));
+
+                        breakerPhasePersistFound = MethodsForCalculationsGlobal1.find_breaker(
+                                viewVoltageInCharge.getCharge().getPotency(), 
+                                (Voltage)viewVoltageInCharge.getCmbVoltage().getSelectedItem(),                     
+                                (Material)viewVoltageInCharge.getCmbMaterial().getSelectedItem(),  
+                                Double.valueOf(viewVoltageInCharge.getJspPowerFactor().getValue().toString()), 
+                                viewVoltageInCharge.getCmbPhases().getSelectedIndex(),
+                                intensityDesignFound);            
+                    }
+                    
                     resistance = calculate_resistance(TypeOfBranchCircuitInArea.NEUTRAL);
                     reactance  = calculate_reactance(TypeOfBranchCircuitInArea.NEUTRAL);
                     if (resistance != null){                
@@ -560,7 +637,10 @@ public class ControllerCharge implements ActionListener, WindowListener , KeyLis
                         caliberPhase = viewVoltageInCharge.getLblCaliberPhase().getText();
                         caliberPhase = caliberPhase.replace(
                                 "#" + caliberPhaseFound.getCaliber().getName(), 
-                                "#" + caliberSelected.getName()); 
+                                "#" + caliberSelected.getName());
+                        caliberPhase = caliberPhase.replace(
+                                MethodsForCalculationsGlobal1.number_of_brakers((Phase)viewVoltageInCharge.getCmbPhases().getSelectedItem(),breakerPhaseFound.getCapacity()),
+                                MethodsForCalculationsGlobal1.number_of_brakers((Phase)viewVoltageInCharge.getCmbPhases().getSelectedItem(), breakerPhasePersistFound.getCapacity()));
                         caliberNeutral = viewVoltageInCharge.getLblCaliberNeutral().getText();
                         caliberNeutral = caliberNeutral.replace(
                                 "#" + caliberNeutralFound.getCaliber().getName(), 

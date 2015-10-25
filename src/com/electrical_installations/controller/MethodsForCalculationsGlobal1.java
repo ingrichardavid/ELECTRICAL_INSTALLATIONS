@@ -189,10 +189,11 @@ public class MethodsForCalculationsGlobal1 {
      * @param material
      * @param powerFactor
      * @param phase
+     * @param intensityDesign
      * @return Retorna un Interruptor
      */
-    public static Breaker find_breaker(double potency,Voltage voltage,Material material,double powerFactor,int phase){
-        return ServiceBreaker.find_breaker_by_capacity(new Breaker(0, intensity(potency, voltage.getVoltage(), powerFactor, phase)));
+    public static Breaker find_breaker(double potency,Voltage voltage,Material material,double powerFactor,int phase, Intensity intensityDesign){
+        return ServiceBreaker.find_breaker_by_capacity(new Breaker(0, (intensity(potency, voltage.getVoltage(), powerFactor, phase) + intensityDesign.getIntensity()) / 2));
     }//Fin del método
       
     /**
@@ -214,8 +215,8 @@ public class MethodsForCalculationsGlobal1 {
      * @param phase
      * @return Retorna el interruptor seleccionado
      */
-    public static Breaker find_breaker_dryer(double potency,Voltage voltage,Material material,double powerFactor,int phase){
-        return ServiceBreaker.find_breaker_by_capacity(new Breaker(0, intensity(potency, voltage.getVoltage(), powerFactor, phase) * 0.2));
+    public static Breaker find_breaker_dryer(double potency,Voltage voltage,Material material,double powerFactor,int phase, Intensity intensityDesign){
+        return ServiceBreaker.find_breaker_by_capacity(new Breaker(0, ((intensity(potency, voltage.getVoltage(), powerFactor, phase) * 0.2) + intensityDesign.getIntensity()) / 2));
     }//Fin del métdodo.
     
     /**
