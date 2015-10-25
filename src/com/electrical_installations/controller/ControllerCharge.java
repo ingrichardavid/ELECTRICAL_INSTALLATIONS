@@ -104,6 +104,7 @@ public class ControllerCharge implements ActionListener, WindowListener , KeyLis
         this.viewVoltageInCharge = viewVoltageInCharge;
         this.phasesFound = null;
         this.intensityDesignFound = null;
+        this.potency = 0;
     }//Fin del constructor 
 
     /**
@@ -258,7 +259,7 @@ public class ControllerCharge implements ActionListener, WindowListener , KeyLis
         }
     }//Fin del método
     
-     /**
+    /**
      * Método para llenar tabla con datos de cargas filtrados por nombre.
      * @param name 
      */
@@ -652,6 +653,9 @@ public class ControllerCharge implements ActionListener, WindowListener , KeyLis
         }
     }//Fin del método
 
+    /**
+     * Método para registrar carga dentro de un área.
+     */
     private void loadRegister(){
         if (caliberPhaseFound == null || caliberNeutralFound == null || calibersHearthFound == null){    
             MessagesStructure.Warning(MessagesStructure.format(200, messages.getProperty(Messages.AREA_CAPACITY_INTENSITY_NO_FOUND), MessagesStructure.justify));
@@ -682,7 +686,7 @@ public class ControllerCharge implements ActionListener, WindowListener , KeyLis
                                         null,
                                         new Project(viewVoltageInCharge.getArea().getProject().getCode(), null, new TypeOfInstallation(viewVoltageInCharge.getArea().getProject().getTypeOfInstallation().getCode(), null), null, 0, null), 
                                         viewVoltageInCharge.getCharge().getTypeCharges().getType().equalsIgnoreCase(TypeSubTypeCharge.POTENCY.getSubTypeCharge()) ? 
-                                                viewVoltageInCharge.getCharge().getPotency() : viewVoltageInCharge.getCharge().getTypeCharges().getType().equalsIgnoreCase(TypeSubTypeCharge.QUANTITY.getSubTypeCharge()) ? 
+                                                potency : viewVoltageInCharge.getCharge().getTypeCharges().getType().equalsIgnoreCase(TypeSubTypeCharge.QUANTITY.getSubTypeCharge()) ? 
                                                         Integer.valueOf(viewVoltageInCharge.getJspQuantity().getValue().toString()) : 0, 
                                         0, 
                                         0), 

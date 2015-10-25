@@ -101,7 +101,6 @@ public class ViewProyectData extends javax.swing.JDialog {
         }
         
         controllerProjectData = new ControllerProjectData(this);
-        controllerProjectData.fill_table_type_elevators();
         this.btnNew.addActionListener(controllerProjectData);
         this.btnModify.addActionListener(controllerProjectData);
         this.btnDelete.addActionListener(controllerProjectData);

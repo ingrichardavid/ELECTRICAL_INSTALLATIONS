@@ -232,7 +232,6 @@ public class ChargesInAreasImplDAO implements ChargesInAreasDAO{
         try {
             preparedStatement = dataBaseConnection.getConexion().prepareStatement(ChargesInAreasQueries.DELETE_CHARGE_UPDATE_MAIN_FEEDER_TYPE_CHARGE);
             if (chargesInAreas.getCharge().getTypeCharges().getType().equalsIgnoreCase(TypeSubTypeCharge.POTENCY.getSubTypeCharge())){
-                System.err.println(chargesInAreas.getPotency());
                 preparedStatement.setDouble(1, chargesInAreas.getPotency());
                 preparedStatement.setInt(2, 0);
                 preparedStatement.setDouble(3, 0); 
@@ -246,10 +245,6 @@ public class ChargesInAreasImplDAO implements ChargesInAreasDAO{
                 preparedStatement.setInt(2, 0);
                 preparedStatement.setDouble(3, chargesInAreas.getPotency()); 
             }
-            System.err.println("entro en el 3");
-            System.err.println(area.getProject().getCode());
-            System.err.println(area.getProject().getTypeOfInstallation().getCode());
-            System.err.println(chargesInAreas.getCharge().getTypeCharges().getCode());
             preparedStatement.setInt(4, area.getProject().getCode());
             preparedStatement.setInt(5, area.getProject().getTypeOfInstallation().getCode());
             preparedStatement.setInt(6, chargesInAreas.getCharge().getTypeCharges().getCode());    
@@ -257,7 +252,6 @@ public class ChargesInAreasImplDAO implements ChargesInAreasDAO{
             if (preparedStatement.executeUpdate() > 0){
                 preparedStatement.close();
                 preparedStatement = dataBaseConnection.getConexion().prepareStatement(ChargesInAreasQueries.VALIDATE_MAIN_FEEDER_I_P_C);
-  System.err.println("entro en el 2");
                 preparedStatement.setInt(1, area.getProject().getCode());
                 preparedStatement.setInt(2, area.getProject().getTypeOfInstallation().getCode());
                 preparedStatement.setInt(3, chargesInAreas.getCharge().getTypeCharges().getCode()); 
@@ -268,7 +262,6 @@ public class ChargesInAreasImplDAO implements ChargesInAreasDAO{
                 }
                 if (code_project > 0){
                     preparedStatement.close();  
-                    System.err.println("entro en el ultimo");
                     preparedStatement = dataBaseConnection.getConexion().prepareStatement(ChargesInAreasQueries.DELETE_CHARGE_MAIN_FEEDER);
                     preparedStatement.setInt(1, area.getProject().getCode());
                     preparedStatement.setInt(2, area.getProject().getTypeOfInstallation().getCode());

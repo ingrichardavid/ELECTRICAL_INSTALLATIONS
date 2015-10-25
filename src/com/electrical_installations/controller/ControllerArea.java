@@ -277,7 +277,6 @@ public class ControllerArea implements ActionListener, KeyListener, WindowListen
      * Método para llenar los combos con Fases.
      */
     public void fill_combos_phases(){
-        System.out.println("FASES");
         phasesFound = ServicePhase.find_phases();
         if (phasesFound != null){
             for (Phase phase : phasesFound){
