@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 package com.electrical_installations.controller;
-import com.electrical_installations.view.ViewAddElevatorToInstallation;
+import com.electrical_installations.view.ViewAddMotorToInstallation;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -18,7 +18,7 @@ import java.awt.event.ActionListener;
 public class ControllerElevatorInInstallation implements ActionListener {
 
     //Objectos, variables y constantes
-    private final ViewAddElevatorToInstallation viewAddElevatorToInstallation;
+    private final ViewAddMotorToInstallation viewAddElevatorToInstallation;
     private String material;
     
     /**
@@ -26,7 +26,7 @@ public class ControllerElevatorInInstallation implements ActionListener {
      *
      * @param viewAddElevatorToInstallation
      */
-    public ControllerElevatorInInstallation(ViewAddElevatorToInstallation viewAddElevatorToInstallation) {
+    public ControllerElevatorInInstallation(ViewAddMotorToInstallation viewAddElevatorToInstallation) {
         this.viewAddElevatorToInstallation = viewAddElevatorToInstallation;
     }//Fin del constructor 
 
@@ -36,11 +36,11 @@ public class ControllerElevatorInInstallation implements ActionListener {
             viewAddElevatorToInstallation.setVoltage(Integer.valueOf(viewAddElevatorToInstallation.getCmbVoltage().getSelectedItem().toString().substring(0, 3)));
             viewAddElevatorToInstallation.setTemperature(viewAddElevatorToInstallation.getCmbTemperature().getSelectedItem().toString());
             viewAddElevatorToInstallation.setPhase(viewAddElevatorToInstallation.getCmbPhases().getSelectedItem().toString());
-            if (viewAddElevatorToInstallation.getrBtnCu().isSelected()){
-                viewAddElevatorToInstallation.setMaterial("Cobre");
-            } else {
-                viewAddElevatorToInstallation.setMaterial("Aluminio");
-            } 
+//            if (viewAddElevatorToInstallation.getcmb).isSelected()){
+//                viewAddElevatorToInstallation.setMaterial("Cobre");
+//            } else {
+//                viewAddElevatorToInstallation.setMaterial("Aluminio");
+//            } 
             viewAddElevatorToInstallation.dispose();
         } else if (e.getSource().equals(viewAddElevatorToInstallation.getBtnClose())) {
             viewAddElevatorToInstallation.dispose();

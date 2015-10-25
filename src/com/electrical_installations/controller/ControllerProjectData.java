@@ -19,7 +19,7 @@ import com.electrical_installations.model.entity.masters.Unit;
 import com.electrical_installations.model.enums.TypeSubTypeCharge;
 import com.electrical_installations.model.service.ServiceArea;
 import com.electrical_installations.model.service.ServiceChargesInAreas;
-import com.electrical_installations.view.ViewAddElevatorToInstallation;
+import com.electrical_installations.view.ViewAddMotorToInstallation;
 import com.electrical_installations.view.ViewArea;
 import com.electrical_installations.view.ViewProyectData;
 import com.electrical_installations.view.ViewCharge;
@@ -47,7 +47,7 @@ public class ControllerProjectData implements ActionListener, WindowListener, Ke
     private static final Messages messages = Messages.getInstance();
     private ViewArea viewArea;
     private ViewCharge viewCharge;
-    private ViewAddElevatorToInstallation viewAddElevatorToInstallation;
+    private ViewAddMotorToInstallation viewAddElevatorToInstallation;
     private Area area;
     private List<Charge> charges;
     private List<Area> areas;
@@ -365,14 +365,7 @@ public class ControllerProjectData implements ActionListener, WindowListener, Ke
                 viewProjectData.getToolkit().beep();
                 e.consume();                
             } 
-        } else if (e.getSource().equals(viewProjectData.getTxtFindTypesOfElevators())) {
-            if (Methods.validate_only_number_or_space(character)){
-                e.consume();
-            } else if (viewProjectData.getTxtFindTypesOfElevators().getText().length() == 48) {
-                viewProjectData.getToolkit().beep();
-                e.consume();                
-            } 
-        } else if (e.getSource().equals(viewProjectData.getTxtFindElevators())) {
+        }  else if (e.getSource().equals(viewProjectData.getTxtFindElevators())) {
             if (Methods.validate_only_number_or_space(character)){
                 e.consume();
             } else if (viewProjectData.getTxtFindElevators().getText().length() == 48) {

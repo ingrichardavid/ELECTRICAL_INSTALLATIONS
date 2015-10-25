@@ -75,29 +75,29 @@ public class ViewProyectData extends javax.swing.JDialog {
     
         
         //Tabla Elevadores
-        tblElevators.getTableHeader().setFont(fuente);
-        tblElevators.getColumnModel().getColumn(0).setMaxWidth(0);
-        tblElevators.getColumnModel().getColumn(0).setMinWidth(0);
-        tblElevators.getColumnModel().getColumn(0).setPreferredWidth(0);  
-        tblElevators.getColumnModel().getColumn(1).setMaxWidth(0);
-        tblElevators.getColumnModel().getColumn(1).setMinWidth(0);
-        tblElevators.getColumnModel().getColumn(1).setPreferredWidth(0); 
-        tblElevators.getColumnModel().getColumn(2).setMaxWidth(0);
-        tblElevators.getColumnModel().getColumn(2).setMinWidth(0);
-        tblElevators.getColumnModel().getColumn(2).setPreferredWidth(0);               
+        tblInstallationEngines.getTableHeader().setFont(fuente);
+        tblInstallationEngines.getColumnModel().getColumn(0).setMaxWidth(0);
+        tblInstallationEngines.getColumnModel().getColumn(0).setMinWidth(0);
+        tblInstallationEngines.getColumnModel().getColumn(0).setPreferredWidth(0);  
+        tblInstallationEngines.getColumnModel().getColumn(1).setMaxWidth(0);
+        tblInstallationEngines.getColumnModel().getColumn(1).setMinWidth(0);
+        tblInstallationEngines.getColumnModel().getColumn(1).setPreferredWidth(0); 
+        tblInstallationEngines.getColumnModel().getColumn(2).setMaxWidth(0);
+        tblInstallationEngines.getColumnModel().getColumn(2).setMinWidth(0);
+        tblInstallationEngines.getColumnModel().getColumn(2).setPreferredWidth(0);               
         int[] anchos4 = {0,0,0,40,40,40,40};
-        for (int i = 0; i < tblElevators.getColumnCount(); i++) {
-            tblElevators.getColumnModel().getColumn(i).setPreferredWidth(anchos4[i]);
+        for (int i = 0; i < tblInstallationEngines.getColumnCount(); i++) {
+            tblInstallationEngines.getColumnModel().getColumn(i).setPreferredWidth(anchos4[i]);
         }
 
-        //Tabla Tipo de Elevadores
-        tblTypesOfElevators.getTableHeader().setFont(fuente);
-        tblTypesOfElevators.getColumnModel().getColumn(0).setMaxWidth(0);
-        tblTypesOfElevators.getColumnModel().getColumn(0).setMinWidth(0);
-        tblTypesOfElevators.getColumnModel().getColumn(0).setPreferredWidth(0);                
+        //Tabla Motores en la Instalacion 
+        tblInstallationEngines.getTableHeader().setFont(fuente);
+        tblInstallationEngines.getColumnModel().getColumn(0).setMaxWidth(0);
+        tblInstallationEngines.getColumnModel().getColumn(0).setMinWidth(0);
+        tblInstallationEngines.getColumnModel().getColumn(0).setPreferredWidth(0);                
         int[] anchos5 = {0,100,60,100};
-        for (int i = 0; i < tblTypesOfElevators.getColumnCount(); i++) {
-            tblTypesOfElevators.getColumnModel().getColumn(i).setPreferredWidth(anchos5[i]);
+        for (int i = 0; i < tblInstallationEngines.getColumnCount(); i++) {
+            tblInstallationEngines.getColumnModel().getColumn(i).setPreferredWidth(anchos5[i]);
         }
         
         controllerProjectData = new ControllerProjectData(this);
@@ -111,9 +111,8 @@ public class ViewProyectData extends javax.swing.JDialog {
         this.btnAddElevators.addActionListener(controllerProjectData);
         this.btnDeleteElevatorInInstallation.addActionListener(controllerProjectData);
         this.txtFindAreas.addKeyListener(controllerProjectData);        
-        this.txtFindAreasCharge.addKeyListener(controllerProjectData);
-        this.txtFindTypesOfElevators.addKeyListener(controllerProjectData);
-        this.txtFindElevators.addKeyListener(controllerProjectData);        
+        this.txtFindAreasCharge.addKeyListener(controllerProjectData); 
+        this.txtFindInstallationEngines.addKeyListener(controllerProjectData);        
         this.tblArea.addMouseListener(controllerProjectData);
         this.tblAreasCharges.addMouseListener(controllerProjectData);
         this.addWindowListener(controllerProjectData);
@@ -309,21 +308,13 @@ public class ViewProyectData extends javax.swing.JDialog {
     }
  
     public JTable getTblElevators() {
-        return tblElevators;
+        return tblInstallationEngines;
     }
 
     public void setTblElevators(JTable tblElevators) {
-        this.tblElevators = tblElevators;
+        this.tblInstallationEngines = tblElevators;
     }
-
-    public JTable getTblTypesOfElevators() {
-        return tblTypesOfElevators;
-    }
-
-    public void setTblTypesOfElevators(JTable tblTypesOfElevators) {
-        this.tblTypesOfElevators = tblTypesOfElevators;
-    }
-
+ 
     public JTextField getTxtFindAreas() {
         return txtFindAreas;
     }
@@ -341,20 +332,38 @@ public class ViewProyectData extends javax.swing.JDialog {
     } 
 
     public JTextField getTxtFindElevators() {
-        return txtFindElevators;
+        return txtFindInstallationEngines;
     }
 
     public void setTxtFindElevators(JTextField txtFindElevators) {
-        this.txtFindElevators = txtFindElevators;
+        this.txtFindInstallationEngines = txtFindElevators;
     }
 
-    public JTextField getTxtFindTypesOfElevators() {
-        return txtFindTypesOfElevators;
+    public JButton getBtnAddInstallationEngines() {
+        return btnAddInstallationEngines;
     }
 
-    public void setTxtFindTypesOfElevators(JTextField txtFindTypesOfElevators) {
-        this.txtFindTypesOfElevators = txtFindTypesOfElevators;
+    public void setBtnAddInstallationEngines(JButton btnAddInstallationEngines) {
+        this.btnAddInstallationEngines = btnAddInstallationEngines;
     }
+
+    public JTable getTblInstallationEngines() {
+        return tblInstallationEngines;
+    }
+
+    public void setTblInstallationEngines(JTable tblInstallationEngines) {
+        this.tblInstallationEngines = tblInstallationEngines;
+    }
+
+    public JTextField getTxtFindInstallationEngines() {
+        return txtFindInstallationEngines;
+    }
+
+    public void setTxtFindInstallationEngines(JTextField txtFindInstallationEngines) {
+        this.txtFindInstallationEngines = txtFindInstallationEngines;
+    }
+
+    
     
     /**
      * This method is called from within the constructor to initialize the form.
@@ -413,15 +422,10 @@ public class ViewProyectData extends javax.swing.JDialog {
         jPanel11 = new javax.swing.JPanel();
         jPanel13 = new javax.swing.JPanel();
         jLabel12 = new javax.swing.JLabel();
-        txtFindElevators = new javax.swing.JTextField();
+        txtFindInstallationEngines = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tblElevators = new javax.swing.JTable();
-        jPanel12 = new javax.swing.JPanel();
-        jPanel14 = new javax.swing.JPanel();
-        jLabel13 = new javax.swing.JLabel();
-        txtFindTypesOfElevators = new javax.swing.JTextField();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        tblTypesOfElevators = new javax.swing.JTable();
+        tblInstallationEngines = new javax.swing.JTable();
+        btnAddInstallationEngines = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
         btnClose = new javax.swing.JButton();
 
@@ -784,7 +788,7 @@ public class ViewProyectData extends javax.swing.JDialog {
         jPanelElevadoresLayout.rowHeights = new int[] {0};
         jPanelElevadores.setLayout(jPanelElevadoresLayout);
 
-        jPanel11.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Elevadores", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("DejaVu Sans", 1, 12))); // NOI18N
+        jPanel11.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Motores en la Instalación", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("DejaVu Sans", 1, 12))); // NOI18N
         jPanel11.setLayout(new java.awt.GridBagLayout());
 
         java.awt.GridBagLayout jPanel13Layout = new java.awt.GridBagLayout();
@@ -801,8 +805,10 @@ public class ViewProyectData extends javax.swing.JDialog {
         gridBagConstraints.insets = new java.awt.Insets(0, 0, 5, 0);
         jPanel13.add(jLabel12, gridBagConstraints);
 
-        txtFindElevators.setFont(new java.awt.Font("DejaVu Sans", 0, 12)); // NOI18N
-        txtFindElevators.setDisabledTextColor(new java.awt.Color(0, 0, 0));
+        txtFindInstallationEngines.setFont(new java.awt.Font("DejaVu Sans", 0, 12)); // NOI18N
+        txtFindInstallationEngines.setDisabledTextColor(new java.awt.Color(0, 0, 0));
+        txtFindInstallationEngines.setMinimumSize(new java.awt.Dimension(300, 22));
+        txtFindInstallationEngines.setPreferredSize(new java.awt.Dimension(300, 22));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 0;
@@ -810,17 +816,17 @@ public class ViewProyectData extends javax.swing.JDialog {
         gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.insets = new java.awt.Insets(0, 0, 5, 0);
-        jPanel13.add(txtFindElevators, gridBagConstraints);
+        jPanel13.add(txtFindInstallationEngines, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 0;
+        gridBagConstraints.gridy = 1;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
         jPanel11.add(jPanel13, gridBagConstraints);
 
-        tblElevators.setFont(new java.awt.Font("DejaVu Sans", 0, 12)); // NOI18N
-        tblElevators.setModel(new javax.swing.table.DefaultTableModel(
+        tblInstallationEngines.setFont(new java.awt.Font("DejaVu Sans", 0, 12)); // NOI18N
+        tblInstallationEngines.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -843,18 +849,30 @@ public class ViewProyectData extends javax.swing.JDialog {
                 return canEdit [columnIndex];
             }
         });
-        tblElevators.setComponentPopupMenu(subMenuElevators);
-        tblElevators.getTableHeader().setReorderingAllowed(false);
-        jScrollPane1.setViewportView(tblElevators);
+        tblInstallationEngines.setComponentPopupMenu(subMenuElevators);
+        tblInstallationEngines.getTableHeader().setReorderingAllowed(false);
+        jScrollPane1.setViewportView(tblInstallationEngines);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 1;
+        gridBagConstraints.gridy = 2;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.weighty = 1.0;
         jPanel11.add(jScrollPane1, gridBagConstraints);
+
+        btnAddInstallationEngines.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/electrical_installations/resource/image/agregar.png"))); // NOI18N
+        btnAddInstallationEngines.setText("Agregar");
+        btnAddInstallationEngines.setMaximumSize(new java.awt.Dimension(117, 33));
+        btnAddInstallationEngines.setMinimumSize(new java.awt.Dimension(117, 33));
+        btnAddInstallationEngines.setPreferredSize(new java.awt.Dimension(117, 33));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
+        gridBagConstraints.insets = new java.awt.Insets(0, 0, 5, 0);
+        jPanel11.add(btnAddInstallationEngines, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
@@ -865,88 +883,7 @@ public class ViewProyectData extends javax.swing.JDialog {
         gridBagConstraints.weighty = 1.0;
         jPanelElevadores.add(jPanel11, gridBagConstraints);
 
-        jPanel12.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Tipos de Elevadores", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("DejaVu Sans", 1, 12))); // NOI18N
-        jPanel12.setLayout(new java.awt.GridBagLayout());
-
-        java.awt.GridBagLayout jPanel14Layout = new java.awt.GridBagLayout();
-        jPanel14Layout.columnWidths = new int[] {0, 5, 0};
-        jPanel14Layout.rowHeights = new int[] {0};
-        jPanel14.setLayout(jPanel14Layout);
-
-        jLabel13.setFont(new java.awt.Font("DejaVu Sans", 1, 12)); // NOI18N
-        jLabel13.setText("Buscar:");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
-        gridBagConstraints.insets = new java.awt.Insets(0, 0, 5, 0);
-        jPanel14.add(jLabel13, gridBagConstraints);
-
-        txtFindTypesOfElevators.setFont(new java.awt.Font("DejaVu Sans", 0, 12)); // NOI18N
-        txtFindTypesOfElevators.setDisabledTextColor(new java.awt.Color(0, 0, 0));
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 2;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
-        gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(0, 0, 5, 0);
-        jPanel14.add(txtFindTypesOfElevators, gridBagConstraints);
-
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
-        jPanel12.add(jPanel14, gridBagConstraints);
-
-        tblTypesOfElevators.setFont(new java.awt.Font("DejaVu Sans", 0, 12)); // NOI18N
-        tblTypesOfElevators.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-                "Código", "Nº de Personas", "Velocidad m/s", "Potencia-W"
-            }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.Integer.class, java.lang.Double.class, java.lang.Integer.class
-            };
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false
-            };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
-        tblTypesOfElevators.setComponentPopupMenu(subMenuTypesOfElevators);
-        tblTypesOfElevators.getTableHeader().setReorderingAllowed(false);
-        jScrollPane2.setViewportView(tblTypesOfElevators);
-
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 1;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
-        gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.weighty = 1.0;
-        jPanel12.add(jScrollPane2, gridBagConstraints);
-
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 2;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
-        gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.weighty = 1.0;
-        jPanelElevadores.add(jPanel12, gridBagConstraints);
-
-        jTabbedPane2.addTab("Elevadores", jPanelElevadores);
+        jTabbedPane2.addTab("Motores", jPanelElevadores);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
@@ -989,6 +926,7 @@ public class ViewProyectData extends javax.swing.JDialog {
     private javax.swing.JMenuItem btnAddCharge;
     private javax.swing.JMenuItem btnAddCharges;
     private javax.swing.JMenuItem btnAddElevators;
+    private javax.swing.JButton btnAddInstallationEngines;
     private javax.swing.JButton btnClose;
     private javax.swing.JMenuItem btnDelete;
     private javax.swing.JMenuItem btnDeleteChargesInAreas;
@@ -998,16 +936,13 @@ public class ViewProyectData extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel12;
-    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel11;
-    private javax.swing.JPanel jPanel12;
     private javax.swing.JPanel jPanel13;
-    private javax.swing.JPanel jPanel14;
     private javax.swing.JPanel jPanel15;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
@@ -1019,7 +954,6 @@ public class ViewProyectData extends javax.swing.JDialog {
     private javax.swing.JPanel jPanelConfigArea;
     private javax.swing.JPanel jPanelElevadores;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JPopupMenu.Separator jSeparator1;
@@ -1038,11 +972,9 @@ public class ViewProyectData extends javax.swing.JDialog {
     private javax.swing.JPopupMenu subMenuTypesOfElevators;
     private javax.swing.JTable tblArea;
     private javax.swing.JTable tblAreasCharges;
-    private javax.swing.JTable tblElevators;
-    private javax.swing.JTable tblTypesOfElevators;
+    private javax.swing.JTable tblInstallationEngines;
     private javax.swing.JTextField txtFindAreas;
     private javax.swing.JTextField txtFindAreasCharge;
-    private javax.swing.JTextField txtFindElevators;
-    private javax.swing.JTextField txtFindTypesOfElevators;
+    private javax.swing.JTextField txtFindInstallationEngines;
     // End of variables declaration//GEN-END:variables
 }
