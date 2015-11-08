@@ -6,10 +6,16 @@
 package com.electrical_installations.view;
 
 import com.electrical_installations.controller.ControllerElevatorInInstallation;
-import com.electrical_installations.controller.ControllerCharge;
+import com.electrical_installations.model.entity.Project;
+import com.electrical_installations.model.entity.masters.PercentageOfThreePhaseMotors;
+import com.electrical_installations.model.enums.TypePhase;
+import com.electrical_installations.model.enums.TypePhases;
+import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JLabel;
 import javax.swing.JRadioButton;
+import javax.swing.JSpinner;
 
 /**
  * Clave ViewAddMotorToInstallation.
@@ -24,6 +30,10 @@ public class ViewAddMotorToInstallation extends javax.swing.JDialog {
     private String temperature;
     private String material;
     private String phase;
+    private TypePhases typePhases;
+    private Project project;
+    private TypePhase typePhase;
+    
     
     /**
      * Constructor de ViewAddElevatorToInstallation, por ser subclase de JDialog recibe como parámetro el padre y true en caso de que sea modal.
@@ -33,20 +43,233 @@ public class ViewAddMotorToInstallation extends javax.swing.JDialog {
     public ViewAddMotorToInstallation(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
- 
+         
         this.voltage = 0;
-        
-                        
+                         
         controller = new ControllerElevatorInInstallation(this);
         this.btnAdd.addActionListener(controller);
-        this.btnClose.addActionListener(controller);
-        
+        this.btnClose.addActionListener(controller); 
+        this.btnCalculateCurrentCapacity.addActionListener(controller);
+        this.btnCalculateBreakdown.addActionListener(controller);
+        this.rBtnAir.addChangeListener(controller);
+        this.rBtnGround.addChangeListener(controller);
         this.setLocationRelativeTo(null);
         
     }
     
-    //Getters y Setters
+    public void configuration(TypePhases typePhases, PercentageOfThreePhaseMotors percentageOfThreePhaseMotors) {
+        if (typePhases.getPhase().equalsIgnoreCase(TypePhases.PHASE_FOUR_THREAD.getPhase())) {
+            controller.fill_three_phases_HP();
+            controller.fill_combos_phases(typePhases);
+            controller.fill_combo_percentaje_three_phase_motors(percentageOfThreePhaseMotors);
+            controller.fill_combos_voltages_motores_trifasicos();
+        } else {
+            controller.fill_combos_phases(typePhases);
+            controller.fill_single_phases_HP();
+            controller.fill_combo_percentage_single_phase_motors();
+            controller.fill_combos_voltages();
+        }
+        controller.fill_combos_materials();
+        controller.fill_combos_temperatures();         
+        controller.fill_combos_ducts();
+        controller.fill_combos_calibers();
 
+    }
+
+    //Getters y Setters
+    
+    public Project getProject() {
+        return project;
+    }
+
+    public void setProject(Project project) {
+        this.project = project;
+    }
+
+    public TypePhases getTypePhases() {
+        return typePhases;
+    }
+
+    public void setTypePhases(TypePhases typePhases) {
+        this.typePhases = typePhases;
+    }
+    
+    public JButton getBtnCalculateBreakdown() {
+        return btnCalculateBreakdown;
+    }
+
+    public void setBtnCalculateBreakdown(JButton btnCalculateBreakdown) {
+        this.btnCalculateBreakdown = btnCalculateBreakdown;
+    }
+
+    public JButton getBtnCalculateCurrentCapacity() {
+        return btnCalculateCurrentCapacity;
+    }
+
+    public void setBtnCalculateCurrentCapacity(JButton btnCalculateCurrentCapacity) {
+        this.btnCalculateCurrentCapacity = btnCalculateCurrentCapacity;
+    }
+
+    public ButtonGroup getBtnGroupMaterial() {
+        return btnGroupRush;
+    }
+
+    public void setBtnGroupMaterial(ButtonGroup btnGroupMaterial) {
+        this.btnGroupRush = btnGroupMaterial;
+    }
+    
+    public JSpinner getJspAngle() {
+        return jspAngle;
+    }
+
+    public void setJspAngle(JSpinner jspAngle) {
+        this.jspAngle = jspAngle;
+    }
+
+    public JSpinner getJspLength() {
+        return jspLength;
+    }
+
+    public void setJspLength(JSpinner jspLength) {
+        this.jspLength = jspLength;
+    }
+
+    public JSpinner getJspPowerFactor() {
+        return jspPowerFactor;
+    }
+
+    public void setJspPowerFactor(JSpinner jspPowerFactor) {
+        this.jspPowerFactor = jspPowerFactor;
+    }
+
+    public JSpinner getJspQuantity() {
+        return jspQuantity;
+    }
+
+    public void setJspQuantity(JSpinner jspQuantity) {
+        this.jspQuantity = jspQuantity;
+    }
+
+    public JLabel getLblBreakdownVoltage() {
+        return lblBreakdownVoltage;
+    }
+
+    public void setLblBreakdownVoltage(JLabel lblBreakdownVoltage) {
+        this.lblBreakdownVoltage = lblBreakdownVoltage;
+    }
+
+    public JLabel getLblBreakdownVoltageNeutral() {
+        return lblBreakdownVoltageNeutral;
+    }
+
+    public void setLblBreakdownVoltageNeutral(JLabel lblBreakdownVoltageNeutral) {
+        this.lblBreakdownVoltageNeutral = lblBreakdownVoltageNeutral;
+    }
+
+    public JLabel getLblCaliberEarth() {
+        return lblCaliberEarth;
+    }
+
+    public void setLblCaliberEarth(JLabel lblCaliberEarth) {
+        this.lblCaliberEarth = lblCaliberEarth;
+    }
+
+    public JLabel getLblCaliberNeutral() {
+        return lblCaliberNeutral;
+    }
+
+    public void setLblCaliberNeutral(JLabel lblCaliberNeutral) {
+        this.lblCaliberNeutral = lblCaliberNeutral;
+    }
+
+    public JLabel getLblCaliberPhase() {
+        return lblCaliberPhase;
+    }
+
+    public void setLblCaliberPhase(JLabel lblCaliberPhase) {
+        this.lblCaliberPhase = lblCaliberPhase;
+    }
+
+    public JLabel getLblHP() {
+        return lblHP;
+    }
+
+    public void setLblHP(JLabel lblHP) {
+        this.lblHP = lblHP;
+    }
+
+    public JLabel getLblIn() {
+        return lblIn;
+    }
+
+    public void setLblIn(JLabel lblIn) {
+        this.lblIn = lblIn;
+    }
+
+    public JRadioButton getrBtnAir() {
+        return rBtnAir;
+    }
+
+    public void setrBtnAir(JRadioButton rBtnAir) {
+        this.rBtnAir = rBtnAir;
+    }
+
+    public JRadioButton getrBtnGround() {
+        return rBtnGround;
+    }
+
+    public void setrBtnGround(JRadioButton rBtnGround) {
+        this.rBtnGround = rBtnGround;
+    }
+    
+    public JLabel getLblDescription() {
+        return lblDescription;
+    }
+
+    public void setLblDescription(JLabel lblDescription) {
+        this.lblDescription = lblDescription;
+    }
+      
+    public JComboBox getCmbCaliber() {
+        return cmbCaliber;
+    }
+
+    public void setCmbCaliber(JComboBox cmbCaliber) {
+        this.cmbCaliber = cmbCaliber;
+    }
+
+    public JComboBox getCmbCalibersNeutral() {
+        return cmbCalibersNeutral;
+    }
+
+    public void setCmbCalibersNeutral(JComboBox cmbCalibersNeutral) {
+        this.cmbCalibersNeutral = cmbCalibersNeutral;
+    }
+
+    public JComboBox getCmbDuct() {
+        return cmbDuct;
+    }
+
+    public void setCmbDuct(JComboBox cmbDuct) {
+        this.cmbDuct = cmbDuct;
+    }
+
+    public JComboBox getCmbMaterial() {
+        return cmbMaterial;
+    }
+
+    public void setCmbMaterial(JComboBox cmbMaterial) {
+        this.cmbMaterial = cmbMaterial;
+    }
+    
+    public JComboBox getCmbHP() {
+        return cmbHP;
+    }
+
+    public void setCmbHP(JComboBox cmbHP) {
+        this.cmbHP = cmbHP;
+    } 
+    
     public int getVoltage() {
         return voltage;
     }
@@ -95,8 +318,6 @@ public class ViewAddMotorToInstallation extends javax.swing.JDialog {
         this.cmbTemperature = cmbTemperature;
     }
 
-   
-        
     public JButton getBtnAdd() {
         return btnAdd;
     }
@@ -120,7 +341,25 @@ public class ViewAddMotorToInstallation extends javax.swing.JDialog {
     public void setCmbVoltage(JComboBox cmbVoltage) {
         this.cmbVoltage = cmbVoltage;
     }
-        
+
+    public JComboBox getCmbPercentageSinglePhaseMotors() {
+        return cmbPercentageSinglePhaseMotors;
+    }
+
+    public void setCmbPercentageSinglePhaseMotors(JComboBox cmbPercentageSinglePhaseMotors) {
+        this.cmbPercentageSinglePhaseMotors = cmbPercentageSinglePhaseMotors;
+    }
+
+    public TypePhase getTypePhase() {
+        return typePhase;
+    }
+
+    public void setTypePhase(TypePhase typePhase) {
+        this.typePhase = typePhase;
+    }
+    
+    
+            
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -131,7 +370,7 @@ public class ViewAddMotorToInstallation extends javax.swing.JDialog {
     private void initComponents() {
         java.awt.GridBagConstraints gridBagConstraints;
 
-        btnGroupMaterial = new javax.swing.ButtonGroup();
+        btnGroupRush = new javax.swing.ButtonGroup();
         p1 = new javax.swing.JPanel();
         p2 = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
@@ -155,9 +394,7 @@ public class ViewAddMotorToInstallation extends javax.swing.JDialog {
         btnCalculateCurrentCapacity = new javax.swing.JButton();
         lblIn = new javax.swing.JLabel();
         cmbPercentageSinglePhaseMotors = new javax.swing.JComboBox();
-        lblStaticPotency = new javax.swing.JLabel();
         lblHP = new javax.swing.JLabel();
-        lblPotency = new javax.swing.JLabel();
         cmbHP = new javax.swing.JComboBox();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -184,7 +421,7 @@ public class ViewAddMotorToInstallation extends javax.swing.JDialog {
         filler1 = new javax.swing.Box.Filler(new java.awt.Dimension(97, 21), new java.awt.Dimension(97, 21), new java.awt.Dimension(97, 21));
         jPanel1 = new javax.swing.JPanel();
         jLabel11 = new javax.swing.JLabel();
-        lblMostrarTitulo = new javax.swing.JLabel();
+        lblDescription = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         btnAdd = new javax.swing.JButton();
         btnClose = new javax.swing.JButton();
@@ -290,6 +527,9 @@ public class ViewAddMotorToInstallation extends javax.swing.JDialog {
 
         jLabel15.setFont(new java.awt.Font("DejaVu Sans", 1, 12)); // NOI18N
         jLabel15.setText("Acometida:");
+        jLabel15.setMaximumSize(new java.awt.Dimension(95, 15));
+        jLabel15.setMinimumSize(new java.awt.Dimension(95, 15));
+        jLabel15.setPreferredSize(new java.awt.Dimension(95, 15));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 2;
@@ -299,6 +539,7 @@ public class ViewAddMotorToInstallation extends javax.swing.JDialog {
 
         pa.setLayout(new java.awt.GridBagLayout());
 
+        btnGroupRush.add(rBtnAir);
         rBtnAir.setFont(new java.awt.Font("DejaVu Sans", 0, 12)); // NOI18N
         rBtnAir.setText("Aérea");
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -306,6 +547,7 @@ public class ViewAddMotorToInstallation extends javax.swing.JDialog {
         gridBagConstraints.gridy = 0;
         pa.add(rBtnAir, gridBagConstraints);
 
+        btnGroupRush.add(rBtnGround);
         rBtnGround.setFont(new java.awt.Font("DejaVu Sans", 0, 12)); // NOI18N
         rBtnGround.setText("Subterránea");
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -390,15 +632,6 @@ public class ViewAddMotorToInstallation extends javax.swing.JDialog {
         gridBagConstraints.insets = new java.awt.Insets(7, 12, 0, 3);
         jPanel4.add(cmbPercentageSinglePhaseMotors, gridBagConstraints);
 
-        lblStaticPotency.setFont(new java.awt.Font("DejaVu Sans", 1, 12)); // NOI18N
-        lblStaticPotency.setText("Potencia:");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
-        gridBagConstraints.insets = new java.awt.Insets(3, 3, 0, 0);
-        jPanel4.add(lblStaticPotency, gridBagConstraints);
-
         lblHP.setFont(new java.awt.Font("DejaVu Sans", 1, 12)); // NOI18N
         lblHP.setText("HP:");
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -407,16 +640,6 @@ public class ViewAddMotorToInstallation extends javax.swing.JDialog {
         gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
         gridBagConstraints.insets = new java.awt.Insets(3, 3, 0, 0);
         jPanel4.add(lblHP, gridBagConstraints);
-
-        lblPotency.setFont(new java.awt.Font("DejaVu Sans", 0, 12)); // NOI18N
-        lblPotency.setText("0 W");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
-        gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(3, 12, 0, 0);
-        jPanel4.add(lblPotency, gridBagConstraints);
 
         cmbHP.setFont(new java.awt.Font("DejaVu Sans", 0, 12)); // NOI18N
         cmbHP.setMinimumSize(new java.awt.Dimension(100, 21));
@@ -447,8 +670,10 @@ public class ViewAddMotorToInstallation extends javax.swing.JDialog {
         jPanel4.add(jLabel2, gridBagConstraints);
 
         lblCaliberNeutral.setFont(new java.awt.Font("DejaVu Sans", 0, 12)); // NOI18N
-        lblCaliberNeutral.setMinimumSize(new java.awt.Dimension(140, 15));
-        lblCaliberNeutral.setPreferredSize(new java.awt.Dimension(140, 15));
+        lblCaliberNeutral.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        lblCaliberNeutral.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        lblCaliberNeutral.setMinimumSize(new java.awt.Dimension(160, 15));
+        lblCaliberNeutral.setPreferredSize(new java.awt.Dimension(160, 15));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 3;
         gridBagConstraints.gridy = 5;
@@ -457,11 +682,12 @@ public class ViewAddMotorToInstallation extends javax.swing.JDialog {
         jPanel4.add(lblCaliberNeutral, gridBagConstraints);
 
         lblCaliberEarth.setFont(new java.awt.Font("DejaVu Sans", 0, 12)); // NOI18N
+        lblCaliberEarth.setPreferredSize(new java.awt.Dimension(250, 15));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 6;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
-        gridBagConstraints.insets = new java.awt.Insets(10, 0, 0, 0);
+        gridBagConstraints.insets = new java.awt.Insets(10, 12, 0, 0);
         jPanel4.add(lblCaliberEarth, gridBagConstraints);
 
         jLabel19.setFont(new java.awt.Font("DejaVu Sans", 1, 12)); // NOI18N
@@ -510,7 +736,7 @@ public class ViewAddMotorToInstallation extends javax.swing.JDialog {
         cmbCaliber.setMinimumSize(new java.awt.Dimension(100, 21));
         cmbCaliber.setPreferredSize(new java.awt.Dimension(100, 21));
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 0;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weightx = 1.0;
@@ -521,7 +747,7 @@ public class ViewAddMotorToInstallation extends javax.swing.JDialog {
         jLabel13.setText("Longitud:");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 2;
+        gridBagConstraints.gridy = 1;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.insets = new java.awt.Insets(7, 3, 0, 0);
         jPanel8.add(jLabel13, gridBagConstraints);
@@ -532,8 +758,8 @@ public class ViewAddMotorToInstallation extends javax.swing.JDialog {
         jspLength.setMinimumSize(new java.awt.Dimension(100, 21));
         jspLength.setPreferredSize(new java.awt.Dimension(100, 21));
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 2;
-        gridBagConstraints.gridy = 2;
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 1;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.insets = new java.awt.Insets(7, 0, 0, 0);
@@ -546,7 +772,7 @@ public class ViewAddMotorToInstallation extends javax.swing.JDialog {
         jLabel14.setPreferredSize(new java.awt.Dimension(84, 15));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 4;
+        gridBagConstraints.gridy = 2;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.insets = new java.awt.Insets(7, 3, 0, 23);
@@ -557,8 +783,8 @@ public class ViewAddMotorToInstallation extends javax.swing.JDialog {
         btnCalculateBreakdown.setText("Calcular");
         btnCalculateBreakdown.setOpaque(false);
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 6;
-        gridBagConstraints.gridy = 8;
+        gridBagConstraints.gridx = 3;
+        gridBagConstraints.gridy = 4;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
         gridBagConstraints.insets = new java.awt.Insets(8, 0, 0, 3);
         jPanel8.add(btnCalculateBreakdown, gridBagConstraints);
@@ -567,7 +793,7 @@ public class ViewAddMotorToInstallation extends javax.swing.JDialog {
         jLabel4.setText("%:");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 6;
+        gridBagConstraints.gridy = 3;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
         gridBagConstraints.insets = new java.awt.Insets(8, 3, 0, 0);
         jPanel8.add(jLabel4, gridBagConstraints);
@@ -575,8 +801,8 @@ public class ViewAddMotorToInstallation extends javax.swing.JDialog {
         lblBreakdownVoltage.setFont(new java.awt.Font("DejaVu Sans", 0, 12)); // NOI18N
         lblBreakdownVoltage.setText("0,0 %");
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 2;
-        gridBagConstraints.gridy = 6;
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 3;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.insets = new java.awt.Insets(8, 0, 0, 0);
@@ -586,8 +812,8 @@ public class ViewAddMotorToInstallation extends javax.swing.JDialog {
         jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel9.setText("Ducto:");
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 4;
-        gridBagConstraints.gridy = 2;
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 1;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 27);
         jPanel8.add(jLabel9, gridBagConstraints);
@@ -596,8 +822,8 @@ public class ViewAddMotorToInstallation extends javax.swing.JDialog {
         cmbDuct.setMinimumSize(new java.awt.Dimension(100, 21));
         cmbDuct.setPreferredSize(new java.awt.Dimension(100, 21));
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 6;
-        gridBagConstraints.gridy = 2;
+        gridBagConstraints.gridx = 3;
+        gridBagConstraints.gridy = 1;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
         gridBagConstraints.insets = new java.awt.Insets(3, 0, 0, 3);
         jPanel8.add(cmbDuct, gridBagConstraints);
@@ -607,8 +833,8 @@ public class ViewAddMotorToInstallation extends javax.swing.JDialog {
         jspAngle.setMinimumSize(new java.awt.Dimension(100, 21));
         jspAngle.setPreferredSize(new java.awt.Dimension(100, 21));
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 2;
-        gridBagConstraints.gridy = 4;
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 2;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
         gridBagConstraints.insets = new java.awt.Insets(7, 0, 0, 3);
         jPanel8.add(jspAngle, gridBagConstraints);
@@ -616,16 +842,17 @@ public class ViewAddMotorToInstallation extends javax.swing.JDialog {
         jLabel5.setFont(new java.awt.Font("DejaVu Sans", 1, 12)); // NOI18N
         jLabel5.setText("C. Neutros:");
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 4;
+        gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 0;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 4);
         jPanel8.add(jLabel5, gridBagConstraints);
 
+        cmbCalibersNeutral.setFont(new java.awt.Font("DejaVu Sans", 0, 12)); // NOI18N
         cmbCalibersNeutral.setMinimumSize(new java.awt.Dimension(100, 21));
         cmbCalibersNeutral.setPreferredSize(new java.awt.Dimension(100, 21));
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 6;
+        gridBagConstraints.gridx = 3;
         gridBagConstraints.gridy = 0;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_END;
         gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 3);
@@ -634,8 +861,8 @@ public class ViewAddMotorToInstallation extends javax.swing.JDialog {
         jLabel10.setFont(new java.awt.Font("DejaVu Sans", 1, 12)); // NOI18N
         jLabel10.setText("%N:");
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 4;
-        gridBagConstraints.gridy = 6;
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 3;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.insets = new java.awt.Insets(8, 0, 0, 0);
         jPanel8.add(jLabel10, gridBagConstraints);
@@ -643,17 +870,17 @@ public class ViewAddMotorToInstallation extends javax.swing.JDialog {
         lblBreakdownVoltageNeutral.setFont(new java.awt.Font("DejaVu Sans", 0, 12)); // NOI18N
         lblBreakdownVoltageNeutral.setText("0,0 %");
         lblBreakdownVoltageNeutral.setMaximumSize(new java.awt.Dimension(140, 15));
-        lblBreakdownVoltageNeutral.setMinimumSize(new java.awt.Dimension(140, 15));
-        lblBreakdownVoltageNeutral.setPreferredSize(new java.awt.Dimension(140, 15));
+        lblBreakdownVoltageNeutral.setMinimumSize(new java.awt.Dimension(160, 15));
+        lblBreakdownVoltageNeutral.setPreferredSize(new java.awt.Dimension(160, 15));
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 6;
-        gridBagConstraints.gridy = 6;
+        gridBagConstraints.gridx = 3;
+        gridBagConstraints.gridy = 3;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.insets = new java.awt.Insets(8, 0, 0, 0);
         jPanel8.add(lblBreakdownVoltageNeutral, gridBagConstraints);
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 4;
-        gridBagConstraints.gridy = 4;
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 2;
         jPanel8.add(filler1, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -670,24 +897,26 @@ public class ViewAddMotorToInstallation extends javax.swing.JDialog {
         jPanel1Layout.rowHeights = new int[] {0};
         jPanel1.setLayout(jPanel1Layout);
 
-        jLabel11.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel11.setFont(new java.awt.Font("DejaVu Sans", 1, 12)); // NOI18N
         jLabel11.setText("Descripción:");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
         jPanel1.add(jLabel11, gridBagConstraints);
 
-        lblMostrarTitulo.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        lblMostrarTitulo.setText("jLabel20");
+        lblDescription.setFont(new java.awt.Font("DejaVu Sans", 1, 14)); // NOI18N
+        lblDescription.setForeground(new java.awt.Color(0, 0, 153));
+        lblDescription.setText("1");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 0;
-        jPanel1.add(lblMostrarTitulo, gridBagConstraints);
+        jPanel1.add(lblDescription, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
+        gridBagConstraints.weightx = 1.0;
         gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
         p2.add(jPanel1, gridBagConstraints);
 
@@ -695,11 +924,14 @@ public class ViewAddMotorToInstallation extends javax.swing.JDialog {
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 0;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
         gridBagConstraints.insets = new java.awt.Insets(5, 0, 5, 0);
         p1.add(p2, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
+        gridBagConstraints.weightx = 1.0;
         getContentPane().add(p1, gridBagConstraints);
 
         java.awt.GridBagLayout jPanel3Layout = new java.awt.GridBagLayout();
@@ -749,7 +981,7 @@ public class ViewAddMotorToInstallation extends javax.swing.JDialog {
     private javax.swing.JButton btnCalculateBreakdown;
     private javax.swing.JButton btnCalculateCurrentCapacity;
     private javax.swing.JButton btnClose;
-    private javax.swing.ButtonGroup btnGroupMaterial;
+    private javax.swing.ButtonGroup btnGroupRush;
     private javax.swing.JComboBox cmbCaliber;
     private javax.swing.JComboBox cmbCalibersNeutral;
     private javax.swing.JComboBox cmbDuct;
@@ -792,11 +1024,9 @@ public class ViewAddMotorToInstallation extends javax.swing.JDialog {
     private javax.swing.JLabel lblCaliberEarth;
     private javax.swing.JLabel lblCaliberNeutral;
     private javax.swing.JLabel lblCaliberPhase;
+    private javax.swing.JLabel lblDescription;
     private javax.swing.JLabel lblHP;
     private javax.swing.JLabel lblIn;
-    private javax.swing.JLabel lblMostrarTitulo;
-    private javax.swing.JLabel lblPotency;
-    private javax.swing.JLabel lblStaticPotency;
     private javax.swing.JPanel p1;
     private javax.swing.JPanel p2;
     private javax.swing.JPanel pa;

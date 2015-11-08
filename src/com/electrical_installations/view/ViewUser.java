@@ -776,6 +776,7 @@ public final class ViewUser extends javax.swing.JDialog {
         gridBagConstraints.insets = new java.awt.Insets(5, 0, 6, 0);
         tb2.add(txtUserName, gridBagConstraints);
 
+        txtPreviousPassword.setFont(new java.awt.Font("DejaVu Sans", 0, 12)); // NOI18N
         txtPreviousPassword.setMinimumSize(new java.awt.Dimension(175, 21));
         txtPreviousPassword.setPreferredSize(new java.awt.Dimension(175, 21));
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -787,6 +788,7 @@ public final class ViewUser extends javax.swing.JDialog {
         gridBagConstraints.insets = new java.awt.Insets(0, 0, 6, 0);
         tb2.add(txtPreviousPassword, gridBagConstraints);
 
+        txtPassword.setFont(new java.awt.Font("DejaVu Sans", 0, 12)); // NOI18N
         txtPassword.setMinimumSize(new java.awt.Dimension(175, 21));
         txtPassword.setPreferredSize(new java.awt.Dimension(175, 21));
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -808,6 +810,7 @@ public final class ViewUser extends javax.swing.JDialog {
         gridBagConstraints.insets = new java.awt.Insets(2, 0, 0, 0);
         tb2.add(jLabel13, gridBagConstraints);
 
+        txtConfirmPassword.setFont(new java.awt.Font("DejaVu Sans", 0, 12)); // NOI18N
         txtConfirmPassword.setMinimumSize(new java.awt.Dimension(175, 21));
         txtConfirmPassword.setPreferredSize(new java.awt.Dimension(175, 21));
         gridBagConstraints = new java.awt.GridBagConstraints();

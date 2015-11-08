@@ -28,7 +28,10 @@ public enum TypeNumbersCalibers {
     CALIBER_250("250"),
     CALIBER_300("300"),
     CALIBER_350("350"),
-    CALIBER_500("500");
+    CALIBER_500("500"),
+    CALIBER_600("600"),
+    CALIBER_700("700"),
+    CALIBER_750("750");
     
     //Objetos, variables y constantes
     private final String caliber;

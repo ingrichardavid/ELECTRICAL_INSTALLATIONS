@@ -5,6 +5,7 @@
  */
 package com.electrical_installations.controller;
 
+import com.electrical_installations.configuration.Control;
 import com.electrical_installations.configuration.Messages;
 import com.electrical_installations.configuration.MessagesStructure;
 import com.electrical_installations.global.method.Methods;
@@ -65,7 +66,7 @@ public class ControllerProject implements ActionListener, KeyListener, ChangeLis
      * @return Retorna true en caso de que el campo sea completado
      */
     private boolean validate_name(){
-        if (viewProject.getTxtName().getText().equals("")){
+        if (viewProject.getTxtName().getText().trim().equals("")){
             MessagesStructure.Warning(MessagesStructure.format(200, messages.getProperty(Messages.PROJECT_NAME_NO_FOUND), MessagesStructure.justify));
             viewProject.getTxtName().requestFocus();
             return false;
@@ -245,6 +246,7 @@ public class ControllerProject implements ActionListener, KeyListener, ChangeLis
                     Integer.valueOf(viewProject.getTblData().getValueAt(row, 4).toString()), 
                     viewProject.getTblData().getValueAt(row, 5).toString()));
             viewProjectData.controllerProjectData.fill_areas();
+            viewProjectData.controllerProjectData.fill_installation_motors();
             viewProjectData.setTitle("Proyecto: " + viewProjectData.getLblName().getText());
             viewProjectData.setVisible(true);
             this.clean_all();
@@ -269,6 +271,7 @@ public class ControllerProject implements ActionListener, KeyListener, ChangeLis
             viewUser.setVisible(true);
         } else if (e.getSource().equals(viewProject.getBtnExit())){
             if (MessagesStructure.ConfirmationMessage(MessagesStructure.format(100, messages.getProperty(Messages.LOG_OUT), MessagesStructure.justify)) == 0){        
+                 new Control().closeApp();
                 System.exit(0);
             } else {
                 viewProject.setDefaultCloseOperation(0);
@@ -336,6 +339,7 @@ public class ControllerProject implements ActionListener, KeyListener, ChangeLis
     @Override
     public void windowClosing(WindowEvent e) {
         if (MessagesStructure.ConfirmationMessage(MessagesStructure.format(100, messages.getProperty(Messages.LOG_OUT), MessagesStructure.justify)) == 0){        
+            new Control().closeApp();
             System.exit(0);
         } else {
             viewProject.setDefaultCloseOperation(0);

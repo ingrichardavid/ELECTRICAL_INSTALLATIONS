@@ -4,33 +4,42 @@
  * and open the template in the editor.
  */
 package com.electrical_installations.view;
+
+import com.electrical_installations.configuration.Control;
 import javax.swing.JFrame;
 import org.jvnet.substance.SubstanceLookAndFeel;
 
 /**
  * Clase que encapsula el inicio de la aplicación.
+ *
  * @author Ing. Richard David
  * @version 1
  * @since 2015-09-20
  */
-public class Start {    
-    
+public class Start {
+
     /**
      * Método main para iniciar la aplicación.
-     * @param args 
+     *
+     * @param args
      */
-    public static void main(String args[]) { 
-        
+    public static void main(String args[]) {
+
         /**
-         * Configuración de la librería Substance para dar look a la aplicación. 
+         * Configuración de la librería Substance para dar look a la aplicación.
          */
         JFrame.setDefaultLookAndFeelDecorated(true);
         SubstanceLookAndFeel.setSkin("org.jvnet.substance.skin.ModerateSkin");
         SubstanceLookAndFeel.setCurrentTheme("org.jvnet.substance.theme.SubstanceColorBlindTheme");
         SubstanceLookAndFeel.setCurrentWatermark("org.jvnet.substance.watermark.SubstanceCopperplateEngravingWatermark");
-        ViewLogin viewLogin  = new ViewLogin();
-        viewLogin.setVisible(true);
+        
+        if (new Control().check()) {
+            ViewLogin viewLogin = new ViewLogin();
+            viewLogin.setVisible(true);
+        } else {
+            System.exit(0);
+        }
         
     }
     
-} 
+}

@@ -23,4 +23,11 @@ public interface VoltageDAO {
      * @return Retorna una lista de Voltajes
      */
     public List<Voltage> find_voltages();
+    
+     /**
+     * Listar todos los Voltajes de Motores Trifásicos.
+     *
+     * @return Retorna una lista de Voltajes de motores trifásicos.
+     */
+    public List<Voltage> find_voltages_motor_three_phases();
 }

@@ -5,6 +5,7 @@
  */
 package com.electrical_installations.controller;
 
+import com.electrical_installations.configuration.Control;
 import com.electrical_installations.configuration.Messages;
 import com.electrical_installations.configuration.MessagesStructure;
 import com.electrical_installations.model.entity.User;
@@ -106,6 +107,7 @@ public class ControllerLogin implements ActionListener, WindowListener, KeyListe
     @Override
     public void windowClosing(WindowEvent e) {        
         if (MessagesStructure.ConfirmationMessage(MessagesStructure.format(100, messages.getProperty(Messages.LOG_OUT), MessagesStructure.justify)) == 0){        
+            new Control().closeApp();
             System.exit(0);
         } else {
             viewLogin.setDefaultCloseOperation(0);

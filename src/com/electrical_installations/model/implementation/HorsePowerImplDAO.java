@@ -102,5 +102,22 @@ public class HorsePowerImplDAO implements HorsePowerDAO{
         }
         return horsesPowersFound;
     }//Fin del método
+
+    @Override
+    public List<HorsePower> find_horses_power_threephases() {
+         horsePorwerFounds = new ArrayList<>();
+        try {
+            preparedStatement = connection.getConexion().prepareStatement(HorsePowerQueries.SELECT_ALL_THREEPHASES);
+            result = preparedStatement.executeQuery();
+            while(result.next()){
+                horsePorwerFounds.add(new HorsePower(result.getInt(1), result.getString(2),result.getDouble(3)));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            connection.closeConnection();
+        }
+        return horsePorwerFounds;
+     }
     
 }

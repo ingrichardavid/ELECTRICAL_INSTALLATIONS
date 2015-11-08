@@ -5,6 +5,7 @@
  */
 package com.electrical_installations.model.implementation;
 
+import com.electrical_installations.controller.MethodsForCalculationsIluminariaPowerPoint;
 import com.electrical_installations.model.DataBaseConnection;
 import com.electrical_installations.model.dao.AreaDAO;
 import com.electrical_installations.model.entity.Area;
@@ -21,6 +22,7 @@ import com.electrical_installations.model.entity.masters.Unit;
 import com.electrical_installations.model.entity.masters.Voltage;
 import com.electrical_installations.model.enums.TypeOfBranchCircuitInArea;
 import com.electrical_installations.model.enums.TypeRush;
+import com.electrical_installations.model.enums.TypeTypeOfCharges;
 import com.electrical_installations.model.query.AreaQueries;
 import com.electrical_installations.model.query.CaliberQueries;
 import java.sql.PreparedStatement;
@@ -85,8 +87,7 @@ public class AreaImplDAO implements AreaDAO{
     public boolean insert(Area area, List<AreaIluminariaPowerPoint> areaIluminariaPowerPoints) {
         boolean status = false;
         try {
-            connection.getConexion().setAutoCommit(false);
-            
+            connection.getConexion().setAutoCommit(false);            
             preparedStatement = connection.getConexion().prepareStatement(AreaQueries.INSERT, Statement.RETURN_GENERATED_KEYS);
             preparedStatement.setInt(1, area.getProject().getCode());
             preparedStatement.setInt(2, area.getProject().getTypeOfInstallation().getCode());
@@ -162,8 +163,7 @@ public class AreaImplDAO implements AreaDAO{
     public boolean update(Area area, List<AreaIluminariaPowerPoint> areaIluminariaPowerPoints) {
         boolean status = false;
         try {
-            connection.getConexion().setAutoCommit(false);
-            
+            connection.getConexion().setAutoCommit(false);            
             preparedStatement = connection.getConexion().prepareStatement(AreaQueries.UPDATE);
             preparedStatement.setString(1, area.getName());
             preparedStatement.setDouble(2, area.getPotency_total());
@@ -456,5 +456,59 @@ public class AreaImplDAO implements AreaDAO{
         }
         return areaIluminariaPowerPoints; 
     }//Fin del método
+    
+    /**
+     * Método para encontrar el total en iluminaria y toma corriente de un área determinada.
+     * @param area
+     * @return Retorna el total en iluminaria y toma corriente.
+     */
+    @Override
+    public double consult_total_iluminaria_power_point(Area area){
+        double potency_iluminaria = 0;
+        double potency_power_point = 0;
+        try {
+            preparedStatement = connection.getConexion().prepareStatement(AreaQueries.CONSULT_TOTAL_ILUMINARIA);
+            preparedStatement.setInt(1, area.getCode());
+            result = preparedStatement.executeQuery();
+            while (result.next()){
+                potency_iluminaria = result.getDouble(1);
+            }
+            preparedStatement.close();
+            preparedStatement = connection.getConexion().prepareStatement(AreaQueries.CONSULT_TOTAL_POWER_POINT);
+            preparedStatement.setInt(1, area.getCode());
+            result = preparedStatement.executeQuery();
+            while (result.next()){
+                potency_power_point = result.getDouble(1);
+            }            
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            connection.closeConnection();
+        }
+        return MethodsForCalculationsIluminariaPowerPoint.potencyInIluminariaAndPowerPoint(potency_iluminaria,potency_power_point);
+    }//Fin del método.
+    
+    /**
+     * Método para consultar el código de un tipo de cagar.
+     * @param typeTypeOfCharges
+     * @return Retorna un código.
+     */
+    @Override
+    public int consult_code_type_charge(TypeTypeOfCharges typeTypeOfCharges){
+        int code_type_charge = 0;
+        try {
+            preparedStatement = connection.getConexion().prepareStatement(AreaQueries.CONSULT_CODE_TYPE_CHARGE);
+            preparedStatement.setString(1, typeTypeOfCharges.getTypeCharge());
+            result = preparedStatement.executeQuery();
+            while(result.next()){
+                code_type_charge = result.getInt(1);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            connection.closeConnection();
+        }
+        return code_type_charge;
+    }//Fin del método.
     
 }

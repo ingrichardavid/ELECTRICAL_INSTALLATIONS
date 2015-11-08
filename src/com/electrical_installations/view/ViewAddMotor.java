@@ -5,19 +5,123 @@
  */
 package com.electrical_installations.view;
 
+import com.electrical_installations.controller.ControllerAddMotor;
+import com.electrical_installations.model.entity.Project;
+import java.awt.Dimension;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JLabel;
+import javax.swing.JRadioButton;
+import javax.swing.JTextField;
+
 /**
- *
+ * Clase ViewAddMotor
  * @author Ing. Richard David
+ * @version 1
+ * @since 2015-10-27
  */
 public class ViewAddMotor extends javax.swing.JDialog {
+    
+    private final ControllerAddMotor controller;
+    private Project project;
 
     /**
-     * Creates new form ViewAddMotor
+     * Constructor de ViewAddMotor, por ser subclase de JDialog recibe como parámetro el padre y true en caso de que sea modal.
+     * @param parent
+     * @param modal 
      */
     public ViewAddMotor(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
-        initComponents();
+        initComponents(); 
+         //475,170
+        
+        Phases(false, false,448, 145);
+        this.setLocationRelativeTo(null);
+        
+        controller = new ControllerAddMotor(this);
+        controller.fill_types();
+        btnAdd.addActionListener(controller);
+        btnClose.addActionListener(controller);
+        txtDescription.addKeyListener(controller);
+        rBtnSinglePhase.addChangeListener(controller);
+        rBtnThreePhase.addChangeListener(controller);
+        this.addWindowListener(controller);
+        
     }
+    
+    public void Phases(boolean u,boolean t,int w, int h){
+        lblTypeMaterial.setVisible(u);
+        cmbTypeThreePhase.setVisible(t);
+       this.setSize(new Dimension(w, h));
+    }
+    
+    //Getters y Setters
+    
+    public Project getProject() {
+        return project;
+    }
+
+    public void setProject(Project project) {
+        this.project = project;
+    }
+
+    public JButton getBtnAdd() {
+        return btnAdd;
+    }
+
+    public void setBtnAdd(JButton btnAdd) {
+        this.btnAdd = btnAdd;
+    }
+
+    public JButton getBtnClose() {
+        return btnClose;
+    }
+
+    public void setBtnClose(JButton btnClose) {
+        this.btnClose = btnClose;
+    }
+
+    public JComboBox getCmbTypeThreePhase() {
+        return cmbTypeThreePhase;
+    }
+
+    public void setCmbTypeThreePhase(JComboBox cmbTypeThreePhase) {
+        this.cmbTypeThreePhase = cmbTypeThreePhase;
+    }
+
+    public JLabel getLblTypeMaterial() {
+        return lblTypeMaterial;
+    }
+
+    public void setLblTypeMaterial(JLabel lblTypeMaterial) {
+        this.lblTypeMaterial = lblTypeMaterial;
+    }
+
+    public JRadioButton getrBtnSinglePhase() {
+        return rBtnSinglePhase;
+    }
+
+    public void setrBtnSinglePhase(JRadioButton rBtnSinglePhase) {
+        this.rBtnSinglePhase = rBtnSinglePhase;
+    }
+
+    public JRadioButton getrBtnThreePhase() {
+        return rBtnThreePhase;
+    }
+
+    public void setrBtnThreePhase(JRadioButton rBtnThreePhase) {
+        this.rBtnThreePhase = rBtnThreePhase;
+    }
+
+    public JTextField getTxtDescription() {
+        return txtDescription;
+    }
+
+    public void setTxtDescription(JTextField txtDescription) {
+        this.txtDescription = txtDescription;
+    }
+    
+    //fin del getters and setters
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -29,37 +133,45 @@ public class ViewAddMotor extends javax.swing.JDialog {
     private void initComponents() {
         java.awt.GridBagConstraints gridBagConstraints;
 
+        btnGroupPhases = new javax.swing.ButtonGroup();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jRadioButton1 = new javax.swing.JRadioButton();
-        jRadioButton2 = new javax.swing.JRadioButton();
-        jComboBox1 = new javax.swing.JComboBox();
+        lblTypeMaterial = new javax.swing.JLabel();
+        txtDescription = new javax.swing.JTextField();
+        cmbTypeThreePhase = new javax.swing.JComboBox();
         jPanel2 = new javax.swing.JPanel();
+        rBtnThreePhase = new javax.swing.JRadioButton();
+        rBtnSinglePhase = new javax.swing.JRadioButton();
         jPanel3 = new javax.swing.JPanel();
         btnAdd = new javax.swing.JButton();
         btnClose = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Agregar Mótores");
+        setResizable(false);
         java.awt.GridBagLayout layout = new java.awt.GridBagLayout();
         layout.columnWidths = new int[] {0, 5, 0};
-        layout.rowHeights = new int[] {0, 5, 0};
+        layout.rowHeights = new int[] {0, 10, 0};
         getContentPane().setLayout(layout);
 
         java.awt.GridBagLayout jPanel1Layout = new java.awt.GridBagLayout();
-        jPanel1Layout.columnWidths = new int[] {0, 5, 0, 5, 0};
+        jPanel1Layout.columnWidths = new int[] {0, 5, 0};
         jPanel1Layout.rowHeights = new int[] {0, 5, 0, 5, 0};
         jPanel1.setLayout(jPanel1Layout);
 
+        jLabel1.setFont(new java.awt.Font("DejaVu Sans", 1, 12)); // NOI18N
         jLabel1.setText("Descripción:");
+        jLabel1.setMaximumSize(new java.awt.Dimension(120, 15));
+        jLabel1.setMinimumSize(new java.awt.Dimension(95, 15));
+        jLabel1.setPreferredSize(new java.awt.Dimension(95, 15));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
         jPanel1.add(jLabel1, gridBagConstraints);
 
+        jLabel2.setFont(new java.awt.Font("DejaVu Sans", 1, 12)); // NOI18N
         jLabel2.setText("Fases:");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
@@ -67,52 +179,73 @@ public class ViewAddMotor extends javax.swing.JDialog {
         gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
         jPanel1.add(jLabel2, gridBagConstraints);
 
-        jLabel3.setText("Tipo de Material:");
+        lblTypeMaterial.setFont(new java.awt.Font("DejaVu Sans", 1, 12)); // NOI18N
+        lblTypeMaterial.setText("Tipo:");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 4;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
-        jPanel1.add(jLabel3, gridBagConstraints);
+        jPanel1.add(lblTypeMaterial, gridBagConstraints);
+
+        txtDescription.setFont(new java.awt.Font("DejaVu Sans", 0, 12)); // NOI18N
+        txtDescription.setMinimumSize(new java.awt.Dimension(330, 21));
+        txtDescription.setPreferredSize(new java.awt.Dimension(330, 21));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 0;
-        gridBagConstraints.gridwidth = 3;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
-        jPanel1.add(jTextField1, gridBagConstraints);
+        jPanel1.add(txtDescription, gridBagConstraints);
 
-        jRadioButton1.setText("Monofasico");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 2;
-        gridBagConstraints.gridy = 2;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
-        jPanel1.add(jRadioButton1, gridBagConstraints);
-
-        jRadioButton2.setText("Trifasico");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 4;
-        gridBagConstraints.gridy = 2;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
-        jPanel1.add(jRadioButton2, gridBagConstraints);
-
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cmbTypeThreePhase.setFont(new java.awt.Font("DejaVu Sans", 0, 12)); // NOI18N
+        cmbTypeThreePhase.setMaximumSize(new java.awt.Dimension(171, 21));
+        cmbTypeThreePhase.setMinimumSize(new java.awt.Dimension(171, 21));
+        cmbTypeThreePhase.setPreferredSize(new java.awt.Dimension(171, 21));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 4;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
-        jPanel1.add(jComboBox1, gridBagConstraints);
-
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.gridwidth = 3;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
-        getContentPane().add(jPanel1, gridBagConstraints);
+        jPanel1.add(cmbTypeThreePhase, gridBagConstraints);
 
         jPanel2.setLayout(new java.awt.GridBagLayout());
 
-        jPanel3.setLayout(new java.awt.GridBagLayout());
+        btnGroupPhases.add(rBtnThreePhase);
+        rBtnThreePhase.setFont(new java.awt.Font("DejaVu Sans", 0, 12)); // NOI18N
+        rBtnThreePhase.setText("Trifásico");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
+        jPanel2.add(rBtnThreePhase, gridBagConstraints);
+
+        btnGroupPhases.add(rBtnSinglePhase);
+        rBtnSinglePhase.setFont(new java.awt.Font("DejaVu Sans", 0, 12)); // NOI18N
+        rBtnSinglePhase.setSelected(true);
+        rBtnSinglePhase.setText("Monofásico");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
+        jPanel2.add(rBtnSinglePhase, gridBagConstraints);
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
+        jPanel1.add(jPanel2, gridBagConstraints);
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.gridwidth = 3;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
+        gridBagConstraints.insets = new java.awt.Insets(5, 5, 0, 5);
+        getContentPane().add(jPanel1, gridBagConstraints);
+
+        java.awt.GridBagLayout jPanel3Layout = new java.awt.GridBagLayout();
+        jPanel3Layout.columnWidths = new int[] {0, 5, 0};
+        jPanel3Layout.rowHeights = new int[] {0};
+        jPanel3.setLayout(jPanel3Layout);
 
         btnAdd.setFont(new java.awt.Font("DejaVu Sans", 1, 14)); // NOI18N
         btnAdd.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/electrical_installations/resource/image/registrar.png"))); // NOI18N
@@ -124,7 +257,7 @@ public class ViewAddMotor extends javax.swing.JDialog {
         gridBagConstraints.gridy = 0;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_END;
-        gridBagConstraints.insets = new java.awt.Insets(4, 0, 5, 0);
+        gridBagConstraints.insets = new java.awt.Insets(5, 0, 5, 0);
         jPanel3.add(btnAdd, gridBagConstraints);
 
         btnClose.setFont(new java.awt.Font("DejaVu Sans", 1, 14)); // NOI18N
@@ -137,81 +270,36 @@ public class ViewAddMotor extends javax.swing.JDialog {
         gridBagConstraints.gridy = 0;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_END;
-        gridBagConstraints.insets = new java.awt.Insets(4, 0, 5, 0);
+        gridBagConstraints.insets = new java.awt.Insets(5, 0, 5, 0);
         jPanel3.add(btnClose, gridBagConstraints);
-
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 1;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_END;
-        gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 5);
-        jPanel2.add(jPanel3, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 2;
         gridBagConstraints.gridwidth = 3;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_END;
-        getContentPane().add(jPanel2, gridBagConstraints);
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 5);
+        getContentPane().add(jPanel3, gridBagConstraints);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(ViewAddMotor.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(ViewAddMotor.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(ViewAddMotor.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(ViewAddMotor.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the dialog */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                ViewAddMotor dialog = new ViewAddMotor(new javax.swing.JFrame(), true);
-                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-                    @Override
-                    public void windowClosing(java.awt.event.WindowEvent e) {
-                        System.exit(0);
-                    }
-                });
-                dialog.setVisible(true);
-            }
-        });
-    }
+ 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAdd;
     private javax.swing.JButton btnClose;
-    private javax.swing.JComboBox jComboBox1;
+    private javax.swing.ButtonGroup btnGroupPhases;
+    private javax.swing.JComboBox cmbTypeThreePhase;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JRadioButton jRadioButton1;
-    private javax.swing.JRadioButton jRadioButton2;
-    private javax.swing.JTextField jTextField1;
+    private javax.swing.JLabel lblTypeMaterial;
+    private javax.swing.JRadioButton rBtnSinglePhase;
+    private javax.swing.JRadioButton rBtnThreePhase;
+    private javax.swing.JTextField txtDescription;
     // End of variables declaration//GEN-END:variables
 }

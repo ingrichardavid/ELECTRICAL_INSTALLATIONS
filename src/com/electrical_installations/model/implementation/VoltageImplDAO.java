@@ -82,4 +82,27 @@ public class VoltageImplDAO implements VoltageDAO {
         return voltagesFound;
     }//Fin del método     
 
+    
+    /**
+     * Método para encontrar todos los Voltajes de Mótores Trifásicos.
+     * 
+     * @return Retorna una lista de Voltaje de Mótores trifásicos.
+     */
+    @Override
+    public List<Voltage> find_voltages_motor_three_phases() {
+        voltagesFound = new ArrayList<>();
+        try {
+            preparedStatement = connection.getConexion().prepareStatement(VoltageQueries.SELECT_ALL_MOTORS_TRHEE_PHASES);
+            result = preparedStatement.executeQuery();
+            while (result.next()) {
+                voltagesFound.add(new Voltage(result.getInt(1), result.getInt(2), new Unit(0, result.getString(3))));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            connection.closeConnection();
+        }
+        return voltagesFound;
+    }//fin del método.
+
 }

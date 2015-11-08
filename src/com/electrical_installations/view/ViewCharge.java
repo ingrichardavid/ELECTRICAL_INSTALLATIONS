@@ -961,6 +961,7 @@ public class ViewCharge extends javax.swing.JDialog {
         gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 4);
         jPanel8.add(jLabel5, gridBagConstraints);
 
+        cmbCalibersNeutral.setFont(new java.awt.Font("DejaVu Sans", 0, 12)); // NOI18N
         cmbCalibersNeutral.setMinimumSize(new java.awt.Dimension(100, 21));
         cmbCalibersNeutral.setPreferredSize(new java.awt.Dimension(100, 21));
         gridBagConstraints = new java.awt.GridBagConstraints();

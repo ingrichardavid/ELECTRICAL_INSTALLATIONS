@@ -22,6 +22,13 @@ public class HorsePowerQueries {
                                             "	maestros.\"CABALLO_DE_POTENCIA\" AS cp\n" +
                                             "ORDER BY\n" +
                                             "	cp.codigo;";
+    
+    /**
+     * Mostrar todos los Caballos de Potencia Trifásicos.
+     */
+    public static final String  SELECT_ALL_THREEPHASES =  "SELECT codigo, nombre, valor\n" +
+                                                            "FROM maestros.\"CABALLO_DE_FUERZA_TRIFASICO\"\n" +
+                                                            "ORDER BY codigo;";
     /**
      * Encontrar la intensidad por caballos de fuerza y voltaje.
      */

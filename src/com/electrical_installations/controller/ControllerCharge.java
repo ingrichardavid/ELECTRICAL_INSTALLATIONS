@@ -562,7 +562,7 @@ public class ControllerCharge implements ActionListener, WindowListener , KeyLis
                 reactance  = calculate_reactance(TypeOfBranchCircuitInArea.ILUMINARIA);
                 if (resistance != null){     
                     breakdownVoltage = MethodsForCalculationsGlobal1.breakdownVoltage(
-                            viewVoltageInCharge.getArea().getPotency_total(),  
+                            potency,  
                             Double.valueOf(viewVoltageInCharge.getJspLength().getValue().toString()), 
                             ((Voltage)viewVoltageInCharge.getCmbVoltage().getSelectedItem()).getVoltage(), 
                             reactance.getValue().getValour(), 
@@ -584,7 +584,7 @@ public class ControllerCharge implements ActionListener, WindowListener , KeyLis
                                 null, 
                                 (Caliber)viewVoltageInCharge.getCmbCaliber().getSelectedItem()));
                         breakerPhasePersistFound = MethodsForCalculationsGlobal1.find_breaker_dryer(
-                                viewVoltageInCharge.getCharge().getPotency(), 
+                                potency, 
                                 (Voltage)viewVoltageInCharge.getCmbVoltage().getSelectedItem(),                     
                                 (Material)viewVoltageInCharge.getCmbMaterial().getSelectedItem(),  
                                 Double.valueOf(viewVoltageInCharge.getJspPowerFactor().getValue().toString()), 
@@ -599,7 +599,7 @@ public class ControllerCharge implements ActionListener, WindowListener , KeyLis
                                 (Caliber)viewVoltageInCharge.getCmbCaliber().getSelectedItem()));
 
                         breakerPhasePersistFound = MethodsForCalculationsGlobal1.find_breaker(
-                                viewVoltageInCharge.getCharge().getPotency(), 
+                                potency, 
                                 (Voltage)viewVoltageInCharge.getCmbVoltage().getSelectedItem(),                     
                                 (Material)viewVoltageInCharge.getCmbMaterial().getSelectedItem(),  
                                 Double.valueOf(viewVoltageInCharge.getJspPowerFactor().getValue().toString()), 
@@ -614,7 +614,7 @@ public class ControllerCharge implements ActionListener, WindowListener , KeyLis
                                 (Caliber)viewVoltageInCharge.getCmbCaliber().getSelectedItem()));
 
                         breakerPhasePersistFound = MethodsForCalculationsGlobal1.find_breaker(
-                                viewVoltageInCharge.getCharge().getPotency(), 
+                                potency, 
                                 (Voltage)viewVoltageInCharge.getCmbVoltage().getSelectedItem(),                     
                                 (Material)viewVoltageInCharge.getCmbMaterial().getSelectedItem(),  
                                 Double.valueOf(viewVoltageInCharge.getJspPowerFactor().getValue().toString()), 
@@ -626,7 +626,7 @@ public class ControllerCharge implements ActionListener, WindowListener , KeyLis
                     reactance  = calculate_reactance(TypeOfBranchCircuitInArea.NEUTRAL);
                     if (resistance != null){                
                         breakdownVoltage = MethodsForCalculationsGlobal1.breakdownVoltage(
-                                viewVoltageInCharge.getArea().getPotency_total(),  
+                                potency,  
                                 Double.valueOf(viewVoltageInCharge.getJspLength().getValue().toString()), 
                                 ((Voltage)viewVoltageInCharge.getCmbVoltage().getSelectedItem()).getVoltage(), 
                                 reactance.getValue().getValour(), 

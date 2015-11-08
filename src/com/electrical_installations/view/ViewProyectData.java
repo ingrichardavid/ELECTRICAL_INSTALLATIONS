@@ -17,7 +17,7 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 
 /**
- * Clave ViewProjectDatau.
+ * Clave ViewProjectData.
  * @author Ing. Richard David
  * @version 1
  * @since 2015-07-30
@@ -72,35 +72,18 @@ public class ViewProyectData extends javax.swing.JDialog {
             tblAreasCharges.getColumnModel().getColumn(i).setPreferredWidth(anchos2[i]);
         }
 
-    
-        
-        //Tabla Elevadores
+        //Tabla Motores en la Instalación 
         tblInstallationEngines.getTableHeader().setFont(fuente);
         tblInstallationEngines.getColumnModel().getColumn(0).setMaxWidth(0);
         tblInstallationEngines.getColumnModel().getColumn(0).setMinWidth(0);
-        tblInstallationEngines.getColumnModel().getColumn(0).setPreferredWidth(0);  
-        tblInstallationEngines.getColumnModel().getColumn(1).setMaxWidth(0);
-        tblInstallationEngines.getColumnModel().getColumn(1).setMinWidth(0);
-        tblInstallationEngines.getColumnModel().getColumn(1).setPreferredWidth(0); 
-        tblInstallationEngines.getColumnModel().getColumn(2).setMaxWidth(0);
-        tblInstallationEngines.getColumnModel().getColumn(2).setMinWidth(0);
-        tblInstallationEngines.getColumnModel().getColumn(2).setPreferredWidth(0);               
-        int[] anchos4 = {0,0,0,40,40,40,40};
-        for (int i = 0; i < tblInstallationEngines.getColumnCount(); i++) {
-            tblInstallationEngines.getColumnModel().getColumn(i).setPreferredWidth(anchos4[i]);
-        }
-
-        //Tabla Motores en la Instalacion 
-        tblInstallationEngines.getTableHeader().setFont(fuente);
-        tblInstallationEngines.getColumnModel().getColumn(0).setMaxWidth(0);
-        tblInstallationEngines.getColumnModel().getColumn(0).setMinWidth(0);
-        tblInstallationEngines.getColumnModel().getColumn(0).setPreferredWidth(0);                
-        int[] anchos5 = {0,100,60,100};
+        tblInstallationEngines.getColumnModel().getColumn(0).setPreferredWidth(0);   
+        int[] anchos5 = {0,400,30,5,10,5,5};
         for (int i = 0; i < tblInstallationEngines.getColumnCount(); i++) {
             tblInstallationEngines.getColumnModel().getColumn(i).setPreferredWidth(anchos5[i]);
         }
         
         controllerProjectData = new ControllerProjectData(this);
+        this.btnSubAlimentador.addActionListener(controllerProjectData);
         this.btnNew.addActionListener(controllerProjectData);
         this.btnModify.addActionListener(controllerProjectData);
         this.btnDelete.addActionListener(controllerProjectData);
@@ -108,13 +91,14 @@ public class ViewProyectData extends javax.swing.JDialog {
         this.btnAddCharges.addActionListener(controllerProjectData);
         this.btnAddCharge.addActionListener(controllerProjectData);
         this.btnDeleteChargesInAreas.addActionListener(controllerProjectData);
-        this.btnAddElevators.addActionListener(controllerProjectData);
-        this.btnDeleteElevatorInInstallation.addActionListener(controllerProjectData);
+        this.btnAddInstallationEngines.addActionListener(controllerProjectData);
         this.txtFindAreas.addKeyListener(controllerProjectData);        
         this.txtFindAreasCharge.addKeyListener(controllerProjectData); 
         this.txtFindInstallationEngines.addKeyListener(controllerProjectData);        
         this.tblArea.addMouseListener(controllerProjectData);
         this.tblAreasCharges.addMouseListener(controllerProjectData);
+        this.txtFindInstallationEngines.addKeyListener(controllerProjectData);
+        this.btnDeleteInstallationMotor.addActionListener(controllerProjectData);
         this.addWindowListener(controllerProjectData);
 
         this.btnNew.requestFocus();
@@ -147,22 +131,14 @@ public class ViewProyectData extends javax.swing.JDialog {
         this.btnAddCharge = btnAddCharge;
     }
 
-    public JMenuItem getBtnDeleteElevatorInInstallation() {
-        return btnDeleteElevatorInInstallation;
+    public JMenuItem getBtnDeleteInstallationMotor() {
+        return btnDeleteInstallationMotor;
     }
 
-    public void setBtnDeleteElevatorInInstallation(JMenuItem btnDeleteElevatorInInstallation) {
-        this.btnDeleteElevatorInInstallation = btnDeleteElevatorInInstallation;
+    public void setBtnDeleteInstallationMotor(JMenuItem btnDeleteInstallationMotor) {
+        this.btnDeleteInstallationMotor = btnDeleteInstallationMotor;
     }
-
-    public JMenuItem getBtnAddElevators() {
-        return btnAddElevators;
-    }
-
-    public void setBtnAddElevators(JMenuItem btnAddElevators) {
-        this.btnAddElevators = btnAddElevators;
-    }
-        
+    
     public JMenuItem getBtnDeleteChargesInAreas() {
         return btnDeleteChargesInAreas;
     }
@@ -236,11 +212,11 @@ public class ViewProyectData extends javax.swing.JDialog {
     }
 
     public JMenuItem getBtnRemove() {
-        return btnDeleteElevatorInInstallation;
+        return btnDeleteInstallationMotor;
     }
 
     public void setBtnRemove(JMenuItem btnRemove) {
-        this.btnDeleteElevatorInInstallation = btnRemove;
+        this.btnDeleteInstallationMotor = btnRemove;
     }
 
     public JLabel getLblAmperage() {
@@ -283,12 +259,12 @@ public class ViewProyectData extends javax.swing.JDialog {
         this.lblType = lblType;
     }
 
-    public JPopupMenu getSubMenuElevators() {
-        return subMenuElevators;
+    public JPopupMenu getSubMenuMotors() {
+        return subMenuMotors;
     }
 
-    public void setSubMenuElevators(JPopupMenu subMenuElevators) {
-        this.subMenuElevators = subMenuElevators;
+    public void setSubMenuMotors(JPopupMenu subMenuMotors) {
+        this.subMenuMotors = subMenuMotors;
     }
 
     public JTable getTblArea() {
@@ -307,14 +283,6 @@ public class ViewProyectData extends javax.swing.JDialog {
         this.tblAreasCharges = tblAreasCharges;
     }
  
-    public JTable getTblElevators() {
-        return tblInstallationEngines;
-    }
-
-    public void setTblElevators(JTable tblElevators) {
-        this.tblInstallationEngines = tblElevators;
-    }
- 
     public JTextField getTxtFindAreas() {
         return txtFindAreas;
     }
@@ -330,14 +298,6 @@ public class ViewProyectData extends javax.swing.JDialog {
     public void setTxtFindAreasCharge(JTextField txtFindAreasCharge) {
         this.txtFindAreasCharge = txtFindAreasCharge;
     } 
-
-    public JTextField getTxtFindElevators() {
-        return txtFindInstallationEngines;
-    }
-
-    public void setTxtFindElevators(JTextField txtFindElevators) {
-        this.txtFindInstallationEngines = txtFindElevators;
-    }
 
     public JButton getBtnAddInstallationEngines() {
         return btnAddInstallationEngines;
@@ -363,6 +323,16 @@ public class ViewProyectData extends javax.swing.JDialog {
         this.txtFindInstallationEngines = txtFindInstallationEngines;
     }
 
+    public JMenuItem getBtnSubAlimentador() {
+        return btnSubAlimentador;
+    }
+
+    public void setBtnSubAlimentador(JMenuItem btnSubAlimentador) {
+        this.btnSubAlimentador = btnSubAlimentador;
+    }
+    
+    
+
     
     
     /**
@@ -381,14 +351,14 @@ public class ViewProyectData extends javax.swing.JDialog {
         btnModify = new javax.swing.JMenuItem();
         jSeparator3 = new javax.swing.JPopupMenu.Separator();
         btnDelete = new javax.swing.JMenuItem();
-        subMenuElevators = new javax.swing.JPopupMenu();
-        btnDeleteElevatorInInstallation = new javax.swing.JMenuItem();
+        subMenuMotors = new javax.swing.JPopupMenu();
+        btnDeleteInstallationMotor = new javax.swing.JMenuItem();
+        jSeparator2 = new javax.swing.JPopupMenu.Separator();
+        btnSubAlimentador = new javax.swing.JMenuItem();
         subMenuCharges = new javax.swing.JPopupMenu();
         btnAddCharges = new javax.swing.JMenuItem();
         subMenuChargesInAreas = new javax.swing.JPopupMenu();
         btnDeleteChargesInAreas = new javax.swing.JMenuItem();
-        subMenuTypesOfElevators = new javax.swing.JPopupMenu();
-        btnAddElevators = new javax.swing.JMenuItem();
         jPanel1 = new javax.swing.JPanel();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel2 = new javax.swing.JPanel();
@@ -446,10 +416,15 @@ public class ViewProyectData extends javax.swing.JDialog {
         btnDelete.setText("Eliminar");
         subMenu.add(btnDelete);
 
-        btnDeleteElevatorInInstallation.setFont(new java.awt.Font("DejaVu Sans", 1, 14)); // NOI18N
-        btnDeleteElevatorInInstallation.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/electrical_installations/resource/image/eliminar.png"))); // NOI18N
-        btnDeleteElevatorInInstallation.setText("Eliminar");
-        subMenuElevators.add(btnDeleteElevatorInInstallation);
+        btnDeleteInstallationMotor.setFont(new java.awt.Font("DejaVu Sans", 1, 14)); // NOI18N
+        btnDeleteInstallationMotor.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/electrical_installations/resource/image/eliminar.png"))); // NOI18N
+        btnDeleteInstallationMotor.setText("Eliminar");
+        subMenuMotors.add(btnDeleteInstallationMotor);
+        subMenuMotors.add(jSeparator2);
+
+        btnSubAlimentador.setFont(new java.awt.Font("DejaVu Sans", 1, 14)); // NOI18N
+        btnSubAlimentador.setText("Sub Alimentador");
+        subMenuMotors.add(btnSubAlimentador);
 
         btnAddCharges.setFont(new java.awt.Font("DejaVu Sans", 1, 14)); // NOI18N
         btnAddCharges.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/electrical_installations/resource/image/agregar.png"))); // NOI18N
@@ -460,11 +435,6 @@ public class ViewProyectData extends javax.swing.JDialog {
         btnDeleteChargesInAreas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/electrical_installations/resource/image/eliminar.png"))); // NOI18N
         btnDeleteChargesInAreas.setText("Eliminar");
         subMenuChargesInAreas.add(btnDeleteChargesInAreas);
-
-        btnAddElevators.setFont(new java.awt.Font("DejaVu Sans", 1, 14)); // NOI18N
-        btnAddElevators.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/electrical_installations/resource/image/agregar.png"))); // NOI18N
-        btnAddElevators.setText("Agregar");
-        subMenuTypesOfElevators.add(btnAddElevators);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(900, 600));
@@ -831,11 +801,11 @@ public class ViewProyectData extends javax.swing.JDialog {
 
             },
             new String [] {
-                "Código Proyecto", "Código Tipo de Instalación", "Código de Elevador", "Nº de Personas", "Cantidad", "Potencia-W", "Voltaje-V"
+                "Codigo", "Descripción", "Fase", "Hp", "Intensidad", "Breaker", "Cantidad"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Double.class, java.lang.Double.class, java.lang.Integer.class
             };
             boolean[] canEdit = new boolean [] {
                 false, false, false, false, false, false, false
@@ -849,7 +819,7 @@ public class ViewProyectData extends javax.swing.JDialog {
                 return canEdit [columnIndex];
             }
         });
-        tblInstallationEngines.setComponentPopupMenu(subMenuElevators);
+        tblInstallationEngines.setComponentPopupMenu(subMenuMotors);
         tblInstallationEngines.getTableHeader().setReorderingAllowed(false);
         jScrollPane1.setViewportView(tblInstallationEngines);
 
@@ -862,11 +832,9 @@ public class ViewProyectData extends javax.swing.JDialog {
         gridBagConstraints.weighty = 1.0;
         jPanel11.add(jScrollPane1, gridBagConstraints);
 
+        btnAddInstallationEngines.setFont(new java.awt.Font("DejaVu Sans", 1, 14)); // NOI18N
         btnAddInstallationEngines.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/electrical_installations/resource/image/agregar.png"))); // NOI18N
         btnAddInstallationEngines.setText("Agregar");
-        btnAddInstallationEngines.setMaximumSize(new java.awt.Dimension(117, 33));
-        btnAddInstallationEngines.setMinimumSize(new java.awt.Dimension(117, 33));
-        btnAddInstallationEngines.setPreferredSize(new java.awt.Dimension(117, 33));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
@@ -925,14 +893,14 @@ public class ViewProyectData extends javax.swing.JDialog {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem btnAddCharge;
     private javax.swing.JMenuItem btnAddCharges;
-    private javax.swing.JMenuItem btnAddElevators;
     private javax.swing.JButton btnAddInstallationEngines;
     private javax.swing.JButton btnClose;
     private javax.swing.JMenuItem btnDelete;
     private javax.swing.JMenuItem btnDeleteChargesInAreas;
-    private javax.swing.JMenuItem btnDeleteElevatorInInstallation;
+    private javax.swing.JMenuItem btnDeleteInstallationMotor;
     private javax.swing.JMenuItem btnModify;
     private javax.swing.JButton btnNew;
+    private javax.swing.JMenuItem btnSubAlimentador;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel12;
@@ -957,6 +925,7 @@ public class ViewProyectData extends javax.swing.JDialog {
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JPopupMenu.Separator jSeparator1;
+    private javax.swing.JPopupMenu.Separator jSeparator2;
     private javax.swing.JPopupMenu.Separator jSeparator3;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTabbedPane jTabbedPane2;
@@ -968,8 +937,7 @@ public class ViewProyectData extends javax.swing.JDialog {
     private javax.swing.JPopupMenu subMenu;
     private javax.swing.JPopupMenu subMenuCharges;
     private javax.swing.JPopupMenu subMenuChargesInAreas;
-    private javax.swing.JPopupMenu subMenuElevators;
-    private javax.swing.JPopupMenu subMenuTypesOfElevators;
+    private javax.swing.JPopupMenu subMenuMotors;
     private javax.swing.JTable tblArea;
     private javax.swing.JTable tblAreasCharges;
     private javax.swing.JTable tblInstallationEngines;

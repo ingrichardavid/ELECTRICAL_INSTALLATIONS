@@ -217,4 +217,34 @@ public class AreaQueries {
                                                             "WHERE\n" +
                                                             "	a.codigo = ?"; 
 
+    /**
+     * Consultar el total en iluminaria de un área de determinada.
+     */
+    public static final String CONSULT_TOTAL_ILUMINARIA = "SELECT \n" +
+                                                                    "	area_cantidad * constante\n" +
+                                                                    "FROM \n" +
+                                                                    "	negocio.\"AREA_ILUMINARIA_TOMA_CORRIENTES\"\n" +
+                                                                    "WHERE\n" +
+                                                                    "	area_codigo = ? AND tipo = 'I';";
+
+    /**
+     * Consultar el total en toma corriente de un área de determinada.
+     */
+    public static final String CONSULT_TOTAL_POWER_POINT = "SELECT \n" +
+                                                                    "	area_cantidad * constante\n" +
+                                                                    "FROM \n" +
+                                                                    "	negocio.\"AREA_ILUMINARIA_TOMA_CORRIENTES\"\n" +
+                                                                    "WHERE\n" +
+                                                                    "	area_codigo = ? AND tipo = 'T';";
+    
+    /**
+     * Consultar el código del tipo de carga.
+     */
+    public static final String CONSULT_CODE_TYPE_CHARGE = "SELECT \n" +
+                                                                            "	codigo\n" +
+                                                                            "FROM\n" +
+                                                                            "	maestros.\"TIPO_CARGA\"\n" +
+                                                                            "WHERE\n" +
+                                                                            "	UPPER(nombre) = UPPER('?')";
+    
 }

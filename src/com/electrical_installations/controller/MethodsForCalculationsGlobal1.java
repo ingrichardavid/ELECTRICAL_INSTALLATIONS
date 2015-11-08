@@ -118,7 +118,7 @@ public class MethodsForCalculationsGlobal1 {
      * @param temperature
      * @return Retorna la marca del cable
      */
-    public static String typeCaliber(TypeRush typeCaliber, Temperature temperature){        
+    public static String typeCaliber(TypeRush typeCaliber, Temperature temperature){  
         switch (typeCaliber){        
             case UNDERGROUND:
                 if (temperature.getQuantity() == TypeTemperature.TEMPERATURE_75.getTemperature()) {

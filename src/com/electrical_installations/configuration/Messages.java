@@ -54,6 +54,11 @@ public class Messages {
     public final static String NOT_SELECT_ROW = "NOT_SELECT_ROW";
 
     //Mensajes Inicio de Sesión    
+    
+    /**
+     * La aplicación se encuentra en ejecuación.
+     */
+    public final static String INSTANCE_EXIST = "INSTANCE_EXIST";
         
     /**
      * Acceso denegado.
@@ -396,7 +401,19 @@ public class Messages {
      * No existen porcentajes de motores monofásicos registrados.
      */
     public final static String PERCENTAGE_SINGLE_PHASE_MOTORS_NO_FOUND = "PERCENTAGE_SINGLE_PHASE_MOTORS_NO_FOUND";   
-           
+       
+     /**
+     * No existen porcentajes de motores trifásicos registrados.
+     */
+    public final static String PERCENTAGE_THREE_PHASE_MOTORS_NO_FOUND = "PERCENTAGE_THREE_PHASE_MOTORS_NO_FOUND";
+    
+    //Mensajes para la entidad Mótores
+    /**
+     * Por favor, introduza la descripción.
+     */
+    public final static String MOTORES_DESCRIPTION_NO_FOUND = "MOTORES_DESCRIPTION_NO_FOUND";
+    
+    
     /**
      * Constructor de la clase, es privado para cumplir con el patrón Singlenton.
      */

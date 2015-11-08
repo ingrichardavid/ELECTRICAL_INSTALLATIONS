@@ -20,6 +20,7 @@ public class Project {
     private String name;
     private int powerTotal;
     private String registration_date;
+    private double intensity_total;
 
     /**
      * Constructor para la búsqueda de proyectos
@@ -69,9 +70,29 @@ public class Project {
     public Project(int code,String name) {
         this.code = code;
         this.name = name;
-    }//Fin del constructor    
-    
+    }//Fin del constructor  
+
+    /**
+     * Constructor utilizado para modificar la intensidad total en motores de un proyecto.
+     * @param code
+     * @param typeOfInstallation
+     * @param intensity_total 
+     */
+    public Project(int code, TypeOfInstallation typeOfInstallation, double intensity_total) {
+        this.code = code;
+        this.typeOfInstallation = typeOfInstallation;
+        this.intensity_total = intensity_total;
+    }//Fin del constructor.
+
     //Getters y Setters
+    
+    public double getIntensity_total() {
+        return intensity_total;
+    }
+
+    public void setIntensity_total(double intensity_total) {
+        this.intensity_total = intensity_total;
+    }
 
     public int getCode() {
         return code;

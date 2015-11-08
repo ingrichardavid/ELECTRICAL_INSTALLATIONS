@@ -38,5 +38,14 @@ public class ServiceVoltage {
     public static List<Voltage> find_voltages() {
         return voltageImplDAO.find_voltages();
     }//Fin del servicio
+    
+     /**
+     * Servicio para solicitar datos de todos los Voltajes de Mótores Trifásicos.
+     *
+     * @return Retorna una lista de Voltajes de Mótores Trifásicos.
+     */
+    public static List<Voltage> find_voltages_motors_three_phases() {
+        return voltageImplDAO.find_voltages_motor_three_phases();
+    }//Fin del servicio
 
 }

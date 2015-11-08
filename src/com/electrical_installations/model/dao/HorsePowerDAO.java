@@ -19,13 +19,20 @@ public interface HorsePowerDAO {
 
     /**
      * Listar todos los Caballos de Potencia.
-     * @return Retorna una lista de Caballos de Potencia
+     * @return Retorna una lista de Caballos de Potencia.
      */
     public List<HorsePower> find_horses_power();
     
+        /**
+     * Listar todos los Caballos de Potencia Trifásicos.
+     * @return Retorna una lista de Caballos de Potencia trifásicos.
+     */
+    public List<HorsePower> find_horses_power_threephases();
+    
     /**
      * Buscar intensidad por Caballo de fuerza y voltaje.
-     * @return Rertorna un objeto HorsesPowers con la intensidad 
+     * @param horsesPowers
+     * @return Rertorna un objeto HorsesPowers con la intensidad. 
      */
     public HorsesPowers find_intensity_horses_power(HorsesPowers horsesPowers);
     

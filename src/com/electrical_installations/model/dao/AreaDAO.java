@@ -8,6 +8,7 @@ package com.electrical_installations.model.dao;
 import com.electrical_installations.model.entity.Area;
 import com.electrical_installations.model.entity.AreaIluminariaPowerPoint;
 import com.electrical_installations.model.entity.masters.Calibers;
+import com.electrical_installations.model.enums.TypeTypeOfCharges;
 import java.util.List;
 
 /**
@@ -90,5 +91,18 @@ public interface AreaDAO {
      * @return Retorna un arreglo con la Iluminaria y Toma Corriente.
      */
     public List<AreaIluminariaPowerPoint> find_iluminaria_powerPoint(Area area);
+    
+    /**
+     * Método para encontrar el total en iluminaria y toma corriente de un área determinada.
+     * @param area
+     * @return Retorna el total en iluminaria y toma corriente.
+     */
+    public double consult_total_iluminaria_power_point(Area area);
+    
+    /**
+     * Método para consultar el código de un tipo de cagar.
+     * @return Retorna un código.
+     */
+    public int consult_code_type_charge(TypeTypeOfCharges typeTypeOfCharges);
     
 }

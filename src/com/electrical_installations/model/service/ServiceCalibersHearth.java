@@ -8,7 +8,6 @@ package com.electrical_installations.model.service;
 import com.electrical_installations.configuration.Messages; 
 import com.electrical_installations.model.entity.masters.CalibersHearth;
 import com.electrical_installations.model.implementation.CalibersHearthImplDAO;
-import java.util.List;
 
 /**
  * Clase que sirve la capa de servicios para los Conductores de Tierra, los servicios se comunican con la capa Modelo para acceder a los datos.
@@ -26,6 +25,7 @@ public class ServiceCalibersHearth {
      * Constructor de la clase
      */
     public ServiceCalibersHearth(){
+                
     }//Fin del constructor
       
     /**

@@ -1243,6 +1243,7 @@ public final class ViewArea extends javax.swing.JDialog {
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         jPanel8.add(jLabel12, gridBagConstraints);
 
+        cmbCalibersIluminaria.setFont(new java.awt.Font("DejaVu Sans", 0, 12)); // NOI18N
         cmbCalibersIluminaria.setMinimumSize(new java.awt.Dimension(100, 21));
         cmbCalibersIluminaria.setPreferredSize(new java.awt.Dimension(100, 21));
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -1576,6 +1577,7 @@ public final class ViewArea extends javax.swing.JDialog {
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         jPanel11.add(jLabel28, gridBagConstraints);
 
+        cmbCalibersPowerPoint.setFont(new java.awt.Font("DejaVu Sans", 0, 12)); // NOI18N
         cmbCalibersPowerPoint.setMinimumSize(new java.awt.Dimension(100, 21));
         cmbCalibersPowerPoint.setPreferredSize(new java.awt.Dimension(100, 21));
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -1947,6 +1949,7 @@ public final class ViewArea extends javax.swing.JDialog {
         gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 12);
         jPanel12.add(jLabel36, gridBagConstraints);
 
+        cmbCalibersSubFeeder.setFont(new java.awt.Font("DejaVu Sans", 0, 12)); // NOI18N
         cmbCalibersSubFeeder.setMinimumSize(new java.awt.Dimension(100, 21));
         cmbCalibersSubFeeder.setPreferredSize(new java.awt.Dimension(100, 21));
         gridBagConstraints = new java.awt.GridBagConstraints();

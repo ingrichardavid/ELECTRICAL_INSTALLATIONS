@@ -21,6 +21,5 @@ public interface PercentageSinglePhaseMotorsDAO {
      * @return Retorna una lista de Porcentajes de Motores Monofásicos
      */
     public List<PercentageSinglePhaseMotors> find_percentage_motors_single_phase();
-    
-    
+        
 }

@@ -34,6 +34,15 @@ public class ServiceHorsePorwer {
     public static List<HorsePower> find_horses_power(){
         return horsePowerImplDAO.find_horses_power();
     }//Fin del servicio
+    
+    
+     /**
+     * Servicio para solicitar datos de todos los Caballo de Potencia Trifasicos.
+     * @return Retorna una lista de Caballo de Potencia.
+     */
+    public static List<HorsePower> find_horses_power_threephases(){
+        return horsePowerImplDAO.find_horses_power_threephases();
+    }//Fin del servicio
         
     /**
      * Servicio para buscar intensidad por Caballo de fuerza y voltaje.

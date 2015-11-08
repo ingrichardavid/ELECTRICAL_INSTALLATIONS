@@ -110,7 +110,7 @@ public class ProjectQueries {
                                                         "WHERE\n" +
                                                         "	TRIM(LOWER(nombre))=TRIM(LOWER(?)) AND usuario_nacionalidad=? AND usuario_cedula=?;";
     /**
-     * Método para validar existencia de un proyecto.
+     * Consulta para validar existencia de un proyecto.
      */
     public static final String VALIDATE_PROJECT = "SELECT \n" +
                                                     "	codigo\n" +
@@ -118,5 +118,25 @@ public class ProjectQueries {
                                                     "	negocio.\"PROYECTO\"\n" +
                                                     "WHERE\n" +
                                                     "	codigo=?;";
+    
+    /**
+     * Consulta para modificar la intensidad acumulada en motores en un proyecto.
+     */
+    public static final String UPDATE_INTENSITY_TOTAL = "UPDATE\n" +
+                                                    "	negocio.\"PROYECTO\"\n" +
+                                                    "SET\n" +
+                                                    "	intensidad_motores = intensidad_motores + ?\n" +
+                                                    "WHERE\n" +
+                                                    "	codigo = ? AND tipo_de_instalacion_codigo = ?";
+    
+    /**
+     * Consulta para modificar la intensidad acumulada en motores en un proyecto cuando un motor es eliminado.
+     */
+    public static final String UPDATE_INTENSITY_TOTAL_DELETE = "UPDATE\n" +
+                                                    "	negocio.\"PROYECTO\"\n" +
+                                                    "SET\n" +
+                                                    "	intensidad_motores = intensidad_motores - ?\n" +
+                                                    "WHERE\n" +
+                                                    "	codigo = ? AND tipo_de_instalacion_codigo = ?";
     
 }
