@@ -69,8 +69,8 @@ public class ChargesInAreasImplDAO implements ChargesInAreasDAO{
      */
     @Override
     public boolean insert_charge_in_area(ChargesInAreas chargesInAreas, Area area) {
-        System.out.println(chargesInAreas.getCharge().getTypeCharges().getType());
         try {      
+            System.out.println(area.getQuantity());
             connection.getConexion().setAutoCommit(false);
             preparedStatement = connection.getConexion().prepareStatement(ChargesInAreasQueries.INSERT_CHARGE_IN_AREA);
             preparedStatement.setInt(1, chargesInAreas.getCharge().getCode());
@@ -104,7 +104,7 @@ public class ChargesInAreasImplDAO implements ChargesInAreasDAO{
                         preparedStatement.close();
                         preparedStatement = connection.getConexion().prepareStatement(ChargesInAreasQueries.UPDATE_MAIN_FEEDER_TYPE_CHARGE);
                         if (chargesInAreas.getCharge().getTypeCharges().getType().equalsIgnoreCase(TypeSubTypeCharge.POTENCY.getSubTypeCharge())){
-                            preparedStatement.setDouble(1, chargesInAreas.getArea().getPotency_total() * chargesInAreas.getQuantity());
+                            preparedStatement.setDouble(1, (chargesInAreas.getArea().getPotency_total() * chargesInAreas.getQuantity()) * area.getQuantity());
                             preparedStatement.setInt(2, 0);
                             preparedStatement.setDouble(3, 0); 
                         } else if (chargesInAreas.getCharge().getTypeCharges().getType().equalsIgnoreCase(TypeSubTypeCharge.QUANTITY.getSubTypeCharge())){
@@ -133,7 +133,7 @@ public class ChargesInAreasImplDAO implements ChargesInAreasDAO{
                         preparedStatement.setInt(2, chargesInAreas.getArea().getProject().getTypeOfInstallation().getCode());
                         preparedStatement.setInt(3, chargesInAreas.getCharge().getTypeCharges().getCode());
                         if (chargesInAreas.getCharge().getTypeCharges().getType().equalsIgnoreCase(TypeSubTypeCharge.POTENCY.getSubTypeCharge())){
-                            preparedStatement.setDouble(4, chargesInAreas.getArea().getPotency_total() * chargesInAreas.getQuantity());
+                            preparedStatement.setDouble(4, (chargesInAreas.getArea().getPotency_total() * chargesInAreas.getQuantity()) * area.getQuantity());
                             preparedStatement.setInt(5, 0);
                             preparedStatement.setDouble(6, 0); 
                         } else if (chargesInAreas.getCharge().getTypeCharges().getType().equalsIgnoreCase(TypeSubTypeCharge.QUANTITY.getSubTypeCharge())){

@@ -278,7 +278,7 @@ public class ControllerCharge implements ActionListener, WindowListener , KeyLis
     /**
      * Método para calcular conductor.
      */
-    private void calculate_conductor(){                      
+    private void calculate_conductor(){  
         if (viewVoltageInCharge.getCharge() == null){    
             MessagesStructure.Warning(MessagesStructure.format(200, messages.getProperty(Messages.CHARGE_NOT_SELECTED), MessagesStructure.justify));
             viewVoltageInCharge.getTblCharges().requestFocus();        
@@ -716,7 +716,7 @@ public class ControllerCharge implements ActionListener, WindowListener , KeyLis
                         null, 
                         potency * Integer.valueOf(viewVoltageInCharge.getJspQuantity().getValue().toString()), 
                         potency * Integer.valueOf(viewVoltageInCharge.getJspQuantity().getValue().toString()), 
-                        0);
+                        viewVoltageInCharge.getArea().getQuantity());
             } else {
                 area = new Area(
                         viewVoltageInCharge.getArea().getCode(),
@@ -726,7 +726,7 @@ public class ControllerCharge implements ActionListener, WindowListener , KeyLis
                         viewVoltageInCharge.getCharge().isDryer() || viewVoltageInCharge.getCharge().isElectricKitchen() ? 
                                 (potency * 0.7) * Integer.valueOf(viewVoltageInCharge.getJspQuantity().getValue().toString()) :
                                 0,
-                        0);
+                        viewVoltageInCharge.getArea().getQuantity());
             }
             if (ServiceChargesInAreas.validate_charge_in_area(
                     new ChargesInAreas(

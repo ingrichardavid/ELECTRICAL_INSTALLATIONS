@@ -389,13 +389,13 @@ public class ControllerProjectData implements ActionListener, WindowListener, Ke
                             Integer.valueOf(viewProjectData.getTblArea().getValueAt(row_area, 4).toString()));
                 double quantityPotencyIntensity = 0;
                 if (viewProjectData.getTblAreasCharges().getValueAt(rows[i], 7).toString().equalsIgnoreCase(TypeSubTypeCharge.POTENCY.getSubTypeCharge())){
-                    quantityPotencyIntensity = Integer.valueOf(viewProjectData.getTblAreasCharges().getValueAt(rows[i], 3).toString()) * 
-                                        Double.valueOf(viewProjectData.getTblAreasCharges().getValueAt(rows[i], 4).toString());                         
+                    quantityPotencyIntensity = (Integer.valueOf(viewProjectData.getTblAreasCharges().getValueAt(rows[i], 3).toString()) * 
+                                        Double.valueOf(viewProjectData.getTblAreasCharges().getValueAt(rows[i], 4).toString())) * Integer.valueOf(viewProjectData.getTblArea().getValueAt(row_area, 4).toString());                         
                 } else if (viewProjectData.getTblAreasCharges().getValueAt(rows[i], 7).toString().equalsIgnoreCase(TypeSubTypeCharge.QUANTITY.getSubTypeCharge())) {
                     quantityPotencyIntensity = Double.valueOf(viewProjectData.getTblAreasCharges().getValueAt(rows[i], 3).toString());
                 } else {
-                    quantityPotencyIntensity = Integer.valueOf(viewProjectData.getTblAreasCharges().getValueAt(rows[i], 3).toString()) * 
-                                        Double.valueOf(viewProjectData.getTblAreasCharges().getValueAt(rows[i], 4).toString());
+                    quantityPotencyIntensity = (Integer.valueOf(viewProjectData.getTblAreasCharges().getValueAt(rows[i], 3).toString()) * 
+                                        Double.valueOf(viewProjectData.getTblAreasCharges().getValueAt(rows[i], 4).toString())) * Integer.valueOf(viewProjectData.getTblArea().getValueAt(row_area, 4).toString());
                 }
                 ServiceChargesInAreas.delete_charge_in_area(new ChargesInAreas(
                         new Charge(Integer.valueOf(viewProjectData.getTblAreasCharges().getValueAt(rows[i], 1).toString()), 
