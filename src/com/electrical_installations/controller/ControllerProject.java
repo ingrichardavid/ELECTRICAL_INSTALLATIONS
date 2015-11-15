@@ -42,7 +42,7 @@ import javax.swing.table.DefaultTableModel;
 public class ControllerProject implements ActionListener, KeyListener, ChangeListener, WindowListener, MouseListener, ItemListener{
 
     //Objectos, variables y constantes
-    private final ViewProject viewProject;
+    private final ViewProject viewProject; 
     private ViewUser viewUser;
     private ViewProyectData viewProjectData;
     private static final Messages messages = Messages.getInstance();
@@ -271,10 +271,10 @@ public class ControllerProject implements ActionListener, KeyListener, ChangeLis
             viewUser.setVisible(true);
         } else if (e.getSource().equals(viewProject.getBtnExit())){
             if (MessagesStructure.ConfirmationMessage(MessagesStructure.format(100, messages.getProperty(Messages.LOG_OUT), MessagesStructure.justify)) == 0){        
-                 new Control().closeApp();
+                 new Control().closeApp();           
                 System.exit(0);
             } else {
-                viewProject.setDefaultCloseOperation(0);
+                     viewProject.setDefaultCloseOperation(0);
             }   
         } else if (e.getSource().equals(viewProject.getBtnRegister())){
             project_registration();

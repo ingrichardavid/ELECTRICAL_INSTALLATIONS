@@ -84,6 +84,7 @@ public class ViewProyectData extends javax.swing.JDialog {
         
         controllerProjectData = new ControllerProjectData(this);
         this.btnSubAlimentador.addActionListener(controllerProjectData);
+        this.btnLightingCircuit.addActionListener(controllerProjectData);
         this.btnNew.addActionListener(controllerProjectData);
         this.btnModify.addActionListener(controllerProjectData);
         this.btnDelete.addActionListener(controllerProjectData);
@@ -330,9 +331,15 @@ public class ViewProyectData extends javax.swing.JDialog {
     public void setBtnSubAlimentador(JMenuItem btnSubAlimentador) {
         this.btnSubAlimentador = btnSubAlimentador;
     }
-    
-    
 
+    public JMenuItem getBtnLightingCircuit() {
+        return btnLightingCircuit;
+    }
+
+    public void setBtnLightingCircuit(JMenuItem btnLightingCircuit) {
+        this.btnLightingCircuit = btnLightingCircuit;
+    }//fin Getters y Setters
+     
     
     
     /**
@@ -353,6 +360,8 @@ public class ViewProyectData extends javax.swing.JDialog {
         btnDelete = new javax.swing.JMenuItem();
         subMenuMotors = new javax.swing.JPopupMenu();
         btnDeleteInstallationMotor = new javax.swing.JMenuItem();
+        jSeparator4 = new javax.swing.JPopupMenu.Separator();
+        btnLightingCircuit = new javax.swing.JMenuItem();
         jSeparator2 = new javax.swing.JPopupMenu.Separator();
         btnSubAlimentador = new javax.swing.JMenuItem();
         subMenuCharges = new javax.swing.JPopupMenu();
@@ -420,10 +429,16 @@ public class ViewProyectData extends javax.swing.JDialog {
         btnDeleteInstallationMotor.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/electrical_installations/resource/image/eliminar.png"))); // NOI18N
         btnDeleteInstallationMotor.setText("Eliminar");
         subMenuMotors.add(btnDeleteInstallationMotor);
+        subMenuMotors.add(jSeparator4);
+
+        btnLightingCircuit.setFont(new java.awt.Font("DejaVu Sans", 1, 14)); // NOI18N
+        btnLightingCircuit.setText("Circuito de Iluminación");
+        btnLightingCircuit.setToolTipText("");
+        subMenuMotors.add(btnLightingCircuit);
         subMenuMotors.add(jSeparator2);
 
         btnSubAlimentador.setFont(new java.awt.Font("DejaVu Sans", 1, 14)); // NOI18N
-        btnSubAlimentador.setText("Sub Alimentador");
+        btnSubAlimentador.setText("Sub-Alimentador");
         subMenuMotors.add(btnSubAlimentador);
 
         btnAddCharges.setFont(new java.awt.Font("DejaVu Sans", 1, 14)); // NOI18N
@@ -898,6 +913,7 @@ public class ViewProyectData extends javax.swing.JDialog {
     private javax.swing.JMenuItem btnDelete;
     private javax.swing.JMenuItem btnDeleteChargesInAreas;
     private javax.swing.JMenuItem btnDeleteInstallationMotor;
+    private javax.swing.JMenuItem btnLightingCircuit;
     private javax.swing.JMenuItem btnModify;
     private javax.swing.JButton btnNew;
     private javax.swing.JMenuItem btnSubAlimentador;
@@ -927,6 +943,7 @@ public class ViewProyectData extends javax.swing.JDialog {
     private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JPopupMenu.Separator jSeparator2;
     private javax.swing.JPopupMenu.Separator jSeparator3;
+    private javax.swing.JPopupMenu.Separator jSeparator4;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTabbedPane jTabbedPane2;
     private javax.swing.JLabel lblAmperage;

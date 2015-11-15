@@ -29,6 +29,7 @@ import com.electrical_installations.view.ViewAddMotorToInstallation;
 import com.electrical_installations.view.ViewArea;
 import com.electrical_installations.view.ViewProyectData;
 import com.electrical_installations.view.ViewCharge;
+import com.electrical_installations.view.ViewLightingCircuit;
 import com.electrical_installations.view.ViewSubFeederMotors;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -54,6 +55,7 @@ public class ControllerProjectData implements ActionListener, WindowListener, Ke
     private static final Messages messages = Messages.getInstance();
     private ViewArea viewArea;
     private ViewCharge viewCharge;
+    private ViewLightingCircuit viewLightingCircuit;
     private ViewAddMotorToInstallation viewAddElevatorToInstallation;
     private ViewSubFeederMotors viewSubFeederMotors;
     private ViewAddMotor  viewAddMotor;
@@ -72,6 +74,15 @@ public class ControllerProjectData implements ActionListener, WindowListener, Ke
     public ControllerProjectData(ViewProyectData viewProjectData){
         this.viewProjectData = viewProjectData;
     }//Fin del constructor 
+    
+    /**
+     * Método para llamar a la vista ViewLightingCircuit
+     */
+    private void newViewLightingCircuit(){
+        viewLightingCircuit = new ViewLightingCircuit(null, true);
+        viewLightingCircuit.setVisible(true);
+    }//fin del Método 
+    
     
     /**
      * Metodo para llamar a la vista ViewAddMotors.
@@ -487,7 +498,7 @@ public class ControllerProjectData implements ActionListener, WindowListener, Ke
                 viewSubFeederMotors = new ViewSubFeederMotors(null, true);
                 viewSubFeederMotors.setBreaker(new Breaker(0, Methods.round((total_intensity - intensity_breaker_higher) + breaker_higher, 5)));
                 viewSubFeederMotors.getLblBreakers().setText(String.valueOf(viewSubFeederMotors.getBreaker().getCapacity()));
-                double total = total_intensity - intensity_three_phase;
+                double total = (total_intensity - intensity_three_phase)+ (intensity_three_phase * 1.25);
                 total = total > 0 ? total:total_intensity;   
                 viewSubFeederMotors.getLblIntensity().setText(String.valueOf(Methods.round(total, 5)));                                                       
                 viewSubFeederMotors.setIntensity(new Intensity(0, null, total_intensity));    
@@ -503,7 +514,7 @@ public class ControllerProjectData implements ActionListener, WindowListener, Ke
                   viewSubFeederMotors = new ViewSubFeederMotors(null, true); 
                   viewSubFeederMotors.setBreaker(new Breaker(0, Methods.round((total_intensity - intensity_breaker_higher) + breaker_higher, 5)));
                   viewSubFeederMotors.getLblBreakers().setText(String.valueOf(viewSubFeederMotors.getBreaker().getCapacity()));
-                  double total = total_intensity - intensity_single_phase;
+                  double total = (total_intensity - intensity_single_phase) + (intensity_single_phase * 1.25);
                   total = total > 0 ? total:total_intensity;       
                   viewSubFeederMotors.getLblIntensity().setText(String.valueOf(Methods.round(total, 5)));  
                   viewSubFeederMotors.setIntensity(new Intensity(0, null, total_intensity));   
@@ -543,6 +554,8 @@ public class ControllerProjectData implements ActionListener, WindowListener, Ke
             newViewAddMotors();
         } else if(e.getSource().equals(viewProjectData.getBtnSubAlimentador())){
             calculate_sub_feeder(); 
+        } else if(e.getSource().equals(viewProjectData.getBtnLightingCircuit())){
+            newViewLightingCircuit();
         }
     }
 

@@ -234,6 +234,7 @@ public class ViewSubFeederMotors extends javax.swing.JDialog {
         cmbPhases = new javax.swing.JComboBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Calcular Sub-Alimentador");
         setMinimumSize(new java.awt.Dimension(600, 192));
         setPreferredSize(new java.awt.Dimension(600, 192));
         getContentPane().setLayout(new javax.swing.OverlayLayout(getContentPane()));
