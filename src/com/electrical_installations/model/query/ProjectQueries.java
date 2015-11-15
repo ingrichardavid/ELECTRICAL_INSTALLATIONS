@@ -139,4 +139,16 @@ public class ProjectQueries {
                                                     "WHERE\n" +
                                                     "	codigo = ? AND tipo_de_instalacion_codigo = ?";
     
+    /**
+     * Consulta para modificar en el proyecto los campo fase y tierra de motor.
+     */
+    public static final String UPDATE_PROJECT_PHASE_EARTH_MOTOR = "UPDATE\n" +
+                                                                    "	negocio.\"PROYECTO\"\n" +
+                                                                    "SET \n" +
+                                                                    "	fase_motor=?, tierra_motor=?\n" +
+                                                                    "WHERE \n" +
+                                                                    "	codigo = ? \n" +
+                                                                    "AND \n" +
+                                                                    "	tipo_de_instalacion_codigo = ?;";
+    
 }

@@ -10,12 +10,15 @@ import com.electrical_installations.model.dao.ProjectDAO;
 import com.electrical_installations.model.entity.Project;
 import com.electrical_installations.model.entity.TypeOfInstallation;
 import com.electrical_installations.model.entity.User;
+import com.electrical_installations.model.query.ChargesInAreasQueries;
 import com.electrical_installations.model.query.ProjectQueries;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Clase que encapsula la capa Modelo para acceder a los datos del proyecto, implementa la interfaz ProjectDAO
@@ -261,5 +264,44 @@ public class ProjectImplDAO implements ProjectDAO{
         }
         return projectFound;
     }//Fin del Método  
+
+    @Override
+    public boolean update_project_phase_earth_motor(Project project) {
+        try {
+            connection.getConexion().setAutoCommit(false);
+            preparedStatement = connection.getConexion().prepareStatement(ProjectQueries.UPDATE_PROJECT_PHASE_EARTH_MOTOR);
+            preparedStatement.setString(1, project.getPhase_motor());
+            preparedStatement.setString(2, project.getEarth_motor());           
+            preparedStatement.setInt(3, project.getCode());
+            preparedStatement.setInt(4, project.getTypeOfInstallation().getCode());              
+            if (preparedStatement.executeUpdate() > 0){ 
+                preparedStatement.close();
+                preparedStatement = connection.getConexion().prepareStatement(ChargesInAreasQueries.UPDATE_MAIN_FEEDER_TYPE_CHARGE);
+                preparedStatement.setDouble(1, 0);
+                preparedStatement.setInt(2, 0); 
+                preparedStatement.setDouble(3, project.getIntensity_total());
+                preparedStatement.setInt(4, project.getCode());
+                preparedStatement.setInt(5, project.getTypeOfInstallation().getCode());
+                preparedStatement.setInt(6, 7);
+                if (preparedStatement.executeUpdate() > 0){ 
+                    connection.getConexion().commit();
+                    return true;
+                }else { 
+                    connection.getConexion().rollback();
+                    return false;
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                connection.getConexion().setAutoCommit(true);
+            } catch (SQLException ex) {
+                Logger.getLogger(ProjectImplDAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            connection.closeConnection();
+        }
+        return false;
+    }//fin del metodo
     
 }

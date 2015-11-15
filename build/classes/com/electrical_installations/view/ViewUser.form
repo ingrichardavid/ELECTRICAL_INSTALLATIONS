@@ -2432,6 +2432,9 @@
                 </Component>
                 <Component class="javax.swing.JPasswordField" name="txtPreviousPassword">
                   <Properties>
+                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                      <Font name="DejaVu Sans" size="12" style="0"/>
+                    </Property>
                     <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
                       <Dimension value="[175, 21]"/>
                     </Property>
@@ -2447,6 +2450,9 @@
                 </Component>
                 <Component class="javax.swing.JPasswordField" name="txtPassword">
                   <Properties>
+                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                      <Font name="DejaVu Sans" size="12" style="0"/>
+                    </Property>
                     <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
                       <Dimension value="[175, 21]"/>
                     </Property>
@@ -2475,6 +2481,9 @@
                 </Component>
                 <Component class="javax.swing.JPasswordField" name="txtConfirmPassword">
                   <Properties>
+                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                      <Font name="DejaVu Sans" size="12" style="0"/>
+                    </Property>
                     <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
                       <Dimension value="[175, 21]"/>
                     </Property>

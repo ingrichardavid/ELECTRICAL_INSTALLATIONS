@@ -5,6 +5,8 @@
  */
 package com.electrical_installations.model.entity.masters;
 
+import com.electrical_installations.model.enums.TypePhase;
+
 /**
  * Clase para representar a la entidad Caballos de Fuerzas.
  * @author Ing. Richard David
@@ -18,6 +20,7 @@ public class HorsesPowers {
     private HorsePower horsePower;
     private Voltage voltage;
     private Intensity intensity;
+    private TypePhase typePhase;
 
     /**
      * Constructor para almacenar datos
@@ -26,14 +29,23 @@ public class HorsesPowers {
      * @param voltage
      * @param intensity 
      */
-    public HorsesPowers(int code, HorsePower horsePower, Voltage voltage, Intensity intensity) {
+    public HorsesPowers(int code, HorsePower horsePower, Voltage voltage, Intensity intensity, TypePhase typePhase) {
         this.code = code;
         this.horsePower = horsePower;
         this.voltage = voltage;
         this.intensity = intensity;
+        this.typePhase = typePhase;
     }//Fin del Constructor
 
     //Getters y Setters
+
+    public TypePhase getTypePhase() {
+        return typePhase;
+    }
+
+    public void setTypePhase(TypePhase typePhase) {
+        this.typePhase = typePhase;
+    }
 
     public int getCode() {
         return code;

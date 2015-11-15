@@ -295,6 +295,7 @@ public class ControllerCharge implements ActionListener, WindowListener , KeyLis
                                         ((HorsePower)viewVoltageInCharge.getCmbHP().getSelectedItem()).getName(), 
                                         0), 
                                 (Voltage)viewVoltageInCharge.getCmbVoltage().getSelectedItem(), 
+                                null,
                                 null));
                 if (horsesPowersFound == null){
                     MessagesStructure.Warning(MessagesStructure.format(200, messages.getProperty(Messages.HORSES_POWER_INTENSITY_NO_FOUND), MessagesStructure.justify));
@@ -439,12 +440,12 @@ public class ControllerCharge implements ActionListener, WindowListener , KeyLis
                     if (((Material)viewVoltageInCharge.getCmbMaterial().getSelectedItem()).getName().equals(TypeMaterials.COOPER.getMaterial())){                
                         viewVoltageInCharge.getLblCaliberPhase().setText(MethodsForCalculationsGlobal1.number_of_calibers((Phase)viewVoltageInCharge.getCmbPhases().getSelectedItem(), TypeCalibers.PHASE) + " #" + caliberPhaseFound.getCaliber().getName() + " Cu " + MethodsForCalculationsGlobal1.typeCaliber(typeCaliber,(Temperature)viewVoltageInCharge.getCmbTemperature().getSelectedItem()) + " " + MethodsForCalculationsGlobal1.number_of_brakers((Phase)viewVoltageInCharge.getCmbPhases().getSelectedItem(), breakerPhaseFound.getCapacity()));
                         if (!viewVoltageInCharge.getCharge().isHorsePower()){
-                           viewVoltageInCharge.getLblCaliberNeutral().setText("1 Cable" + " #" + caliberPhaseFound.getCaliber().getName() + " Cu " + MethodsForCalculationsGlobal1.typeCaliber(typeCaliber,(Temperature)viewVoltageInCharge.getCmbTemperature().getSelectedItem()));
+                           viewVoltageInCharge.getLblCaliberNeutral().setText("1 Cable" + " #" + caliberNeutralFound.getCaliber().getName() + " Cu " + MethodsForCalculationsGlobal1.typeCaliber(typeCaliber,(Temperature)viewVoltageInCharge.getCmbTemperature().getSelectedItem()));
                         }
                     } else if (((Material)viewVoltageInCharge.getCmbMaterial().getSelectedItem()).getName().equals(TypeMaterials.ALUMINIUM.getMaterial())) {
                         viewVoltageInCharge.getLblCaliberPhase().setText(MethodsForCalculationsGlobal1.number_of_calibers((Phase)viewVoltageInCharge.getCmbPhases().getSelectedItem(), TypeCalibers.PHASE) + " #" + caliberPhaseFound.getCaliber().getName() + " Al " + MethodsForCalculationsGlobal1.typeCaliber(typeCaliber,(Temperature)viewVoltageInCharge.getCmbTemperature().getSelectedItem()) + " " + MethodsForCalculationsGlobal1.number_of_brakers((Phase)viewVoltageInCharge.getCmbPhases().getSelectedItem(), breakerPhaseFound.getCapacity()));
                         if (!viewVoltageInCharge.getCharge().isHorsePower()){
-                           viewVoltageInCharge.getLblCaliberNeutral().setText("1 Cable" + " #" + caliberPhaseFound.getCaliber().getName() + " Al " + MethodsForCalculationsGlobal1.typeCaliber(typeCaliber,(Temperature)viewVoltageInCharge.getCmbTemperature().getSelectedItem()));
+                           viewVoltageInCharge.getLblCaliberNeutral().setText("1 Cable" + " #" + caliberNeutralFound.getCaliber().getName() + " Al " + MethodsForCalculationsGlobal1.typeCaliber(typeCaliber,(Temperature)viewVoltageInCharge.getCmbTemperature().getSelectedItem()));
                         }
                     }
                     if (calibersHearthFound == null){
@@ -662,9 +663,23 @@ public class ControllerCharge implements ActionListener, WindowListener , KeyLis
         } else {
             Area area;
             if (((Phase)viewVoltageInCharge.getCmbPhases().getSelectedItem()).getName().equalsIgnoreCase(TypePhases.SINGLE_PHASE_TWO_THREAD.getPhase())){
-                area = new Area(viewVoltageInCharge.getArea().getCode(), null, null, potency * Integer.valueOf(viewVoltageInCharge.getJspQuantity().getValue().toString()), potency * Integer.valueOf(viewVoltageInCharge.getJspQuantity().getValue().toString()), 0);
+                area = new Area(
+                        viewVoltageInCharge.getArea().getCode(), 
+                        null, 
+                        null, 
+                        potency * Integer.valueOf(viewVoltageInCharge.getJspQuantity().getValue().toString()), 
+                        potency * Integer.valueOf(viewVoltageInCharge.getJspQuantity().getValue().toString()), 
+                        0);
             } else {
-                area = new Area(viewVoltageInCharge.getArea().getCode(),null,null, potency * Integer.valueOf(viewVoltageInCharge.getJspQuantity().getValue().toString()),0,0);
+                area = new Area(
+                        viewVoltageInCharge.getArea().getCode(),
+                        null,
+                        null, 
+                        potency * Integer.valueOf(viewVoltageInCharge.getJspQuantity().getValue().toString()),
+                        viewVoltageInCharge.getCharge().isDryer() || viewVoltageInCharge.getCharge().isElectricKitchen() ? 
+                                (potency * 0.7) * Integer.valueOf(viewVoltageInCharge.getJspQuantity().getValue().toString()) :
+                                0,
+                        0);
             }
             if (ServiceChargesInAreas.validate_charge_in_area(
                     new ChargesInAreas(

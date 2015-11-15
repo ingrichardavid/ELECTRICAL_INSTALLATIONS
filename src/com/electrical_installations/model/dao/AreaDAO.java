@@ -5,6 +5,7 @@
  */
 package com.electrical_installations.model.dao;
 
+import com.electrical_installations.model.DataBaseConnection;
 import com.electrical_installations.model.entity.Area;
 import com.electrical_installations.model.entity.AreaIluminariaPowerPoint;
 import com.electrical_installations.model.entity.masters.Calibers;
@@ -23,6 +24,7 @@ public interface AreaDAO {
      * Crear Area.
      * @param area
      * @param areaIluminariaPowerPoints
+     * @param dataBaseConnection
      * @return Retorna un valor booleano 
      */
     public boolean insert(Area area, List<AreaIluminariaPowerPoint> areaIluminariaPowerPoints);
@@ -73,9 +75,10 @@ public interface AreaDAO {
     /**
      * Eliminar un Área
      * @param area
+     * @param dataBaseConnection
      * @return Retorna un booleano
      */
-    public boolean delete(Area area);
+    public boolean delete(Area area, DataBaseConnection dataBaseConnection);
     
     /**
      * Método para encontrar el calibre deseado para iluminaria o toma corrientes.
@@ -101,8 +104,17 @@ public interface AreaDAO {
     
     /**
      * Método para consultar el código de un tipo de cagar.
+     * @param typeTypeOfCharges
      * @return Retorna un código.
      */
     public int consult_code_type_charge(TypeTypeOfCharges typeTypeOfCharges);
+ 
+    /**
+     * Método para modificar o eliminar la potencia en iluminaria y toma corriente del sub-alimentador principal.
+     * @param area
+     * @return Retorna true si el proceso de modificación o eliminación se llevó a cabo.
+     */
+    public boolean delete_main_feeder(Area area);       
     
 }
+

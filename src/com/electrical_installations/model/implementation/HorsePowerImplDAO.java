@@ -10,6 +10,7 @@ import com.electrical_installations.model.dao.HorsePowerDAO;
 import com.electrical_installations.model.entity.masters.HorsePower;
 import com.electrical_installations.model.entity.masters.HorsesPowers;
 import com.electrical_installations.model.entity.masters.Intensity;
+import com.electrical_installations.model.enums.TypePhase;
 import com.electrical_installations.model.query.HorsePowerQueries;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -88,12 +89,22 @@ public class HorsePowerImplDAO implements HorsePowerDAO{
     public HorsesPowers find_intensity_horses_power(HorsesPowers horsesPowers) {
         horsesPowersFound = null;
         try {
-            preparedStatement = connection.getConexion().prepareStatement(HorsePowerQueries.SELECT_INTENSITY_HORSE_POWER);
-            preparedStatement.setString(1, horsesPowers.getHorsePower().getName());
-            preparedStatement.setInt(2, horsesPowers.getVoltage().getVoltage());
-            result = preparedStatement.executeQuery();
-            while(result.next()){
-                horsesPowersFound = new HorsesPowers(result.getInt(1), null, null, new Intensity(result.getInt(2), null, result.getDouble(3)));
+            if (horsesPowers.getTypePhase().equals(TypePhase.SINGLE_PHASE)){
+                preparedStatement = connection.getConexion().prepareStatement(HorsePowerQueries.SELECT_INTENSITY_HORSE_POWER_SINGLE_PHASE);
+                preparedStatement.setString(1, horsesPowers.getHorsePower().getName());
+                preparedStatement.setInt(2, horsesPowers.getVoltage().getVoltage());
+                result = preparedStatement.executeQuery();
+                while(result.next()){
+                    horsesPowersFound = new HorsesPowers(result.getInt(1), null, null, new Intensity(result.getInt(2), null, result.getDouble(3)),null);
+                }
+            } else {
+                preparedStatement = connection.getConexion().prepareStatement(HorsePowerQueries.SELECT_INTENSITY_HORSE_POWER_THREE_PHASE);
+                preparedStatement.setInt(1, horsesPowers.getHorsePower().getCode());
+                preparedStatement.setInt(2, horsesPowers.getVoltage().getCode());
+                result = preparedStatement.executeQuery();
+                while(result.next()){
+                    horsesPowersFound = new HorsesPowers(0, null, null, new Intensity(0, null, result.getDouble(1)),null);
+                }            
             }
         } catch (SQLException e) {
             e.printStackTrace();

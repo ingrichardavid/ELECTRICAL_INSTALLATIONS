@@ -25,12 +25,12 @@ public class AreaQueries {
     /**
      * Insertar Iluminaria y Toma Corriente en Área.
      */
-    public static final String INSERT_ILUMINARIA_POWER_POINT =  "INSERT INTO negocio.\"AREA_ILUMINARIA_TOMA_CORRIENTES\"(area_codigo, calibres_codigo, voltaje_codigo, fase_codigo, \n" +
+    public static final String INSERT_ILUMINARIA_POWER_POINT =  "INSERT INTO negocio.\"AREA_ILUMINARIA_TOMA_CORRIENTES\" (area_codigo, calibres_codigo, voltaje_codigo, fase_codigo, \n" +
                                                                 "            tipo, area_cantidad, constante, factor_potencia, calibre_codigo, \n" +
-                                                                "            interruptor_codigo,acometida,longitud,ducto_codigo,angulo,calibre_a_usar)\n" +
+                                                                "            interruptor_codigo,acometida,longitud,ducto_codigo,angulo,calibre_a_usar,circuito_ramal)\n" +
                                                                 "    VALUES (?, ?, ?, ?, \n" +
                                                                 "            ?, ?, ?, ?, ?, \n" +
-                                                                "            ?,?,?,?,?,?);";
+                                                                "            ?,?,?,?,?,?,?);";
     
     /**
      * Modificar Área.
@@ -46,7 +46,7 @@ public class AreaQueries {
                                                                 "   SET calibres_codigo=?, voltaje_codigo=?, \n" +
                                                                 "       fase_codigo=?, tipo=?, area_cantidad=?, constante=?, factor_potencia=?, \n" +
                                                                 "       calibre_codigo=?, interruptor_codigo=?, acometida=?, longitud=?, \n" +
-                                                                "       ducto_codigo=?, angulo=?,calibre_a_usar = ?\n" +
+                                                                "       ducto_codigo=?, angulo=?,calibre_a_usar = ?, circuito_ramal=?\n" +
                                                                 " WHERE codigo=?;";
     
     /**
@@ -236,6 +236,16 @@ public class AreaQueries {
                                                                     "	negocio.\"AREA_ILUMINARIA_TOMA_CORRIENTES\"\n" +
                                                                     "WHERE\n" +
                                                                     "	area_codigo = ? AND tipo = 'T';";
+    
+    /**
+     * Consultar la cantidad total de un área determinada.
+     */
+    public static final String CONSULT_QUANTITY_OF_A_AREA = "SELECT \n" +
+                                                                    "	cantidad\n" +
+                                                                    "FROM \n" +
+                                                                    "	negocio.\"AREA\"\n" +
+                                                                    "WHERE\n" +
+                                                                    "	codigo = ?;";
     
     /**
      * Consultar el código del tipo de carga.

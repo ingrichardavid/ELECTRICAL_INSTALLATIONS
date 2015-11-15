@@ -154,5 +154,19 @@ public class ServiceProject {
         } 
         return projectFound;
     }//Fin del servicio
+    
+     /**
+     * Servicio para la modificación de los campos fase de motor y tierra de motor de Proyecto, recibe un objeto Project.
+     * @param project
+     * @return Retorna true si el proceso de modificación a finalizado con exito
+     */
+    public static boolean update_project_phase_earth(Project project){
+        if (projectImplDAO.update_project_phase_earth_motor(project)){            
+            return true;
+        } else {
+            MessagesStructure.ErrorMessage(MessagesStructure.format(200, messages.getProperty(Messages.OPERATION_ERROR), MessagesStructure.justify));
+            return false;
+        }
+    }//Fin del servicio
             
 }

@@ -244,6 +244,38 @@ public final class ViewArea extends javax.swing.JDialog {
     
     //Getters y Setters
 
+    public JLabel getLblQuantity() {
+        return lblQuantity;
+    }
+
+    public void setLblQuantity(JLabel lblQuantity) {
+        this.lblQuantity = lblQuantity;
+    }
+
+    public JSpinner getJspQuantity() {
+        return jspQuantity;
+    }
+
+    public void setJspQuantity(JSpinner jspQuantity) {
+        this.jspQuantity = jspQuantity;
+    }
+     
+    public JLabel getLblBranchCircuitPowerPoint() {
+        return lblBranchCircuitPowerPoint;
+    }
+
+    public void setLblBranchCircuitPowerPoint(JLabel lblBranchCircuitPowerPoint) {
+        this.lblBranchCircuitPowerPoint = lblBranchCircuitPowerPoint;
+    }
+
+    public JLabel getLblBranchCircuitIluminaria() {
+        return lblBranchCircuitIluminaria;
+    }
+
+    public void setLblBranchCircuitIluminaria(JLabel lblBranchCircuitIluminaria) {
+        this.lblBranchCircuitIluminaria = lblBranchCircuitIluminaria;
+    }
+
     public ControllerArea getControllerArea() {
         return controllerArea;
     }
@@ -807,6 +839,8 @@ public final class ViewArea extends javax.swing.JDialog {
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         txtName = new javax.swing.JTextField();
+        jspQuantity = new javax.swing.JSpinner();
+        lblQuantity = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         btnModify = new javax.swing.JButton();
         btnRegister = new javax.swing.JButton();
@@ -834,6 +868,8 @@ public final class ViewArea extends javax.swing.JDialog {
         lblCaliberIluminaria = new javax.swing.JLabel();
         btnCalculateCurrentCapacityIluminaria = new javax.swing.JButton();
         jspArea = new javax.swing.JSpinner();
+        jLabel42 = new javax.swing.JLabel();
+        lblBranchCircuitIluminaria = new javax.swing.JLabel();
         jPanel8 = new javax.swing.JPanel();
         jLabel12 = new javax.swing.JLabel();
         cmbCalibersIluminaria = new javax.swing.JComboBox();
@@ -869,6 +905,8 @@ public final class ViewArea extends javax.swing.JDialog {
         lblCaliberPowerPoint = new javax.swing.JLabel();
         btnCalculateCurrentCapacityPowerPoint = new javax.swing.JButton();
         txtQuantityPowerPoint = new javax.swing.JSpinner();
+        jLabel44 = new javax.swing.JLabel();
+        lblBranchCircuitPowerPoint = new javax.swing.JLabel();
         jPanel11 = new javax.swing.JPanel();
         jLabel28 = new javax.swing.JLabel();
         cmbCalibersPowerPoint = new javax.swing.JComboBox();
@@ -937,7 +975,7 @@ public final class ViewArea extends javax.swing.JDialog {
 
         java.awt.GridBagLayout jPanel2Layout = new java.awt.GridBagLayout();
         jPanel2Layout.columnWidths = new int[] {0, 5, 0};
-        jPanel2Layout.rowHeights = new int[] {0};
+        jPanel2Layout.rowHeights = new int[] {0, 5, 0};
         jPanel2.setLayout(jPanel2Layout);
 
         jLabel1.setFont(new java.awt.Font("DejaVu Sans", 1, 12)); // NOI18N
@@ -946,7 +984,7 @@ public final class ViewArea extends javax.swing.JDialog {
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
-        gridBagConstraints.insets = new java.awt.Insets(5, 0, 5, 0);
+        gridBagConstraints.insets = new java.awt.Insets(5, 0, 1, 0);
         jPanel2.add(jLabel1, gridBagConstraints);
 
         txtName.setFont(new java.awt.Font("DejaVu Sans", 0, 12)); // NOI18N
@@ -957,8 +995,27 @@ public final class ViewArea extends javax.swing.JDialog {
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(5, 0, 5, 0);
+        gridBagConstraints.insets = new java.awt.Insets(5, 0, 0, 0);
         jPanel2.add(txtName, gridBagConstraints);
+
+        jspQuantity.setFont(new java.awt.Font("DejaVu Sans", 0, 12)); // NOI18N
+        jspQuantity.setModel(new javax.swing.SpinnerNumberModel(1, 1, 100, 1));
+        jspQuantity.setMinimumSize(new java.awt.Dimension(100, 21));
+        jspQuantity.setPreferredSize(new java.awt.Dimension(100, 21));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
+        gridBagConstraints.insets = new java.awt.Insets(0, 0, 5, 0);
+        jPanel2.add(jspQuantity, gridBagConstraints);
+
+        lblQuantity.setFont(new java.awt.Font("DejaVu Sans", 1, 12)); // NOI18N
+        lblQuantity.setText("Cantidad:");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.insets = new java.awt.Insets(0, 0, 5, 0);
+        jPanel2.add(lblQuantity, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
@@ -1219,6 +1276,21 @@ public final class ViewArea extends javax.swing.JDialog {
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weightx = 1.0;
         jPanel4.add(jspArea, gridBagConstraints);
+
+        jLabel42.setFont(new java.awt.Font("DejaVu Sans", 1, 12)); // NOI18N
+        jLabel42.setText("C. Ramal:");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 10;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        jPanel4.add(jLabel42, gridBagConstraints);
+
+        lblBranchCircuitIluminaria.setFont(new java.awt.Font("DejaVu Sans", 1, 12)); // NOI18N
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 10;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        jPanel4.add(lblBranchCircuitIluminaria, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
@@ -1553,6 +1625,21 @@ public final class ViewArea extends javax.swing.JDialog {
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weightx = 1.0;
         jPanel9.add(txtQuantityPowerPoint, gridBagConstraints);
+
+        jLabel44.setFont(new java.awt.Font("DejaVu Sans", 1, 12)); // NOI18N
+        jLabel44.setText("C. Ramal:");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 10;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        jPanel9.add(jLabel44, gridBagConstraints);
+
+        lblBranchCircuitPowerPoint.setFont(new java.awt.Font("DejaVu Sans", 1, 12)); // NOI18N
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 10;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        jPanel9.add(lblBranchCircuitPowerPoint, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
@@ -2186,7 +2273,9 @@ public final class ViewArea extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel40;
     private javax.swing.JLabel jLabel41;
+    private javax.swing.JLabel jLabel42;
     private javax.swing.JLabel jLabel43;
+    private javax.swing.JLabel jLabel44;
     private javax.swing.JLabel jLabel45;
     private javax.swing.JLabel jLabel47;
     private javax.swing.JLabel jLabel5;
@@ -2216,7 +2305,10 @@ public final class ViewArea extends javax.swing.JDialog {
     private javax.swing.JSpinner jspPowerFactor;
     private javax.swing.JSpinner jspPowerFactorPowerPoint;
     private javax.swing.JSpinner jspPowerSubFeeder;
+    private javax.swing.JSpinner jspQuantity;
     private javax.swing.JTabbedPane jtpPanels;
+    private javax.swing.JLabel lblBranchCircuitIluminaria;
+    private javax.swing.JLabel lblBranchCircuitPowerPoint;
     private javax.swing.JLabel lblBreakdownVoltageIlumiaria;
     private javax.swing.JLabel lblBreakdownVoltagePowerPoint;
     private javax.swing.JLabel lblBreakdownVoltageSubFeeder;
@@ -2227,6 +2319,7 @@ public final class ViewArea extends javax.swing.JDialog {
     private javax.swing.JLabel lblCaliberSubFeeder;
     private javax.swing.JLabel lblPotencyNeutralSubFeeder;
     private javax.swing.JLabel lblPotencyTotalSubFeeder;
+    private javax.swing.JLabel lblQuantity;
     private javax.swing.JPanel p1;
     private javax.swing.JPanel p2;
     private javax.swing.JPanel p3;

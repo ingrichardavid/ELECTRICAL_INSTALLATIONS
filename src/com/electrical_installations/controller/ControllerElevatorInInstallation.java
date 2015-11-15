@@ -42,6 +42,8 @@ import com.electrical_installations.model.service.ServiceVoltage;
 import com.electrical_installations.view.ViewAddMotorToInstallation;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.event.ChangeEvent;
@@ -54,7 +56,7 @@ import javax.swing.event.ChangeListener;
  * @version 1
  * @since 2015-08-22
  */
-public class ControllerElevatorInInstallation implements ActionListener, ChangeListener {
+public class ControllerElevatorInInstallation implements ActionListener, ChangeListener , ItemListener{
 
     //Objectos, variables y constantes
     private final ViewAddMotorToInstallation viewAddElevatorToInstallation;
@@ -106,7 +108,7 @@ public class ControllerElevatorInInstallation implements ActionListener, ChangeL
         }
     }//Fin del método
     
-     /**
+    /**
      * Método para llenar el combo porcentaje de motores Monofásico.
      */
     public void fill_combo_percentage_single_phase_motors() {
@@ -300,8 +302,7 @@ public class ControllerElevatorInInstallation implements ActionListener, ChangeL
      * Método para calcular el conductor.
      */
     
-    private void calculate_conductor(){
-        
+    private void calculate_conductor(){        
         if (!viewAddElevatorToInstallation.getrBtnAir().isSelected() && !viewAddElevatorToInstallation.getrBtnGround().isSelected()){
             MessagesStructure.Warning(MessagesStructure.format(200, messages.getProperty(Messages.RUSH_NO_FOUND), MessagesStructure.justify));
             viewAddElevatorToInstallation.getrBtnGround().requestFocus();
@@ -311,11 +312,12 @@ public class ControllerElevatorInInstallation implements ActionListener, ChangeL
                     new HorsesPowers(
                             0, 
                             new HorsePower(
-                                    0, 
+                                    ((HorsePower)viewAddElevatorToInstallation.getCmbHP().getSelectedItem()).getCode(), 
                                     ((HorsePower)viewAddElevatorToInstallation.getCmbHP().getSelectedItem()).getName(), 
                                     0), 
                             (Voltage)viewAddElevatorToInstallation.getCmbVoltage().getSelectedItem(), 
-                            null));
+                            null,
+                            viewAddElevatorToInstallation.getTypePhase()));
             if (horsesPowersFound == null){
                 MessagesStructure.Warning(MessagesStructure.format(200, messages.getProperty(Messages.HORSES_POWER_INTENSITY_NO_FOUND), MessagesStructure.justify));
             } else {
@@ -477,7 +479,7 @@ public class ControllerElevatorInInstallation implements ActionListener, ChangeL
                             0, 
                             null), 
                     viewAddElevatorToInstallation.getLblDescription().getText(), 
-                    potency, 
+                    horsesPowersFound.getIntensity().getIntensity(), 
                     Integer.valueOf(viewAddElevatorToInstallation.getJspQuantity().getValue().toString()), 
                     caliberPhase, 
                     caliberNeutral, 
@@ -500,6 +502,8 @@ public class ControllerElevatorInInstallation implements ActionListener, ChangeL
             calculate_breakdownVoltage();
         } else if (e.getSource().equals(viewAddElevatorToInstallation.getBtnClose())) {
             viewAddElevatorToInstallation.dispose();
+        }  else if (e.getSource().equals(viewAddElevatorToInstallation.getCmbPhases())) {
+            this.fill_combos_voltages();
         }
     }
 
@@ -514,6 +518,11 @@ public class ControllerElevatorInInstallation implements ActionListener, ChangeL
                 typeCaliber = TypeRush.UNDERGROUND;                
             }             
         }
+    }
+
+    @Override
+    public void itemStateChanged(ItemEvent e) {
+         
     }
 
 }

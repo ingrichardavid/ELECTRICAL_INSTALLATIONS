@@ -88,7 +88,7 @@ public class MethodsForCalculationsGlobal1 {
     }//Fin del método
     
     /**
-     * Método para calcular Calibre para Secadora.
+     * Método para calcular Calibre Neutro para Secadora.
      * @param potency
      * @param voltage
      * @param material
@@ -98,7 +98,7 @@ public class MethodsForCalculationsGlobal1 {
      * @return Retorna un calibre
      */
     public static Calibers calculateCaliberDryer(double potency,Voltage voltage,Material material,Temperature temperature, double powerFactor, int phase){
-        return ServiceArea.find_caliber_iluminaria_power_point(new Calibers(0,material, temperature, new Intensity(0, null, intensity(potency * 0.7, voltage.getVoltage(), powerFactor, phase) * roominessToCalculateCalibresDishwasherCrusherAndDryer),null), 1);
+        return ServiceArea.find_caliber_iluminaria_power_point(new Calibers(0,material, temperature, new Intensity(0, null, (((potency * roominessToCalculateCalibresDishwasherCrusherAndDryer))/voltage.getVoltage()) * 0.7),null), 1);
     }//Fin del método
     
     /**
@@ -207,16 +207,46 @@ public class MethodsForCalculationsGlobal1 {
     }//Fin del métdodo.
       
     /**
+     * Método para calcular el Interruptor a utilizar para Motores
+     * @param intensity
+     * @return Retorna el interruptor seleccionado
+     */
+    public static Breaker find_braker_motors(double intensity){
+        return ServiceBreaker.find_breaker_by_capacity(new Breaker(0, intensity));
+    }//Fin del métdodo.
+      
+    /**
      * Método para calcular el Interruptor a utilizar Secadoras
      * @param potency
      * @param voltage
      * @param material
      * @param powerFactor
      * @param phase
+     * @param intensityDesign
      * @return Retorna el interruptor seleccionado
      */
     public static Breaker find_breaker_dryer(double potency,Voltage voltage,Material material,double powerFactor,int phase, Intensity intensityDesign){
-        return ServiceBreaker.find_breaker_by_capacity(new Breaker(0, ((intensity(potency, voltage.getVoltage(), powerFactor, phase) * 0.2) + intensityDesign.getIntensity()) / 2));
+        return ServiceBreaker.find_breaker_by_capacity(new Breaker(0, (((potency * roominessToCalculateCalibresDishwasherCrusherAndDryer)/voltage.getVoltage()) + intensityDesign.getIntensity()) / 2));
+    }//Fin del métdodo.
+    
+    
+      
+    /**
+     * Método para calcular el Interruptor a utilizar Secadoras
+     * @param potency
+     * @param voltage
+     * @param material
+     * @param powerFactor
+     * @param phase
+     * @param intensityDesign
+     * @return Retorna el interruptor seleccionado
+     */
+    public static Breaker find_breaker_subfeeder(double potency,Voltage voltage,Material material,double powerFactor,int phase, Intensity intensityDesign){
+        //return ServiceBreaker.find_breaker_by_capacity(new Breaker(0, ((intensity(potency, voltage.getVoltage(), powerFactor, phase) * 0.2) + intensityDesign.getIntensity()) / 2));
+        System.out.println("INTENSIDAD: " + ((potency)/voltage.getVoltage()));
+        System.out.println("INTENSIDAD DE DISEÑO: " + intensityDesign.getIntensity());
+        System.out.println("RESULTADO: " + ((potency/voltage.getVoltage()) + intensityDesign.getIntensity()) / 2);
+        return ServiceBreaker.find_breaker_by_capacity(new Breaker(0, ((potency/voltage.getVoltage()) + intensityDesign.getIntensity()) / 2));
     }//Fin del métdodo.
     
     /**
@@ -275,7 +305,7 @@ public class MethodsForCalculationsGlobal1 {
      * @return Retorna la caída de voltaje
      */
     public static double breakdownVoltage(double potency, double length, double voltage, double reactance, double powerFactor, double resistance, double angle){
-        return Methods.round((((potency)/powerFactor)/1000) * (length/1000) * (((resistance * powerFactor) + (reactance * Math.sin(angle)))/(10 * Math.pow(voltage/1000, 2))), 5);
+        return Methods.round(Methods.round((((potency)/powerFactor)/1000), 5) * Methods.round(length/1000, 5) * ((Methods.round(resistance * powerFactor, 5) + Methods.round(reactance * Math.sin(angle),5))/Methods.round((10 * Math.pow(voltage/1000, 2)), 5)), 5);
     }//Fin del Método
          
     /**

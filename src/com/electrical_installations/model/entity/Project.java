@@ -21,6 +21,8 @@ public class Project {
     private int powerTotal;
     private String registration_date;
     private double intensity_total;
+    private String phase_motor;
+    private String earth_motor;
 
     /**
      * Constructor para la búsqueda de proyectos
@@ -84,8 +86,40 @@ public class Project {
         this.intensity_total = intensity_total;
     }//Fin del constructor.
 
+    /**
+     * Constructor para modificar en el proyecto los campos fase de motor y tierra de motor.
+     * @param code
+     * @param typeOfInstallation
+     * @param phase_motor
+     * @param earth_motor 
+     * @param intensity_total 
+     */
+    public Project(int code, TypeOfInstallation typeOfInstallation, String phase_motor, String earth_motor, double intensity_total) {
+        this.code = code;
+        this.typeOfInstallation = typeOfInstallation;
+        this.phase_motor = phase_motor;
+        this.earth_motor = earth_motor;
+        this.intensity_total = intensity_total;
+    }//fin del constructor
+    
     //Getters y Setters
     
+    public String getPhase_motor() {    
+        return phase_motor;
+    }
+
+    public void setPhase_motor(String phase_motor) {
+        this.phase_motor = phase_motor;
+    }
+
+    public String getEarth_motor() {
+        return earth_motor;
+    }
+ 
+    public void setEarth_motor(String earth_motor) {
+        this.earth_motor = earth_motor;
+    }
+
     public double getIntensity_total() {
         return intensity_total;
     }

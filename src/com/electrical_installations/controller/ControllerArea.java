@@ -36,8 +36,6 @@ import com.electrical_installations.model.service.ServiceVoltage;
 import com.electrical_installations.view.ViewArea;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.WindowEvent;
@@ -72,10 +70,11 @@ public class ControllerArea implements ActionListener, KeyListener, WindowListen
     private List<Material> materialsFound;
     private List<AreaIluminariaPowerPoint> areaIluminariaPowerPoints;
     private TypeRush typeCaliberIluminaria, typeCaliberPowerPoint, typeCaliberSubFeeder;
-    private double breakdownVoltage, potencySubFeeder;
+    private double breakdownVoltage, potencySubFeeder, potencyTotal, potencyTotalNeutral;
     private String caliberUseIluminaria, caliberUsePowerPoint, caliberUseSubFeeder, caliberUseSubFeederNeutral;
     private Caliber caliberSelectedIluminaria, caliberSelectedPowerPoint, caliberSelectedSubFeeder, caliberSelectedSubFeederNeutral;
     private Intensity intensityDesignFound;
+    private int branchCircuitIluminaria, branchCircuitPowerPoint;
     
     /**
      * Contructor de la clase, recibe un objeto ViewArea
@@ -89,7 +88,11 @@ public class ControllerArea implements ActionListener, KeyListener, WindowListen
         this.caliberFoundSubFeeder = null;
         this.caliberFoundSubFeederNeutral = null;
         this.potencySubFeeder = 0;
+        this.potencyTotal = 0;
+        this.potencyTotalNeutral = 0;
         this.intensityDesignFound = null;
+        this.branchCircuitIluminaria = 0;
+        this.branchCircuitPowerPoint = 0;
     }//Fin del constructor 
 
     /**
@@ -139,7 +142,8 @@ public class ControllerArea implements ActionListener, KeyListener, WindowListen
                 Double.valueOf(viewArea.getJspLength().getValue().toString()),
                 (Duct)viewArea.getCmbDuctIluminaria().getSelectedItem(),
                 Double.valueOf(viewArea.getJspAngle().getValue().toString()),
-                caliberUseIluminaria));
+                caliberUseIluminaria,
+                branchCircuitIluminaria));
         areaIluminariaPowerPoints.add(new AreaIluminariaPowerPoint(
                 viewArea.getAreaIluminariaPowerPointsPowerPoint() != null ? viewArea.getAreaIluminariaPowerPointsPowerPoint().getCode() : 0,
                 new Area(0),
@@ -156,7 +160,8 @@ public class ControllerArea implements ActionListener, KeyListener, WindowListen
                 Double.valueOf(viewArea.getJspLengthPowerPoint().getValue().toString()),
                 (Duct)viewArea.getCmbDuctPowerPoint().getSelectedItem(),
                 Double.valueOf(viewArea.getJspAnglePowerPoint().getValue().toString()),
-                caliberUsePowerPoint)); 
+                caliberUsePowerPoint,
+                branchCircuitPowerPoint)); 
         areaIluminariaPowerPoints.add(new AreaIluminariaPowerPoint(
                 viewArea.getAreaSubFeeder() != null ? viewArea.getAreaSubFeeder().getCode() : 0,
                 new Area(0),
@@ -173,7 +178,8 @@ public class ControllerArea implements ActionListener, KeyListener, WindowListen
                 Double.valueOf(viewArea.getJspLengthSubFeeder().getValue().toString()),
                 (Duct)viewArea.getCmbDuctSubFeeder().getSelectedItem(),
                 Double.valueOf(viewArea.getJspAngleSubFeeder().getValue().toString()),
-                caliberUseSubFeeder));   
+                caliberUseSubFeeder,
+                0));   
         areaIluminariaPowerPoints.add(new AreaIluminariaPowerPoint(
                 viewArea.getAreaSubFeederNeutral()!= null ? viewArea.getAreaSubFeederNeutral().getCode() : 0,
                 new Area(0),
@@ -190,7 +196,8 @@ public class ControllerArea implements ActionListener, KeyListener, WindowListen
                 Double.valueOf(viewArea.getJspLengthSubFeeder().getValue().toString()),
                 (Duct)viewArea.getCmbDuctSubFeeder().getSelectedItem(),
                 Double.valueOf(viewArea.getJspAngleSubFeeder().getValue().toString()),
-                caliberUseSubFeederNeutral));  
+                caliberUseSubFeederNeutral,
+                0));  
         return areaIluminariaPowerPoints;
     }//Fin del método
     
@@ -217,7 +224,7 @@ public class ControllerArea implements ActionListener, KeyListener, WindowListen
                     MethodsForCalculationsIluminariaPowerPoint.potencyInIluminariaAndPowerPoint(
                             MethodsForCalculationsIluminariaPowerPoint.potencyInIluminaria(Double.valueOf(viewArea.getJspArea().getValue().toString())),
                             MethodsForCalculationsIluminariaPowerPoint.potencyInPowerPoint(Integer.valueOf(viewArea.getTxtQuantityPowerPoint().getValue().toString()))), 
-                    1),fill_area_iluminaria_powerPoint())){            
+                    Integer.valueOf(viewArea.getJspQuantity().getValue().toString())),fill_area_iluminaria_powerPoint())){            
                 viewArea.dispose();
             }
         }
@@ -246,7 +253,11 @@ public class ControllerArea implements ActionListener, KeyListener, WindowListen
                     (viewArea.getArea().getNeutral() - viewArea.getPotencyOld()) + MethodsForCalculationsIluminariaPowerPoint.potencyInIluminariaAndPowerPoint(
                             MethodsForCalculationsIluminariaPowerPoint.potencyInIluminaria(Double.valueOf(viewArea.getJspArea().getValue().toString())),
                             MethodsForCalculationsIluminariaPowerPoint.potencyInPowerPoint(Integer.valueOf(viewArea.getTxtQuantityPowerPoint().getValue().toString()))), 
-                    1),fill_area_iluminaria_powerPoint())){            
+                    0,
+                    viewArea.getPotencyOld() * viewArea.getArea().getQuantity(),
+                    MethodsForCalculationsIluminariaPowerPoint.potencyInIluminariaAndPowerPoint(
+                            MethodsForCalculationsIluminariaPowerPoint.potencyInIluminaria(Double.valueOf(viewArea.getJspArea().getValue().toString())),
+                            MethodsForCalculationsIluminariaPowerPoint.potencyInPowerPoint(Integer.valueOf(viewArea.getTxtQuantityPowerPoint().getValue().toString()))) * viewArea.getArea().getQuantity()),fill_area_iluminaria_powerPoint())){            
                 viewArea.setModify(true);
                 viewArea.dispose();
             }
@@ -453,6 +464,14 @@ public class ControllerArea implements ActionListener, KeyListener, WindowListen
                             null, 
                             caliberFoundIluminaria.getCaliber()));
                     
+                    branchCircuitIluminaria = MethodsForCalculationsIluminariaPowerPoint.calculateBranchCircuit(
+                            MethodsForCalculationsIluminariaPowerPoint.intensity(
+                                    MethodsForCalculationsIluminariaPowerPoint.potencyInIluminaria(Double.valueOf(viewArea.getJspArea().getValue().toString())), 
+                                    ((Voltage)viewArea.getCmbVoltageIluminaria().getSelectedItem()).getVoltage(), 
+                                    Double.valueOf(viewArea.getJspPowerFactor().getValue().toString()), 
+                                    viewArea.getCmbPhasesIluminaria().getSelectedIndex()), 
+                            MethodsForCalculationsIluminariaPowerPoint.currentLimitIluminaria);
+                    
                     breakerFoundIluminaria  = MethodsForCalculationsIluminariaPowerPoint.find_breaker(
                             TypeOfBranchCircuitInArea.ILUMINARIA, 
                             Double.valueOf(viewArea.getJspArea().getValue().toString()), 
@@ -471,10 +490,13 @@ public class ControllerArea implements ActionListener, KeyListener, WindowListen
                         } else if (((Material)viewArea.getCmbMaterialIluminaria().getSelectedItem()).getName().equals(TypeMaterials.ALUMINIUM.getMaterial())) {
                             viewArea.getLblCaliber().setText(MethodsForCalculationsIluminariaPowerPoint.number_of_calibers((Phase)viewArea.getCmbPhasesIluminaria().getSelectedItem()) + " #" + caliberFoundIluminaria.getCaliber().getName() + " Al " + MethodsForCalculationsIluminariaPowerPoint.typeCaliber(typeCaliberIluminaria, (Temperature)viewArea.getCmbTemperatureIlimunaria().getSelectedItem()) + " " + MethodsForCalculationsIluminariaPowerPoint.number_of_brakers((Phase)viewArea.getCmbPhasesIluminaria().getSelectedItem(), breakerFoundIluminaria.getCapacity()));
                         }
+                        viewArea.getLblBranchCircuitIluminaria().setText(String.valueOf(branchCircuitIluminaria));
                         viewArea.getBtnCalculateBreakdownIluminaria().doClick();
                         potencySubFeeder = MethodsForCalculationsIluminariaPowerPoint.potencyInIluminariaAndPowerPoint(
                                 Double.valueOf(viewArea.getJspArea().getValue().toString()) * MethodsForCalculationsIluminariaPowerPoint.iluminariaConstantSinglefamilyHome,
                                 Double.valueOf(viewArea.getTxtQuantityPowerPoint().getValue().toString()) * MethodsForCalculationsIluminariaPowerPoint.powerPointConstant);
+                        potencyTotal = (viewArea.getArea().getPotency_total() - viewArea.getPotencyOld()) + potencySubFeeder;
+                        potencyTotalNeutral = (viewArea.getArea().getNeutral()- viewArea.getPotencyOld()) + potencySubFeeder;
                         viewArea.getLblPotencyTotalSubFeeder().setText(String.valueOf((viewArea.getArea().getPotency_total() - viewArea.getPotencyOld()) + potencySubFeeder) + " W");
                         viewArea.getLblPotencyNeutralSubFeeder().setText(String.valueOf((viewArea.getArea().getNeutral()- viewArea.getPotencyOld()) + potencySubFeeder) + " W");    
                     }
@@ -501,6 +523,14 @@ public class ControllerArea implements ActionListener, KeyListener, WindowListen
                             null, 
                             caliberFoundPowerPoint.getCaliber()));
                     
+                    branchCircuitPowerPoint = MethodsForCalculationsIluminariaPowerPoint.calculateBranchCircuit(
+                            MethodsForCalculationsIluminariaPowerPoint.intensity(
+                                    MethodsForCalculationsIluminariaPowerPoint.potencyInPowerPoint(Integer.valueOf(viewArea.getTxtQuantityPowerPoint().getValue().toString())), 
+                                    ((Voltage)viewArea.getCmbVoltageIluminaria().getSelectedItem()).getVoltage(), 
+                                    Double.valueOf(viewArea.getJspPowerFactor().getValue().toString()), 
+                                    viewArea.getCmbPhasesIluminaria().getSelectedIndex()), 
+                            MethodsForCalculationsIluminariaPowerPoint.currentLimitPowerPoint);
+                    
                     breakerFoundPorwerPoint = MethodsForCalculationsIluminariaPowerPoint.find_breaker(
                             TypeOfBranchCircuitInArea.POWER_POINT, 
                             Double.valueOf(viewArea.getTxtQuantityPowerPoint().getValue().toString()), 
@@ -519,17 +549,20 @@ public class ControllerArea implements ActionListener, KeyListener, WindowListen
                         } else if (((Material)viewArea.getCmbMaterialPowerPoint().getSelectedItem()).getName().equals(TypeMaterials.ALUMINIUM.getMaterial())) {
                             viewArea.getLblCaliberPowerPoint().setText(MethodsForCalculationsIluminariaPowerPoint.number_of_calibers((Phase)viewArea.getCmbPhasesPowerPoint().getSelectedItem()) + " #" + caliberFoundPowerPoint.getCaliber().getName() + " Al " + MethodsForCalculationsIluminariaPowerPoint.typeCaliber(typeCaliberPowerPoint, (Temperature)viewArea.getCmbTemperaturePowerPoint().getSelectedItem()) + " " + MethodsForCalculationsIluminariaPowerPoint.number_of_brakers((Phase)viewArea.getCmbPhasesPowerPoint().getSelectedItem(), breakerFoundPorwerPoint.getCapacity()));
                         }               
+                        viewArea.getLblBranchCircuitPowerPoint().setText(String.valueOf(branchCircuitPowerPoint));
                         viewArea.getBtnCalculateBreakdownPowerPoint().doClick();
                         potencySubFeeder = MethodsForCalculationsIluminariaPowerPoint.potencyInIluminariaAndPowerPoint(
                                 Double.valueOf(viewArea.getJspArea().getValue().toString()) * MethodsForCalculationsIluminariaPowerPoint.iluminariaConstantSinglefamilyHome,
                                 Double.valueOf(viewArea.getTxtQuantityPowerPoint().getValue().toString()) * MethodsForCalculationsIluminariaPowerPoint.powerPointConstant);
+                        potencyTotal = (viewArea.getArea().getPotency_total() - viewArea.getPotencyOld()) + potencySubFeeder;
+                        potencyTotalNeutral = (viewArea.getArea().getNeutral()- viewArea.getPotencyOld()) + potencySubFeeder;
                         viewArea.getLblPotencyTotalSubFeeder().setText(String.valueOf((viewArea.getArea().getPotency_total() - viewArea.getPotencyOld()) + potencySubFeeder) + " W");
                         viewArea.getLblPotencyNeutralSubFeeder().setText(String.valueOf((viewArea.getArea().getNeutral()- viewArea.getPotencyOld()) + potencySubFeeder) + " W");    
                     }
                 }
                 break;                
             case SUB_FEEDER:   
-                if (potencySubFeeder == 0){
+                if (potencyTotal == 0){
                     MessagesStructure.Warning(MessagesStructure.format(200, messages.getProperty(Messages.AREA_POTENCY_TOTAL_NO_FOUND), MessagesStructure.justify));
                 } else {                
                     if (!viewArea.getrBtnAirSubFeeder().isSelected() && !viewArea.getrBtnGroundSubFeeder().isSelected()){
@@ -537,7 +570,7 @@ public class ControllerArea implements ActionListener, KeyListener, WindowListen
                        viewArea.getrBtnGroundSubFeeder().requestFocus();
                     } else{        
                         caliberFoundSubFeeder = MethodsForCalculationsGlobal1.calculateCaliberForSubFeeder(
-                                potencySubFeeder,
+                                potencyTotal,
                                 (Voltage)viewArea.getCmbVoltageSubFeeder().getSelectedItem(), 
                                 (Material)viewArea.getCmbMaterialSubFeeder().getSelectedItem(), 
                                 (Temperature)viewArea.getCmbTemperatureSubFeeder().getSelectedItem(), 
@@ -545,7 +578,7 @@ public class ControllerArea implements ActionListener, KeyListener, WindowListen
                                 viewArea.getCmbPhasesSubFeeder().getSelectedIndex());  
 
                         caliberFoundSubFeederNeutral = MethodsForCalculationsGlobal1.calculateCaliberForSubFeeder(
-                                potencySubFeeder,
+                                potencyTotalNeutral,
                                 (Voltage)viewArea.getCmbVoltageSubFeeder().getSelectedItem(), 
                                 (Material)viewArea.getCmbMaterialSubFeeder().getSelectedItem(), 
                                 (Temperature)viewArea.getCmbTemperatureSubFeeder().getSelectedItem(), 
@@ -559,8 +592,8 @@ public class ControllerArea implements ActionListener, KeyListener, WindowListen
                                 null, 
                                 caliberFoundSubFeeder.getCaliber()));
                         
-                        breakerFoundSubFeeder = MethodsForCalculationsGlobal1.find_breaker_dryer(
-                                potencySubFeeder,
+                        breakerFoundSubFeeder = MethodsForCalculationsGlobal1.find_breaker_subfeeder(
+                                potencyTotal,
                                 (Voltage)viewArea.getCmbVoltageSubFeeder().getSelectedItem(), 
                                 (Material)viewArea.getCmbMaterialSubFeeder().getSelectedItem(), 
                                 Double.valueOf(viewArea.getJspPowerSubFeeder().getValue().toString()), 
@@ -756,7 +789,7 @@ public class ControllerArea implements ActionListener, KeyListener, WindowListen
                             resistance = calculate_resistance(typeOfBranchCircuitInArea);
                             reactance  = calculate_reactance(typeOfBranchCircuitInArea);  
                             breakdownVoltage = MethodsForCalculationsGlobal1.breakdownVoltage(
-                                    potencySubFeeder,                                      
+                                    potencyTotal,                                      
                                     Double.valueOf(viewArea.getJspLengthSubFeeder().getValue().toString()), 
                                     ((Voltage)viewArea.getCmbVoltageSubFeeder().getSelectedItem()).getVoltage(), 
                                     reactance.getValue().getValour(), 
@@ -774,7 +807,7 @@ public class ControllerArea implements ActionListener, KeyListener, WindowListen
                                     caliberSelectedSubFeeder));
 
                             breakerFoundSubFeeder = MethodsForCalculationsGlobal1.find_breaker_dryer(
-                                    potencySubFeeder,
+                                    potencyTotal,
                                     (Voltage)viewArea.getCmbVoltageSubFeeder().getSelectedItem(), 
                                     (Material)viewArea.getCmbMaterialSubFeeder().getSelectedItem(), 
                                     Double.valueOf(viewArea.getJspPowerSubFeeder().getValue().toString()), 
@@ -784,7 +817,7 @@ public class ControllerArea implements ActionListener, KeyListener, WindowListen
                             resistance = calculate_resistance(TypeOfBranchCircuitInArea.NEUTRAL);
                             reactance  = calculate_reactance(TypeOfBranchCircuitInArea.NEUTRAL);  
                             breakdownVoltage = MethodsForCalculationsGlobal1.breakdownVoltage(
-                                    potencySubFeeder,  
+                                    potencyTotalNeutral,  
                                     Double.valueOf(viewArea.getJspLengthSubFeeder().getValue().toString()), 
                                     ((Voltage)viewArea.getCmbVoltageSubFeeder().getSelectedItem()).getVoltage(), 
                                     reactance.getValue().getValour(), 

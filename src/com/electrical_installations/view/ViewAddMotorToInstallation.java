@@ -34,7 +34,6 @@ public class ViewAddMotorToInstallation extends javax.swing.JDialog {
     private Project project;
     private TypePhase typePhase;
     
-    
     /**
      * Constructor de ViewAddElevatorToInstallation, por ser subclase de JDialog recibe como parámetro el padre y true en caso de que sea modal.
      * @param parent
@@ -47,6 +46,8 @@ public class ViewAddMotorToInstallation extends javax.swing.JDialog {
         this.voltage = 0;
                          
         controller = new ControllerElevatorInInstallation(this);
+        this.cmbVoltage.addActionListener(controller); 
+        this.cmbPhases.addActionListener(controller);
         this.btnAdd.addActionListener(controller);
         this.btnClose.addActionListener(controller); 
         this.btnCalculateCurrentCapacity.addActionListener(controller);

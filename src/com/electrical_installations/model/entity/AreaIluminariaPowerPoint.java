@@ -39,6 +39,7 @@ public class AreaIluminariaPowerPoint {
     private Duct duct;
     private double angle;
     private String caliberUse;
+    private int branchCircuit;
 
     /**
      * Constructor para insertar, modificar y encontrar iluminarias y toma corrientes.
@@ -58,8 +59,9 @@ public class AreaIluminariaPowerPoint {
      * @param duct 
      * @param angle 
      * @param caliberUse 
+     * @param branchCircuit 
      */
-    public AreaIluminariaPowerPoint(int code, Area area, Calibers calibers, Voltage voltage, Phase phase, TypeOfBranchCircuitInArea typeOfBranchCircuitInArea, double areaOrQuantity, int constant, double powerFactor, Caliber caliber, Breaker breaker, TypeRush typeRush, double length, Duct duct, double angle, String caliberUse) {
+    public AreaIluminariaPowerPoint(int code, Area area, Calibers calibers, Voltage voltage, Phase phase, TypeOfBranchCircuitInArea typeOfBranchCircuitInArea, double areaOrQuantity, int constant, double powerFactor, Caliber caliber, Breaker breaker, TypeRush typeRush, double length, Duct duct, double angle, String caliberUse, int branchCircuit) {
         this.code = code;
         this.area = area;
         this.calibers = calibers;
@@ -76,9 +78,18 @@ public class AreaIluminariaPowerPoint {
         this.duct = duct;
         this.angle = angle;
         this.caliberUse = caliberUse;
+        this.branchCircuit = branchCircuit;
     }//Fin del constructor
     
     //Getters y Setters
+
+    public int getBranchCircuit() {
+        return branchCircuit;
+    }
+
+    public void setBranchCircuit(int branchCircuit) {
+        this.branchCircuit = branchCircuit;
+    }
 
     public String getCaliberUse() {
         return caliberUse;

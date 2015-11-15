@@ -28,7 +28,7 @@ public class ServiceHorsePorwer {
     }//Fin del constructor
      
     /**
-     * Servicio para solicitar datos de todos los Caballo de Potencia
+     * Servicio para solicitar datos de todos los Caballo de Fuerza Monofásico.
      * @return Retorna una lista de Caballo de Potencia.
      */
     public static List<HorsePower> find_horses_power(){
@@ -37,7 +37,7 @@ public class ServiceHorsePorwer {
     
     
      /**
-     * Servicio para solicitar datos de todos los Caballo de Potencia Trifasicos.
+     * Servicio para solicitar datos de todos los Caballo de Fuerza Trifasicos.
      * @return Retorna una lista de Caballo de Potencia.
      */
     public static List<HorsePower> find_horses_power_threephases(){

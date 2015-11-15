@@ -125,7 +125,7 @@ public class ServiceArea {
                     MessagesStructure.Warning(MessagesStructure.format(200, messages.getProperty(Messages.AREA_NO_FOUND), MessagesStructure.justify));
                     return false;
                 } else {  
-                    if (areaImplDAO.delete(area)){
+                    if (areaImplDAO.delete_main_feeder(area)){
                         return true;
                     }
                 }

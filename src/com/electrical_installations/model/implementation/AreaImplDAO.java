@@ -25,6 +25,7 @@ import com.electrical_installations.model.enums.TypeRush;
 import com.electrical_installations.model.enums.TypeTypeOfCharges;
 import com.electrical_installations.model.query.AreaQueries;
 import com.electrical_installations.model.query.CaliberQueries;
+import com.electrical_installations.model.query.MainFeederQueries;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -118,6 +119,7 @@ public class AreaImplDAO implements AreaDAO{
                     preparedStatement.setInt(13, areaIluminariaPowerPoint.getDuct().getCode());
                     preparedStatement.setDouble(14, areaIluminariaPowerPoint.getAngle());
                     preparedStatement.setString(15, areaIluminariaPowerPoint.getCaliberUse());
+                    preparedStatement.setInt(16, areaIluminariaPowerPoint.getBranchCircuit());
                     if (preparedStatement.executeUpdate() > 0){ 
                         status = true;
                     } else {
@@ -125,9 +127,48 @@ public class AreaImplDAO implements AreaDAO{
                         break;
                     }
                 }
-                if (status){
-                    connection.getConexion().commit();
-                    return true;                     
+                if (status){                    
+                    preparedStatement.close();
+                    preparedStatement = connection.getConexion().prepareStatement(MainFeederQueries.VALIDATE_MAIN_FEEDER_EXIST);
+                    preparedStatement.setInt(1, area.getProject().getCode());
+                    preparedStatement.setInt(2, area.getProject().getTypeOfInstallation().getCode());
+                    preparedStatement.setInt(3, 12);
+                    result = preparedStatement.executeQuery();
+                    int code_project = 0;
+                    while(result.next()) {
+                        code_project = result.getInt(1);                   
+                    }
+                    if (code_project > 0){ 
+                        preparedStatement = connection.getConexion().prepareStatement(MainFeederQueries.UPDATE_MAIN_FEEDER_TYPE_CHARGE);
+                        preparedStatement.setDouble(1, area.getPotency_total() * area.getQuantity());
+                        preparedStatement.setInt(2, 0);
+                        preparedStatement.setDouble(3, 0); 
+                        preparedStatement.setInt(4, area.getProject().getCode());
+                        preparedStatement.setInt(5, area.getProject().getTypeOfInstallation().getCode());
+                        preparedStatement.setInt(6, 12);
+                        if (preparedStatement.executeUpdate() > 0){
+                            connection.getConexion().commit();
+                            return true;                     
+                        } else {  
+                            connection.getConexion().rollback();
+                            return false;       
+                        }                        
+                    } else {                    
+                        preparedStatement = connection.getConexion().prepareStatement(MainFeederQueries.INSERT_MAIN_FEEDER_TYPE_CHARGE);
+                        preparedStatement.setInt(1, area.getProject().getCode());
+                        preparedStatement.setInt(2, area.getProject().getTypeOfInstallation().getCode());
+                        preparedStatement.setInt(3, 12);
+                        preparedStatement.setDouble(4, area.getPotency_total() * area.getQuantity());
+                        preparedStatement.setInt(5, 0);
+                        preparedStatement.setDouble(6, 0); 
+                        if (preparedStatement.executeUpdate() > 0){
+                            connection.getConexion().commit();
+                            return true;                     
+                        } else {  
+                            connection.getConexion().rollback();
+                            return false;       
+                        }                         
+                    }                  
                 } else {
                     connection.getConexion().rollback();
                     return false;                       
@@ -187,7 +228,8 @@ public class AreaImplDAO implements AreaDAO{
                     preparedStatement.setInt(12, areaIluminariaPowerPoint.getDuct().getCode());
                     preparedStatement.setDouble(13, areaIluminariaPowerPoint.getAngle());
                     preparedStatement.setString(14, areaIluminariaPowerPoint.getCaliberUse());
-                    preparedStatement.setInt(15, areaIluminariaPowerPoint.getCode());
+                    preparedStatement.setInt(15, areaIluminariaPowerPoint.getBranchCircuit());
+                    preparedStatement.setInt(16, areaIluminariaPowerPoint.getCode());
                     if (preparedStatement.executeUpdate() > 0){ 
                         status = true;
                     } else {
@@ -196,8 +238,24 @@ public class AreaImplDAO implements AreaDAO{
                     }
                 }
                 if (status){
-                    connection.getConexion().commit();
-                    return true;                     
+                    System.out.println(area.getPotency_iluminaria_powerPoint_old());
+                    System.out.println(area.getPotency_iluminaria_powerPoint_new());
+                    preparedStatement.close();
+                    preparedStatement = connection.getConexion().prepareStatement(MainFeederQueries.UPDATE_MAIN_FEEDER_TYPE_CHARGE_ILUMIARIA_POWER_POINT);
+                    preparedStatement.setDouble(1, area.getPotency_iluminaria_powerPoint_old());
+                    preparedStatement.setDouble(2, area.getPotency_iluminaria_powerPoint_new());
+                    preparedStatement.setInt(3, 0);
+                    preparedStatement.setDouble(4, 0); 
+                    preparedStatement.setInt(5, area.getProject().getCode());
+                    preparedStatement.setInt(6, area.getProject().getTypeOfInstallation().getCode());
+                    preparedStatement.setInt(7, 12);
+                    if (preparedStatement.executeUpdate() > 0){
+                        connection.getConexion().commit();
+                        return true;                     
+                    } else {  
+                        connection.getConexion().rollback();
+                        return false;       
+                    }      
                 } else {
                     connection.getConexion().rollback();
                     return false;                       
@@ -226,22 +284,90 @@ public class AreaImplDAO implements AreaDAO{
     /**
      * Método para eliminar un Área
      * @param area
-     * @return Retorna true en caso de que el procedimiento sea exitoso
+     * @param dataBaseConnection
+     * @return Retorna true en caso de que el procedimiento sea exitoso.
      */
     @Override
-    public boolean delete(Area area) {
+    public boolean delete(Area area, DataBaseConnection dataBaseConnection) {
         try {
-            preparedStatement = connection.getConexion().prepareStatement(AreaQueries.DELETE);
+            connection.getConexion().setAutoCommit(false);
+            preparedStatement = dataBaseConnection.getConexion().prepareStatement(AreaQueries.DELETE);
             preparedStatement.setInt(1, area.getCode());
-            if (preparedStatement.executeUpdate() > 0) return true;   
+            return preparedStatement.executeUpdate() > 0;   
         } catch (SQLException e) {
             e.printStackTrace();
-        } finally {
-            connection.closeConnection();
-        }
+        } 
         return false;
     }//Fin del Método
 
+    /**
+     * Método para modificar o eliminar la potencia en iluminaria y toma corriente del sub-alimentador principal.
+     * @param area
+     * @return Retorna true si el proceso de modificación o eliminación se llevó a cabo.
+     */
+    @Override
+    public boolean delete_main_feeder(Area area) {    
+        double potency_iluminaria_power_point = this.consult_total_iluminaria_power_point(area);
+        boolean status = false;
+        try {
+            connection.getConexion().setAutoCommit(false);
+            preparedStatement = connection.getConexion().prepareStatement(MainFeederQueries.DELETE_CHARGE_UPDATE_MAIN_FEEDER_TYPE_CHARGE);
+            preparedStatement.setDouble(1, potency_iluminaria_power_point);
+            preparedStatement.setInt(2, 0);
+            preparedStatement.setDouble(3, 0);             
+            preparedStatement.setInt(4, area.getProject().getCode());
+            preparedStatement.setInt(5, area.getProject().getTypeOfInstallation().getCode());
+            preparedStatement.setInt(6, 12);  
+            if (preparedStatement.executeUpdate() > 0){
+                preparedStatement.close();
+                preparedStatement = connection.getConexion().prepareStatement(MainFeederQueries.VALIDATE_MAIN_FEEDER_I_P_C);
+                preparedStatement.setInt(1, area.getProject().getCode());
+                preparedStatement.setInt(2, area.getProject().getTypeOfInstallation().getCode());
+                preparedStatement.setInt(3, 12); 
+                result = preparedStatement.executeQuery();
+                int code_project = 0;
+                while (result.next()){
+                    code_project = result.getInt(1);
+                }
+                if (code_project > 0){
+                    preparedStatement.close();  
+                    preparedStatement = connection.getConexion().prepareStatement(MainFeederQueries.DELETE_CHARGE_MAIN_FEEDER);
+                    preparedStatement.setInt(1, area.getProject().getCode());
+                    preparedStatement.setInt(2, area.getProject().getTypeOfInstallation().getCode());
+                    preparedStatement.setInt(3, 12);
+                    status = preparedStatement.executeUpdate() > 0;
+                } else {
+                    status = true;
+                }
+                if (status){
+                    if (delete(area, connection)) {
+                        connection.getConexion().commit();
+                        return true;
+                    } else {
+                        connection.getConexion().rollback();
+                        return false;
+                    }
+                } else {
+                    connection.getConexion().rollback();
+                    return false;
+                }
+            } else {
+                connection.getConexion().rollback();
+                return false;
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        } finally {
+            try {
+                connection.getConexion().setAutoCommit(true);
+            } catch (SQLException ex) {
+                Logger.getLogger(AreaImplDAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            connection.closeConnection();
+        }
+        return status;
+    }
+    
     /**
      * Método para encontrar un Área
      * @param area
@@ -447,7 +573,8 @@ public class AreaImplDAO implements AreaDAO{
                         result.getDouble(23),
                         new Duct(result.getInt(24), result.getString(25)),
                         result.getDouble(26),
-                        null));
+                        null,
+                        0));
             }   
         } catch (SQLException e) {
             e.printStackTrace();
@@ -466,6 +593,8 @@ public class AreaImplDAO implements AreaDAO{
     public double consult_total_iluminaria_power_point(Area area){
         double potency_iluminaria = 0;
         double potency_power_point = 0;
+        int quantity = 0;
+        System.out.println("ENTRO");
         try {
             preparedStatement = connection.getConexion().prepareStatement(AreaQueries.CONSULT_TOTAL_ILUMINARIA);
             preparedStatement.setInt(1, area.getCode());
@@ -480,12 +609,22 @@ public class AreaImplDAO implements AreaDAO{
             while (result.next()){
                 potency_power_point = result.getDouble(1);
             }            
+            preparedStatement.close();
+            preparedStatement = connection.getConexion().prepareStatement(AreaQueries.CONSULT_QUANTITY_OF_A_AREA);
+            preparedStatement.setInt(1, area.getCode());
+            result = preparedStatement.executeQuery();
+            while (result.next()) {
+                quantity = result.getInt(1);
+            }
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
             connection.closeConnection();
         }
-        return MethodsForCalculationsIluminariaPowerPoint.potencyInIluminariaAndPowerPoint(potency_iluminaria,potency_power_point);
+        System.out.println(potency_iluminaria);
+        System.out.println(potency_power_point);
+        System.out.println(quantity);
+        return MethodsForCalculationsIluminariaPowerPoint.potencyInIluminariaAndPowerPoint(potency_iluminaria,potency_power_point) * quantity;
     }//Fin del método.
     
     /**

@@ -38,7 +38,6 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
-import java.util.ArrayList;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
 
@@ -305,6 +304,8 @@ public class ControllerProjectData implements ActionListener, WindowListener, Ke
             viewArea.fill_fields(area,viewArea.getAreaIluminariaPowerPoints());
             viewArea.fill_fields_combos(viewArea.getAreaIluminariaPowerPoints());
             viewArea.visible_buttons(true, false, true);
+            viewArea.getLblQuantity().setVisible(false);
+            viewArea.getJspQuantity().setVisible(false);
             viewArea.setVisible(true);
             if (viewArea.getModify()){                
                 Methods.removeRows(viewProjectData.getTblAreasCharges());
@@ -324,7 +325,18 @@ public class ControllerProjectData implements ActionListener, WindowListener, Ke
     private void remove_area(){        
         try {
             int row = viewProjectData.getTblArea().getSelectedRow();
-            if (ServiceArea.delete_area(new Area(Integer.parseInt(viewProjectData.getTblArea().getValueAt(row, 0).toString())))){                
+            if (ServiceArea.delete_area(new Area(
+                    Integer.parseInt(viewProjectData.getTblArea().getValueAt(row, 0).toString()), 
+                    null, 
+                    new Project(
+                            viewProjectData.getProjectCode(), 
+                            new TypeOfInstallation(
+                                    viewProjectData.getType_installation_code(), 
+                                    null), 
+                            0), 
+                    0, 
+                    0, 
+                    0))){                
                 Methods.removeRows(viewProjectData.getTblAreasCharges());
                 this.fill_areas();
             }            
@@ -337,7 +349,7 @@ public class ControllerProjectData implements ActionListener, WindowListener, Ke
     /**
      * Método para eliminar Cargas de un Áreas.
      */
-    private void remove_charges_in_areas(){ 
+    private void remove_charges_in_areas() { 
         int row_area = viewProjectData.getTblArea().getSelectedRow();
         double potency_total = Double.valueOf(viewProjectData.getTblArea().getValueAt(row_area, 2).toString());
         double neutral = Double.valueOf(viewProjectData.getTblArea().getValueAt(row_area, 3).toString());
@@ -349,6 +361,10 @@ public class ControllerProjectData implements ActionListener, WindowListener, Ke
                    neutral = neutral - ((Integer.valueOf(viewProjectData.getTblAreasCharges().getValueAt(rows[i], 3).toString())) * (Double.valueOf(viewProjectData.getTblAreasCharges().getValueAt(rows[i], 4).toString())));
                 } else {
                    potency_total = potency_total - ((Integer.valueOf(viewProjectData.getTblAreasCharges().getValueAt(rows[i], 3).toString())) * (Double.valueOf(viewProjectData.getTblAreasCharges().getValueAt(rows[i], 4).toString())));
+                   neutral = (Integer.valueOf(viewProjectData.getTblAreasCharges().getValueAt(rows[i], 6).toString()) == 3) || 
+                           (Integer.valueOf(viewProjectData.getTblAreasCharges().getValueAt(rows[i], 6).toString()) == 11) ? 
+                           neutral - ((Integer.valueOf(viewProjectData.getTblAreasCharges().getValueAt(rows[i], 3).toString())) * (Double.valueOf(viewProjectData.getTblAreasCharges().getValueAt(rows[i], 4).toString()) * 0.7)) :
+                           neutral - 0;                    
                 }          
                 Area area_to_modify = new Area(
                             Integer.valueOf(viewProjectData.getTblArea().getValueAt(row_area, 0).toString()), 
@@ -409,8 +425,8 @@ public class ControllerProjectData implements ActionListener, WindowListener, Ke
                                     viewProjectData.getType_installation_code(), 
                                     null),
                             0), 
-                    Double.valueOf(viewProjectData.getTblInstallationEngines().getValueAt(rows[i], 2).toString()), 
-                    Integer.valueOf(viewProjectData.getTblInstallationEngines().getValueAt(rows[i], 3).toString())))){
+                    Double.valueOf(viewProjectData.getTblInstallationEngines().getValueAt(rows[i], 4).toString()), 
+                    Integer.valueOf(viewProjectData.getTblInstallationEngines().getValueAt(rows[i], 6).toString())))){
                 }    
             }                            
             Methods.removeRows(viewProjectData.getTblInstallationEngines());            
@@ -420,26 +436,23 @@ public class ControllerProjectData implements ActionListener, WindowListener, Ke
             viewProjectData.getTblInstallationEngines().requestFocus();            
         }
     }//Fin del Método
-    
      
     /**
-     * Método para calcular el sub alimentador de motores.
+     * Método para calcular el sub-alimentador de motores.
      */
-      private void calculate_sub_feeder(){ 
+    private void calculate_sub_feeder(){ 
          double total_intensity = 0;
          double intensity_single_phase = 0;
          int priority_single_phase = 0;
          double intensity_three_phase = 0;
          int priority_three_phase = 0;
          double breaker_higher = 0;
-         double intensity_breaker_higher = 0;
-         
+         double intensity_breaker_higher = 0;         
           try {       
              int count = viewProjectData.getTblInstallationEngines().getRowCount();                        
               for (int i = 0; i < count; i++) {                  
                   total_intensity += Double.valueOf(viewProjectData.getTblInstallationEngines().getValueAt(i, 4).toString()) * Integer.valueOf(viewProjectData.getTblInstallationEngines().getValueAt(i, 6).toString());
-                  System.out.println(total_intensity);
-                  
+                 
                   if (Double.valueOf(viewProjectData.getTblInstallationEngines().getValueAt(i, 5).toString()) > breaker_higher){
                       breaker_higher = Double.valueOf(viewProjectData.getTblInstallationEngines().getValueAt(i, 5).toString());
                       intensity_breaker_higher = Double.valueOf(viewProjectData.getTblInstallationEngines().getValueAt(i, 4).toString()) * Integer.valueOf(viewProjectData.getTblInstallationEngines().getValueAt(i, 6).toString());
@@ -470,34 +483,43 @@ public class ControllerProjectData implements ActionListener, WindowListener, Ke
                   }                  
             }   
                
-              if(intensity_three_phase > 0){ 
-                  viewSubFeederMotors = new ViewSubFeederMotors(null, true);
-                  viewSubFeederMotors.setBreaker(new Breaker(0, Methods.round((total_intensity - intensity_breaker_higher) + breaker_higher, 5)));
-                  viewSubFeederMotors.getLblBreakers().setText(String.valueOf(viewSubFeederMotors.getBreaker().getCapacity()));
-                  System.out.println("Total: " + total_intensity);
-                  System.out.println("Intensidad Trifásico: " + intensity_three_phase);
-                  total_intensity -= intensity_three_phase;
-                  viewSubFeederMotors.setIntensity(new Intensity(0, null, total_intensity));
-                  viewSubFeederMotors.getLblIntensity().setText(String.valueOf(Methods.round(total_intensity, 5)));
-                  viewSubFeederMotors.setVisible(true);
+            if(intensity_three_phase > 0){ 
+                viewSubFeederMotors = new ViewSubFeederMotors(null, true);
+                viewSubFeederMotors.setBreaker(new Breaker(0, Methods.round((total_intensity - intensity_breaker_higher) + breaker_higher, 5)));
+                viewSubFeederMotors.getLblBreakers().setText(String.valueOf(viewSubFeederMotors.getBreaker().getCapacity()));
+                double total = total_intensity - intensity_three_phase;
+                total = total > 0 ? total:total_intensity;   
+                viewSubFeederMotors.getLblIntensity().setText(String.valueOf(Methods.round(total, 5)));                                                       
+                viewSubFeederMotors.setIntensity(new Intensity(0, null, total_intensity));    
+                viewSubFeederMotors.setProject(new Project(
+                        viewProjectData.getProjectCode(),
+                        new TypeOfInstallation(viewProjectData.getType_installation_code(), null),
+                        null,
+                        null,
+                        total));
+                viewSubFeederMotors.getController().calculate_conductor();
+                viewSubFeederMotors.setVisible(true);
               }else{ 
-                  viewSubFeederMotors = new ViewSubFeederMotors(null, true);
+                  viewSubFeederMotors = new ViewSubFeederMotors(null, true); 
                   viewSubFeederMotors.setBreaker(new Breaker(0, Methods.round((total_intensity - intensity_breaker_higher) + breaker_higher, 5)));
                   viewSubFeederMotors.getLblBreakers().setText(String.valueOf(viewSubFeederMotors.getBreaker().getCapacity()));
-                  System.out.println("Total: " + total_intensity);
-                  System.out.println("Intensidad Monofásico: " + intensity_single_phase);
-                  total_intensity -= intensity_single_phase;
-                  viewSubFeederMotors.setIntensity(new Intensity(0, null, total_intensity));                   
-                  viewSubFeederMotors.getLblIntensity().setText(String.valueOf(Methods.round(total_intensity, 5)));
+                  double total = total_intensity - intensity_single_phase;
+                  total = total > 0 ? total:total_intensity;       
+                  viewSubFeederMotors.getLblIntensity().setText(String.valueOf(Methods.round(total, 5)));  
+                  viewSubFeederMotors.setIntensity(new Intensity(0, null, total_intensity));   
+                  viewSubFeederMotors.setProject(new Project(
+                          viewProjectData.getProjectCode(),
+                          new TypeOfInstallation(viewProjectData.getType_installation_code(), null),
+                          null,
+                          null,
+                          total));
+                  viewSubFeederMotors.getController().calculate_conductor();
                   viewSubFeederMotors.setVisible(true);
-              } 
-              
+              }               
           } catch (Exception e) {
               e.printStackTrace();
           }                
       }//fin del método 
-      
-   
     
     @Override
     public void actionPerformed(ActionEvent e) {

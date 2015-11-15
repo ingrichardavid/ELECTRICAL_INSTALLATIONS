@@ -6,6 +6,7 @@
 package com.electrical_installations.view;
 
 import com.electrical_installations.controller.ControllerSubFeederMotors;
+import com.electrical_installations.model.entity.Project;
 import com.electrical_installations.model.entity.masters.Breaker;
 import com.electrical_installations.model.entity.masters.Intensity;
 import javax.swing.ButtonGroup;
@@ -22,10 +23,12 @@ import javax.swing.JRadioButton;
  * @since 2015-11-05
  */
 public class ViewSubFeederMotors extends javax.swing.JDialog {
-
-    private final ControllerSubFeederMotors controller;
+    
+    //Objetos, variables y constantes
+    private ControllerSubFeederMotors controller;
     private Intensity intensity;
     private Breaker breaker;
+    private Project project;
     
     /**
      * Constructor de ViewSubFeederMotors, por ser subclase de JDialog recibe como parámetro el padre y true en caso de que sea modal.
@@ -35,17 +38,43 @@ public class ViewSubFeederMotors extends javax.swing.JDialog {
     public ViewSubFeederMotors(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
-        
-        controller = new ControllerSubFeederMotors(this);
-        this.btnClose.addActionListener(controller);
+              
+        controller = new ControllerSubFeederMotors(this);         
         controller.fill_combos_materials();
         controller.fill_combos_temperatures();    
-        controller.fill_combos_phases();
+        controller.fill_combos_phases(); 
+        this.btnAdd.addActionListener(controller);
+        this.btnClose.addActionListener(controller);
+        this.cmbMaterial.addItemListener(controller);
+        this.cmbPhases.addItemListener(controller);
+        this.cmbTemperature.addItemListener(controller);
+        this.rBtnAir.addActionListener(controller);
+        this.rBtnGround.addActionListener(controller);
+        this.rBtnAir.addChangeListener(controller);
+        this.rBtnGround.addChangeListener(controller);
+        this.rBtnGround.setSelected(true); 
+         
         this.setLocationRelativeTo(null);        
     }  
    
     //Getters y setters
 
+    public Project getProject() {
+        return project;
+    }
+
+    public void setProject(Project project) {
+        this.project = project;
+    }
+
+    public ControllerSubFeederMotors getController() {
+        return controller;
+    }
+
+    public void setController(ControllerSubFeederMotors controller) {
+        this.controller = controller;
+    }
+    
     public Breaker getBreaker() {
         return breaker;
     }
@@ -153,7 +182,6 @@ public class ViewSubFeederMotors extends javax.swing.JDialog {
     public JRadioButton getrBtnGround() {
         return rBtnGround;
     }
-
      
     public void setrBtnGround(JRadioButton rBtnGround) {    
         this.rBtnGround = rBtnGround;
@@ -206,9 +234,8 @@ public class ViewSubFeederMotors extends javax.swing.JDialog {
         cmbPhases = new javax.swing.JComboBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setMinimumSize(new java.awt.Dimension(490, 192));
-        setPreferredSize(new java.awt.Dimension(490, 192));
-        setResizable(false);
+        setMinimumSize(new java.awt.Dimension(600, 192));
+        setPreferredSize(new java.awt.Dimension(600, 192));
         getContentPane().setLayout(new javax.swing.OverlayLayout(getContentPane()));
 
         jPanel1.setLayout(new java.awt.GridBagLayout());
@@ -292,8 +319,8 @@ public class ViewSubFeederMotors extends javax.swing.JDialog {
         jPanel4.add(jLabel7, gridBagConstraints);
 
         cmbTemperature.setFont(new java.awt.Font("DejaVu Sans", 0, 12)); // NOI18N
-        cmbTemperature.setMinimumSize(new java.awt.Dimension(100, 21));
-        cmbTemperature.setPreferredSize(new java.awt.Dimension(100, 21));
+        cmbTemperature.setMinimumSize(new java.awt.Dimension(148, 23));
+        cmbTemperature.setPreferredSize(new java.awt.Dimension(148, 23));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 6;
         gridBagConstraints.gridy = 2;
@@ -371,9 +398,9 @@ public class ViewSubFeederMotors extends javax.swing.JDialog {
 
         lblCaliberPhase.setFont(new java.awt.Font("DejaVu Sans", 0, 12)); // NOI18N
         lblCaliberPhase.setText("ki");
-        lblCaliberPhase.setMaximumSize(new java.awt.Dimension(10, 23));
-        lblCaliberPhase.setMinimumSize(new java.awt.Dimension(10, 23));
-        lblCaliberPhase.setPreferredSize(new java.awt.Dimension(10, 23));
+        lblCaliberPhase.setMaximumSize(new java.awt.Dimension(200, 23));
+        lblCaliberPhase.setMinimumSize(new java.awt.Dimension(200, 23));
+        lblCaliberPhase.setPreferredSize(new java.awt.Dimension(200, 23));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 6;
@@ -410,9 +437,9 @@ public class ViewSubFeederMotors extends javax.swing.JDialog {
         lblCaliberEarth.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lblCaliberEarth.setText("jLabel1");
         lblCaliberEarth.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        lblCaliberEarth.setMaximumSize(new java.awt.Dimension(44, 23));
-        lblCaliberEarth.setMinimumSize(new java.awt.Dimension(44, 23));
-        lblCaliberEarth.setPreferredSize(new java.awt.Dimension(44, 23));
+        lblCaliberEarth.setMaximumSize(new java.awt.Dimension(150, 23));
+        lblCaliberEarth.setMinimumSize(new java.awt.Dimension(150, 23));
+        lblCaliberEarth.setPreferredSize(new java.awt.Dimension(150, 23));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 6;
         gridBagConstraints.gridy = 6;
@@ -421,7 +448,6 @@ public class ViewSubFeederMotors extends javax.swing.JDialog {
         jPanel4.add(lblCaliberEarth, gridBagConstraints);
 
         lblIntensity.setFont(new java.awt.Font("DejaVu Sans", 0, 12)); // NOI18N
-        lblIntensity.setText("0");
         lblIntensity.setMinimumSize(new java.awt.Dimension(34, 23));
         lblIntensity.setPreferredSize(new java.awt.Dimension(34, 23));
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -454,8 +480,9 @@ public class ViewSubFeederMotors extends javax.swing.JDialog {
         gridBagConstraints.insets = new java.awt.Insets(0, 15, 0, 0);
         jPanel4.add(jLabel1, gridBagConstraints);
 
-        cmbPhases.setMinimumSize(new java.awt.Dimension(100, 21));
-        cmbPhases.setPreferredSize(new java.awt.Dimension(100, 21));
+        cmbPhases.setFont(new java.awt.Font("DejaVu Sans", 0, 12)); // NOI18N
+        cmbPhases.setMinimumSize(new java.awt.Dimension(148, 23));
+        cmbPhases.setPreferredSize(new java.awt.Dimension(148, 23));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 6;
         gridBagConstraints.gridy = 4;

@@ -14,7 +14,7 @@ package com.electrical_installations.model.query;
 public class HorsePowerQueries {    
      
     /**
-     * Mostrar todos los Caballo de Potencia.
+     * Mostrar todos los Caballo de Fuerza Monofásico.
      */ 
     public static final String SELECT_ALL = "SELECT cp.codigo,\n" +
                                             "	cp.nombre,cp.valor\n" +
@@ -30,9 +30,9 @@ public class HorsePowerQueries {
                                                             "FROM maestros.\"CABALLO_DE_FUERZA_TRIFASICO\"\n" +
                                                             "ORDER BY codigo;";
     /**
-     * Encontrar la intensidad por caballos de fuerza y voltaje.
+     * Encontrar la intensidad por caballos de fuerza y voltaje (Motores Monofásicos).
      */
-    public static final String SELECT_INTENSITY_HORSE_POWER =   "SELECT\n" +
+    public static final String SELECT_INTENSITY_HORSE_POWER_SINGLE_PHASE =   "SELECT\n" +
                                                                 "	cdp.codigo,i.codigo,i.intensidad\n" +
                                                                 "FROM\n" +
                                                                 "	maestros.\"CABALLOS_DE_POTENCIAS\" AS cdp\n" +
@@ -52,5 +52,18 @@ public class HorsePowerQueries {
                                                                 "	cp.nombre = ?\n" +
                                                                 "AND\n" +
                                                                 "	v.voltaje = ?;";    
+    
+    /**
+     * Encontrar la intensidad por caballo de fuerza y voltaje (Motores Trifásicos).
+     * 
+     */
+    public static final String SELECT_INTENSITY_HORSE_POWER_THREE_PHASE = "SELECT\n" +
+                                                                "	intensidad\n" +
+                                                                "FROM\n" +
+                                                                "	maestros.\"MOTORES_TRIFASICOS_DE_INDUCCION\"\n" +
+                                                                "WHERE\n" +
+                                                                "	caballo_de_fuerza_trifasico_codigo = ?\n" +
+                                                                "AND\n" +
+                                                                "	voltaje_motores_trifasicos_codigo = ?;";
     
 }

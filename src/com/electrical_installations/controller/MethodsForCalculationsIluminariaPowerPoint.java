@@ -47,8 +47,8 @@ public class MethodsForCalculationsIluminariaPowerPoint {
     
     private static final double squareRootOfN = 3;    
     
-    private static final int currentLimitIluminaria = 20;
-    private static final int currentLimitPowerPoint = 15;
+    public static final int currentLimitIluminaria = 20;
+    public static final int currentLimitPowerPoint = 15;
     
     private static final double roominessToCalculateCalibres = 0.8;
     private static Calibers caliber;

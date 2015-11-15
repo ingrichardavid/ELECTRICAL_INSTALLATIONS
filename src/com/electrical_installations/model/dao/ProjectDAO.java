@@ -79,5 +79,12 @@ public interface ProjectDAO {
      * @return Retorna un objeto Project
      */
     public Project validate_project(Project project);
+    
+    /**
+     * Modificar los la phase de motor y tierra de motor de un proyecto.
+     * @param project
+     * @return retorna un valor booleano.
+     */
+    public boolean update_project_phase_earth_motor(Project project);
         
 }
