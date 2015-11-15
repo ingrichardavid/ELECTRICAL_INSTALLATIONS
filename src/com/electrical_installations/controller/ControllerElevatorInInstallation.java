@@ -61,6 +61,7 @@ public class ControllerElevatorInInstallation implements ActionListener, ChangeL
     //Objectos, variables y constantes
     private final ViewAddMotorToInstallation viewAddElevatorToInstallation;
     private String material;
+    private String caliberPipeline, materialPipeline;
     private List<HorsePower> horsesPowerFound;
     private static final Messages messages = Messages.getInstance();
     private List<PercentageOfThreePhaseMotors> percentageOfThreePhaseMotorsFounds;
@@ -330,6 +331,15 @@ public class ControllerElevatorInInstallation implements ActionListener, ChangeL
 
                 calibersHearthFound = MethodsForCalculationsGlobal1.calculate_caliberHearth_dishwasherAndCrusher(horsesPowersFound.getIntensity().getIntensity());
 
+                materialPipeline = viewAddElevatorToInstallation.getCmbPipeline().getSelectedItem().toString();
+                
+                caliberPipeline = MethodsForCalculationsIluminariaPowerPoint.calculate_pipeline(
+                        caliberPhaseFound.getCaliber(), 
+                        caliberNeutralFound.getCaliber(), 
+                        calibersHearthFound.getCaliber(), 
+                        (Phase)viewAddElevatorToInstallation.getCmbPhases().getSelectedItem(), 
+                        materialPipeline);
+                
                 if (viewAddElevatorToInstallation.getTypePhases().equals(TypePhases.SINGLE_PHASE_THREE_THREAD)){
                   breakerPhaseFound = MethodsForCalculationsGlobal1.find_braker_dishwasherAndCrusher(
                         horsesPowersFound.getIntensity().getIntensity(), 
@@ -363,7 +373,7 @@ public class ControllerElevatorInInstallation implements ActionListener, ChangeL
         }
     }
     
-     /**
+    /**
      * Método para calcular reactancia
      * @return Retorna un objeto ResistanceReactance que almacena el valor de la reactancia.
      */
@@ -457,6 +467,16 @@ public class ControllerElevatorInInstallation implements ActionListener, ChangeL
                                 "#" + caliberNeutralFound.getCaliber().getName(), 
                                 "#" + caliberSelectedNeutral.getName());
                         caliberHearth = viewAddElevatorToInstallation.getLblCaliberEarth().getText();
+                         
+                        materialPipeline = viewAddElevatorToInstallation.getCmbPipeline().getSelectedItem().toString();
+
+                        caliberPipeline = MethodsForCalculationsIluminariaPowerPoint.calculate_pipeline(
+                                caliberSelected, 
+                                caliberSelectedNeutral, 
+                                calibersHearthFound.getCaliber(), 
+                                (Phase)viewAddElevatorToInstallation.getCmbPhases().getSelectedItem(), 
+                                materialPipeline);
+                        
                     }
                 }  
             }            
@@ -486,7 +506,9 @@ public class ControllerElevatorInInstallation implements ActionListener, ChangeL
                     caliberHearth,
                     viewAddElevatorToInstallation.getTypePhase(),
                     viewAddElevatorToInstallation.getCmbHP().getSelectedItem().toString(),
-                    breakerPhaseFound.getCapacity()))){
+                    breakerPhaseFound.getCapacity(),
+                    caliberPipeline,
+                    materialPipeline))){
                 this.viewAddElevatorToInstallation.dispose();
             }
         }

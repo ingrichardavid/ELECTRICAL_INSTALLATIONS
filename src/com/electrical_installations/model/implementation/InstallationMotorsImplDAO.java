@@ -85,6 +85,8 @@ public class InstallationMotorsImplDAO implements InstallationMotorsDAO {
             preparedStatement.setInt(9, installation_motors.getTypePhase().getCode());
             preparedStatement.setString(10, installation_motors.getHorse_power());
             preparedStatement.setDouble(11, installation_motors.getBreaker());
+            preparedStatement.setString(12, installation_motors.getPipeline());
+            preparedStatement.setString(13, installation_motors.getMaterialPipeline());
             if (preparedStatement.executeUpdate() > 0) {
                 preparedStatement.close();
                 preparedStatement = connection.getConexion().prepareStatement(ProjectQueries.UPDATE_INTENSITY_TOTAL);
@@ -126,7 +128,9 @@ public class InstallationMotorsImplDAO implements InstallationMotorsDAO {
                         null,
                         result.getInt(5) == TypePhase.SINGLE_PHASE.getCode() ? TypePhase.SINGLE_PHASE : TypePhase.THREE_PHASE,    
                         result.getString(6),
-                        result.getDouble(7)));
+                        result.getDouble(7),
+                        null,
+                        null));
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -158,7 +162,9 @@ public class InstallationMotorsImplDAO implements InstallationMotorsDAO {
                         null,
                         result.getInt(5) == TypePhase.SINGLE_PHASE.getCode() ? TypePhase.SINGLE_PHASE : TypePhase.THREE_PHASE,
                         result.getString(6),
-                        result.getDouble(7)));    
+                        result.getDouble(7),
+                        null,
+                        null));    
             }
         } catch (SQLException e) {
             e.printStackTrace();

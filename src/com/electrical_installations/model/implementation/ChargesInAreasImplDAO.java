@@ -81,6 +81,8 @@ public class ChargesInAreasImplDAO implements ChargesInAreasDAO{
             preparedStatement.setString(6, chargesInAreas.getCaliberNeutral());
             preparedStatement.setString(7, chargesInAreas.getCaliberHearth());
             preparedStatement.setInt(8, chargesInAreas.getPhase().getCode());
+            preparedStatement.setString(9, chargesInAreas.getPipeline());
+            preparedStatement.setString(10, chargesInAreas.getMaterialPipeline());
             if (preparedStatement.executeUpdate() > 0){
                 preparedStatement.close();
                 preparedStatement = connection.getConexion().prepareStatement(ChargesInAreasQueries.UPDATE_AREA_AFTER_INSERT_CHARGE);
@@ -300,7 +302,9 @@ public class ChargesInAreasImplDAO implements ChargesInAreasDAO{
                         null, 
                         null, 
                         null,                         
-                        new Phase(result.getInt(6), null)));
+                        new Phase(result.getInt(6), null),
+                        null,
+                        null));
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -332,7 +336,9 @@ public class ChargesInAreasImplDAO implements ChargesInAreasDAO{
                         null, 
                         null, 
                         null, 
-                        new Phase(result.getInt(6), null)));}
+                        new Phase(result.getInt(6), null),
+                        null,
+                        null));}
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {

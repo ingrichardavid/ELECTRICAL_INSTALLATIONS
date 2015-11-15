@@ -88,6 +88,7 @@ public class ControllerCharge implements ActionListener, WindowListener , KeyLis
     private double breakdownVoltage;
     private Caliber caliberSelected, caliberSelectedNeutral;
     private String caliberUsePhase;
+    private String materialPipeline, caliberPipeline;
     private CalibersHearth calibersHearthFound;
     private HorsesPowers horsesPowersFound;
     private String caliberPhase, caliberNeutral, caliberHearth;
@@ -309,6 +310,15 @@ public class ControllerCharge implements ActionListener, WindowListener , KeyLis
                     
                     calibersHearthFound = MethodsForCalculationsGlobal1.calculate_caliberHearth_dishwasherAndCrusher(horsesPowersFound.getIntensity().getIntensity());
                 
+                    materialPipeline = viewVoltageInCharge.getCmbPipeline().getSelectedItem().toString();
+                    
+                    caliberPipeline = MethodsForCalculationsIluminariaPowerPoint.calculate_pipeline(
+                            caliberPhaseFound.getCaliber(), 
+                            caliberNeutralFound.getCaliber(), 
+                            calibersHearthFound.getCaliber(), 
+                            (Phase)viewVoltageInCharge.getCmbPhases().getSelectedItem(), 
+                            materialPipeline);
+                    
                     breakerPhaseFound = MethodsForCalculationsGlobal1.find_braker_dishwasherAndCrusher(
                             horsesPowersFound.getIntensity().getIntensity(), 
                             ((PercentageSinglePhaseMotors)viewVoltageInCharge.getCmbPercentageSinglePhaseMotors().getSelectedItem()).getPercentage());                    
@@ -355,7 +365,16 @@ public class ControllerCharge implements ActionListener, WindowListener , KeyLis
                         (Voltage)viewVoltageInCharge.getCmbVoltage().getSelectedItem(), 
                         Double.valueOf(viewVoltageInCharge.getJspPowerFactor().getValue().toString()), 
                         viewVoltageInCharge.getCmbPhases().getSelectedIndex());
-                            
+                
+                materialPipeline = viewVoltageInCharge.getCmbPipeline().getSelectedItem().toString();
+                
+                caliberPipeline = MethodsForCalculationsIluminariaPowerPoint.calculate_pipeline(
+                        caliberPhaseFound.getCaliber(), 
+                        caliberNeutralFound.getCaliber(), 
+                        calibersHearthFound.getCaliber(), 
+                        (Phase)viewVoltageInCharge.getCmbPhases().getSelectedItem(), 
+                        materialPipeline);
+                
                 intensityDesignFound = MethodsForCalculationsIluminariaPowerPoint.calculate_instensity_design(new Calibers(
                         0, 
                         (Material)viewVoltageInCharge.getCmbMaterial().getSelectedItem(), 
@@ -418,6 +437,15 @@ public class ControllerCharge implements ActionListener, WindowListener , KeyLis
                         Double.valueOf(viewVoltageInCharge.getJspPowerFactor().getValue().toString()), 
                         viewVoltageInCharge.getCmbPhases().getSelectedIndex());
 
+                materialPipeline = viewVoltageInCharge.getCmbPipeline().getSelectedItem().toString();
+                
+                caliberPipeline = MethodsForCalculationsIluminariaPowerPoint.calculate_pipeline(
+                        caliberPhaseFound.getCaliber(), 
+                        caliberNeutralFound.getCaliber(), 
+                        calibersHearthFound.getCaliber(), 
+                        (Phase)viewVoltageInCharge.getCmbPhases().getSelectedItem(), 
+                        materialPipeline);
+                
                 intensityDesignFound = MethodsForCalculationsIluminariaPowerPoint.calculate_instensity_design(new Calibers(
                         0, 
                         (Material)viewVoltageInCharge.getCmbMaterial().getSelectedItem(), 
@@ -473,6 +501,15 @@ public class ControllerCharge implements ActionListener, WindowListener , KeyLis
                         Double.valueOf(viewVoltageInCharge.getJspPowerFactor().getValue().toString()), 
                         viewVoltageInCharge.getCmbPhases().getSelectedIndex());
 
+                materialPipeline = viewVoltageInCharge.getCmbPipeline().getSelectedItem().toString();
+                
+                caliberPipeline = MethodsForCalculationsIluminariaPowerPoint.calculate_pipeline(
+                        caliberPhaseFound.getCaliber(), 
+                        caliberNeutralFound.getCaliber(), 
+                        calibersHearthFound.getCaliber(), 
+                        (Phase)viewVoltageInCharge.getCmbPhases().getSelectedItem(), 
+                        materialPipeline);
+                
                 intensityDesignFound = MethodsForCalculationsIluminariaPowerPoint.calculate_instensity_design(new Calibers(
                         0, 
                         (Material)viewVoltageInCharge.getCmbMaterial().getSelectedItem(), 
@@ -648,6 +685,16 @@ public class ControllerCharge implements ActionListener, WindowListener , KeyLis
                                 "#" + caliberNeutralFound.getCaliber().getName(), 
                                 "#" + caliberSelectedNeutral.getName());
                         caliberHearth = viewVoltageInCharge.getLblCaliberEarth().getText();
+                        
+                        materialPipeline = viewVoltageInCharge.getCmbPipeline().getSelectedItem().toString();
+
+                        caliberPipeline = MethodsForCalculationsIluminariaPowerPoint.calculate_pipeline(
+                                caliberSelected, 
+                                caliberSelectedNeutral, 
+                                calibersHearthFound.getCaliber(), 
+                                (Phase)viewVoltageInCharge.getCmbPhases().getSelectedItem(), 
+                                materialPipeline);
+                        
                     }
                 }  
             }            
@@ -690,6 +737,8 @@ public class ControllerCharge implements ActionListener, WindowListener , KeyLis
                             null, 
                             null, 
                             null,
+                            null,
+                            null,
                             null))){
                 MessagesStructure.Warning(MessagesStructure.format(200, messages.getProperty(Messages.CHARGE_SELECTED), MessagesStructure.justify));
             } else {
@@ -712,7 +761,9 @@ public class ControllerCharge implements ActionListener, WindowListener , KeyLis
                                 caliberPhase, 
                                 caliberNeutral, 
                                 caliberHearth,
-                                (Phase)viewVoltageInCharge.getCmbPhases().getSelectedItem()),area)){ 
+                                (Phase)viewVoltageInCharge.getCmbPhases().getSelectedItem(),
+                                caliberPipeline,
+                                materialPipeline),area)){ 
                     viewVoltageInCharge.dispose();
                 }             
             }

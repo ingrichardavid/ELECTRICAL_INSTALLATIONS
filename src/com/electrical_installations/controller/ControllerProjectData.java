@@ -111,7 +111,7 @@ public class ControllerProjectData implements ActionListener, WindowListener, Ke
     private void fill_table_charges_in_area(String name){        
         try {
             int row = viewProjectData.getTblArea().getSelectedRow();
-            chargesInAreas = ServiceChargesInAreas.filter_by_name(new ChargesInAreas(new Charge(0, name, 0,true,false,false,null), new Area(Integer.valueOf(viewProjectData.getTblArea().getValueAt(row, 0).toString())), 0,0, null, null, null, null));
+            chargesInAreas = ServiceChargesInAreas.filter_by_name(new ChargesInAreas(new Charge(0, name, 0,true,false,false,null), new Area(Integer.valueOf(viewProjectData.getTblArea().getValueAt(row, 0).toString())), 0,0, null, null, null, null, null, null));
             if (chargesInAreas != null){            
                 Methods.removeRows(viewProjectData.getTblAreasCharges());
                 for (ChargesInAreas charges_in_areas_data : chargesInAreas) {
@@ -177,7 +177,9 @@ public class ControllerProjectData implements ActionListener, WindowListener, Ke
                 null,
                 null,
                 null,
-                0));
+                0,
+                null,
+                null));
          
         if (installationMotors != null){            
             Methods.removeRows(viewProjectData.getTblInstallationEngines());  
@@ -212,7 +214,9 @@ public class ControllerProjectData implements ActionListener, WindowListener, Ke
                 null,
                 null,
                 null,
-                0));
+                0,
+                null,
+                null));
         
         if (installationMotors != null) {
             Methods.removeRows(viewProjectData.getTblInstallationEngines());
@@ -244,7 +248,7 @@ public class ControllerProjectData implements ActionListener, WindowListener, Ke
     private void fill_table_charges_in_areas(){   
         try {
             int row = viewProjectData.getTblArea().getSelectedRow();
-            chargesInAreas = ServiceChargesInAreas.find_charges_in_areas(new ChargesInAreas(null, new Area(Integer.valueOf(viewProjectData.getTblArea().getValueAt(row, 0).toString())), 0,0, null, null, null, null));
+            chargesInAreas = ServiceChargesInAreas.find_charges_in_areas(new ChargesInAreas(null, new Area(Integer.valueOf(viewProjectData.getTblArea().getValueAt(row, 0).toString())), 0,0, null, null, null, null, null, null));
             if (chargesInAreas != null){            
                 Methods.removeRows(viewProjectData.getTblAreasCharges());
                 for (ChargesInAreas charges_in_areas_data : chargesInAreas) {
@@ -314,9 +318,8 @@ public class ControllerProjectData implements ActionListener, WindowListener, Ke
             viewArea.setAreaIluminariaPowerPoints(ServiceArea.find_iluminaria_powerPoint(area));
             viewArea.fill_fields(area,viewArea.getAreaIluminariaPowerPoints());
             viewArea.fill_fields_combos(viewArea.getAreaIluminariaPowerPoints());
-            viewArea.visible_buttons(true, false, true);
-            viewArea.getLblQuantity().setVisible(false);
-            viewArea.getJspQuantity().setVisible(false);
+            viewArea.visible_buttons(true, false, true); 
+            viewArea.getJspQuantity().setEnabled(false);
             viewArea.setVisible(true);
             if (viewArea.getModify()){                
                 Methods.removeRows(viewProjectData.getTblAreasCharges());
@@ -408,6 +411,8 @@ public class ControllerProjectData implements ActionListener, WindowListener, Ke
                         null, 
                         null, 
                         null, 
+                        null,
+                        null,
                         null),
                         area_to_modify);                
             }

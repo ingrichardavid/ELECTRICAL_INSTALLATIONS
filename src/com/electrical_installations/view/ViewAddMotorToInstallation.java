@@ -78,6 +78,14 @@ public class ViewAddMotorToInstallation extends javax.swing.JDialog {
     }
 
     //Getters y Setters
+
+    public JComboBox<String> getCmbPipeline() {
+        return cmbPipeline;
+    }
+
+    public void setCmbPipeline(JComboBox<String> cmbPipeline) {
+        this.cmbPipeline = cmbPipeline;
+    }
     
     public Project getProject() {
         return project;
@@ -403,6 +411,8 @@ public class ViewAddMotorToInstallation extends javax.swing.JDialog {
         lblCaliberEarth = new javax.swing.JLabel();
         jLabel19 = new javax.swing.JLabel();
         jspQuantity = new javax.swing.JSpinner();
+        jLabel18 = new javax.swing.JLabel();
+        cmbPipeline = new javax.swing.JComboBox<>();
         jPanel8 = new javax.swing.JPanel();
         jLabel12 = new javax.swing.JLabel();
         cmbCaliber = new javax.swing.JComboBox();
@@ -711,6 +721,20 @@ public class ViewAddMotorToInstallation extends javax.swing.JDialog {
         gridBagConstraints.insets = new java.awt.Insets(10, 12, 0, 0);
         jPanel4.add(jspQuantity, gridBagConstraints);
 
+        jLabel18.setText("Tubería:");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 7;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        jPanel4.add(jLabel18, gridBagConstraints);
+
+        cmbPipeline.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "EMT", "PVC" }));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 3;
+        gridBagConstraints.gridy = 7;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_END;
+        jPanel4.add(cmbPipeline, gridBagConstraints);
+
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 1;
@@ -990,6 +1014,7 @@ public class ViewAddMotorToInstallation extends javax.swing.JDialog {
     private javax.swing.JComboBox cmbMaterial;
     private javax.swing.JComboBox cmbPercentageSinglePhaseMotors;
     private javax.swing.JComboBox cmbPhases;
+    private javax.swing.JComboBox<String> cmbPipeline;
     private javax.swing.JComboBox cmbTemperature;
     private javax.swing.JComboBox cmbVoltage;
     private javax.swing.Box.Filler filler1;
@@ -1002,6 +1027,7 @@ public class ViewAddMotorToInstallation extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
+    private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

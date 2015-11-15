@@ -24,6 +24,8 @@ public class ChargesInAreas {
     private String caliberNeutral;
     private String caliberHearth;
     private Phase phase;
+    private String pipeline;
+    private String materialPipeline;
 
     /**
      * Constructor para almacenar, insertar, modificar y eliminar cargas en un área.
@@ -35,8 +37,10 @@ public class ChargesInAreas {
      * @param caliberNeutral
      * @param caliberHearth 
      * @param phase 
+     * @param pipeline 
+     * @param materialPipeline 
      */
-    public ChargesInAreas(Charge charge, Area area, double potency, int quantity, String caliberPhase, String caliberNeutral, String caliberHearth, Phase phase) {
+    public ChargesInAreas(Charge charge, Area area, double potency, int quantity, String caliberPhase, String caliberNeutral, String caliberHearth, Phase phase, String pipeline, String materialPipeline) {
         this.charge = charge;
         this.area = area;
         this.potency = potency;
@@ -45,9 +49,27 @@ public class ChargesInAreas {
         this.caliberNeutral = caliberNeutral;
         this.caliberHearth = caliberHearth;
         this.phase = phase;
+        this.pipeline = pipeline;
+        this.materialPipeline = materialPipeline;
     }//Fin del constructor 
     
     //Getters y Setters
+
+    public String getPipeline() {
+        return pipeline;
+    }
+
+    public void setPipeline(String pipeline) {
+        this.pipeline = pipeline;
+    }
+
+    public String getMaterialPipeline() {
+        return materialPipeline;
+    }
+
+    public void setMaterialPipeline(String materialPipeline) {
+        this.materialPipeline = materialPipeline;
+    }
 
     public Phase getPhase() {
         return phase;

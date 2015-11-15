@@ -20,8 +20,8 @@ public class InstallationMotorsQueries {
     public static final String INSERT = "INSERT INTO \n" +
                                         "negocio.\"MOTORES_EN_INSTALACION\"(\n" +
                                         "proyecto_codigo, proyecto_tipo_instalacion, descripcion, \n" +
-                                        "intensidad, cantidad, calibre_fase, calibre_neutro, calibre_tierra,tipo_fase_codigo,caballo_de_fuerza,breaker)\n" +
-                                        "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
+                                        "intensidad, cantidad, calibre_fase, calibre_neutro, calibre_tierra,tipo_fase_codigo,caballo_de_fuerza,breaker, tuberia, tuberia_material)\n" +
+                                        "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
     
     /**
      * Consultar motores en una instalación.

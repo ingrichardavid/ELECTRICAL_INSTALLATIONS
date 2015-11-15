@@ -235,8 +235,8 @@ public class ViewSubFeederMotors extends javax.swing.JDialog {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Calcular Sub-Alimentador");
-        setMinimumSize(new java.awt.Dimension(600, 192));
-        setPreferredSize(new java.awt.Dimension(600, 192));
+        setMinimumSize(new java.awt.Dimension(600, 197));
+        setPreferredSize(new java.awt.Dimension(600, 197));
         getContentPane().setLayout(new javax.swing.OverlayLayout(getContentPane()));
 
         jPanel1.setLayout(new java.awt.GridBagLayout());

@@ -104,7 +104,9 @@ public class ControllerLightingCircuit implements ActionListener, KeyListener, W
         phasesFound = ServicePhase.find_phases();
         if (phasesFound != null){
             for (Phase phase : phasesFound){
-                viewLightingCircuit.getCmbPhasesLightingCircuit().addItem(phase); 
+                if(phase.getName().equalsIgnoreCase(TypePhases.PHASE_FOUR_THREAD.getPhase())){
+                    viewLightingCircuit.getCmbPhasesLightingCircuit().addItem(phase);  
+                }               
             }     
                 viewLightingCircuit.getCmbPhasesLightingCircuit().setSelectedIndex(0); 
         } else {

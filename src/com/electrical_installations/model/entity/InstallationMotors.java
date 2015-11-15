@@ -27,6 +27,8 @@ public class InstallationMotors {
     private TypePhase typePhase;
     private String horse_power;
     private double breaker;
+    private String pipeline;
+    private String materialPipeline;
     
     /**
      * Constructor para buscar, insertar, modificar y eliminar Motores en la Instalación
@@ -41,8 +43,10 @@ public class InstallationMotors {
      * @param typePhase 
      * @param horse_power 
      * @param breaker 
+     * @param pipeline 
+     * @param materialPipeline 
      */
-    public InstallationMotors(int code, Project project, String description, double intensity, int quantity, String caliberPhase, String caliberNeutral, String caliberHearth, TypePhase typePhase, String horse_power, double breaker) {
+    public InstallationMotors(int code, Project project, String description, double intensity, int quantity, String caliberPhase, String caliberNeutral, String caliberHearth, TypePhase typePhase, String horse_power, double breaker, String pipeline, String materialPipeline) {
         this.code = code;
         this.project = project;
         this.description = description;
@@ -54,6 +58,8 @@ public class InstallationMotors {
         this.typePhase = typePhase;
         this.horse_power = horse_power;
         this.breaker = breaker;
+        this.pipeline = pipeline;
+        this.materialPipeline = materialPipeline;
     }//Fin del constructor
 
     /**
@@ -69,6 +75,24 @@ public class InstallationMotors {
         this.intensity = intensity;
         this.quantity = quantity;
     }//Fin del constructor
+    
+    //Getters y Setters
+
+    public String getPipeline() {
+        return pipeline;
+    }
+
+    public void setPipeline(String pipeline) {
+        this.pipeline = pipeline;
+    }
+
+    public String getMaterialPipeline() {
+        return materialPipeline;
+    }
+
+    public void setMaterialPipeline(String materialPipeline) {
+        this.materialPipeline = materialPipeline;
+    }
     
     public int getCode() {
         return code;
@@ -157,7 +181,6 @@ public class InstallationMotors {
 
     public void setBreaker(double breaker) {
         this.breaker = breaker;
-    }//fin getters y setters
-    
+    }    
     
 }

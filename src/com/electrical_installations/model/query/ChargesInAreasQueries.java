@@ -18,9 +18,9 @@ public class ChargesInAreasQueries {
      */
     public static final String INSERT_CHARGE_IN_AREA =  "INSERT INTO negocio.\"CARGAS_EN_AREAS\"(\n" +
                                                         "            codigo_carga, codigo_area, potencia, cantidad, calibre_fase, \n" +
-                                                        "            calibre_neutro, calibre_tierra, fase_codigo)\n" +
+                                                        "            calibre_neutro, calibre_tierra, fase_codigo, tuberia, tuberia_material)\n" +
                                                         "    VALUES (?, ?, ?, ?, ?, \n" +
-                                                        "            ?, ?, ?);"; 
+                                                        "            ?, ?, ?, ?, ?);"; 
     /**
      * Modificar un área luego de haber insertado una carga.
      */

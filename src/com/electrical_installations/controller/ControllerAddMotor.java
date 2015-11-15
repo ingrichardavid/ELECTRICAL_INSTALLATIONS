@@ -69,7 +69,9 @@ public class ControllerAddMotor implements ActionListener, KeyListener, WindowLi
                             null,
                             null, 
                             null,
-                            0))){            
+                            0,
+                            null,
+                            null))){            
             }else{
                 viewAddMotorToInstallation = new ViewAddMotorToInstallation(null, true);
                 viewAddMotor.dispose();
