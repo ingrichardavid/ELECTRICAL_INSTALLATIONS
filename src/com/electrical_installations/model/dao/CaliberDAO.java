@@ -16,11 +16,18 @@ import java.util.List;
  * @since 2015-09-08
  */
 public interface CaliberDAO {
- 
     
     /** 
      * Listar todos los Calibres.
      * @return Retorna una lista de Calibres
      */
     public List<Caliber> find_caliber();
+    
+    /**
+     * Método para encontrar el área de un calibre.
+     * @param caliber
+     * @return Retorna el área de un calibre.
+     */
+    public double find_area(Caliber caliber);
+
 }

@@ -19,10 +19,10 @@ public class Caliber {
     //Objetos, variables y constantes
     private int code;
     private String name;
+    private double area;
 
     /**
      * Constructor para crear, modificar, eliminar y buscar el Calibre.
-     *
      * @param code
      * @param name
      */
@@ -31,7 +31,26 @@ public class Caliber {
         this.name = name;
     }//Fin del contructor.
 
+    /**
+     * Constructor encontrar el área de un calibre.
+     * @param code
+     * @param area
+     */
+    public Caliber(int code, double area) {
+        this.code = code;
+        this.area = area;
+    }//Fin del contructor.
+    
     //Getters y Setters
+
+    public double getArea() {
+        return area;
+    }
+
+    public void setArea(double area) {
+        this.area = area;
+    }
+    
     public int getCode() {
         return code;
     }

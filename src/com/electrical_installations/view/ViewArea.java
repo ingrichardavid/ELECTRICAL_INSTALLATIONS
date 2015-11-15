@@ -244,6 +244,30 @@ public final class ViewArea extends javax.swing.JDialog {
     
     //Getters y Setters
 
+    public JComboBox getCmbPipelineIuminaria() {
+        return cmbPipelineIuminaria;
+    }
+
+    public void setCmbPipelineIuminaria(JComboBox cmbPipelineIuminaria) {
+        this.cmbPipelineIuminaria = cmbPipelineIuminaria;
+    }
+
+    public JComboBox getCmbPipelinePowerPoint() {
+        return cmbPipelinePowerPoint;
+    }
+
+    public void setCmbPipelinePowerPoint(JComboBox cmbPipelinePowerPoint) {
+        this.cmbPipelinePowerPoint = cmbPipelinePowerPoint;
+    }
+
+    public JComboBox getCmbPipelineSubFeeder() {
+        return cmbPipelineSubFeeder;
+    }
+
+    public void setCmbPipelineSubFeeder(JComboBox cmbPipelineSubFeeder) {
+        this.cmbPipelineSubFeeder = cmbPipelineSubFeeder;
+    }
+
     public JLabel getLblQuantity() {
         return lblQuantity;
     }
@@ -870,6 +894,8 @@ public final class ViewArea extends javax.swing.JDialog {
         jspArea = new javax.swing.JSpinner();
         jLabel42 = new javax.swing.JLabel();
         lblBranchCircuitIluminaria = new javax.swing.JLabel();
+        jLabel46 = new javax.swing.JLabel();
+        cmbPipelineIuminaria = new javax.swing.JComboBox<>();
         jPanel8 = new javax.swing.JPanel();
         jLabel12 = new javax.swing.JLabel();
         cmbCalibersIluminaria = new javax.swing.JComboBox();
@@ -907,6 +933,8 @@ public final class ViewArea extends javax.swing.JDialog {
         txtQuantityPowerPoint = new javax.swing.JSpinner();
         jLabel44 = new javax.swing.JLabel();
         lblBranchCircuitPowerPoint = new javax.swing.JLabel();
+        jLabel48 = new javax.swing.JLabel();
+        cmbPipelinePowerPoint = new javax.swing.JComboBox<>();
         jPanel11 = new javax.swing.JPanel();
         jLabel28 = new javax.swing.JLabel();
         cmbCalibersPowerPoint = new javax.swing.JComboBox();
@@ -946,6 +974,8 @@ public final class ViewArea extends javax.swing.JDialog {
         lblPotencyNeutralSubFeeder = new javax.swing.JLabel();
         jLabel43 = new javax.swing.JLabel();
         lblCaliberNeutral = new javax.swing.JLabel();
+        jLabel49 = new javax.swing.JLabel();
+        cmbPipelineSubFeeder = new javax.swing.JComboBox<>();
         jPanel12 = new javax.swing.JPanel();
         jLabel36 = new javax.swing.JLabel();
         cmbCalibersSubFeeder = new javax.swing.JComboBox();
@@ -1291,6 +1321,20 @@ public final class ViewArea extends javax.swing.JDialog {
         gridBagConstraints.gridy = 10;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         jPanel4.add(lblBranchCircuitIluminaria, gridBagConstraints);
+
+        jLabel46.setText("Tubería:");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 4;
+        gridBagConstraints.gridy = 8;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        jPanel4.add(jLabel46, gridBagConstraints);
+
+        cmbPipelineIuminaria.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "EMT", "PVC" }));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 6;
+        gridBagConstraints.gridy = 8;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
+        jPanel4.add(cmbPipelineIuminaria, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
@@ -1640,6 +1684,20 @@ public final class ViewArea extends javax.swing.JDialog {
         gridBagConstraints.gridy = 10;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         jPanel9.add(lblBranchCircuitPowerPoint, gridBagConstraints);
+
+        jLabel48.setText("Tubería:");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 4;
+        gridBagConstraints.gridy = 8;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        jPanel9.add(jLabel48, gridBagConstraints);
+
+        cmbPipelinePowerPoint.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "EMT", "PVC" }));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 6;
+        gridBagConstraints.gridy = 8;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_END;
+        jPanel9.add(cmbPipelinePowerPoint, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
@@ -2012,6 +2070,20 @@ public final class ViewArea extends javax.swing.JDialog {
         gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
         jPanel5.add(lblCaliberNeutral, gridBagConstraints);
 
+        jLabel49.setText("Tubería:");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 10;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        jPanel5.add(jLabel49, gridBagConstraints);
+
+        cmbPipelineSubFeeder.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "EMT", "PVC" }));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 10;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
+        jPanel5.add(cmbPipelineSubFeeder, gridBagConstraints);
+
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
@@ -2228,6 +2300,9 @@ public final class ViewArea extends javax.swing.JDialog {
     private javax.swing.JComboBox cmbPhasesIluminaria;
     private javax.swing.JComboBox cmbPhasesPowerPoint;
     private javax.swing.JComboBox cmbPhasesSubFeeder;
+    private javax.swing.JComboBox<String> cmbPipelineIuminaria;
+    private javax.swing.JComboBox<String> cmbPipelinePowerPoint;
+    private javax.swing.JComboBox<String> cmbPipelineSubFeeder;
     private javax.swing.JComboBox cmbTemperatureIlimunaria;
     private javax.swing.JComboBox cmbTemperaturePowerPoint;
     private javax.swing.JComboBox cmbTemperatureSubFeeder;
@@ -2277,7 +2352,10 @@ public final class ViewArea extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel43;
     private javax.swing.JLabel jLabel44;
     private javax.swing.JLabel jLabel45;
+    private javax.swing.JLabel jLabel46;
     private javax.swing.JLabel jLabel47;
+    private javax.swing.JLabel jLabel48;
+    private javax.swing.JLabel jLabel49;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;

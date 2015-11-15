@@ -114,7 +114,7 @@ public interface AreaDAO {
      * @param area
      * @return Retorna true si el proceso de modificación o eliminación se llevó a cabo.
      */
-    public boolean delete_main_feeder(Area area);       
+    public boolean delete_main_feeder(Area area);      
     
 }
 

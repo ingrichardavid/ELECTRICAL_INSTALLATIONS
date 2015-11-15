@@ -81,4 +81,25 @@ public class CaliberImplDAO implements CaliberDAO {
         return calibersFound;
     }//Fin del método     
 
+    /**
+     * Método para encontrar el área de un calibre.
+     * @param caliber
+     * @return Retorna el área de un calibre.
+     */
+    @Override
+    public double find_area(Caliber caliber) {
+        double area = 0;
+        try {
+            preparedStatement = connection.getConexion().prepareStatement(CaliberQueries.FIND_AREA);
+            preparedStatement.setInt(1, caliber.getCode());
+            result = preparedStatement.executeQuery();
+            while (result.next()) {
+                area = result.getDouble(1);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return area;
+    }//Fin del método.
+
 }

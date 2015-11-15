@@ -49,5 +49,10 @@ public class CaliberQueries {
                                                 "	? <= (i.intensidad * ?) \n" +
                                                 "ORDER BY i.intensidad ASC\n"+ 
                                                 "LIMIT 1;";
-       
+ 
+    /**
+     * Consulta para encontrar el área de un calibre.
+     */
+    public static final String FIND_AREA = "SELECT area FROM FROM maestros.\"CALIBRE\" WHERE codigo=?";
+    
 }
