@@ -7,7 +7,9 @@ package com.electrical_installations.model.implementation;
 
 import com.electrical_installations.model.DataBaseConnection;
 import com.electrical_installations.model.dao.CaliberDAO;
+import com.electrical_installations.model.entity.Pipeline;
 import com.electrical_installations.model.entity.masters.Caliber;
+import com.electrical_installations.model.enums.TypeOccupancyRate;
 import com.electrical_installations.model.query.CaliberQueries;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -31,6 +33,7 @@ public class CaliberImplDAO implements CaliberDAO {
     private PreparedStatement preparedStatement;
     private ResultSet result;
     private List<Caliber> calibersFound;
+    private Pipeline pipelineFound;
 
     /**
      * Constructor de la clase, es privado para cumplir con el patrón
@@ -101,5 +104,38 @@ public class CaliberImplDAO implements CaliberDAO {
         }
         return area;
     }//Fin del método.
+
+    /**
+     * Método para encontrar tubería.
+     * @param caliber
+     * @param typeOccupancyRate
+     * @return Retorna una tubería.
+     */
+    @Override
+    public Pipeline find_pipeline(Caliber caliber, TypeOccupancyRate typeOccupancyRate) {
+        pipelineFound = null;
+        try {
+            if (typeOccupancyRate == TypeOccupancyRate.THIRTY_ONE_PERCENT) {
+                preparedStatement = connection.getConexion().prepareStatement(CaliberQueries.FIND_PIPELINE_TWO_DRIVERS);
+                preparedStatement.setDouble(1, caliber.getArea());
+                result = preparedStatement.executeQuery();
+                while (result.next()) {
+                    pipelineFound = new Pipeline(result.getString(1));
+                }
+            } else {
+                preparedStatement = connection.getConexion().prepareStatement(CaliberQueries.FIND_PIPELINE_THREE_OR_MORE_DRIVERS);
+                preparedStatement.setDouble(1, caliber.getArea());
+                result = preparedStatement.executeQuery();
+                while (result.next()) {
+                    pipelineFound = new Pipeline(result.getString(1));
+                }
+            }            
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            connection.closeConnection();
+        }
+        return pipelineFound;
+    }
 
 }

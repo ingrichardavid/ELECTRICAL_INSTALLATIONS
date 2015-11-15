@@ -13,7 +13,7 @@ package com.electrical_installations.model.enums;
  */
 public enum TypeCalibers {
     
-    PHASE("F"),NEUTRO("N");
+    PHASE("F"),NEUTRO("N"),EARTH("E");
     
     //Objetos, variables y constantes
     private final String type;

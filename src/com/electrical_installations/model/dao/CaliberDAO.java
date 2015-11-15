@@ -6,7 +6,9 @@
 package com.electrical_installations.model.dao;
 
  
+import com.electrical_installations.model.entity.Pipeline;
 import com.electrical_installations.model.entity.masters.Caliber;
+import com.electrical_installations.model.enums.TypeOccupancyRate;
 import java.util.List;
 
 /**
@@ -30,4 +32,12 @@ public interface CaliberDAO {
      */
     public double find_area(Caliber caliber);
 
+    /**
+     * Método para encontrar la tubería.
+     * @param caliber
+     * @param typeOccupancyRate
+     * @return Retorna la tubería.
+     */
+    public Pipeline find_pipeline(Caliber caliber, TypeOccupancyRate typeOccupancyRate);
+    
 }

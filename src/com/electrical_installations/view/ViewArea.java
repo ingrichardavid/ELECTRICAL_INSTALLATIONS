@@ -144,6 +144,7 @@ public final class ViewArea extends javax.swing.JDialog {
                     this.cmbDuctIluminaria.setSelectedItem(areaIluminariaPowerPoint.getDuct());
                     this.jspAngle.setValue((float)areaIluminariaPowerPoint.getAngle());
                     this.cmbCalibersIluminaria.setSelectedItem(areaIluminariaPowerPoint.getCaliber());
+                    this.cmbPipelineIuminaria.setSelectedItem(areaIluminariaPowerPoint.getMaterialPipeline());
                     break;
                 case POWER_POINT:
                     setAreaIluminariaPowerPointsPowerPoint(areaIluminariaPowerPoint);
@@ -162,6 +163,7 @@ public final class ViewArea extends javax.swing.JDialog {
                     this.cmbDuctPowerPoint.setSelectedItem(areaIluminariaPowerPoint.getDuct());
                     this.jspAnglePowerPoint.setValue((float)areaIluminariaPowerPoint.getAngle());
                     this.cmbCalibersPowerPoint.setSelectedItem(areaIluminariaPowerPoint.getCaliber());
+                    this.cmbPipelinePowerPoint.setSelectedItem(areaIluminariaPowerPoint.getMaterialPipeline());
                     break;
                 case SUB_FEEDER:
                     setAreaSubFeeder(areaIluminariaPowerPoint);  
@@ -179,6 +181,7 @@ public final class ViewArea extends javax.swing.JDialog {
                     this.cmbDuctSubFeeder.setSelectedItem(areaIluminariaPowerPoint.getDuct());
                     this.jspAngleSubFeeder.setValue((float)areaIluminariaPowerPoint.getAngle());
                     this.cmbCalibersSubFeeder.setSelectedItem(areaIluminariaPowerPoint.getCaliber());
+                    this.cmbPipelineSubFeeder.setSelectedItem(areaIluminariaPowerPoint.getMaterialPipeline());
                     break;
                 case NEUTRAL:
                     setAreaSubFeederNeutral(areaIluminariaPowerPoint);   

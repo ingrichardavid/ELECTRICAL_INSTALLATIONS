@@ -53,6 +53,16 @@ public class CaliberQueries {
     /**
      * Consulta para encontrar el área de un calibre.
      */
-    public static final String FIND_AREA = "SELECT area FROM FROM maestros.\"CALIBRE\" WHERE codigo=?";
+    public static final String FIND_AREA = "SELECT area FROM maestros.\"CALIBRE\" WHERE codigo=?";
+    
+    /**
+     * Consulta para encontrar la tubería para dos conductores.
+     */
+    public static final String FIND_PIPELINE_TWO_DRIVERS = "SELECT tamano FROM maestros.\"TUBERIAS\" WHERE ? <= dos_conductores ORDER BY dos_conductores ASC LIMIT 1;";
+    
+    /**
+     * Consulta para encontrar la tubería para tres o más conductores.
+     */
+    public static final String FIND_PIPELINE_THREE_OR_MORE_DRIVERS = "SELECT tamano FROM maestros.\"TUBERIAS\" WHERE ? <= tres_cuatro_conductores ORDER BY tres_cuatro_conductores ASC LIMIT 1;";
     
 }

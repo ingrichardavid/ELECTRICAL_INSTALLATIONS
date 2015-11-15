@@ -19,8 +19,10 @@ import com.electrical_installations.model.entity.masters.ResistanceReactance;
 import com.electrical_installations.model.entity.masters.Temperature;
 import com.electrical_installations.model.entity.masters.Voltage;
 import com.electrical_installations.model.enums.TypeBrandsCalibers;
+import com.electrical_installations.model.enums.TypeCalibers;
 import com.electrical_installations.model.enums.TypeMaterials;
 import com.electrical_installations.model.enums.TypeNumbersCalibers;
+import com.electrical_installations.model.enums.TypeOccupancyRate;
 import com.electrical_installations.model.enums.TypeResistancesAndReactances;
 import com.electrical_installations.model.enums.TypeRush;
 import com.electrical_installations.model.enums.TypeOfBranchCircuitInArea;
@@ -28,6 +30,7 @@ import com.electrical_installations.model.enums.TypePhases;
 import com.electrical_installations.model.enums.TypeTemperature;
 import com.electrical_installations.model.service.ServiceArea;
 import com.electrical_installations.model.service.ServiceBreaker;
+import com.electrical_installations.model.service.ServiceCaliber;
 import com.electrical_installations.model.service.ServiceIntensity;
 import com.electrical_installations.model.service.ServiceResistanceReactance;
 
@@ -306,5 +309,62 @@ public class MethodsForCalculationsIluminariaPowerPoint {
         }        
         return iterations;        
     }//Fin del método.
+    
+    /**
+     * Método para calcular tubería para iluminaria y toma corriente.
+     * @param caliber
+     * @param phase
+     * @param materialPipeline
+     * @return Retorna la tubería seleccionada para iluminaria o toma corriente.
+     */
+    public static String calculate_pipeline_iluminaria_powerPoint(Caliber caliber, Phase phase, String materialPipeline) {
+        double area = 0;
+        int number_calibers = 0;
+        if (phase.getName().equalsIgnoreCase(TypePhases.SINGLE_PHASE_TWO_THREAD.getPhase())) {
+            number_calibers = 2;
+        } else if (phase.getName().equalsIgnoreCase(TypePhases.SINGLE_PHASE_THREE_THREAD.getPhase())) {
+            number_calibers = 3;
+        } else if (phase.getName().equalsIgnoreCase(TypePhases.PHASE_FOUR_THREAD.getPhase())) {
+            number_calibers = 4;
+        }
+        area = ServiceCaliber.find_area(caliber) * number_calibers;
+        if (number_calibers > 2) {
+            area = area / TypeOccupancyRate.FORTY.getPercentage();
+            return "1 Φ " + (ServiceCaliber.find_pipeline(new Caliber(0, area), TypeOccupancyRate.FORTY)).getSize() + "\" " + materialPipeline; 
+        } else {
+            area = area / TypeOccupancyRate.THIRTY_ONE_PERCENT.getPercentage();
+            return "1 Φ " + (ServiceCaliber.find_pipeline(new Caliber(0, area), TypeOccupancyRate.THIRTY_ONE_PERCENT)).getSize() + "\" " + materialPipeline;
+        }
+    }//Fin del Método.
+    
+    /**
+     * Método para calcular tubería.
+     * @param caliberPhase
+     * @param caliberNeutral
+     * @param caliberHeart
+     * @param phase
+     * @param materialPipeline
+     * @return Retorna la tubería seleccionada.
+     */
+    public static String calculate_pipeline(Caliber caliberPhase, Caliber caliberNeutral, Caliber caliberHeart,Phase phase, String materialPipeline) {
+        double total_area = 0;
+        int number_calibers = 0;
+        if (phase.getName().equalsIgnoreCase(TypePhases.SINGLE_PHASE_TWO_THREAD.getPhase())) {
+            number_calibers = 1;
+        } else if (phase.getName().equalsIgnoreCase(TypePhases.SINGLE_PHASE_THREE_THREAD.getPhase())) {
+            number_calibers = 2;
+        } else if (phase.getName().equalsIgnoreCase(TypePhases.PHASE_FOUR_THREAD.getPhase())) {
+            number_calibers = 3;
+        }
+        total_area = (ServiceCaliber.find_area(caliberPhase) * number_calibers) + ServiceCaliber.find_area(caliberNeutral) + (caliberHeart == null ? 0 : ServiceCaliber.find_area(caliberHeart)); 
+        number_calibers = number_calibers + 1 + (caliberHeart == null ? 0 : 1);
+        if (number_calibers > 2) {
+            total_area = total_area / TypeOccupancyRate.FORTY.getPercentage();
+            return "1 Φ " + (ServiceCaliber.find_pipeline(new Caliber(0, total_area), TypeOccupancyRate.FORTY)).getSize() + "\" " + materialPipeline; 
+        } else {
+            total_area = total_area / TypeOccupancyRate.THIRTY_ONE_PERCENT.getPercentage();
+            return "1 Φ " + (ServiceCaliber.find_pipeline(new Caliber(0, total_area), TypeOccupancyRate.THIRTY_ONE_PERCENT)).getSize() + "\" " + materialPipeline;
+        }
+    }//Fin del Método.
     
 }

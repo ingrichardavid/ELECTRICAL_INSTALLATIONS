@@ -6,7 +6,9 @@
 package com.electrical_installations.model.service;
 
 import com.electrical_installations.configuration.Messages; 
+import com.electrical_installations.model.entity.Pipeline;
 import com.electrical_installations.model.entity.masters.Caliber;
+import com.electrical_installations.model.enums.TypeOccupancyRate;
 import com.electrical_installations.model.implementation.CaliberImplDAO;
 import java.util.List;
 
@@ -35,5 +37,24 @@ public class ServiceCaliber {
     public static List<Caliber> find_caliber(){
         return caliberImplDAO.find_caliber();
     }//Fin del servicio
-                   
+          
+    /**
+     * Servicio para encontrar el área de un calibre.
+     * @param caliber
+     * @return Retorna el área del calibre.
+     */
+    public static double find_area(Caliber caliber) {
+        return caliberImplDAO.find_area(caliber);
+    }//Fin del Servicio.
+    
+    /**
+     * Servicio para encontrar el tipo de tubería a utilizar.
+     * @param caliber
+     * @param typeOccupancyRate
+     * @return Retorna la tubería a utilizar.
+     */
+    public static Pipeline find_pipeline(Caliber caliber, TypeOccupancyRate typeOccupancyRate) {
+        return caliberImplDAO.find_pipeline(caliber, typeOccupancyRate);
+    }//Fin del Servicio.
+    
 }

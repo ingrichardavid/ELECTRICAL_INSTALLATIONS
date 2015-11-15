@@ -120,6 +120,8 @@ public class AreaImplDAO implements AreaDAO{
                     preparedStatement.setDouble(14, areaIluminariaPowerPoint.getAngle());
                     preparedStatement.setString(15, areaIluminariaPowerPoint.getCaliberUse());
                     preparedStatement.setInt(16, areaIluminariaPowerPoint.getBranchCircuit());
+                    preparedStatement.setString(17, areaIluminariaPowerPoint.getPipeline());
+                    preparedStatement.setString(18, areaIluminariaPowerPoint.getMaterialPipeline());
                     if (preparedStatement.executeUpdate() > 0){ 
                         status = true;
                     } else {
@@ -229,7 +231,9 @@ public class AreaImplDAO implements AreaDAO{
                     preparedStatement.setDouble(13, areaIluminariaPowerPoint.getAngle());
                     preparedStatement.setString(14, areaIluminariaPowerPoint.getCaliberUse());
                     preparedStatement.setInt(15, areaIluminariaPowerPoint.getBranchCircuit());
-                    preparedStatement.setInt(16, areaIluminariaPowerPoint.getCode());
+                    preparedStatement.setString(16, areaIluminariaPowerPoint.getPipeline());
+                    preparedStatement.setString(17, areaIluminariaPowerPoint.getMaterialPipeline());
+                    preparedStatement.setInt(18, areaIluminariaPowerPoint.getCode());
                     if (preparedStatement.executeUpdate() > 0){ 
                         status = true;
                     } else {
@@ -574,7 +578,9 @@ public class AreaImplDAO implements AreaDAO{
                         new Duct(result.getInt(24), result.getString(25)),
                         result.getDouble(26),
                         null,
-                        0));
+                        0,
+                        null,
+                        result.getString(27)));
             }   
         } catch (SQLException e) {
             e.printStackTrace();

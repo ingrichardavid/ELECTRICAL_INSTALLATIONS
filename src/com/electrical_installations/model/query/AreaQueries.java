@@ -27,10 +27,10 @@ public class AreaQueries {
      */
     public static final String INSERT_ILUMINARIA_POWER_POINT =  "INSERT INTO negocio.\"AREA_ILUMINARIA_TOMA_CORRIENTES\" (area_codigo, calibres_codigo, voltaje_codigo, fase_codigo, \n" +
                                                                 "            tipo, area_cantidad, constante, factor_potencia, calibre_codigo, \n" +
-                                                                "            interruptor_codigo,acometida,longitud,ducto_codigo,angulo,calibre_a_usar,circuito_ramal)\n" +
+                                                                "            interruptor_codigo,acometida,longitud,ducto_codigo,angulo,calibre_a_usar,circuito_ramal,tuberia,tuberia_material)\n" +
                                                                 "    VALUES (?, ?, ?, ?, \n" +
                                                                 "            ?, ?, ?, ?, ?, \n" +
-                                                                "            ?,?,?,?,?,?,?);";
+                                                                "            ?,?,?,?,?,?,?,?,?);";
     
     /**
      * Modificar Área.
@@ -46,7 +46,7 @@ public class AreaQueries {
                                                                 "   SET calibres_codigo=?, voltaje_codigo=?, \n" +
                                                                 "       fase_codigo=?, tipo=?, area_cantidad=?, constante=?, factor_potencia=?, \n" +
                                                                 "       calibre_codigo=?, interruptor_codigo=?, acometida=?, longitud=?, \n" +
-                                                                "       ducto_codigo=?, angulo=?,calibre_a_usar = ?, circuito_ramal=?\n" +
+                                                                "       ducto_codigo=?, angulo=?,calibre_a_usar = ?, circuito_ramal=?, tuberia=?, tuberia_material=?\n" +
                                                                 " WHERE codigo=?;";
     
     /**
@@ -167,7 +167,7 @@ public class AreaQueries {
     public static final String FIND_ILUMINARIA_POWERPOINT = "SELECT \n" +
                                                             "	ait.codigo,cs.codigo,m.codigo,m.nombre,t.codigo,t.cantidad,i.codigo,i.intensidad,c.codigo,c.nombre,\n" +
                                                             "	v.codigo,v.voltaje,f.codigo,f.nombre,ait.tipo,ait.area_cantidad,ait.factor_potencia,clb.codigo,clb.nombre,\n" +
-                                                            "	it.codigo,it.capacidad,ait.acometida,ait.longitud,d.codigo,d.nombre,ait.angulo\n" +
+                                                            "	it.codigo,it.capacidad,ait.acometida,ait.longitud,d.codigo,d.nombre,ait.angulo,ait.tuberia_material\n" +
                                                             "FROM\n" +
                                                             "	negocio.\"AREA_ILUMINARIA_TOMA_CORRIENTES\" AS ait\n" +
                                                             "JOIN\n" +

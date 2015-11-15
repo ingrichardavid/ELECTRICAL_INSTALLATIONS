@@ -40,6 +40,8 @@ public class AreaIluminariaPowerPoint {
     private double angle;
     private String caliberUse;
     private int branchCircuit;
+    private String pipeline;
+    private String materialPipeline;
 
     /**
      * Constructor para insertar, modificar y encontrar iluminarias y toma corrientes.
@@ -60,8 +62,10 @@ public class AreaIluminariaPowerPoint {
      * @param angle 
      * @param caliberUse 
      * @param branchCircuit 
+     * @param pipeline 
+     * @param materialPipeline 
      */
-    public AreaIluminariaPowerPoint(int code, Area area, Calibers calibers, Voltage voltage, Phase phase, TypeOfBranchCircuitInArea typeOfBranchCircuitInArea, double areaOrQuantity, int constant, double powerFactor, Caliber caliber, Breaker breaker, TypeRush typeRush, double length, Duct duct, double angle, String caliberUse, int branchCircuit) {
+    public AreaIluminariaPowerPoint(int code, Area area, Calibers calibers, Voltage voltage, Phase phase, TypeOfBranchCircuitInArea typeOfBranchCircuitInArea, double areaOrQuantity, int constant, double powerFactor, Caliber caliber, Breaker breaker, TypeRush typeRush, double length, Duct duct, double angle, String caliberUse, int branchCircuit, String pipeline, String materialPipeline) {
         this.code = code;
         this.area = area;
         this.calibers = calibers;
@@ -79,9 +83,27 @@ public class AreaIluminariaPowerPoint {
         this.angle = angle;
         this.caliberUse = caliberUse;
         this.branchCircuit = branchCircuit;
+        this.pipeline = pipeline;
+        this.materialPipeline = materialPipeline;
     }//Fin del constructor
     
     //Getters y Setters
+
+    public String getMaterialPipeline() {
+        return materialPipeline;
+    }
+
+    public void setMaterialPipeline(String materialPipeline) {
+        this.materialPipeline = materialPipeline;
+    }
+
+    public String getPipeline() {
+        return pipeline;
+    }
+
+    public void setPipeline(String pipeline) {
+        this.pipeline = pipeline;
+    }
 
     public int getBranchCircuit() {
         return branchCircuit;

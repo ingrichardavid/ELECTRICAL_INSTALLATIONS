@@ -59,6 +59,8 @@ public class ControllerArea implements ActionListener, KeyListener, WindowListen
     private static final Messages messages = Messages.getInstance();
     private Area area;
     private Calibers caliberFoundIluminaria,caliberFoundPowerPoint,caliberFoundSubFeeder,caliberFoundSubFeederNeutral;
+    private String caliberIluminariaPipeline, caliberPowerPointPipeline, caliberSubFeederPipeline;
+    private String materialCaliberIluminaria, materialCaliberPowerPoint, materialCaliberSubFeeder;
     private Breaker breakerFoundIluminaria,breakerFoundPorwerPoint,breakerFoundSubFeeder;
     private ResistanceReactance resistance,reactance;
     private char character;
@@ -143,7 +145,9 @@ public class ControllerArea implements ActionListener, KeyListener, WindowListen
                 (Duct)viewArea.getCmbDuctIluminaria().getSelectedItem(),
                 Double.valueOf(viewArea.getJspAngle().getValue().toString()),
                 caliberUseIluminaria,
-                branchCircuitIluminaria));
+                branchCircuitIluminaria,
+                caliberIluminariaPipeline,
+                materialCaliberIluminaria));
         areaIluminariaPowerPoints.add(new AreaIluminariaPowerPoint(
                 viewArea.getAreaIluminariaPowerPointsPowerPoint() != null ? viewArea.getAreaIluminariaPowerPointsPowerPoint().getCode() : 0,
                 new Area(0),
@@ -161,7 +165,9 @@ public class ControllerArea implements ActionListener, KeyListener, WindowListen
                 (Duct)viewArea.getCmbDuctPowerPoint().getSelectedItem(),
                 Double.valueOf(viewArea.getJspAnglePowerPoint().getValue().toString()),
                 caliberUsePowerPoint,
-                branchCircuitPowerPoint)); 
+                branchCircuitPowerPoint,
+                caliberPowerPointPipeline,
+                materialCaliberPowerPoint)); 
         areaIluminariaPowerPoints.add(new AreaIluminariaPowerPoint(
                 viewArea.getAreaSubFeeder() != null ? viewArea.getAreaSubFeeder().getCode() : 0,
                 new Area(0),
@@ -179,7 +185,9 @@ public class ControllerArea implements ActionListener, KeyListener, WindowListen
                 (Duct)viewArea.getCmbDuctSubFeeder().getSelectedItem(),
                 Double.valueOf(viewArea.getJspAngleSubFeeder().getValue().toString()),
                 caliberUseSubFeeder,
-                0));   
+                0,
+                caliberSubFeederPipeline,
+                materialCaliberSubFeeder));   
         areaIluminariaPowerPoints.add(new AreaIluminariaPowerPoint(
                 viewArea.getAreaSubFeederNeutral()!= null ? viewArea.getAreaSubFeederNeutral().getCode() : 0,
                 new Area(0),
@@ -197,7 +205,9 @@ public class ControllerArea implements ActionListener, KeyListener, WindowListen
                 (Duct)viewArea.getCmbDuctSubFeeder().getSelectedItem(),
                 Double.valueOf(viewArea.getJspAngleSubFeeder().getValue().toString()),
                 caliberUseSubFeederNeutral,
-                0));  
+                0,
+                caliberSubFeederPipeline,
+                materialCaliberSubFeeder));  
         return areaIluminariaPowerPoints;
     }//Fin del método
     
@@ -456,7 +466,14 @@ public class ControllerArea implements ActionListener, KeyListener, WindowListen
                             (Temperature)viewArea.getCmbTemperatureIlimunaria().getSelectedItem(), 
                             Double.valueOf(viewArea.getJspPowerFactor().getValue().toString()), 
                             viewArea.getCmbPhasesIluminaria().getSelectedIndex());                    
-                            
+                    
+                    caliberIluminariaPipeline = MethodsForCalculationsIluminariaPowerPoint.calculate_pipeline_iluminaria_powerPoint(
+                            new Caliber(caliberFoundIluminaria.getCaliber().getCode(), 0), 
+                            (Phase)viewArea.getCmbPhasesIluminaria().getSelectedItem(), 
+                            viewArea.getCmbPipelineIuminaria().getSelectedItem().toString());
+
+                    materialCaliberIluminaria = viewArea.getCmbPipelineIuminaria().getSelectedItem().toString();
+                    
                     intensityDesignFound = MethodsForCalculationsIluminariaPowerPoint.calculate_instensity_design(new Calibers(
                             0, 
                             (Material)viewArea.getCmbMaterialIluminaria().getSelectedItem(), 
@@ -480,7 +497,7 @@ public class ControllerArea implements ActionListener, KeyListener, WindowListen
                             Double.valueOf(viewArea.getJspPowerFactor().getValue().toString()), 
                             viewArea.getCmbPhasesIluminaria().getSelectedIndex(),
                             intensityDesignFound);
-
+                    
                     if (caliberFoundIluminaria == null){  
                         MessagesStructure.Warning(MessagesStructure.format(200, messages.getProperty(Messages.CALIBER_NO_FOUND), MessagesStructure.justify));
                     } else {
@@ -516,6 +533,13 @@ public class ControllerArea implements ActionListener, KeyListener, WindowListen
                             Double.valueOf(viewArea.getJspPowerFactorPowerPoint().getValue().toString()), 
                             viewArea.getCmbPhasesPowerPoint().getSelectedIndex());
                             
+                    caliberPowerPointPipeline = MethodsForCalculationsIluminariaPowerPoint.calculate_pipeline_iluminaria_powerPoint(
+                            new Caliber(caliberFoundPowerPoint.getCaliber().getCode(), 0), 
+                            (Phase)viewArea.getCmbPhasesPowerPoint().getSelectedItem(), 
+                            viewArea.getCmbPipelinePowerPoint().getSelectedItem().toString());
+                    
+                    materialCaliberPowerPoint = viewArea.getCmbPipelinePowerPoint().getSelectedItem().toString();
+                    
                     intensityDesignFound = MethodsForCalculationsIluminariaPowerPoint.calculate_instensity_design(new Calibers(
                             0, 
                             (Material)viewArea.getCmbMaterialPowerPoint().getSelectedItem(), 
@@ -584,7 +608,14 @@ public class ControllerArea implements ActionListener, KeyListener, WindowListen
                                 (Temperature)viewArea.getCmbTemperatureSubFeeder().getSelectedItem(), 
                                 Double.valueOf(viewArea.getJspPowerSubFeeder().getValue().toString()), 
                                 viewArea.getCmbPhasesSubFeeder().getSelectedIndex());
-                            
+                        
+                        caliberSubFeederPipeline = MethodsForCalculationsIluminariaPowerPoint.calculate_pipeline(
+                                new Caliber(caliberFoundSubFeeder.getCaliber().getCode(), 0), 
+                                new Caliber(caliberFoundSubFeederNeutral.getCaliber().getCode(), 0), 
+                                null, 
+                                (Phase)viewArea.getCmbPhasesSubFeeder().getSelectedItem(), 
+                                viewArea.getCmbPipelineSubFeeder().getSelectedItem().toString());
+                        
                         intensityDesignFound = MethodsForCalculationsIluminariaPowerPoint.calculate_instensity_design(new Calibers(
                                 0, 
                                 (Material)viewArea.getCmbMaterialSubFeeder().getSelectedItem(), 
@@ -709,6 +740,13 @@ public class ControllerArea implements ActionListener, KeyListener, WindowListen
                             viewArea.getLblBreakdownVoltage().setText(String.valueOf(breakdownVoltage) + " %");
                             caliberSelectedIluminaria = (Caliber)viewArea.getCmbCalibersIluminaria().getSelectedItem(); 
                             
+                            caliberIluminariaPipeline = MethodsForCalculationsIluminariaPowerPoint.calculate_pipeline_iluminaria_powerPoint(
+                                    new Caliber(caliberSelectedIluminaria.getCode(), 0), 
+                                    (Phase)viewArea.getCmbPhasesIluminaria().getSelectedItem(), 
+                                    viewArea.getCmbPipelineIuminaria().getSelectedItem().toString());
+                                                        
+                            materialCaliberSubFeeder = viewArea.getCmbPipelineSubFeeder().getSelectedItem().toString();
+                            
                             intensityDesignFound = MethodsForCalculationsIluminariaPowerPoint.calculate_instensity_design(new Calibers(
                                     0, 
                                     (Material)viewArea.getCmbMaterialIluminaria().getSelectedItem(), 
@@ -753,6 +791,11 @@ public class ControllerArea implements ActionListener, KeyListener, WindowListen
                                     Double.valueOf(viewArea.getJspAnglePowerPoint().getValue().toString()));
                             viewArea.getLblBreakdownVoltagePowerPoint().setText(String.valueOf(breakdownVoltage) + " %");
                             caliberSelectedPowerPoint = (Caliber)viewArea.getCmbCalibersPowerPoint().getSelectedItem(); 
+                            
+                            caliberPowerPointPipeline = MethodsForCalculationsIluminariaPowerPoint.calculate_pipeline_iluminaria_powerPoint(
+                                    new Caliber(caliberSelectedPowerPoint.getCode(), 0), 
+                                    (Phase)viewArea.getCmbPhasesPowerPoint().getSelectedItem(), 
+                                    viewArea.getCmbPipelinePowerPoint().getSelectedItem().toString());
                             
                             intensityDesignFound = MethodsForCalculationsIluminariaPowerPoint.calculate_instensity_design(new Calibers(
                                     0, 
@@ -826,6 +869,14 @@ public class ControllerArea implements ActionListener, KeyListener, WindowListen
                                     Double.valueOf(viewArea.getJspAngleSubFeeder().getValue().toString()));
                             viewArea.getLblBreakdownVoltageSubFeederNeutral().setText(String.valueOf(breakdownVoltage) + " %");
                             caliberSelectedSubFeederNeutral = (Caliber)viewArea.getCmbCalibersSubFeederNeutral().getSelectedItem();  
+                                            
+                            caliberSubFeederPipeline = MethodsForCalculationsIluminariaPowerPoint.calculate_pipeline(
+                                    new Caliber(caliberSelectedSubFeeder.getCode(), 0), 
+                                    new Caliber(caliberSelectedSubFeederNeutral.getCode(), 0), 
+                                    null, 
+                                    (Phase)viewArea.getCmbPhasesSubFeeder().getSelectedItem(), 
+                                    viewArea.getCmbPipelineSubFeeder().getSelectedItem().toString());
+                            
                             if (((Material)viewArea.getCmbMaterialSubFeeder().getSelectedItem()).getName().equals(TypeMaterials.COOPER.getMaterial())){                
                                 caliberUseSubFeeder = String.valueOf(MethodsForCalculationsGlobal1.number_of_calibers((Phase)viewArea.getCmbPhasesSubFeeder().getSelectedItem(), TypeCalibers.PHASE) + " #" + caliberSelectedSubFeeder.getName() + " Cu " + MethodsForCalculationsGlobal1.typeCaliber(typeCaliberSubFeeder,(Temperature)viewArea.getCmbTemperatureSubFeeder().getSelectedItem()) + " " + MethodsForCalculationsGlobal1.number_of_brakers((Phase)viewArea.getCmbPhasesSubFeeder().getSelectedItem(), breakerFoundSubFeeder.getCapacity()));
                                 caliberUseSubFeederNeutral = String.valueOf("1 Cable" + " #" + caliberSelectedSubFeederNeutral.getName() + " Cu " + MethodsForCalculationsGlobal1.typeCaliber(typeCaliberSubFeeder,(Temperature)viewArea.getCmbTemperatureSubFeeder().getSelectedItem()));
