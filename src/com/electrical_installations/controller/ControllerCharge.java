@@ -31,6 +31,7 @@ import com.electrical_installations.model.entity.masters.Voltage;
 import com.electrical_installations.model.enums.TypeCalibers;
 import com.electrical_installations.model.enums.TypeMaterials;
 import com.electrical_installations.model.enums.TypeOfBranchCircuitInArea;
+import com.electrical_installations.model.enums.TypePhase;
 import com.electrical_installations.model.enums.TypePhases;
 import com.electrical_installations.model.enums.TypeRush;
 import com.electrical_installations.model.enums.TypeSubTypeCharge;
@@ -297,7 +298,7 @@ public class ControllerCharge implements ActionListener, WindowListener , KeyLis
                                         0), 
                                 (Voltage)viewVoltageInCharge.getCmbVoltage().getSelectedItem(), 
                                 null,
-                                null));
+                                TypePhase.SINGLE_PHASE));
                 if (horsesPowersFound == null){
                     MessagesStructure.Warning(MessagesStructure.format(200, messages.getProperty(Messages.HORSES_POWER_INTENSITY_NO_FOUND), MessagesStructure.justify));
                 } else {

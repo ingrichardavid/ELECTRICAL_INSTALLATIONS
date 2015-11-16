@@ -68,8 +68,7 @@ public class InstallationMotorsImplDAO implements InstallationMotorsDAO {
      *  Metodo para insertar motores en la instalación.
      * @param installation_motors
      * @return Retorna un valor booleano.
-     */
- 
+     */ 
     @Override
     public boolean insert(InstallationMotors installation_motors) {                
         try {
