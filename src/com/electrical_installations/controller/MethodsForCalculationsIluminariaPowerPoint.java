@@ -141,6 +141,7 @@ public class MethodsForCalculationsIluminariaPowerPoint {
             intensity = calculateIntesityFinal(intensity(potencyInIluminaria(areaOrQuantityPowerPoint), voltage.getVoltage(), powerFactor, phase), currentLimitIluminaria);
             caliber = ServiceArea.find_caliber_iluminaria_power_point(new Calibers(0,material, temperature, new Intensity(0, null, intensity),null), roominessToCalculateCalibres);
             caliber.setBranchCircuit(calculateBranchCircuit(intensity(potencyInIluminaria(areaOrQuantityPowerPoint), voltage.getVoltage(), powerFactor, phase), currentLimitIluminaria));
+            caliber.setIntensity(new Intensity(0, null, intensity(potencyInIluminaria(areaOrQuantityPowerPoint), voltage.getVoltage(), powerFactor, phase)));
             
         } else if (type.equals(TypeOfBranchCircuitInArea.POWER_POINT)) {
             
@@ -356,8 +357,13 @@ public class MethodsForCalculationsIluminariaPowerPoint {
         } else if (phase.getName().equalsIgnoreCase(TypePhases.PHASE_FOUR_THREAD.getPhase())) {
             number_calibers = 3;
         }
-        total_area = (ServiceCaliber.find_area(caliberPhase) * number_calibers) + ServiceCaliber.find_area(caliberNeutral) + (caliberHeart == null ? 0 : ServiceCaliber.find_area(caliberHeart)); 
-        number_calibers = number_calibers + 1 + (caliberHeart == null ? 0 : 1);
+        if (caliberNeutral == null) {
+            total_area = (ServiceCaliber.find_area(caliberPhase) * number_calibers) + (caliberHeart == null ? 0 : ServiceCaliber.find_area(caliberHeart)); 
+            number_calibers = number_calibers + (caliberHeart == null ? 0 : 1);           
+        } else {        
+            total_area = (ServiceCaliber.find_area(caliberPhase) * number_calibers) + ServiceCaliber.find_area(caliberNeutral) + (caliberHeart == null ? 0 : ServiceCaliber.find_area(caliberHeart)); 
+            number_calibers = number_calibers + 1 + (caliberHeart == null ? 0 : 1);           
+        }        
         if (number_calibers > 2) {
             total_area = total_area / TypeOccupancyRate.FORTY.getPercentage();
             return "1 Φ " + (ServiceCaliber.find_pipeline(new Caliber(0, total_area), TypeOccupancyRate.FORTY)).getSize() + "\" " + materialPipeline; 

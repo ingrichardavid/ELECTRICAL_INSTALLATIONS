@@ -10,7 +10,6 @@ import com.electrical_installations.model.dao.ProjectDAO;
 import com.electrical_installations.model.entity.Project;
 import com.electrical_installations.model.entity.TypeOfInstallation;
 import com.electrical_installations.model.entity.User;
-import com.electrical_installations.model.query.ChargesInAreasQueries;
 import com.electrical_installations.model.query.ProjectQueries;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -138,7 +137,7 @@ public class ProjectImplDAO implements ProjectDAO{
             preparedStatement.setString(1, project.getName());
             result = preparedStatement.executeQuery();
             while(result.next()){
-                projectFound = new Project(result.getInt(1), null, new TypeOfInstallation(result.getInt(2), result.getString(3)), result.getString(4), result.getInt(5), result.getString(6));
+                projectFound = new Project(result.getInt(1), null, new TypeOfInstallation(result.getInt(2), result.getString(3)), result.getString(4), result.getInt(5), result.getString(6),null);
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -161,7 +160,7 @@ public class ProjectImplDAO implements ProjectDAO{
             preparedStatement.setInt(2, user.getDni());
             result = preparedStatement.executeQuery();
             while(result.next()){
-                projectsFound.add(new Project(result.getInt(1), null, new TypeOfInstallation(result.getInt(2), result.getString(3)), result.getString(4), result.getInt(5), result.getString(6)));
+                projectsFound.add(new Project(result.getInt(1), null, new TypeOfInstallation(result.getInt(2), result.getString(3)), result.getString(4), result.getInt(5), result.getString(6),null));
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -185,7 +184,7 @@ public class ProjectImplDAO implements ProjectDAO{
             preparedStatement.setString(3, "%"+ project.getName() +"%");
             result = preparedStatement.executeQuery();
             while(result.next()){
-                projectsFound.add(new Project(result.getInt(1), null, new TypeOfInstallation(result.getInt(2), result.getString(3)), result.getString(4), result.getInt(5), result.getString(6)));
+                projectsFound.add(new Project(result.getInt(1), null, new TypeOfInstallation(result.getInt(2), result.getString(3)), result.getString(4), result.getInt(5), result.getString(6),null));
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -209,7 +208,7 @@ public class ProjectImplDAO implements ProjectDAO{
             preparedStatement.setString(3, "%"+ project.getTypeOfInstallation().getName() +"%");
             result = preparedStatement.executeQuery();
             while(result.next()){
-                projectsFound.add(new Project(result.getInt(1), null, new TypeOfInstallation(result.getInt(2), result.getString(3)), result.getString(4), result.getInt(5), result.getString(6)));
+                projectsFound.add(new Project(result.getInt(1), null, new TypeOfInstallation(result.getInt(2), result.getString(3)), result.getString(4), result.getInt(5), result.getString(6),null));
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -270,19 +269,25 @@ public class ProjectImplDAO implements ProjectDAO{
         try {
             connection.getConexion().setAutoCommit(false);
             preparedStatement = connection.getConexion().prepareStatement(ProjectQueries.UPDATE_PROJECT_PHASE_EARTH_MOTOR);
+            System.out.println(project.getPhase_motor());
+            System.out.println(project.getEarth_motor());
+            System.out.println(project.getCode());
+            System.out.println(project.getTypeOfInstallation().getCode());
+            System.out.println(project.getPipeline_motor());
             preparedStatement.setString(1, project.getPhase_motor());
-            preparedStatement.setString(2, project.getEarth_motor());           
-            preparedStatement.setInt(3, project.getCode());
-            preparedStatement.setInt(4, project.getTypeOfInstallation().getCode());              
-            if (preparedStatement.executeUpdate() > 0){ 
-                preparedStatement.close();
-                preparedStatement = connection.getConexion().prepareStatement(ChargesInAreasQueries.UPDATE_MAIN_FEEDER_TYPE_CHARGE);
-                preparedStatement.setDouble(1, 0);
-                preparedStatement.setInt(2, 0); 
-                preparedStatement.setDouble(3, project.getIntensity_total());
-                preparedStatement.setInt(4, project.getCode());
-                preparedStatement.setInt(5, project.getTypeOfInstallation().getCode());
-                preparedStatement.setInt(6, 7);
+            preparedStatement.setString(2, project.getEarth_motor());  
+            preparedStatement.setString(3, project.getPipeline_motor());           
+            preparedStatement.setInt(4, project.getCode());
+            preparedStatement.setInt(5, project.getTypeOfInstallation().getCode()); 
+//            if (preparedStatement.executeUpdate() > 0){ 
+//                preparedStatement.close();
+//                preparedStatement = connection.getConexion().prepareStatement(ChargesInAreasQueries.UPDATE_MAIN_FEEDER_TYPE_CHARGE);
+//                preparedStatement.setDouble(1, 0);
+//                preparedStatement.setInt(2, 0); 
+//                preparedStatement.setDouble(3, project.getIntensity_total());
+//                preparedStatement.setInt(4, project.getCode());
+//                preparedStatement.setInt(5, project.getTypeOfInstallation().getCode());
+//                preparedStatement.setInt(6, 7);
                 if (preparedStatement.executeUpdate() > 0){ 
                     connection.getConexion().commit();
                     return true;
@@ -290,7 +295,7 @@ public class ProjectImplDAO implements ProjectDAO{
                     connection.getConexion().rollback();
                     return false;
                 }
-            }
+            //}
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {

@@ -6,6 +6,7 @@
 package com.electrical_installations.view;
 
 import com.electrical_installations.controller.ControllerLightingCircuit;
+import com.electrical_installations.model.entity.Project;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
@@ -23,7 +24,7 @@ public final class ViewLightingCircuit extends javax.swing.JDialog {
 
     //Objetos, variables, constantes
     private final ControllerLightingCircuit controllerLightingCircuit;
-
+    private Project project; 
     
     /**
      * Constructor de ViewArea, por ser subclase de JDialog recibe como parámetro el padre y true en caso de que sea modal.
@@ -33,7 +34,7 @@ public final class ViewLightingCircuit extends javax.swing.JDialog {
     public ViewLightingCircuit(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
-      
+         
             
         controllerLightingCircuit = new ControllerLightingCircuit(this);       
         controllerLightingCircuit.fill_combos_calibers();
@@ -44,6 +45,8 @@ public final class ViewLightingCircuit extends javax.swing.JDialog {
         controllerLightingCircuit.fill_combos_temperatures(); 
         
         btnClose.addActionListener(controllerLightingCircuit); 
+        btnCalculateCurrentCapacityLightingCircuit.addActionListener(controllerLightingCircuit);
+        btnCalculateBreakdownLightingCircuit.addActionListener(controllerLightingCircuit);
         btnRegister.addActionListener(controllerLightingCircuit); 
         btnCalculateCurrentCapacityLightingCircuit.addActionListener(controllerLightingCircuit);
         btnCalculateBreakdownLightingCircuit.addActionListener(controllerLightingCircuit);
@@ -56,6 +59,7 @@ public final class ViewLightingCircuit extends javax.swing.JDialog {
         
         this.txtName.requestFocus();
         this.setLocationRelativeTo(null);
+  
         
     }
     
@@ -79,10 +83,17 @@ public final class ViewLightingCircuit extends javax.swing.JDialog {
         this.btnClose.setEnabled(close);
     }//Fin del método
     
-          
- 
     
+
     //Getters y Setters
+    
+    public Project getProject() {
+        return project;
+    }
+ 
+    public void setProject(Project project) {
+        this.project = project;
+    }
 
     public JButton getBtnCalculateBreakdownLightingCircuit() {
         return btnCalculateBreakdownLightingCircuit;
@@ -297,7 +308,7 @@ public final class ViewLightingCircuit extends javax.swing.JDialog {
         jLabel58 = new javax.swing.JLabel();
         lblBranchCircuitLightingCircuit = new javax.swing.JLabel();
         jLabel59 = new javax.swing.JLabel();
-        cmbPipelineLightingCircuit = new javax.swing.JComboBox<>();
+        cmbPipelineLightingCircuit = new javax.swing.JComboBox<String>();
         jPanel15 = new javax.swing.JPanel();
         jLabel60 = new javax.swing.JLabel();
         cmbCalibersLightingCircuit = new javax.swing.JComboBox();
@@ -614,7 +625,7 @@ public final class ViewLightingCircuit extends javax.swing.JDialog {
         jPanel13.add(jLabel59, gridBagConstraints);
 
         cmbPipelineLightingCircuit.setFont(new java.awt.Font("DejaVu Sans", 0, 12)); // NOI18N
-        cmbPipelineLightingCircuit.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "EMT", "PVC" }));
+        cmbPipelineLightingCircuit.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "EMT", "PVC" }));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 6;
         gridBagConstraints.gridy = 8;

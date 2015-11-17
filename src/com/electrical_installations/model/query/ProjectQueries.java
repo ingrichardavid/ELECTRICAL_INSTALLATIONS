@@ -145,7 +145,7 @@ public class ProjectQueries {
     public static final String UPDATE_PROJECT_PHASE_EARTH_MOTOR = "UPDATE\n" +
                                                                     "	negocio.\"PROYECTO\"\n" +
                                                                     "SET \n" +
-                                                                    "	fase_motor=?, tierra_motor=?\n" +
+                                                                    "	fase_motor=?, tierra_motor=?, tuberia_motor=?\n" +
                                                                     "WHERE \n" +
                                                                     "	codigo = ? \n" +
                                                                     "AND \n" +

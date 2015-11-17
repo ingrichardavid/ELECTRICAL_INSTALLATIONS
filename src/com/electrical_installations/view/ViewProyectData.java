@@ -432,12 +432,14 @@ public class ViewProyectData extends javax.swing.JDialog {
         subMenuMotors.add(jSeparator4);
 
         btnLightingCircuit.setFont(new java.awt.Font("DejaVu Sans", 1, 14)); // NOI18N
+        btnLightingCircuit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/electrical_installations/resource/image/Iluminaria.png"))); // NOI18N
         btnLightingCircuit.setText("Circuito de Iluminación");
         btnLightingCircuit.setToolTipText("");
         subMenuMotors.add(btnLightingCircuit);
         subMenuMotors.add(jSeparator2);
 
         btnSubAlimentador.setFont(new java.awt.Font("DejaVu Sans", 1, 14)); // NOI18N
+        btnSubAlimentador.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/electrical_installations/resource/image/subAlimentador.png"))); // NOI18N
         btnSubAlimentador.setText("Sub-Alimentador");
         subMenuMotors.add(btnSubAlimentador);
 

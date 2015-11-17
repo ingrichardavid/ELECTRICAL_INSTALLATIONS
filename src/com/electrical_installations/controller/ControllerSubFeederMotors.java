@@ -50,6 +50,7 @@ public class ControllerSubFeederMotors implements ActionListener, WindowListener
     private CalibersHearth calibersHearthFound;
     private Breaker breakerPhaseFound;
     private TypeRush typeCaliber;
+    private String caliberPipeline;
     private static final Messages messages = Messages.getInstance();
     
     /**
@@ -118,8 +119,15 @@ public class ControllerSubFeederMotors implements ActionListener, WindowListener
             (Temperature)viewSubFeederMotors.getCmbTemperature().getSelectedItem());  
 
         calibersHearthFound = MethodsForCalculationsGlobal1.calculate_caliberHearth_dishwasherAndCrusher(viewSubFeederMotors.getIntensity().getIntensity());
-
-        breakerPhaseFound = MethodsForCalculationsGlobal1.find_braker_motors(viewSubFeederMotors.getIntensity().getIntensity());
+        
+        breakerPhaseFound = MethodsForCalculationsGlobal1.find_braker_motors(viewSubFeederMotors.getBreaker().getCapacity());
+        
+        caliberPipeline = MethodsForCalculationsIluminariaPowerPoint.calculate_pipeline(
+                            caliberPhaseFound.getCaliber(), 
+                            null, 
+                            calibersHearthFound.getCaliber(), 
+                            (Phase)viewSubFeederMotors.getCmbPhases().getSelectedItem(), 
+                            "EMT");
         
         if (caliberPhaseFound == null){
             MessagesStructure.Warning(MessagesStructure.format(200, messages.getProperty(Messages.CALIBER_NO_FOUND), MessagesStructure.justify));
@@ -147,7 +155,8 @@ public class ControllerSubFeederMotors implements ActionListener, WindowListener
                 new TypeOfInstallation(viewSubFeederMotors.getProject().getTypeOfInstallation().getCode(),null),
                 viewSubFeederMotors.getLblCaliberPhase().getText(),
                 viewSubFeederMotors.getLblCaliberEarth().getText(),
-                viewSubFeederMotors.getIntensity().getIntensity()))) { 
+                viewSubFeederMotors.getIntensity().getIntensity(),
+                caliberPipeline))) { 
                 viewSubFeederMotors.dispose();
             
         }          

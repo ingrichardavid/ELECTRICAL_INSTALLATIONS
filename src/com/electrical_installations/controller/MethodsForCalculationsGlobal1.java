@@ -243,9 +243,6 @@ public class MethodsForCalculationsGlobal1 {
      */
     public static Breaker find_breaker_subfeeder(double potency,Voltage voltage,Material material,double powerFactor,int phase, Intensity intensityDesign){
         //return ServiceBreaker.find_breaker_by_capacity(new Breaker(0, ((intensity(potency, voltage.getVoltage(), powerFactor, phase) * 0.2) + intensityDesign.getIntensity()) / 2));
-        System.out.println("INTENSIDAD: " + ((potency)/voltage.getVoltage()));
-        System.out.println("INTENSIDAD DE DISEÑO: " + intensityDesign.getIntensity());
-        System.out.println("RESULTADO: " + ((potency/voltage.getVoltage()) + intensityDesign.getIntensity()) / 2);
         return ServiceBreaker.find_breaker_by_capacity(new Breaker(0, ((potency/voltage.getVoltage()) + intensityDesign.getIntensity()) / 2));
     }//Fin del métdodo.
     

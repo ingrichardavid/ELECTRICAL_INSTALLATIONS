@@ -413,6 +413,11 @@ public class Messages {
      */
     public final static String MOTORES_DESCRIPTION_NO_FOUND = "MOTORES_DESCRIPTION_NO_FOUND";
     
+    //mensaje para circuito de iluminación
+    /**
+     * Por favor, calcule el conductor.
+     */
+    public final static String AREA_CONDUCTOR_LIGHTING_CIRCUIT_NO_FOUND = "AREA_CONDUCTOR_LIGHTING_CIRCUIT_NO_FOUND";
     
     /**
      * Constructor de la clase, es privado para cumplir con el patrón Singlenton.

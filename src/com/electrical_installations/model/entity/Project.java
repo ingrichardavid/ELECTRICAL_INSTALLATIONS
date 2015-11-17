@@ -23,6 +23,7 @@ public class Project {
     private double intensity_total;
     private String phase_motor;
     private String earth_motor;
+    private String pipeline_motor;
 
     /**
      * Constructor para la búsqueda de proyectos
@@ -42,6 +43,27 @@ public class Project {
         this.registration_date = registration_date;
     }//Fin del constructor
 
+    
+    /**
+     * Constructor para la inserción de cables del sub-alimentador de motores.
+     * @param code
+     * @param user
+     * @param typeOfInstallation
+     * @param name
+     * @param powerTotal
+     * @param registration_date 
+     * @param pipeline_motor 
+     */    
+    public Project(int code, User user, TypeOfInstallation typeOfInstallation, String name, int powerTotal, String registration_date, String pipeline_motor) {
+        this.code = code;
+        this.user = user;
+        this.typeOfInstallation = typeOfInstallation;
+        this.name = name;
+        this.powerTotal = powerTotal;
+        this.registration_date = registration_date;
+        this.pipeline_motor = pipeline_motor;
+    }//Fin del constructor
+    
     /**
      * Constructor para la creación y modificación de Proyectos
      * @param user
@@ -93,16 +115,26 @@ public class Project {
      * @param phase_motor
      * @param earth_motor 
      * @param intensity_total 
+     * @param pipeline_motor 
      */
-    public Project(int code, TypeOfInstallation typeOfInstallation, String phase_motor, String earth_motor, double intensity_total) {
+    public Project(int code, TypeOfInstallation typeOfInstallation, String phase_motor, String earth_motor, double intensity_total, String pipeline_motor) {
         this.code = code;
         this.typeOfInstallation = typeOfInstallation;
         this.phase_motor = phase_motor;
         this.earth_motor = earth_motor;
         this.intensity_total = intensity_total;
+        this.pipeline_motor = pipeline_motor;
     }//fin del constructor
     
     //Getters y Setters
+
+    public String getPipeline_motor() {
+        return pipeline_motor;
+    }
+
+    public void setPipeline_motor(String pipeline_motor) {
+        this.pipeline_motor = pipeline_motor;
+    }
     
     public String getPhase_motor() {    
         return phase_motor;

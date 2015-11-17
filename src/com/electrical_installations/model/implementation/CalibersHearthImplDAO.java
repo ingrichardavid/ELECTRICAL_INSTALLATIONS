@@ -71,7 +71,7 @@ public class CalibersHearthImplDAO implements CalibersHearthDAO {
             preparedStatement.setDouble(1, calibersHearth.getIntensity().getIntensity());
             result = preparedStatement.executeQuery();
             while (result.next()) {
-                calibersHearthFound = new CalibersHearth(0, null, new Caliber(0, result.getString(5)), null);
+                calibersHearthFound = new CalibersHearth(0, null, new Caliber(result.getInt(4), result.getString(5)), null);
             }
         } catch (Exception e) {
         } finally {
