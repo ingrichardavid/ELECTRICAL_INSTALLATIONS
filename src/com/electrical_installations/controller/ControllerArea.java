@@ -216,7 +216,7 @@ public class ControllerArea implements ActionListener, KeyListener, WindowListen
      */
     private void area_registration() {
         if (validate_fields()) {
-            if (ServiceArea.create_area(new Area(
+            if (ServiceArea.create_area(new Area( 
                     0, 
                     viewArea.getTxtName().getText(), 
                     new Project(
@@ -228,12 +228,10 @@ public class ControllerArea implements ActionListener, KeyListener, WindowListen
                             null, 
                             0, 
                             null), 
-                    MethodsForCalculationsIluminariaPowerPoint.potencyInIluminariaAndPowerPoint(
-                            MethodsForCalculationsIluminariaPowerPoint.potencyInIluminaria(Double.valueOf(viewArea.getJspArea().getValue().toString())),
-                            MethodsForCalculationsIluminariaPowerPoint.potencyInPowerPoint(Integer.valueOf(viewArea.getTxtQuantityPowerPoint().getValue().toString()))),                      
-                    MethodsForCalculationsIluminariaPowerPoint.potencyInIluminariaAndPowerPoint(
-                            MethodsForCalculationsIluminariaPowerPoint.potencyInIluminaria(Double.valueOf(viewArea.getJspArea().getValue().toString())),
-                            MethodsForCalculationsIluminariaPowerPoint.potencyInPowerPoint(Integer.valueOf(viewArea.getTxtQuantityPowerPoint().getValue().toString()))), 
+                    MethodsForCalculationsIluminariaPowerPoint.potencyInIluminaria(Double.valueOf(viewArea.getJspArea().getValue().toString())) +
+                            MethodsForCalculationsIluminariaPowerPoint.potencyInPowerPoint(Integer.valueOf(viewArea.getTxtQuantityPowerPoint().getValue().toString())),                      
+                    MethodsForCalculationsIluminariaPowerPoint.potencyInIluminaria(Double.valueOf(viewArea.getJspArea().getValue().toString())) +
+                            MethodsForCalculationsIluminariaPowerPoint.potencyInPowerPoint(Integer.valueOf(viewArea.getTxtQuantityPowerPoint().getValue().toString())), 
                     Integer.valueOf(viewArea.getJspQuantity().getValue().toString())),fill_area_iluminaria_powerPoint())){            
                 viewArea.dispose();
             }

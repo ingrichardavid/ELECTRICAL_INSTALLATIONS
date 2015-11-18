@@ -1338,6 +1338,9 @@
                     </Component>
                     <Component class="javax.swing.JLabel" name="jLabel46">
                       <Properties>
+                        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                          <Font name="DejaVu Sans" size="12" style="1"/>
+                        </Property>
                         <Property name="text" type="java.lang.String" value="Tuber&#xed;a:"/>
                       </Properties>
                       <Constraints>
@@ -1348,6 +1351,9 @@
                     </Component>
                     <Component class="javax.swing.JComboBox" name="cmbPipelineIuminaria">
                       <Properties>
+                        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                          <Font name="DejaVu Sans" size="12" style="0"/>
+                        </Property>
                         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
                           <StringArray count="2">
                             <StringItem index="0" value="EMT"/>
@@ -4935,6 +4941,9 @@
                     </Component>
                     <Component class="javax.swing.JLabel" name="jLabel48">
                       <Properties>
+                        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                          <Font name="DejaVu Sans" size="12" style="1"/>
+                        </Property>
                         <Property name="text" type="java.lang.String" value="Tuber&#xed;a:"/>
                       </Properties>
                       <Constraints>
@@ -4945,6 +4954,9 @@
                     </Component>
                     <Component class="javax.swing.JComboBox" name="cmbPipelinePowerPoint">
                       <Properties>
+                        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                          <Font name="DejaVu Sans" size="12" style="0"/>
+                        </Property>
                         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
                           <StringArray count="2">
                             <StringItem index="0" value="EMT"/>
@@ -8542,6 +8554,9 @@
                     </Component>
                     <Component class="javax.swing.JLabel" name="jLabel49">
                       <Properties>
+                        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                          <Font name="DejaVu Sans" size="12" style="1"/>
+                        </Property>
                         <Property name="text" type="java.lang.String" value="Tuber&#xed;a:"/>
                       </Properties>
                       <Constraints>
@@ -8552,6 +8567,9 @@
                     </Component>
                     <Component class="javax.swing.JComboBox" name="cmbPipelineSubFeeder">
                       <Properties>
+                        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                          <Font name="DejaVu Sans" size="12" style="0"/>
+                        </Property>
                         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
                           <StringArray count="2">
                             <StringItem index="0" value="EMT"/>

@@ -15,6 +15,8 @@ import com.electrical_installations.model.entity.User;
 import com.electrical_installations.model.service.ServiceProject;
 import com.electrical_installations.model.service.ServiceTypeOfInstallation;
 import com.electrical_installations.view.Session;
+import com.electrical_installations.view.ViewCalculateIntensityMotors;
+import com.electrical_installations.view.ViewMainFeeder;
 import com.electrical_installations.view.ViewProject;
 import com.electrical_installations.view.ViewProyectData;
 import com.electrical_installations.view.ViewUser;
@@ -51,7 +53,7 @@ public class ControllerProject implements ActionListener, KeyListener, ChangeLis
     private char character;
     private Project project;
     private List<Project> projects;
-    private TypeOfInstallation typeOfInstallation;
+    private TypeOfInstallation typeOfInstallation; 
     
     /**
      * Constructor de la clase, recibe un objeto ViewProject1
@@ -266,11 +268,11 @@ public class ControllerProject implements ActionListener, KeyListener, ChangeLis
     
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (e.getSource().equals(viewProject.getBtnUser())){            
+        if (e.getSource().equals(viewProject.getBtnUser())){   
             viewUser = new ViewUser(viewProject, true);
             viewUser.setVisible(true);
         } else if (e.getSource().equals(viewProject.getBtnExit())){
-            if (MessagesStructure.ConfirmationMessage(MessagesStructure.format(100, messages.getProperty(Messages.LOG_OUT), MessagesStructure.justify)) == 0){        
+               if (MessagesStructure.ConfirmationMessage(MessagesStructure.format(100, messages.getProperty(Messages.LOG_OUT), MessagesStructure.justify)) == 0){        
                  new Control().closeApp();           
                 System.exit(0);
             } else {

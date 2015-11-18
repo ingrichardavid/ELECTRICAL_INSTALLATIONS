@@ -506,7 +506,7 @@ public class ViewCharge extends javax.swing.JDialog {
         jLabel19 = new javax.swing.JLabel();
         jspQuantity = new javax.swing.JSpinner();
         jLabel18 = new javax.swing.JLabel();
-        cmbPipeline = new javax.swing.JComboBox<>();
+        cmbPipeline = new javax.swing.JComboBox<String>();
         jPanel8 = new javax.swing.JPanel();
         jLabel12 = new javax.swing.JLabel();
         cmbCaliber = new javax.swing.JComboBox();
@@ -830,6 +830,7 @@ public class ViewCharge extends javax.swing.JDialog {
         gridBagConstraints.insets = new java.awt.Insets(10, 12, 0, 0);
         jPanel4.add(jspQuantity, gridBagConstraints);
 
+        jLabel18.setFont(new java.awt.Font("DejaVu Sans", 1, 12)); // NOI18N
         jLabel18.setText("Tubería:");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
@@ -837,7 +838,8 @@ public class ViewCharge extends javax.swing.JDialog {
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         jPanel4.add(jLabel18, gridBagConstraints);
 
-        cmbPipeline.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "EMT", "PVC" }));
+        cmbPipeline.setFont(new java.awt.Font("DejaVu Sans", 0, 12)); // NOI18N
+        cmbPipeline.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "EMT", "PVC" }));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 3;
         gridBagConstraints.gridy = 7;

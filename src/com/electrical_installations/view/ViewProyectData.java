@@ -49,6 +49,22 @@ public class ViewProyectData extends javax.swing.JDialog {
         for (int i = 0; i < tblArea.getColumnCount(); i++) {
             tblArea.getColumnModel().getColumn(i).setPreferredWidth(anchos[i]);
         }
+        
+        //Tabla de Alimentador Principal
+        tblInstallationMainFeeder.getTableHeader().setFont(fuente);
+        tblInstallationMainFeeder.getColumnModel().getColumn(0).setMaxWidth(0);
+        tblInstallationMainFeeder.getColumnModel().getColumn(0).setMinWidth(0);
+        tblInstallationMainFeeder.getColumnModel().getColumn(0).setPreferredWidth(0);
+        tblInstallationMainFeeder.getColumnModel().getColumn(1).setMaxWidth(0);
+        tblInstallationMainFeeder.getColumnModel().getColumn(1).setMinWidth(0);
+        tblInstallationMainFeeder.getColumnModel().getColumn(1).setPreferredWidth(0); 
+        tblInstallationMainFeeder.getColumnModel().getColumn(2).setMaxWidth(0);
+        tblInstallationMainFeeder.getColumnModel().getColumn(2).setMinWidth(0);
+        tblInstallationMainFeeder.getColumnModel().getColumn(2).setPreferredWidth(0);  
+        int[] anchos2 = {0, 0, 0, 100, 20, 20, 20};
+        for (int i = 0; i < tblInstallationMainFeeder.getColumnCount(); i++) {
+            tblInstallationMainFeeder.getColumnModel().getColumn(i).setPreferredWidth(anchos2[i]);
+        }
 
         //Tabla de Cargas Eléctricas asignadas a Áreas
         tblAreasCharges.getTableHeader().setFont(fuente);
@@ -67,9 +83,9 @@ public class ViewProyectData extends javax.swing.JDialog {
         tblAreasCharges.getColumnModel().getColumn(7).setMaxWidth(0);
         tblAreasCharges.getColumnModel().getColumn(7).setMinWidth(0);
         tblAreasCharges.getColumnModel().getColumn(7).setPreferredWidth(0); 
-        int[] anchos2 = {0, 0, 100, 30, 45, 0, 0, 0};
+        int[] anchos3 = {0, 0, 100, 30, 45, 0, 0, 0};
         for (int i = 0; i < tblAreasCharges.getColumnCount(); i++) {
-            tblAreasCharges.getColumnModel().getColumn(i).setPreferredWidth(anchos2[i]);
+            tblAreasCharges.getColumnModel().getColumn(i).setPreferredWidth(anchos3[i]);
         }
 
         //Tabla Motores en la Instalación 
@@ -83,6 +99,8 @@ public class ViewProyectData extends javax.swing.JDialog {
         }
         
         controllerProjectData = new ControllerProjectData(this);
+        
+        this.btnCalculateMainFeeder.addActionListener(controllerProjectData);
         this.btnSubAlimentador.addActionListener(controllerProjectData);
         this.btnLightingCircuit.addActionListener(controllerProjectData);
         this.btnNew.addActionListener(controllerProjectData);
@@ -93,11 +111,12 @@ public class ViewProyectData extends javax.swing.JDialog {
         this.btnAddCharge.addActionListener(controllerProjectData);
         this.btnDeleteChargesInAreas.addActionListener(controllerProjectData);
         this.btnAddInstallationEngines.addActionListener(controllerProjectData);
-        this.txtFindAreas.addKeyListener(controllerProjectData);        
+        this.txtFindAreas.addKeyListener(controllerProjectData);    
+        this.txtFindMainFeeder.addKeyListener(controllerProjectData);
         this.txtFindAreasCharge.addKeyListener(controllerProjectData); 
         this.txtFindInstallationEngines.addKeyListener(controllerProjectData);        
         this.tblArea.addMouseListener(controllerProjectData);
-        this.tblAreasCharges.addMouseListener(controllerProjectData);
+        this.tblAreasCharges.addMouseListener(controllerProjectData); 
         this.txtFindInstallationEngines.addKeyListener(controllerProjectData);
         this.btnDeleteInstallationMotor.addActionListener(controllerProjectData);
         this.addWindowListener(controllerProjectData);
@@ -122,8 +141,34 @@ public class ViewProyectData extends javax.swing.JDialog {
         this.lblPowerTotal.setText(String.valueOf(project.getPowerTotal()));
     }//Fin del método 
         
+    
+    
     //Getters y Setters  
 
+    public JMenuItem getBtnCalculateMainFeeder() {
+        return btnCalculateMainFeeder;
+    }
+
+    public void setBtnCalculateMainFeeder(JMenuItem btnCalculateMainFeeder) {
+        this.btnCalculateMainFeeder = btnCalculateMainFeeder;
+    } 
+    
+    public JTable getTblInstallationMainFeeder() {
+        return tblInstallationMainFeeder;
+    }
+
+    public void setTblInstallationMainFeeder(JTable tblInstallationMainFeeder) {
+        this.tblInstallationMainFeeder = tblInstallationMainFeeder;
+    }
+
+    public JTextField getTxtFindMainFeeder() {
+        return txtFindMainFeeder;
+    }
+
+    public void setTxtFindMainFeeder(JTextField txtFindMainFeeder) {
+        this.txtFindMainFeeder = txtFindMainFeeder;
+    }
+    
     public JMenuItem getBtnAddCharge() {
         return btnAddCharge;
     }
@@ -368,6 +413,8 @@ public class ViewProyectData extends javax.swing.JDialog {
         btnAddCharges = new javax.swing.JMenuItem();
         subMenuChargesInAreas = new javax.swing.JPopupMenu();
         btnDeleteChargesInAreas = new javax.swing.JMenuItem();
+        subMenuMainFeeder = new javax.swing.JPopupMenu();
+        btnCalculateMainFeeder = new javax.swing.JMenuItem();
         jPanel1 = new javax.swing.JPanel();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel2 = new javax.swing.JPanel();
@@ -405,6 +452,13 @@ public class ViewProyectData extends javax.swing.JDialog {
         jScrollPane1 = new javax.swing.JScrollPane();
         tblInstallationEngines = new javax.swing.JTable();
         btnAddInstallationEngines = new javax.swing.JButton();
+        jPanelMainFeeder = new javax.swing.JPanel();
+        jPanel12 = new javax.swing.JPanel();
+        jPanel14 = new javax.swing.JPanel();
+        jLabel13 = new javax.swing.JLabel();
+        txtFindMainFeeder = new javax.swing.JTextField();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        tblInstallationMainFeeder = new javax.swing.JTable();
         jPanel4 = new javax.swing.JPanel();
         btnClose = new javax.swing.JButton();
 
@@ -452,6 +506,10 @@ public class ViewProyectData extends javax.swing.JDialog {
         btnDeleteChargesInAreas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/electrical_installations/resource/image/eliminar.png"))); // NOI18N
         btnDeleteChargesInAreas.setText("Eliminar");
         subMenuChargesInAreas.add(btnDeleteChargesInAreas);
+
+        btnCalculateMainFeeder.setFont(new java.awt.Font("DejaVu Sans", 1, 14)); // NOI18N
+        btnCalculateMainFeeder.setText("Calcular Alimentador Principal");
+        subMenuMainFeeder.add(btnCalculateMainFeeder);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(900, 600));
@@ -870,6 +928,90 @@ public class ViewProyectData extends javax.swing.JDialog {
 
         jTabbedPane2.addTab("Motores", jPanelElevadores);
 
+        jPanelMainFeeder.setLayout(new java.awt.GridBagLayout());
+
+        jPanel12.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Alimentador Principal", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("DejaVu Sans", 1, 12))); // NOI18N
+        jPanel12.setLayout(new java.awt.GridBagLayout());
+
+        jPanel14.setLayout(new java.awt.GridBagLayout());
+
+        jLabel13.setFont(new java.awt.Font("DejaVu Sans", 1, 12)); // NOI18N
+        jLabel13.setText("Buscar:");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
+        gridBagConstraints.insets = new java.awt.Insets(0, 0, 5, 0);
+        jPanel14.add(jLabel13, gridBagConstraints);
+
+        txtFindMainFeeder.setFont(new java.awt.Font("DejaVu Sans", 0, 12)); // NOI18N
+        txtFindMainFeeder.setDisabledTextColor(new java.awt.Color(0, 0, 0));
+        txtFindMainFeeder.setMinimumSize(new java.awt.Dimension(300, 22));
+        txtFindMainFeeder.setPreferredSize(new java.awt.Dimension(300, 22));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(0, 0, 5, 0);
+        jPanel14.add(txtFindMainFeeder, gridBagConstraints);
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
+        jPanel12.add(jPanel14, gridBagConstraints);
+
+        tblInstallationMainFeeder.setFont(new java.awt.Font("DejaVu Sans", 0, 12)); // NOI18N
+        tblInstallationMainFeeder.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Proyecto Codigo", "Proyecto Tipo", "Tipo Carga Codigo", "Carga", "Potencia", "Intensidad", "Cantidad"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.String.class, java.lang.Double.class, java.lang.Double.class, java.lang.Integer.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        tblInstallationMainFeeder.setComponentPopupMenu(subMenuMainFeeder);
+        tblInstallationMainFeeder.getTableHeader().setReorderingAllowed(false);
+        jScrollPane2.setViewportView(tblInstallationMainFeeder);
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.weighty = 1.0;
+        jPanel12.add(jScrollPane2, gridBagConstraints);
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.weighty = 1.0;
+        jPanelMainFeeder.add(jPanel12, gridBagConstraints);
+
+        jTabbedPane2.addTab("Alimentador Principal", jPanelMainFeeder);
+
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 1;
@@ -911,6 +1053,7 @@ public class ViewProyectData extends javax.swing.JDialog {
     private javax.swing.JMenuItem btnAddCharge;
     private javax.swing.JMenuItem btnAddCharges;
     private javax.swing.JButton btnAddInstallationEngines;
+    private javax.swing.JMenuItem btnCalculateMainFeeder;
     private javax.swing.JButton btnClose;
     private javax.swing.JMenuItem btnDelete;
     private javax.swing.JMenuItem btnDeleteChargesInAreas;
@@ -922,13 +1065,16 @@ public class ViewProyectData extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel11;
+    private javax.swing.JPanel jPanel12;
     private javax.swing.JPanel jPanel13;
+    private javax.swing.JPanel jPanel14;
     private javax.swing.JPanel jPanel15;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
@@ -939,7 +1085,9 @@ public class ViewProyectData extends javax.swing.JDialog {
     private javax.swing.JPanel jPanel9;
     private javax.swing.JPanel jPanelConfigArea;
     private javax.swing.JPanel jPanelElevadores;
+    private javax.swing.JPanel jPanelMainFeeder;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JPopupMenu.Separator jSeparator1;
@@ -956,12 +1104,15 @@ public class ViewProyectData extends javax.swing.JDialog {
     private javax.swing.JPopupMenu subMenu;
     private javax.swing.JPopupMenu subMenuCharges;
     private javax.swing.JPopupMenu subMenuChargesInAreas;
+    private javax.swing.JPopupMenu subMenuMainFeeder;
     private javax.swing.JPopupMenu subMenuMotors;
     private javax.swing.JTable tblArea;
     private javax.swing.JTable tblAreasCharges;
     private javax.swing.JTable tblInstallationEngines;
+    private javax.swing.JTable tblInstallationMainFeeder;
     private javax.swing.JTextField txtFindAreas;
     private javax.swing.JTextField txtFindAreasCharge;
     private javax.swing.JTextField txtFindInstallationEngines;
+    private javax.swing.JTextField txtFindMainFeeder;
     // End of variables declaration//GEN-END:variables
 }

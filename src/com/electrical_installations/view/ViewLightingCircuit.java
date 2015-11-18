@@ -47,9 +47,7 @@ public final class ViewLightingCircuit extends javax.swing.JDialog {
         btnClose.addActionListener(controllerLightingCircuit); 
         btnCalculateCurrentCapacityLightingCircuit.addActionListener(controllerLightingCircuit);
         btnCalculateBreakdownLightingCircuit.addActionListener(controllerLightingCircuit);
-        btnRegister.addActionListener(controllerLightingCircuit); 
-        btnCalculateCurrentCapacityLightingCircuit.addActionListener(controllerLightingCircuit);
-        btnCalculateBreakdownLightingCircuit.addActionListener(controllerLightingCircuit);
+        btnRegister.addActionListener(controllerLightingCircuit);  
         rBtnAirLightingCircuit.addChangeListener(controllerLightingCircuit);
         rBtnGroundLightingCircuit.addChangeListener(controllerLightingCircuit);
         cmbPhasesLightingCircuit.addActionListener(controllerLightingCircuit);

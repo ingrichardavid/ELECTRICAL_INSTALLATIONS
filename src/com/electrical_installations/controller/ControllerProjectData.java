@@ -13,6 +13,7 @@ import com.electrical_installations.model.entity.Charge;
 import com.electrical_installations.model.entity.ChargesInAreas;
 import com.electrical_installations.model.entity.InstallationMotors;
 import com.electrical_installations.model.entity.LightingCircuit;
+import com.electrical_installations.model.entity.MainFeeder;
 import com.electrical_installations.model.entity.Project;
 import com.electrical_installations.model.entity.TypeCharges;
 import com.electrical_installations.model.entity.TypeOfInstallation;
@@ -26,12 +27,14 @@ import com.electrical_installations.model.service.ServiceArea;
 import com.electrical_installations.model.service.ServiceChargesInAreas;
 import com.electrical_installations.model.service.ServiceInstallationMotors;
 import com.electrical_installations.model.service.ServiceLightingCircuit;
+import com.electrical_installations.model.service.ServiceMainFeeder;
 import com.electrical_installations.view.ViewAddMotor;
 import com.electrical_installations.view.ViewAddMotorToInstallation;
 import com.electrical_installations.view.ViewArea;
 import com.electrical_installations.view.ViewProyectData;
 import com.electrical_installations.view.ViewCharge;
 import com.electrical_installations.view.ViewLightingCircuit;
+import com.electrical_installations.view.ViewMainFeeder;
 import com.electrical_installations.view.ViewSubFeederMotors;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -59,11 +62,13 @@ public class ControllerProjectData implements ActionListener, WindowListener, Ke
     private ViewCharge viewCharge;
     private ViewLightingCircuit viewLightingCircuit;
     private ViewAddMotorToInstallation viewAddElevatorToInstallation;
+    private ViewMainFeeder viewMainFeeder;
     private ViewSubFeederMotors viewSubFeederMotors;
     private ViewAddMotor  viewAddMotor;
     private Area area;
     private List<Charge> charges;
     private List<Area> areas;
+    private List<MainFeeder> mainFeeder;
     private List<InstallationMotors> installationMotors;
     private List<LightingCircuit> lightingCircuits;
     private List<ChargesInAreas> chargesInAreas;
@@ -79,12 +84,22 @@ public class ControllerProjectData implements ActionListener, WindowListener, Ke
     }//Fin del constructor 
     
     /**
+     * Método para llamar a la vista ViewMainFeeder
+     */
+    private void newMainFeeder(){
+        viewMainFeeder = new ViewMainFeeder(null, true);
+        
+        viewMainFeeder.setVisible(true);
+    }//fin del método
+    
+    /**
      * Método para llamar a la vista ViewLightingCircuit
      */
     private void newViewLightingCircuit(){
         viewLightingCircuit = new ViewLightingCircuit(null, true);
         viewLightingCircuit.setProject(new Project(viewProjectData.getProjectCode(), new TypeOfInstallation(viewProjectData.getType_installation_code(), null), 0));
         viewLightingCircuit.setVisible(true);
+        this.fill_installation_motors();
     }//fin del Método 
     
     
@@ -239,10 +254,40 @@ public class ControllerProjectData implements ActionListener, WindowListener, Ke
                 null,
                 null));
         
-        if (installationMotors != null) {
-            Methods.removeRows(viewProjectData.getTblInstallationEngines());
-            for (InstallationMotors installation_Motors : installationMotors) {
-                 Object[] data = {installation_Motors.getCode(),installation_Motors.getDescription(),installation_Motors.getTypePhase().getPhase(),installation_Motors.getHorse_power(),installation_Motors.getIntensity(),installation_Motors.getBreaker(),installation_Motors.getQuantity()};
+        lightingCircuits = ServiceLightingCircuit.find_lightingCircuits_filter_name(new LightingCircuit(
+                0, 
+                new Project(
+                      viewProjectData.getProjectCode(), 
+                      null, 
+                      new TypeOfInstallation(viewProjectData.getType_installation_code(), 
+                              null), 
+                      null, 
+                      0, 
+                      null), 
+                null, 
+                null, 
+                viewProjectData.getTxtFindInstallationEngines().getText(), 
+                0));
+           
+        if (installationMotors != null && lightingCircuits != null){            
+            Methods.removeRows(viewProjectData.getTblInstallationEngines());  
+            
+            for (InstallationMotors installation_Motors : installationMotors) { 
+                Object[] data = {installation_Motors.getCode(),installation_Motors.getDescription(),installation_Motors.getTypePhase().getPhase(),installation_Motors.getHorse_power(),installation_Motors.getIntensity(),installation_Motors.getBreaker(),installation_Motors.getQuantity()};
+                ((DefaultTableModel) viewProjectData.getTblInstallationEngines().getModel()).addRow(data);
+            }   
+            for (LightingCircuit lightingCircuit: lightingCircuits) {
+                Object[] data = {lightingCircuit.getCode(),lightingCircuit.getDescription(),TypePhase.THREE_PHASE.getPhase(),null,lightingCircuit.getIntensity_total(),null,null};   
+                ((DefaultTableModel) viewProjectData.getTblInstallationEngines().getModel()).addRow(data);
+            }
+        } else if(installationMotors != null ){
+              for (InstallationMotors installation_Motors : installationMotors) { 
+                Object[] data = {installation_Motors.getCode(),installation_Motors.getDescription(),installation_Motors.getTypePhase().getPhase(),installation_Motors.getHorse_power(),installation_Motors.getIntensity(),installation_Motors.getBreaker(),installation_Motors.getQuantity()};
+                ((DefaultTableModel) viewProjectData.getTblInstallationEngines().getModel()).addRow(data);
+            }
+        }else if(lightingCircuits != null){
+            for (LightingCircuit lightingCircuit: lightingCircuits) {
+                Object[] data = {lightingCircuit.getCode(),lightingCircuit.getDescription(),TypePhase.THREE_PHASE.getPhase(),null,lightingCircuit.getIntensity_total(),null,null};   
                 ((DefaultTableModel) viewProjectData.getTblInstallationEngines().getModel()).addRow(data);
             }
         }
@@ -262,6 +307,49 @@ public class ControllerProjectData implements ActionListener, WindowListener, Ke
             }
         }
     }//Fin del método
+    
+    
+ 
+     /**
+     * Método para llenar tabla Alimentador principal.
+     */
+    public void fill_main_feeder(){
+        mainFeeder = ServiceMainFeeder.find_mainFeeder(new MainFeeder(
+                new Project(viewProjectData.getProjectCode(), new TypeOfInstallation(viewProjectData.getType_installation_code(), null), 0),
+                null,
+                0,
+                0,
+                0));
+      
+        if (mainFeeder != null){            
+            Methods.removeRows(viewProjectData.getTblInstallationMainFeeder());  
+            for (MainFeeder main_feeder_data : mainFeeder) {
+                Object[] data = {main_feeder_data.getProject().getCode(),main_feeder_data.getProject().getTypeOfInstallation().getCode(),main_feeder_data.getCharge().getCode(),main_feeder_data.getCharge().getName(),Methods.round(main_feeder_data.getPotency(), 5),Methods.round(main_feeder_data.getIntensity(), 5),main_feeder_data.getQuantity()};
+                ((DefaultTableModel) viewProjectData.getTblInstallationMainFeeder().getModel()).addRow(data); 
+            } 
+        }
+    }//Fin del método 
+    
+         /**
+     * Método para llenar tabla Alimentador principal filtrado por nombre.
+     * @param name
+     */
+    public void fill_main_feeder_filter_by_name(String name){
+        mainFeeder = ServiceMainFeeder.find_mainFeeder_filter_by_name(new MainFeeder(
+                new Project(viewProjectData.getProjectCode(), new TypeOfInstallation(viewProjectData.getType_installation_code(), null), 0),
+                new Charge(0, name),
+                0,
+                0,
+                0));
+      
+        if (mainFeeder != null){            
+            Methods.removeRows(viewProjectData.getTblInstallationMainFeeder());  
+            for (MainFeeder main_feeder_data : mainFeeder) {
+                Object[] data = {main_feeder_data.getProject().getCode(),main_feeder_data.getProject().getTypeOfInstallation().getCode(),main_feeder_data.getCharge().getCode(),main_feeder_data.getCharge().getName(),Methods.round(main_feeder_data.getPotency(), 5),Methods.round(main_feeder_data.getIntensity(), 5),main_feeder_data.getQuantity()};
+                ((DefaultTableModel) viewProjectData.getTblInstallationMainFeeder().getModel()).addRow(data); 
+            } 
+        }
+    }//Fin del método 
     
     /**
      * Método para llenar tabla cargas en áreas.
@@ -602,11 +690,14 @@ public class ControllerProjectData implements ActionListener, WindowListener, Ke
             calculate_sub_feeder(); 
         } else if(e.getSource().equals(viewProjectData.getBtnLightingCircuit())){
             newViewLightingCircuit();
+        } else if(e.getSource().equals(viewProjectData.getBtnCalculateMainFeeder())){
+            newMainFeeder();
         }
     }
 
     @Override
     public void windowOpened(WindowEvent e) {
+        fill_main_feeder();
     }
 
     @Override
@@ -673,7 +764,9 @@ public class ControllerProjectData implements ActionListener, WindowListener, Ke
             this.fill_table_charges_in_area(viewProjectData.getTxtFindAreasCharge().getText());
         }  else if (e.getSource().equals(viewProjectData.getTxtFindInstallationEngines())){
             this.fill_installation_motors_filter_name();
-        } 
+        } else if(e.getSource().equals(viewProjectData.getTxtFindMainFeeder())){
+             this.fill_main_feeder_filter_by_name(viewProjectData.getTxtFindMainFeeder().getText()); 
+        }
     }
 
     @Override

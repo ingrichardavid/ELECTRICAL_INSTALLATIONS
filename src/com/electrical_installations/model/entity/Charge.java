@@ -50,6 +50,18 @@ public class Charge {
     public Charge(String name){
         this.name = name;
     }//Fin del constructor
+
+    /**
+     * Constructor para Alimentador Principal.
+     * @param code
+     * @param name 
+     */
+    public Charge(int code, String name) {
+        this.code = code;
+        this.name = name;
+    }
+    
+    
         
     //Getters y Setters
 

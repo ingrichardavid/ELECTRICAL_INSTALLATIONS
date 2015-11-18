@@ -109,7 +109,7 @@ public class ChargesInAreasImplDAO implements ChargesInAreasDAO{
                             preparedStatement.setDouble(3, 0); 
                         } else if (chargesInAreas.getCharge().getTypeCharges().getType().equalsIgnoreCase(TypeSubTypeCharge.QUANTITY.getSubTypeCharge())){
                             preparedStatement.setDouble(1, 0);
-                            preparedStatement.setInt(2, (int)chargesInAreas.getArea().getPotency_total());
+                            preparedStatement.setInt(2, (int)chargesInAreas.getArea().getPotency_total() * area.getQuantity());
                             preparedStatement.setDouble(3, 0); 
                         } else {                            
                             preparedStatement.setDouble(1, 0);
@@ -138,7 +138,7 @@ public class ChargesInAreasImplDAO implements ChargesInAreasDAO{
                             preparedStatement.setDouble(6, 0); 
                         } else if (chargesInAreas.getCharge().getTypeCharges().getType().equalsIgnoreCase(TypeSubTypeCharge.QUANTITY.getSubTypeCharge())){
                             preparedStatement.setDouble(4, 0);
-                            preparedStatement.setInt(5, (int)chargesInAreas.getArea().getPotency_total());
+                            preparedStatement.setInt(5, (int)chargesInAreas.getArea().getPotency_total() * area.getQuantity());
                             preparedStatement.setDouble(6, 0); 
                         } else {                            
                             preparedStatement.setDouble(4, 0);
@@ -240,7 +240,7 @@ public class ChargesInAreasImplDAO implements ChargesInAreasDAO{
                 
             } else if (chargesInAreas.getCharge().getTypeCharges().getType().equalsIgnoreCase(TypeSubTypeCharge.QUANTITY.getSubTypeCharge())){
                 preparedStatement.setDouble(1, 0);
-                preparedStatement.setInt(2, (int)chargesInAreas.getPotency());
+                preparedStatement.setInt(2, (int)chargesInAreas.getPotency() * area.getQuantity());
                 preparedStatement.setDouble(3, 0); 
             } else {                      
                 preparedStatement.setDouble(1, 0);

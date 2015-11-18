@@ -65,4 +65,40 @@ public class MainFeederQueries {
                                                          "WHERE proyecto_codigo=? AND proyecto_tipo=? AND tipo_carga_codigo=? \n" +
                                                          "AND cantidad = 0 AND intensidad = 0 AND potencia = 0;";
  
+
+    /**
+     * Mostrar todos los alimemtadores principales.
+     */
+    public static final String SELECT_ALL_MAIN_FEEDER = "SELECT\n" +
+                                                            "     ALIMENTADOR_PRINCIPAL.\"proyecto_codigo\" AS ALIMENTADOR_PRINCIPAL_proyecto_codigo,\n" +
+                                                            "     ALIMENTADOR_PRINCIPAL.\"proyecto_tipo\" AS ALIMENTADOR_PRINCIPAL_proyecto_tipo,\n" +
+                                                            "     ALIMENTADOR_PRINCIPAL.\"tipo_carga_codigo\" AS ALIMENTADOR_PRINCIPAL_tipo_carga_codigo,\n" +
+                                                            "     TIPO_CARGA.\"nombre\" AS TIPO_CARGA_nombre, \n" +
+                                                            "     ALIMENTADOR_PRINCIPAL.\"potencia\" AS ALIMENTADOR_PRINCIPAL_potencia,\n" +
+                                                            "     ALIMENTADOR_PRINCIPAL.\"intensidad\" AS ALIMENTADOR_PRINCIPAL_intensidad,      \n" +
+                                                            "     ALIMENTADOR_PRINCIPAL.\"cantidad\" AS ALIMENTADOR_PRINCIPAL_cantidad\n" +
+                                                            " \n" +
+                                                            "FROM\n" +
+                                                            "     \"maestros\".\"TIPO_CARGA\" TIPO_CARGA INNER JOIN \"negocio\".\"ALIMENTADOR_PRINCIPAL\" ALIMENTADOR_PRINCIPAL ON TIPO_CARGA.\"codigo\" = ALIMENTADOR_PRINCIPAL.\"tipo_carga_codigo\"\n" +
+                                                            "WHERE\n" +
+                                                            "     ALIMENTADOR_PRINCIPAL.\"proyecto_codigo\" = ?\n" +
+                                                            " AND ALIMENTADOR_PRINCIPAL.\"proyecto_tipo\" = ?"; 
+    /**
+     * Mostrar todos los alimentadores principales filtrados por nombres
+     *
+     */
+    public static final String SELECT_ALL_MAIN_FEEDER_FILTER_BY_NAME = "SELECT\n" +
+                                                                        "	ALIMENTADOR_PRINCIPAL.\"proyecto_codigo\" AS ALIMENTADOR_PRINCIPAL_proyecto_codigo,\n" +
+                                                                        "	ALIMENTADOR_PRINCIPAL.\"proyecto_tipo\" AS ALIMENTADOR_PRINCIPAL_proyecto_tipo,\n" +
+                                                                        "	ALIMENTADOR_PRINCIPAL.\"tipo_carga_codigo\" AS ALIMENTADOR_PRINCIPAL_tipo_carga_codigo,\n" +
+                                                                        "	TIPO_CARGA.\"nombre\" AS TIPO_CARGA_nombre, \n" +
+                                                                        "	ALIMENTADOR_PRINCIPAL.\"potencia\" AS ALIMENTADOR_PRINCIPAL_potencia,\n" +
+                                                                        "	ALIMENTADOR_PRINCIPAL.\"intensidad\" AS ALIMENTADOR_PRINCIPAL_intensidad, \n" +
+                                                                        "	ALIMENTADOR_PRINCIPAL.\"cantidad\" AS ALIMENTADOR_PRINCIPAL_cantidad\n" +
+                                                                        "FROM\n" +
+                                                                        "	\"maestros\".\"TIPO_CARGA\" TIPO_CARGA INNER JOIN \"negocio\".\"ALIMENTADOR_PRINCIPAL\" ALIMENTADOR_PRINCIPAL ON TIPO_CARGA.\"codigo\" = ALIMENTADOR_PRINCIPAL.\"tipo_carga_codigo\"\n" +
+                                                                        "WHERE\n" +
+                                                                        "	LOWER(CONCAT(TIPO_CARGA.\"nombre\",' ',ALIMENTADOR_PRINCIPAL.\"potencia\",' ',ALIMENTADOR_PRINCIPAL.\"intensidad\",' ',ALIMENTADOR_PRINCIPAL.\"cantidad\")) LIKE LOWER(?) \n" +
+                                                                        "	AND ALIMENTADOR_PRINCIPAL.\"proyecto_codigo\" = ?\n" +
+                                                                        "	AND ALIMENTADOR_PRINCIPAL.\"proyecto_tipo\" =  ?";
 }

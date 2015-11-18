@@ -110,6 +110,32 @@ public class LightingCircuitImplDAO implements lightingCircuitDAO {
         }    
         return lightingCircuitsFounds;
     }
+    
+    @Override
+    public List<LightingCircuit> find_lightingCircuit_filter_name(LightingCircuit lightingCircuit) {
+        lightingCircuitsFounds = new ArrayList<>();
+        try {
+            preparedStatement = connection.getConexion().prepareStatement(LightingCircuitQueries.SELECT_FOR_NAME);
+            preparedStatement.setString(1, "%"+lightingCircuit.getDescription()+"%");
+            preparedStatement.setInt(2, lightingCircuit.getProject().getCode());
+            preparedStatement.setInt(3, lightingCircuit.getProject().getTypeOfInstallation().getCode());
+            result = preparedStatement.executeQuery();
+            while(result.next()) {
+                lightingCircuitsFounds.add(new LightingCircuit(
+                        result.getInt(1), 
+                        null, 
+                        result.getString(2), 
+                        result.getString(3), 
+                        result.getString(4), 
+                        result.getDouble(5)));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            connection.closeConnection();
+        }    
+        return lightingCircuitsFounds;
+    }
 
     /**
      * Método para eliminar un circuito de iluminación.

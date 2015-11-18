@@ -31,6 +31,13 @@ public interface lightingCircuitDAO {
      */
     public List<LightingCircuit> find_lightingCircuit(LightingCircuit lightingCircuit);
     
+     /**
+     * Filtrar los circuitos de iluminación de un proyecto dado.
+     * @param lightingCircuit
+     * @return Retorna los circuitos de iluminación filtrados.
+     */
+    public List<LightingCircuit> find_lightingCircuit_filter_name(LightingCircuit lightingCircuit);
+    
     /**
      * Eliminar un circuito de iluminación.
      * @param lightingCircuit

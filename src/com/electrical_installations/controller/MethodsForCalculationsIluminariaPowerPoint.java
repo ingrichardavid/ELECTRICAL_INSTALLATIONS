@@ -46,7 +46,7 @@ public class MethodsForCalculationsIluminariaPowerPoint {
     protected static final int iluminariaConstantSinglefamilyHome = 25;
     protected static final int powerPointConstant = 180;
     
-    private static final double potencyTotalRoominess = 0.35;
+    public static final double potencyTotalRoominess = 0.35;
     
     private static final double squareRootOfN = 3;    
     

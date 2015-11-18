@@ -55,6 +55,15 @@ public class ServiceLightingCircuit {
     public static List<LightingCircuit> find_lightingCircuits(LightingCircuit lightingCircuit) {
         return lightingCircuitImplDAO.find_lightingCircuit(lightingCircuit);
     }//Fin del Servicio.
+    
+     /**
+     * Servicio para filtrar todos los circuitos de iluminaria asociados a un proyecto.
+     * @param lightingCircuit
+     * @return Retorna una lista de circuitos de iluminaria filtrados.
+     */
+    public static List<LightingCircuit> find_lightingCircuits_filter_name(LightingCircuit lightingCircuit) {
+        return lightingCircuitImplDAO.find_lightingCircuit_filter_name(lightingCircuit);
+    }//Fin del Servicio.
      
     /**
      * Servicio para eliminar un circuito de iluminación

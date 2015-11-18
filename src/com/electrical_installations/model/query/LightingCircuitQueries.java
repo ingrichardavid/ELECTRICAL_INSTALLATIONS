@@ -31,6 +31,22 @@ public class LightingCircuitQueries {
                                         "WHERE\n" +
                                         "	proyecto_codigo = ? AND proyecto_tipo_instalacion = ?;";
     
+     /**
+     * Consulta para filtrar todos los circuitos de iluminarias asociados a un proyecto.
+     */
+    public static final String SELECT_FOR_NAME = "SELECT \n" +
+                                                    "codigo, calibre_fase_neutro,tuberia, descripcion, intensidad_total\n" +
+                                                    "FROM \n" +
+                                                    "negocio.\"CIRCUITO_DE_ILUMINACION\"\n" +
+                                                    "WHERE\n" +
+                                                    "TRIM\n" +
+                                                    "(LOWER(CONCAT(descripcion,' ',intensidad_total))) \n" +
+                                                    "LIKE TRIM(LOWER(?)) \n" +
+                                                    "AND \n" +
+                                                    "proyecto_codigo = ? \n" +
+                                                    "AND \n" +
+                                                    "proyecto_tipo_instalacion = ?;";
+    
     /**
      * Consulta para eliminar un circuito de iluminación.
      */

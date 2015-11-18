@@ -1327,6 +1327,7 @@ public final class ViewArea extends javax.swing.JDialog {
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         jPanel4.add(lblBranchCircuitIluminaria, gridBagConstraints);
 
+        jLabel46.setFont(new java.awt.Font("DejaVu Sans", 1, 12)); // NOI18N
         jLabel46.setText("Tubería:");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 4;
@@ -1334,6 +1335,7 @@ public final class ViewArea extends javax.swing.JDialog {
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         jPanel4.add(jLabel46, gridBagConstraints);
 
+        cmbPipelineIuminaria.setFont(new java.awt.Font("DejaVu Sans", 0, 12)); // NOI18N
         cmbPipelineIuminaria.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "EMT", "PVC" }));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 6;
@@ -1690,6 +1692,7 @@ public final class ViewArea extends javax.swing.JDialog {
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         jPanel9.add(lblBranchCircuitPowerPoint, gridBagConstraints);
 
+        jLabel48.setFont(new java.awt.Font("DejaVu Sans", 1, 12)); // NOI18N
         jLabel48.setText("Tubería:");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 4;
@@ -1697,6 +1700,7 @@ public final class ViewArea extends javax.swing.JDialog {
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         jPanel9.add(jLabel48, gridBagConstraints);
 
+        cmbPipelinePowerPoint.setFont(new java.awt.Font("DejaVu Sans", 0, 12)); // NOI18N
         cmbPipelinePowerPoint.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "EMT", "PVC" }));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 6;
@@ -2075,6 +2079,7 @@ public final class ViewArea extends javax.swing.JDialog {
         gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
         jPanel5.add(lblCaliberNeutral, gridBagConstraints);
 
+        jLabel49.setFont(new java.awt.Font("DejaVu Sans", 1, 12)); // NOI18N
         jLabel49.setText("Tubería:");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
@@ -2082,6 +2087,7 @@ public final class ViewArea extends javax.swing.JDialog {
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         jPanel5.add(jLabel49, gridBagConstraints);
 
+        cmbPipelineSubFeeder.setFont(new java.awt.Font("DejaVu Sans", 0, 12)); // NOI18N
         cmbPipelineSubFeeder.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "EMT", "PVC" }));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;

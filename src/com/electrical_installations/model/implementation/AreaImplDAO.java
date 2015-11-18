@@ -93,8 +93,8 @@ public class AreaImplDAO implements AreaDAO{
             preparedStatement.setInt(1, area.getProject().getCode());
             preparedStatement.setInt(2, area.getProject().getTypeOfInstallation().getCode());
             preparedStatement.setString(3, area.getName());
-            preparedStatement.setDouble(4, area.getPotency_total());
-            preparedStatement.setDouble(5, area.getNeutral());
+            preparedStatement.setDouble(4, (area.getPotency_total()) > 3000 ? (((area.getPotency_total()) - 3000) * MethodsForCalculationsIluminariaPowerPoint.potencyTotalRoominess) + 3000 : area.getPotency_total());
+            preparedStatement.setDouble(5, (area.getNeutral()) > 3000 ? (((area.getNeutral()) - 3000) * MethodsForCalculationsIluminariaPowerPoint.potencyTotalRoominess) + 3000 : area.getNeutral());
             preparedStatement.setInt(6, area.getQuantity());
             if (preparedStatement.executeUpdate() > 0){                
                 result = preparedStatement.getGeneratedKeys();
@@ -630,7 +630,7 @@ public class AreaImplDAO implements AreaDAO{
         System.out.println(potency_iluminaria);
         System.out.println(potency_power_point);
         System.out.println(quantity);
-        return MethodsForCalculationsIluminariaPowerPoint.potencyInIluminariaAndPowerPoint(potency_iluminaria,potency_power_point) * quantity;
+        return (potency_iluminaria + potency_power_point) * quantity;
     }//Fin del método.
     
     /**
