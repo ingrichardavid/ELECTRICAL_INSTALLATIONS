@@ -288,7 +288,7 @@ public class ControllerCharge implements ActionListener, WindowListener , KeyLis
             viewVoltageInCharge.getrBtnGround().requestFocus();
         } else {            
             if (viewVoltageInCharge.getCharge().isHorsePower()){
-                potency = MethodsForCalculationsGlobal1.getPotencyHorsePower(((HorsePower)viewVoltageInCharge.getCmbHP().getSelectedItem()).getValue());
+                potency = MethodsForCalculationsGlobal.getPotencyHorsePower(((HorsePower)viewVoltageInCharge.getCmbHP().getSelectedItem()).getValue());
                 horsesPowersFound = ServiceHorsePorwer.find_intensity_horses_power(
                         new HorsesPowers(
                                 0, 
@@ -302,14 +302,14 @@ public class ControllerCharge implements ActionListener, WindowListener , KeyLis
                 if (horsesPowersFound == null){
                     MessagesStructure.Warning(MessagesStructure.format(200, messages.getProperty(Messages.HORSES_POWER_INTENSITY_NO_FOUND), MessagesStructure.justify));
                 } else {
-                    caliberPhaseFound = MethodsForCalculationsGlobal1.calculateCaliberDishwasherAndCrusher(
+                    caliberPhaseFound = MethodsForCalculationsGlobal.calculateCaliberDishwasherAndCrusher(
                         horsesPowersFound.getIntensity().getIntensity(),
                         (Material)viewVoltageInCharge.getCmbMaterial().getSelectedItem(), 
                         (Temperature)viewVoltageInCharge.getCmbTemperature().getSelectedItem());  
 
                     caliberNeutralFound = caliberPhaseFound;
                     
-                    calibersHearthFound = MethodsForCalculationsGlobal1.calculate_caliberHearth_dishwasherAndCrusher(horsesPowersFound.getIntensity().getIntensity());
+                    calibersHearthFound = MethodsForCalculationsGlobal.calculate_caliberHearth_dishwasherAndCrusher(horsesPowersFound.getIntensity().getIntensity());
                 
                     materialPipeline = viewVoltageInCharge.getCmbPipeline().getSelectedItem().toString();
                     
@@ -320,7 +320,7 @@ public class ControllerCharge implements ActionListener, WindowListener , KeyLis
                             (Phase)viewVoltageInCharge.getCmbPhases().getSelectedItem(), 
                             materialPipeline);
                     
-                    breakerPhaseFound = MethodsForCalculationsGlobal1.find_braker_dishwasherAndCrusher(
+                    breakerPhaseFound = MethodsForCalculationsGlobal.find_braker_dishwasherAndCrusher(
                             horsesPowersFound.getIntensity().getIntensity(), 
                             ((PercentageSinglePhaseMotors)viewVoltageInCharge.getCmbPercentageSinglePhaseMotors().getSelectedItem()).getPercentage());                    
                     if (caliberPhaseFound == null){
@@ -329,23 +329,23 @@ public class ControllerCharge implements ActionListener, WindowListener , KeyLis
                         viewVoltageInCharge.getCmbCaliber().setSelectedItem(caliberPhaseFound.getCaliber());
                         viewVoltageInCharge.getCmbCalibersNeutral().setSelectedItem(caliberPhaseFound.getCaliber());
                         if (((Material)viewVoltageInCharge.getCmbMaterial().getSelectedItem()).getName().equals(TypeMaterials.COOPER.getMaterial())){                
-                            viewVoltageInCharge.getLblCaliberPhase().setText(MethodsForCalculationsGlobal1.number_of_calibers((Phase)viewVoltageInCharge.getCmbPhases().getSelectedItem(), TypeCalibers.PHASE) + " #" + caliberPhaseFound.getCaliber().getName() + " Cu " + MethodsForCalculationsGlobal1.typeCaliber(typeCaliber,(Temperature)viewVoltageInCharge.getCmbTemperature().getSelectedItem()) + " " + MethodsForCalculationsGlobal1.number_of_brakers((Phase)viewVoltageInCharge.getCmbPhases().getSelectedItem(), breakerPhaseFound.getCapacity()));
-                            viewVoltageInCharge.getLblCaliberNeutral().setText("1 Cable" + " #" + caliberPhaseFound.getCaliber().getName() + " Cu " + MethodsForCalculationsGlobal1.typeCaliber(typeCaliber,(Temperature)viewVoltageInCharge.getCmbTemperature().getSelectedItem()));
+                            viewVoltageInCharge.getLblCaliberPhase().setText(MethodsForCalculationsGlobal.number_of_calibers((Phase)viewVoltageInCharge.getCmbPhases().getSelectedItem(), TypeCalibers.PHASE) + " #" + caliberPhaseFound.getCaliber().getName() + " Cu " + MethodsForCalculationsGlobal.typeCaliber(typeCaliber,(Temperature)viewVoltageInCharge.getCmbTemperature().getSelectedItem()) + " " + MethodsForCalculationsGlobal.number_of_brakers((Phase)viewVoltageInCharge.getCmbPhases().getSelectedItem(), breakerPhaseFound.getCapacity()));
+                            viewVoltageInCharge.getLblCaliberNeutral().setText("1 Cable" + " #" + caliberPhaseFound.getCaliber().getName() + " Cu " + MethodsForCalculationsGlobal.typeCaliber(typeCaliber,(Temperature)viewVoltageInCharge.getCmbTemperature().getSelectedItem()));
                         } else if (((Material)viewVoltageInCharge.getCmbMaterial().getSelectedItem()).getName().equals(TypeMaterials.ALUMINIUM.getMaterial())) {
-                            viewVoltageInCharge.getLblCaliberPhase().setText(MethodsForCalculationsGlobal1.number_of_calibers((Phase)viewVoltageInCharge.getCmbPhases().getSelectedItem(), TypeCalibers.PHASE) + " #" + caliberPhaseFound.getCaliber().getName() + " Al " + MethodsForCalculationsGlobal1.typeCaliber(typeCaliber,(Temperature)viewVoltageInCharge.getCmbTemperature().getSelectedItem()) + " " + MethodsForCalculationsGlobal1.number_of_brakers((Phase)viewVoltageInCharge.getCmbPhases().getSelectedItem(), breakerPhaseFound.getCapacity()));
-                            viewVoltageInCharge.getLblCaliberNeutral().setText("1 Cable" + " #" + caliberPhaseFound.getCaliber().getName() + " Al " + MethodsForCalculationsGlobal1.typeCaliber(typeCaliber,(Temperature)viewVoltageInCharge.getCmbTemperature().getSelectedItem()));
+                            viewVoltageInCharge.getLblCaliberPhase().setText(MethodsForCalculationsGlobal.number_of_calibers((Phase)viewVoltageInCharge.getCmbPhases().getSelectedItem(), TypeCalibers.PHASE) + " #" + caliberPhaseFound.getCaliber().getName() + " Al " + MethodsForCalculationsGlobal.typeCaliber(typeCaliber,(Temperature)viewVoltageInCharge.getCmbTemperature().getSelectedItem()) + " " + MethodsForCalculationsGlobal.number_of_brakers((Phase)viewVoltageInCharge.getCmbPhases().getSelectedItem(), breakerPhaseFound.getCapacity()));
+                            viewVoltageInCharge.getLblCaliberNeutral().setText("1 Cable" + " #" + caliberPhaseFound.getCaliber().getName() + " Al " + MethodsForCalculationsGlobal.typeCaliber(typeCaliber,(Temperature)viewVoltageInCharge.getCmbTemperature().getSelectedItem()));
                         }
                         if (calibersHearthFound == null){
                             viewVoltageInCharge.getLblCaliberEarth().setText("No aplica");
                         } else {
-                            viewVoltageInCharge.getLblCaliberEarth().setText("1 Cable " + calibersHearthFound.getCaliber().getName() + " " + MethodsForCalculationsGlobal1.typeCaliber(typeCaliber,(Temperature)viewVoltageInCharge.getCmbTemperature().getSelectedItem()));
+                            viewVoltageInCharge.getLblCaliberEarth().setText("1 Cable " + calibersHearthFound.getCaliber().getName() + " " + MethodsForCalculationsGlobal.typeCaliber(typeCaliber,(Temperature)viewVoltageInCharge.getCmbTemperature().getSelectedItem()));
                         }
                         viewVoltageInCharge.getBtnCalculateBreakdown().doClick(); 
                     }                     
                 }
             } else if (viewVoltageInCharge.getCharge().isDryer()){
                 potency = viewVoltageInCharge.getCharge().getPotency();
-                caliberPhaseFound = MethodsForCalculationsGlobal1.calculateCaliberForDryer(
+                caliberPhaseFound = MethodsForCalculationsGlobal.calculateCaliberForDryer(
                         viewVoltageInCharge.getCharge().getPotency(), 
                         (Voltage)viewVoltageInCharge.getCmbVoltage().getSelectedItem(), 
                         (Material)viewVoltageInCharge.getCmbMaterial().getSelectedItem(), 
@@ -353,7 +353,7 @@ public class ControllerCharge implements ActionListener, WindowListener , KeyLis
                         Double.valueOf(viewVoltageInCharge.getJspPowerFactor().getValue().toString()), 
                         viewVoltageInCharge.getCmbPhases().getSelectedIndex()); 
                 
-                caliberNeutralFound = MethodsForCalculationsGlobal1.calculateCaliberDryer(
+                caliberNeutralFound = MethodsForCalculationsGlobal.calculateCaliberDryer(
                         viewVoltageInCharge.getCharge().getPotency(), 
                         (Voltage)viewVoltageInCharge.getCmbVoltage().getSelectedItem(), 
                         (Material)viewVoltageInCharge.getCmbMaterial().getSelectedItem(), 
@@ -361,7 +361,7 @@ public class ControllerCharge implements ActionListener, WindowListener , KeyLis
                         Double.valueOf(viewVoltageInCharge.getJspPowerFactor().getValue().toString()), 
                         viewVoltageInCharge.getCmbPhases().getSelectedIndex());
                 
-                calibersHearthFound = MethodsForCalculationsGlobal1.calculate_calibersHearth(
+                calibersHearthFound = MethodsForCalculationsGlobal.calculate_calibersHearth(
                         viewVoltageInCharge.getCharge().getPotency(), 
                         (Voltage)viewVoltageInCharge.getCmbVoltage().getSelectedItem(), 
                         Double.valueOf(viewVoltageInCharge.getJspPowerFactor().getValue().toString()), 
@@ -383,7 +383,7 @@ public class ControllerCharge implements ActionListener, WindowListener , KeyLis
                         null, 
                         caliberPhaseFound.getCaliber()));
                 
-                breakerPhaseFound = MethodsForCalculationsGlobal1.find_breaker_dryer(
+                breakerPhaseFound = MethodsForCalculationsGlobal.find_breaker_dryer(
                         viewVoltageInCharge.getCharge().getPotency(), 
                         (Voltage)viewVoltageInCharge.getCmbVoltage().getSelectedItem(),                     
                         (Material)viewVoltageInCharge.getCmbMaterial().getSelectedItem(),  
@@ -397,26 +397,26 @@ public class ControllerCharge implements ActionListener, WindowListener , KeyLis
                     viewVoltageInCharge.getCmbCaliber().setSelectedItem(caliberPhaseFound.getCaliber());
                     viewVoltageInCharge.getCmbCalibersNeutral().setSelectedItem(caliberNeutralFound.getCaliber());
                     if (((Material)viewVoltageInCharge.getCmbMaterial().getSelectedItem()).getName().equals(TypeMaterials.COOPER.getMaterial())){                
-                        viewVoltageInCharge.getLblCaliberPhase().setText(MethodsForCalculationsGlobal1.number_of_calibers((Phase)viewVoltageInCharge.getCmbPhases().getSelectedItem(), TypeCalibers.PHASE) + " #" + caliberPhaseFound.getCaliber().getName() + " Cu " + MethodsForCalculationsGlobal1.typeCaliber(typeCaliber,(Temperature)viewVoltageInCharge.getCmbTemperature().getSelectedItem()) + " " + MethodsForCalculationsGlobal1.number_of_brakers((Phase)viewVoltageInCharge.getCmbPhases().getSelectedItem(), breakerPhaseFound.getCapacity()));
+                        viewVoltageInCharge.getLblCaliberPhase().setText(MethodsForCalculationsGlobal.number_of_calibers((Phase)viewVoltageInCharge.getCmbPhases().getSelectedItem(), TypeCalibers.PHASE) + " #" + caliberPhaseFound.getCaliber().getName() + " Cu " + MethodsForCalculationsGlobal.typeCaliber(typeCaliber,(Temperature)viewVoltageInCharge.getCmbTemperature().getSelectedItem()) + " " + MethodsForCalculationsGlobal.number_of_brakers((Phase)viewVoltageInCharge.getCmbPhases().getSelectedItem(), breakerPhaseFound.getCapacity()));
                         if (!viewVoltageInCharge.getCharge().isHorsePower()){
-                           viewVoltageInCharge.getLblCaliberNeutral().setText("1 Cable" + " #" + caliberNeutralFound.getCaliber().getName() + " Cu " + MethodsForCalculationsGlobal1.typeCaliber(typeCaliber,(Temperature)viewVoltageInCharge.getCmbTemperature().getSelectedItem()));
+                           viewVoltageInCharge.getLblCaliberNeutral().setText("1 Cable" + " #" + caliberNeutralFound.getCaliber().getName() + " Cu " + MethodsForCalculationsGlobal.typeCaliber(typeCaliber,(Temperature)viewVoltageInCharge.getCmbTemperature().getSelectedItem()));
                         }
                     } else if (((Material)viewVoltageInCharge.getCmbMaterial().getSelectedItem()).getName().equals(TypeMaterials.ALUMINIUM.getMaterial())) {
-                        viewVoltageInCharge.getLblCaliberPhase().setText(MethodsForCalculationsGlobal1.number_of_calibers((Phase)viewVoltageInCharge.getCmbPhases().getSelectedItem(), TypeCalibers.PHASE) + " #" + caliberPhaseFound.getCaliber().getName() + " Al " + MethodsForCalculationsGlobal1.typeCaliber(typeCaliber,(Temperature)viewVoltageInCharge.getCmbTemperature().getSelectedItem()) + " " + MethodsForCalculationsGlobal1.number_of_brakers((Phase)viewVoltageInCharge.getCmbPhases().getSelectedItem(), breakerPhaseFound.getCapacity()));
+                        viewVoltageInCharge.getLblCaliberPhase().setText(MethodsForCalculationsGlobal.number_of_calibers((Phase)viewVoltageInCharge.getCmbPhases().getSelectedItem(), TypeCalibers.PHASE) + " #" + caliberPhaseFound.getCaliber().getName() + " Al " + MethodsForCalculationsGlobal.typeCaliber(typeCaliber,(Temperature)viewVoltageInCharge.getCmbTemperature().getSelectedItem()) + " " + MethodsForCalculationsGlobal.number_of_brakers((Phase)viewVoltageInCharge.getCmbPhases().getSelectedItem(), breakerPhaseFound.getCapacity()));
                         if (!viewVoltageInCharge.getCharge().isHorsePower()){
-                           viewVoltageInCharge.getLblCaliberNeutral().setText("1 Cable" + " #" + caliberNeutralFound.getCaliber().getName() + " Al " + MethodsForCalculationsGlobal1.typeCaliber(typeCaliber,(Temperature)viewVoltageInCharge.getCmbTemperature().getSelectedItem()));
+                           viewVoltageInCharge.getLblCaliberNeutral().setText("1 Cable" + " #" + caliberNeutralFound.getCaliber().getName() + " Al " + MethodsForCalculationsGlobal.typeCaliber(typeCaliber,(Temperature)viewVoltageInCharge.getCmbTemperature().getSelectedItem()));
                         }
                     }
                     if (calibersHearthFound == null){
                         viewVoltageInCharge.getLblCaliberEarth().setText("No aplica");
                     } else {
-                        viewVoltageInCharge.getLblCaliberEarth().setText("1 Cable " + calibersHearthFound.getCaliber().getName() + " " + MethodsForCalculationsGlobal1.typeCaliber(typeCaliber,(Temperature)viewVoltageInCharge.getCmbTemperature().getSelectedItem()));
+                        viewVoltageInCharge.getLblCaliberEarth().setText("1 Cable " + calibersHearthFound.getCaliber().getName() + " " + MethodsForCalculationsGlobal.typeCaliber(typeCaliber,(Temperature)viewVoltageInCharge.getCmbTemperature().getSelectedItem()));
                     }
                     viewVoltageInCharge.getBtnCalculateBreakdown().doClick(); 
                 }                 
             } else if (viewVoltageInCharge.getCharge().isElectricKitchen()) {                
                 potency = viewVoltageInCharge.getCharge().getPotency();
-                caliberPhaseFound = MethodsForCalculationsGlobal1.calculateCaliberForSubFeeder(
+                caliberPhaseFound = MethodsForCalculationsGlobal.calculateCaliberForSubFeeder(
                         viewVoltageInCharge.getCharge().getPotency(), 
                         (Voltage)viewVoltageInCharge.getCmbVoltage().getSelectedItem(), 
                         (Material)viewVoltageInCharge.getCmbMaterial().getSelectedItem(), 
@@ -424,7 +424,7 @@ public class ControllerCharge implements ActionListener, WindowListener , KeyLis
                         Double.valueOf(viewVoltageInCharge.getJspPowerFactor().getValue().toString()), 
                         viewVoltageInCharge.getCmbPhases().getSelectedIndex());
                 
-                caliberNeutralFound = MethodsForCalculationsGlobal1.calculateCaliberDryer(
+                caliberNeutralFound = MethodsForCalculationsGlobal.calculateCaliberDryer(
                         viewVoltageInCharge.getCharge().getPotency(), 
                         (Voltage)viewVoltageInCharge.getCmbVoltage().getSelectedItem(), 
                         (Material)viewVoltageInCharge.getCmbMaterial().getSelectedItem(), 
@@ -432,7 +432,7 @@ public class ControllerCharge implements ActionListener, WindowListener , KeyLis
                         Double.valueOf(viewVoltageInCharge.getJspPowerFactor().getValue().toString()), 
                         viewVoltageInCharge.getCmbPhases().getSelectedIndex());
 
-                calibersHearthFound = MethodsForCalculationsGlobal1.calculate_calibersHearth(
+                calibersHearthFound = MethodsForCalculationsGlobal.calculate_calibersHearth(
                         viewVoltageInCharge.getCharge().getPotency(), 
                         (Voltage)viewVoltageInCharge.getCmbVoltage().getSelectedItem(), 
                         Double.valueOf(viewVoltageInCharge.getJspPowerFactor().getValue().toString()), 
@@ -454,7 +454,7 @@ public class ControllerCharge implements ActionListener, WindowListener , KeyLis
                         null, 
                         caliberPhaseFound.getCaliber()));
                 
-                breakerPhaseFound = MethodsForCalculationsGlobal1.find_breaker(
+                breakerPhaseFound = MethodsForCalculationsGlobal.find_breaker(
                         viewVoltageInCharge.getCharge().getPotency(), 
                         (Voltage)viewVoltageInCharge.getCmbVoltage().getSelectedItem(),                     
                         (Material)viewVoltageInCharge.getCmbMaterial().getSelectedItem(),  
@@ -467,26 +467,26 @@ public class ControllerCharge implements ActionListener, WindowListener , KeyLis
                     viewVoltageInCharge.getCmbCaliber().setSelectedItem(caliberPhaseFound.getCaliber());
                     viewVoltageInCharge.getCmbCalibersNeutral().setSelectedItem(caliberPhaseFound.getCaliber());
                     if (((Material)viewVoltageInCharge.getCmbMaterial().getSelectedItem()).getName().equals(TypeMaterials.COOPER.getMaterial())){                
-                        viewVoltageInCharge.getLblCaliberPhase().setText(MethodsForCalculationsGlobal1.number_of_calibers((Phase)viewVoltageInCharge.getCmbPhases().getSelectedItem(), TypeCalibers.PHASE) + " #" + caliberPhaseFound.getCaliber().getName() + " Cu " + MethodsForCalculationsGlobal1.typeCaliber(typeCaliber,(Temperature)viewVoltageInCharge.getCmbTemperature().getSelectedItem()) + " " + MethodsForCalculationsGlobal1.number_of_brakers((Phase)viewVoltageInCharge.getCmbPhases().getSelectedItem(), breakerPhaseFound.getCapacity()));
+                        viewVoltageInCharge.getLblCaliberPhase().setText(MethodsForCalculationsGlobal.number_of_calibers((Phase)viewVoltageInCharge.getCmbPhases().getSelectedItem(), TypeCalibers.PHASE) + " #" + caliberPhaseFound.getCaliber().getName() + " Cu " + MethodsForCalculationsGlobal.typeCaliber(typeCaliber,(Temperature)viewVoltageInCharge.getCmbTemperature().getSelectedItem()) + " " + MethodsForCalculationsGlobal.number_of_brakers((Phase)viewVoltageInCharge.getCmbPhases().getSelectedItem(), breakerPhaseFound.getCapacity()));
                         if (!viewVoltageInCharge.getCharge().isHorsePower()){
-                           viewVoltageInCharge.getLblCaliberNeutral().setText("1 Cable" + " #" + caliberNeutralFound.getCaliber().getName() + " Cu " + MethodsForCalculationsGlobal1.typeCaliber(typeCaliber,(Temperature)viewVoltageInCharge.getCmbTemperature().getSelectedItem()));
+                           viewVoltageInCharge.getLblCaliberNeutral().setText("1 Cable" + " #" + caliberNeutralFound.getCaliber().getName() + " Cu " + MethodsForCalculationsGlobal.typeCaliber(typeCaliber,(Temperature)viewVoltageInCharge.getCmbTemperature().getSelectedItem()));
                         }
                     } else if (((Material)viewVoltageInCharge.getCmbMaterial().getSelectedItem()).getName().equals(TypeMaterials.ALUMINIUM.getMaterial())) {
-                        viewVoltageInCharge.getLblCaliberPhase().setText(MethodsForCalculationsGlobal1.number_of_calibers((Phase)viewVoltageInCharge.getCmbPhases().getSelectedItem(), TypeCalibers.PHASE) + " #" + caliberPhaseFound.getCaliber().getName() + " Al " + MethodsForCalculationsGlobal1.typeCaliber(typeCaliber,(Temperature)viewVoltageInCharge.getCmbTemperature().getSelectedItem()) + " " + MethodsForCalculationsGlobal1.number_of_brakers((Phase)viewVoltageInCharge.getCmbPhases().getSelectedItem(), breakerPhaseFound.getCapacity()));
+                        viewVoltageInCharge.getLblCaliberPhase().setText(MethodsForCalculationsGlobal.number_of_calibers((Phase)viewVoltageInCharge.getCmbPhases().getSelectedItem(), TypeCalibers.PHASE) + " #" + caliberPhaseFound.getCaliber().getName() + " Al " + MethodsForCalculationsGlobal.typeCaliber(typeCaliber,(Temperature)viewVoltageInCharge.getCmbTemperature().getSelectedItem()) + " " + MethodsForCalculationsGlobal.number_of_brakers((Phase)viewVoltageInCharge.getCmbPhases().getSelectedItem(), breakerPhaseFound.getCapacity()));
                         if (!viewVoltageInCharge.getCharge().isHorsePower()){
-                           viewVoltageInCharge.getLblCaliberNeutral().setText("1 Cable" + " #" + caliberNeutralFound.getCaliber().getName() + " Al " + MethodsForCalculationsGlobal1.typeCaliber(typeCaliber,(Temperature)viewVoltageInCharge.getCmbTemperature().getSelectedItem()));
+                           viewVoltageInCharge.getLblCaliberNeutral().setText("1 Cable" + " #" + caliberNeutralFound.getCaliber().getName() + " Al " + MethodsForCalculationsGlobal.typeCaliber(typeCaliber,(Temperature)viewVoltageInCharge.getCmbTemperature().getSelectedItem()));
                         }
                     }
                     if (calibersHearthFound == null){
                         viewVoltageInCharge.getLblCaliberEarth().setText("No aplica");
                     } else {
-                        viewVoltageInCharge.getLblCaliberEarth().setText("1 Cable " + calibersHearthFound.getCaliber().getName() + " " + MethodsForCalculationsGlobal1.typeCaliber(typeCaliber,(Temperature)viewVoltageInCharge.getCmbTemperature().getSelectedItem()));
+                        viewVoltageInCharge.getLblCaliberEarth().setText("1 Cable " + calibersHearthFound.getCaliber().getName() + " " + MethodsForCalculationsGlobal.typeCaliber(typeCaliber,(Temperature)viewVoltageInCharge.getCmbTemperature().getSelectedItem()));
                     }
                     viewVoltageInCharge.getBtnCalculateBreakdown().doClick(); 
                 }                
             } else {   
                 potency = viewVoltageInCharge.getCharge().getPotency();
-                caliberPhaseFound = MethodsForCalculationsGlobal1.calculateCaliberForSubFeeder(
+                caliberPhaseFound = MethodsForCalculationsGlobal.calculateCaliberForSubFeeder(
                         viewVoltageInCharge.getCharge().getPotency(), 
                         (Voltage)viewVoltageInCharge.getCmbVoltage().getSelectedItem(), 
                         (Material)viewVoltageInCharge.getCmbMaterial().getSelectedItem(), 
@@ -496,7 +496,7 @@ public class ControllerCharge implements ActionListener, WindowListener , KeyLis
 
                 caliberNeutralFound = caliberPhaseFound;
 
-                calibersHearthFound = MethodsForCalculationsGlobal1.calculate_calibersHearth(
+                calibersHearthFound = MethodsForCalculationsGlobal.calculate_calibersHearth(
                         viewVoltageInCharge.getCharge().getPotency(), 
                         (Voltage)viewVoltageInCharge.getCmbVoltage().getSelectedItem(), 
                         Double.valueOf(viewVoltageInCharge.getJspPowerFactor().getValue().toString()), 
@@ -518,7 +518,7 @@ public class ControllerCharge implements ActionListener, WindowListener , KeyLis
                         null, 
                         caliberPhaseFound.getCaliber()));
                 
-                breakerPhaseFound = MethodsForCalculationsGlobal1.find_breaker(
+                breakerPhaseFound = MethodsForCalculationsGlobal.find_breaker(
                         viewVoltageInCharge.getCharge().getPotency(), 
                         (Voltage)viewVoltageInCharge.getCmbVoltage().getSelectedItem(),                     
                         (Material)viewVoltageInCharge.getCmbMaterial().getSelectedItem(),  
@@ -531,20 +531,20 @@ public class ControllerCharge implements ActionListener, WindowListener , KeyLis
                     viewVoltageInCharge.getCmbCaliber().setSelectedItem(caliberPhaseFound.getCaliber());
                     viewVoltageInCharge.getCmbCalibersNeutral().setSelectedItem(caliberPhaseFound.getCaliber());
                     if (((Material)viewVoltageInCharge.getCmbMaterial().getSelectedItem()).getName().equals(TypeMaterials.COOPER.getMaterial())){                
-                        viewVoltageInCharge.getLblCaliberPhase().setText(MethodsForCalculationsGlobal1.number_of_calibers((Phase)viewVoltageInCharge.getCmbPhases().getSelectedItem(), TypeCalibers.PHASE) + " #" + caliberPhaseFound.getCaliber().getName() + " Cu " + MethodsForCalculationsGlobal1.typeCaliber(typeCaliber,(Temperature)viewVoltageInCharge.getCmbTemperature().getSelectedItem()) + " " + MethodsForCalculationsGlobal1.number_of_brakers((Phase)viewVoltageInCharge.getCmbPhases().getSelectedItem(), breakerPhaseFound.getCapacity()));
+                        viewVoltageInCharge.getLblCaliberPhase().setText(MethodsForCalculationsGlobal.number_of_calibers((Phase)viewVoltageInCharge.getCmbPhases().getSelectedItem(), TypeCalibers.PHASE) + " #" + caliberPhaseFound.getCaliber().getName() + " Cu " + MethodsForCalculationsGlobal.typeCaliber(typeCaliber,(Temperature)viewVoltageInCharge.getCmbTemperature().getSelectedItem()) + " " + MethodsForCalculationsGlobal.number_of_brakers((Phase)viewVoltageInCharge.getCmbPhases().getSelectedItem(), breakerPhaseFound.getCapacity()));
                         if (!viewVoltageInCharge.getCharge().isHorsePower()){
-                           viewVoltageInCharge.getLblCaliberNeutral().setText("1 Cable" + " #" + caliberPhaseFound.getCaliber().getName() + " Cu " + MethodsForCalculationsGlobal1.typeCaliber(typeCaliber,(Temperature)viewVoltageInCharge.getCmbTemperature().getSelectedItem()));
+                           viewVoltageInCharge.getLblCaliberNeutral().setText("1 Cable" + " #" + caliberPhaseFound.getCaliber().getName() + " Cu " + MethodsForCalculationsGlobal.typeCaliber(typeCaliber,(Temperature)viewVoltageInCharge.getCmbTemperature().getSelectedItem()));
                         }
                     } else if (((Material)viewVoltageInCharge.getCmbMaterial().getSelectedItem()).getName().equals(TypeMaterials.ALUMINIUM.getMaterial())) {
-                        viewVoltageInCharge.getLblCaliberPhase().setText(MethodsForCalculationsGlobal1.number_of_calibers((Phase)viewVoltageInCharge.getCmbPhases().getSelectedItem(), TypeCalibers.PHASE) + " #" + caliberPhaseFound.getCaliber().getName() + " Al " + MethodsForCalculationsGlobal1.typeCaliber(typeCaliber,(Temperature)viewVoltageInCharge.getCmbTemperature().getSelectedItem()) + " " + MethodsForCalculationsGlobal1.number_of_brakers((Phase)viewVoltageInCharge.getCmbPhases().getSelectedItem(), breakerPhaseFound.getCapacity()));
+                        viewVoltageInCharge.getLblCaliberPhase().setText(MethodsForCalculationsGlobal.number_of_calibers((Phase)viewVoltageInCharge.getCmbPhases().getSelectedItem(), TypeCalibers.PHASE) + " #" + caliberPhaseFound.getCaliber().getName() + " Al " + MethodsForCalculationsGlobal.typeCaliber(typeCaliber,(Temperature)viewVoltageInCharge.getCmbTemperature().getSelectedItem()) + " " + MethodsForCalculationsGlobal.number_of_brakers((Phase)viewVoltageInCharge.getCmbPhases().getSelectedItem(), breakerPhaseFound.getCapacity()));
                         if (!viewVoltageInCharge.getCharge().isHorsePower()){
-                           viewVoltageInCharge.getLblCaliberNeutral().setText("1 Cable" + " #" + caliberPhaseFound.getCaliber().getName() + " Al " + MethodsForCalculationsGlobal1.typeCaliber(typeCaliber,(Temperature)viewVoltageInCharge.getCmbTemperature().getSelectedItem()));
+                           viewVoltageInCharge.getLblCaliberNeutral().setText("1 Cable" + " #" + caliberPhaseFound.getCaliber().getName() + " Al " + MethodsForCalculationsGlobal.typeCaliber(typeCaliber,(Temperature)viewVoltageInCharge.getCmbTemperature().getSelectedItem()));
                         }
                     }
                     if (calibersHearthFound == null){
                         viewVoltageInCharge.getLblCaliberEarth().setText("No aplica");
                     } else {
-                        viewVoltageInCharge.getLblCaliberEarth().setText("1 Cable " + calibersHearthFound.getCaliber().getName() + " " + MethodsForCalculationsGlobal1.typeCaliber(typeCaliber,(Temperature)viewVoltageInCharge.getCmbTemperature().getSelectedItem()));
+                        viewVoltageInCharge.getLblCaliberEarth().setText("1 Cable " + calibersHearthFound.getCaliber().getName() + " " + MethodsForCalculationsGlobal.typeCaliber(typeCaliber,(Temperature)viewVoltageInCharge.getCmbTemperature().getSelectedItem()));
                     }
                     viewVoltageInCharge.getBtnCalculateBreakdown().doClick(); 
                 }            
@@ -558,12 +558,12 @@ public class ControllerCharge implements ActionListener, WindowListener , KeyLis
      */
     private ResistanceReactance calculate_reactance(TypeOfBranchCircuitInArea typeOfBranchCircuitInArea){   
         if (typeOfBranchCircuitInArea == TypeOfBranchCircuitInArea.NEUTRAL){
-            return  MethodsForCalculationsGlobal1.calculate_reactance(
+            return  MethodsForCalculationsGlobal.calculate_reactance(
                 (Material)viewVoltageInCharge.getCmbMaterial().getSelectedItem(),
                 (Caliber)viewVoltageInCharge.getCmbCalibersNeutral().getSelectedItem(), 
                 (Duct)viewVoltageInCharge.getCmbDuct().getSelectedItem());  
         } else {
-            return  MethodsForCalculationsGlobal1.calculate_reactance(
+            return  MethodsForCalculationsGlobal.calculate_reactance(
                 (Material)viewVoltageInCharge.getCmbMaterial().getSelectedItem(),
                 (Caliber)viewVoltageInCharge.getCmbCaliber().getSelectedItem(), 
                 (Duct)viewVoltageInCharge.getCmbDuct().getSelectedItem());        
@@ -576,12 +576,12 @@ public class ControllerCharge implements ActionListener, WindowListener , KeyLis
      */
     private ResistanceReactance calculate_resistance(TypeOfBranchCircuitInArea typeOfBranchCircuitInArea){
         if (typeOfBranchCircuitInArea == TypeOfBranchCircuitInArea.NEUTRAL){
-            return MethodsForCalculationsGlobal1.calculate_resistance(
+            return MethodsForCalculationsGlobal.calculate_resistance(
                 (Material)viewVoltageInCharge.getCmbMaterial().getSelectedItem(),
                 (Caliber)viewVoltageInCharge.getCmbCalibersNeutral().getSelectedItem(), 
                 (Duct)viewVoltageInCharge.getCmbDuct().getSelectedItem());
         } else {
-            return MethodsForCalculationsGlobal1.calculate_resistance(
+            return MethodsForCalculationsGlobal.calculate_resistance(
                 (Material)viewVoltageInCharge.getCmbMaterial().getSelectedItem(),
                 (Caliber)viewVoltageInCharge.getCmbCaliber().getSelectedItem(), 
                 (Duct)viewVoltageInCharge.getCmbDuct().getSelectedItem());            
@@ -595,12 +595,12 @@ public class ControllerCharge implements ActionListener, WindowListener , KeyLis
         if (caliberPhaseFound == null || caliberNeutralFound == null || calibersHearthFound == null){
             MessagesStructure.Warning(MessagesStructure.format(200, messages.getProperty(Messages.AREA_CAPACITY_INTENSITY_NO_FOUND), MessagesStructure.justify));
         } else {
-            if (MethodsForCalculationsGlobal1.validate_caliber((Caliber)viewVoltageInCharge.getCmbCaliber().getSelectedItem())
-                    && MethodsForCalculationsGlobal1.validate_caliber((Caliber)viewVoltageInCharge.getCmbCalibersNeutral().getSelectedItem())){       
+            if (MethodsForCalculationsGlobal.validate_caliber((Caliber)viewVoltageInCharge.getCmbCaliber().getSelectedItem())
+                    && MethodsForCalculationsGlobal.validate_caliber((Caliber)viewVoltageInCharge.getCmbCalibersNeutral().getSelectedItem())){       
                 resistance = calculate_resistance(TypeOfBranchCircuitInArea.ILUMINARIA);
                 reactance  = calculate_reactance(TypeOfBranchCircuitInArea.ILUMINARIA);
                 if (resistance != null){     
-                    breakdownVoltage = MethodsForCalculationsGlobal1.breakdownVoltage(
+                    breakdownVoltage = MethodsForCalculationsGlobal.breakdownVoltage(
                             potency,  
                             Double.valueOf(viewVoltageInCharge.getJspLength().getValue().toString()), 
                             ((Voltage)viewVoltageInCharge.getCmbVoltage().getSelectedItem()).getVoltage(), 
@@ -612,7 +612,7 @@ public class ControllerCharge implements ActionListener, WindowListener , KeyLis
                     caliberSelected = (Caliber)viewVoltageInCharge.getCmbCaliber().getSelectedItem(); 
                     
                     if (viewVoltageInCharge.getCharge().isHorsePower()){
-                        breakerPhasePersistFound = MethodsForCalculationsGlobal1.find_braker_dishwasherAndCrusher(
+                        breakerPhasePersistFound = MethodsForCalculationsGlobal.find_braker_dishwasherAndCrusher(
                             horsesPowersFound.getIntensity().getIntensity(), 
                             ((PercentageSinglePhaseMotors)viewVoltageInCharge.getCmbPercentageSinglePhaseMotors().getSelectedItem()).getPercentage());                    
                     } else if (viewVoltageInCharge.getCharge().isDryer()){                             
@@ -622,7 +622,7 @@ public class ControllerCharge implements ActionListener, WindowListener , KeyLis
                                 (Temperature)viewVoltageInCharge.getCmbTemperature().getSelectedItem(), 
                                 null, 
                                 (Caliber)viewVoltageInCharge.getCmbCaliber().getSelectedItem()));
-                        breakerPhasePersistFound = MethodsForCalculationsGlobal1.find_breaker_dryer(
+                        breakerPhasePersistFound = MethodsForCalculationsGlobal.find_breaker_dryer(
                                 potency, 
                                 (Voltage)viewVoltageInCharge.getCmbVoltage().getSelectedItem(),                     
                                 (Material)viewVoltageInCharge.getCmbMaterial().getSelectedItem(),  
@@ -637,7 +637,7 @@ public class ControllerCharge implements ActionListener, WindowListener , KeyLis
                                 null, 
                                 (Caliber)viewVoltageInCharge.getCmbCaliber().getSelectedItem()));
 
-                        breakerPhasePersistFound = MethodsForCalculationsGlobal1.find_breaker(
+                        breakerPhasePersistFound = MethodsForCalculationsGlobal.find_breaker(
                                 potency, 
                                 (Voltage)viewVoltageInCharge.getCmbVoltage().getSelectedItem(),                     
                                 (Material)viewVoltageInCharge.getCmbMaterial().getSelectedItem(),  
@@ -652,7 +652,7 @@ public class ControllerCharge implements ActionListener, WindowListener , KeyLis
                                 null, 
                                 (Caliber)viewVoltageInCharge.getCmbCaliber().getSelectedItem()));
 
-                        breakerPhasePersistFound = MethodsForCalculationsGlobal1.find_breaker(
+                        breakerPhasePersistFound = MethodsForCalculationsGlobal.find_breaker(
                                 potency, 
                                 (Voltage)viewVoltageInCharge.getCmbVoltage().getSelectedItem(),                     
                                 (Material)viewVoltageInCharge.getCmbMaterial().getSelectedItem(),  
@@ -664,7 +664,7 @@ public class ControllerCharge implements ActionListener, WindowListener , KeyLis
                     resistance = calculate_resistance(TypeOfBranchCircuitInArea.NEUTRAL);
                     reactance  = calculate_reactance(TypeOfBranchCircuitInArea.NEUTRAL);
                     if (resistance != null){                
-                        breakdownVoltage = MethodsForCalculationsGlobal1.breakdownVoltage(
+                        breakdownVoltage = MethodsForCalculationsGlobal.breakdownVoltage(
                                 potency,  
                                 Double.valueOf(viewVoltageInCharge.getJspLength().getValue().toString()), 
                                 ((Voltage)viewVoltageInCharge.getCmbVoltage().getSelectedItem()).getVoltage(), 
@@ -679,8 +679,8 @@ public class ControllerCharge implements ActionListener, WindowListener , KeyLis
                                 "#" + caliberPhaseFound.getCaliber().getName(), 
                                 "#" + caliberSelected.getName());
                         caliberPhase = caliberPhase.replace(
-                                MethodsForCalculationsGlobal1.number_of_brakers((Phase)viewVoltageInCharge.getCmbPhases().getSelectedItem(),breakerPhaseFound.getCapacity()),
-                                MethodsForCalculationsGlobal1.number_of_brakers((Phase)viewVoltageInCharge.getCmbPhases().getSelectedItem(), breakerPhasePersistFound.getCapacity()));
+                                MethodsForCalculationsGlobal.number_of_brakers((Phase)viewVoltageInCharge.getCmbPhases().getSelectedItem(),breakerPhaseFound.getCapacity()),
+                                MethodsForCalculationsGlobal.number_of_brakers((Phase)viewVoltageInCharge.getCmbPhases().getSelectedItem(), breakerPhasePersistFound.getCapacity()));
                         caliberNeutral = viewVoltageInCharge.getLblCaliberNeutral().getText();
                         caliberNeutral = caliberNeutral.replace(
                                 "#" + caliberNeutralFound.getCaliber().getName(), 
@@ -757,7 +757,7 @@ public class ControllerCharge implements ActionListener, WindowListener , KeyLis
                                         0), 
                                 !viewVoltageInCharge.getCharge().isHorsePower() || viewVoltageInCharge.getCharge().isElectricKitchen() ? 
                                         viewVoltageInCharge.getCharge().getPotency()
-                                        : ((HorsePower)viewVoltageInCharge.getCmbHP().getSelectedItem()).getValue() * MethodsForCalculationsGlobal1.constantHorsePower, 
+                                        : ((HorsePower)viewVoltageInCharge.getCmbHP().getSelectedItem()).getValue() * MethodsForCalculationsGlobal.constantHorsePower, 
                                 Integer.valueOf(viewVoltageInCharge.getJspQuantity().getValue().toString()), 
                                 caliberPhase, 
                                 caliberNeutral, 

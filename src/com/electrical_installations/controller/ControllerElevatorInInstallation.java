@@ -308,7 +308,7 @@ public class ControllerElevatorInInstallation implements ActionListener, ChangeL
             MessagesStructure.Warning(MessagesStructure.format(200, messages.getProperty(Messages.RUSH_NO_FOUND), MessagesStructure.justify));
             viewAddElevatorToInstallation.getrBtnGround().requestFocus();
         }else{
-            potency = MethodsForCalculationsGlobal1.getPotencyHorsePower(((HorsePower)viewAddElevatorToInstallation.getCmbHP().getSelectedItem()).getValue());
+            potency = MethodsForCalculationsGlobal.getPotencyHorsePower(((HorsePower)viewAddElevatorToInstallation.getCmbHP().getSelectedItem()).getValue());
             horsesPowersFound = ServiceHorsePorwer.find_intensity_horses_power(
                     new HorsesPowers(
                             0, 
@@ -322,14 +322,14 @@ public class ControllerElevatorInInstallation implements ActionListener, ChangeL
             if (horsesPowersFound == null){
                 MessagesStructure.Warning(MessagesStructure.format(200, messages.getProperty(Messages.HORSES_POWER_INTENSITY_NO_FOUND), MessagesStructure.justify));
             } else {
-                caliberPhaseFound = MethodsForCalculationsGlobal1.calculateCaliberDishwasherAndCrusher(
+                caliberPhaseFound = MethodsForCalculationsGlobal.calculateCaliberDishwasherAndCrusher(
                     horsesPowersFound.getIntensity().getIntensity(),
                     (Material)viewAddElevatorToInstallation.getCmbMaterial().getSelectedItem(), 
                     (Temperature)viewAddElevatorToInstallation.getCmbTemperature().getSelectedItem());  
 
                 caliberNeutralFound = caliberPhaseFound;
 
-                calibersHearthFound = MethodsForCalculationsGlobal1.calculate_caliberHearth_dishwasherAndCrusher(horsesPowersFound.getIntensity().getIntensity());
+                calibersHearthFound = MethodsForCalculationsGlobal.calculate_caliberHearth_dishwasherAndCrusher(horsesPowersFound.getIntensity().getIntensity());
 
                 materialPipeline = viewAddElevatorToInstallation.getCmbPipeline().getSelectedItem().toString();
                 
@@ -341,11 +341,11 @@ public class ControllerElevatorInInstallation implements ActionListener, ChangeL
                         materialPipeline);
                 
                 if (viewAddElevatorToInstallation.getTypePhases().equals(TypePhases.SINGLE_PHASE_THREE_THREAD)){
-                  breakerPhaseFound = MethodsForCalculationsGlobal1.find_braker_dishwasherAndCrusher(
+                  breakerPhaseFound = MethodsForCalculationsGlobal.find_braker_dishwasherAndCrusher(
                         horsesPowersFound.getIntensity().getIntensity(), 
                         ((PercentageSinglePhaseMotors)viewAddElevatorToInstallation.getCmbPercentageSinglePhaseMotors().getSelectedItem()).getPercentage());                    
                 } else {
-                  breakerPhaseFound = MethodsForCalculationsGlobal1.find_braker_dishwasherAndCrusher(
+                  breakerPhaseFound = MethodsForCalculationsGlobal.find_braker_dishwasherAndCrusher(
                         horsesPowersFound.getIntensity().getIntensity(), 
                         ((PercentageOfThreePhaseMotors)viewAddElevatorToInstallation.getCmbPercentageSinglePhaseMotors().getSelectedItem()).getPercentage());                    
                 }
@@ -356,16 +356,16 @@ public class ControllerElevatorInInstallation implements ActionListener, ChangeL
                     viewAddElevatorToInstallation.getCmbCaliber().setSelectedItem(caliberPhaseFound.getCaliber());
                     viewAddElevatorToInstallation.getCmbCalibersNeutral().setSelectedItem(caliberPhaseFound.getCaliber());
                     if (((Material)viewAddElevatorToInstallation.getCmbMaterial().getSelectedItem()).getName().equals(TypeMaterials.COOPER.getMaterial())){                
-                        viewAddElevatorToInstallation.getLblCaliberPhase().setText(MethodsForCalculationsGlobal1.number_of_calibers((Phase)viewAddElevatorToInstallation.getCmbPhases().getSelectedItem(), TypeCalibers.PHASE) + " #" + caliberPhaseFound.getCaliber().getName() + " Cu " + MethodsForCalculationsGlobal1.typeCaliber(typeCaliber,(Temperature)viewAddElevatorToInstallation.getCmbTemperature().getSelectedItem()) + " " + MethodsForCalculationsGlobal1.number_of_brakers((Phase)viewAddElevatorToInstallation.getCmbPhases().getSelectedItem(), breakerPhaseFound.getCapacity()));
-                        viewAddElevatorToInstallation.getLblCaliberNeutral().setText("1 Cable" + " #" + caliberPhaseFound.getCaliber().getName() + " Cu " + MethodsForCalculationsGlobal1.typeCaliber(typeCaliber,(Temperature)viewAddElevatorToInstallation.getCmbTemperature().getSelectedItem()));
+                        viewAddElevatorToInstallation.getLblCaliberPhase().setText(MethodsForCalculationsGlobal.number_of_calibers((Phase)viewAddElevatorToInstallation.getCmbPhases().getSelectedItem(), TypeCalibers.PHASE) + " #" + caliberPhaseFound.getCaliber().getName() + " Cu " + MethodsForCalculationsGlobal.typeCaliber(typeCaliber,(Temperature)viewAddElevatorToInstallation.getCmbTemperature().getSelectedItem()) + " " + MethodsForCalculationsGlobal.number_of_brakers((Phase)viewAddElevatorToInstallation.getCmbPhases().getSelectedItem(), breakerPhaseFound.getCapacity()));
+                        viewAddElevatorToInstallation.getLblCaliberNeutral().setText("1 Cable" + " #" + caliberPhaseFound.getCaliber().getName() + " Cu " + MethodsForCalculationsGlobal.typeCaliber(typeCaliber,(Temperature)viewAddElevatorToInstallation.getCmbTemperature().getSelectedItem()));
                     } else if (((Material)viewAddElevatorToInstallation.getCmbMaterial().getSelectedItem()).getName().equals(TypeMaterials.ALUMINIUM.getMaterial())) {
-                        viewAddElevatorToInstallation.getLblCaliberPhase().setText(MethodsForCalculationsGlobal1.number_of_calibers((Phase)viewAddElevatorToInstallation.getCmbPhases().getSelectedItem(), TypeCalibers.PHASE) + " #" + caliberPhaseFound.getCaliber().getName() + " Al " + MethodsForCalculationsGlobal1.typeCaliber(typeCaliber,(Temperature)viewAddElevatorToInstallation.getCmbTemperature().getSelectedItem()) + " " + MethodsForCalculationsGlobal1.number_of_brakers((Phase)viewAddElevatorToInstallation.getCmbPhases().getSelectedItem(), breakerPhaseFound.getCapacity()));
-                        viewAddElevatorToInstallation.getLblCaliberNeutral().setText("1 Cable" + " #" + caliberPhaseFound.getCaliber().getName() + " Al " + MethodsForCalculationsGlobal1.typeCaliber(typeCaliber,(Temperature)viewAddElevatorToInstallation.getCmbTemperature().getSelectedItem()));
+                        viewAddElevatorToInstallation.getLblCaliberPhase().setText(MethodsForCalculationsGlobal.number_of_calibers((Phase)viewAddElevatorToInstallation.getCmbPhases().getSelectedItem(), TypeCalibers.PHASE) + " #" + caliberPhaseFound.getCaliber().getName() + " Al " + MethodsForCalculationsGlobal.typeCaliber(typeCaliber,(Temperature)viewAddElevatorToInstallation.getCmbTemperature().getSelectedItem()) + " " + MethodsForCalculationsGlobal.number_of_brakers((Phase)viewAddElevatorToInstallation.getCmbPhases().getSelectedItem(), breakerPhaseFound.getCapacity()));
+                        viewAddElevatorToInstallation.getLblCaliberNeutral().setText("1 Cable" + " #" + caliberPhaseFound.getCaliber().getName() + " Al " + MethodsForCalculationsGlobal.typeCaliber(typeCaliber,(Temperature)viewAddElevatorToInstallation.getCmbTemperature().getSelectedItem()));
                     }
                     if (calibersHearthFound == null){
                         viewAddElevatorToInstallation.getLblCaliberEarth().setText("No aplica");
                     } else {
-                        viewAddElevatorToInstallation.getLblCaliberEarth().setText("1 Cable " + calibersHearthFound.getCaliber().getName() + " " + MethodsForCalculationsGlobal1.typeCaliber(typeCaliber,(Temperature)viewAddElevatorToInstallation.getCmbTemperature().getSelectedItem()));
+                        viewAddElevatorToInstallation.getLblCaliberEarth().setText("1 Cable " + calibersHearthFound.getCaliber().getName() + " " + MethodsForCalculationsGlobal.typeCaliber(typeCaliber,(Temperature)viewAddElevatorToInstallation.getCmbTemperature().getSelectedItem()));
                     }
                     viewAddElevatorToInstallation.getBtnCalculateBreakdown().doClick(); 
                 }                     
@@ -379,12 +379,12 @@ public class ControllerElevatorInInstallation implements ActionListener, ChangeL
      */
     private ResistanceReactance calculate_reactance(TypeOfBranchCircuitInArea typeOfBranchCircuitInArea){   
         if (typeOfBranchCircuitInArea == TypeOfBranchCircuitInArea.NEUTRAL){
-            return  MethodsForCalculationsGlobal1.calculate_reactance(
+            return  MethodsForCalculationsGlobal.calculate_reactance(
                 (Material)viewAddElevatorToInstallation.getCmbMaterial().getSelectedItem(),
                 (Caliber)viewAddElevatorToInstallation.getCmbCalibersNeutral().getSelectedItem(), 
                 (Duct)viewAddElevatorToInstallation.getCmbDuct().getSelectedItem());  
         } else {
-            return  MethodsForCalculationsGlobal1.calculate_reactance(
+            return  MethodsForCalculationsGlobal.calculate_reactance(
                 (Material)viewAddElevatorToInstallation.getCmbMaterial().getSelectedItem(),
                 (Caliber)viewAddElevatorToInstallation.getCmbCaliber().getSelectedItem(), 
                 (Duct)viewAddElevatorToInstallation.getCmbDuct().getSelectedItem());        
@@ -397,12 +397,12 @@ public class ControllerElevatorInInstallation implements ActionListener, ChangeL
      */
     private ResistanceReactance calculate_resistance(TypeOfBranchCircuitInArea typeOfBranchCircuitInArea){
         if (typeOfBranchCircuitInArea == TypeOfBranchCircuitInArea.NEUTRAL){
-            return MethodsForCalculationsGlobal1.calculate_resistance(
+            return MethodsForCalculationsGlobal.calculate_resistance(
                 (Material)viewAddElevatorToInstallation.getCmbMaterial().getSelectedItem(),
                 (Caliber)viewAddElevatorToInstallation.getCmbCalibersNeutral().getSelectedItem(), 
                 (Duct)viewAddElevatorToInstallation.getCmbDuct().getSelectedItem());
         } else {
-            return MethodsForCalculationsGlobal1.calculate_resistance(
+            return MethodsForCalculationsGlobal.calculate_resistance(
                 (Material)viewAddElevatorToInstallation.getCmbMaterial().getSelectedItem(),
                 (Caliber)viewAddElevatorToInstallation.getCmbCaliber().getSelectedItem(), 
                 (Duct)viewAddElevatorToInstallation.getCmbDuct().getSelectedItem());            
@@ -416,12 +416,12 @@ public class ControllerElevatorInInstallation implements ActionListener, ChangeL
         if (caliberPhaseFound == null || caliberNeutralFound == null || calibersHearthFound == null){
             MessagesStructure.Warning(MessagesStructure.format(200, messages.getProperty(Messages.AREA_CAPACITY_INTENSITY_NO_FOUND), MessagesStructure.justify));
         } else {
-            if (MethodsForCalculationsGlobal1.validate_caliber((Caliber)viewAddElevatorToInstallation.getCmbCaliber().getSelectedItem())
-                    && MethodsForCalculationsGlobal1.validate_caliber((Caliber)viewAddElevatorToInstallation.getCmbCalibersNeutral().getSelectedItem())){       
+            if (MethodsForCalculationsGlobal.validate_caliber((Caliber)viewAddElevatorToInstallation.getCmbCaliber().getSelectedItem())
+                    && MethodsForCalculationsGlobal.validate_caliber((Caliber)viewAddElevatorToInstallation.getCmbCalibersNeutral().getSelectedItem())){       
                 resistance = calculate_resistance(TypeOfBranchCircuitInArea.ILUMINARIA);
                 reactance  = calculate_reactance(TypeOfBranchCircuitInArea.ILUMINARIA);
                 if (resistance != null){     
-                    breakdownVoltage = MethodsForCalculationsGlobal1.breakdownVoltage(
+                    breakdownVoltage = MethodsForCalculationsGlobal.breakdownVoltage(
                             potency,  
                             Double.valueOf(viewAddElevatorToInstallation.getJspLength().getValue().toString()), 
                             ((Voltage)viewAddElevatorToInstallation.getCmbVoltage().getSelectedItem()).getVoltage(), 
@@ -433,11 +433,11 @@ public class ControllerElevatorInInstallation implements ActionListener, ChangeL
                     caliberSelected = (Caliber)viewAddElevatorToInstallation.getCmbCaliber().getSelectedItem(); 
                     
                     if (viewAddElevatorToInstallation.getTypePhases().equals(TypePhases.SINGLE_PHASE_THREE_THREAD)){
-                        breakerPhasePersistFound = MethodsForCalculationsGlobal1.find_braker_dishwasherAndCrusher(
+                        breakerPhasePersistFound = MethodsForCalculationsGlobal.find_braker_dishwasherAndCrusher(
                             horsesPowersFound.getIntensity().getIntensity(), 
                             ((PercentageSinglePhaseMotors)viewAddElevatorToInstallation.getCmbPercentageSinglePhaseMotors().getSelectedItem()).getPercentage());                    
                     } else {
-                        breakerPhasePersistFound = MethodsForCalculationsGlobal1.find_braker_dishwasherAndCrusher(
+                        breakerPhasePersistFound = MethodsForCalculationsGlobal.find_braker_dishwasherAndCrusher(
                           horsesPowersFound.getIntensity().getIntensity(), 
                           ((PercentageOfThreePhaseMotors)viewAddElevatorToInstallation.getCmbPercentageSinglePhaseMotors().getSelectedItem()).getPercentage());                    
                     }
@@ -445,7 +445,7 @@ public class ControllerElevatorInInstallation implements ActionListener, ChangeL
                     resistance = calculate_resistance(TypeOfBranchCircuitInArea.NEUTRAL);
                     reactance  = calculate_reactance(TypeOfBranchCircuitInArea.NEUTRAL);
                     if (resistance != null){                
-                        breakdownVoltage = MethodsForCalculationsGlobal1.breakdownVoltage(
+                        breakdownVoltage = MethodsForCalculationsGlobal.breakdownVoltage(
                                 potency,  
                                 Double.valueOf(viewAddElevatorToInstallation.getJspLength().getValue().toString()), 
                                 ((Voltage)viewAddElevatorToInstallation.getCmbVoltage().getSelectedItem()).getVoltage(), 
@@ -460,8 +460,8 @@ public class ControllerElevatorInInstallation implements ActionListener, ChangeL
                                 "#" + caliberPhaseFound.getCaliber().getName(), 
                                 "#" + caliberSelected.getName());
                         caliberPhase = caliberPhase.replace(
-                                MethodsForCalculationsGlobal1.number_of_brakers((Phase)viewAddElevatorToInstallation.getCmbPhases().getSelectedItem(),breakerPhaseFound.getCapacity()),
-                                MethodsForCalculationsGlobal1.number_of_brakers((Phase)viewAddElevatorToInstallation.getCmbPhases().getSelectedItem(), breakerPhasePersistFound.getCapacity()));
+                                MethodsForCalculationsGlobal.number_of_brakers((Phase)viewAddElevatorToInstallation.getCmbPhases().getSelectedItem(),breakerPhaseFound.getCapacity()),
+                                MethodsForCalculationsGlobal.number_of_brakers((Phase)viewAddElevatorToInstallation.getCmbPhases().getSelectedItem(), breakerPhasePersistFound.getCapacity()));
                         caliberNeutral = viewAddElevatorToInstallation.getLblCaliberNeutral().getText();
                         caliberNeutral = caliberNeutral.replace(
                                 "#" + caliberNeutralFound.getCaliber().getName(), 

@@ -113,14 +113,14 @@ public class ControllerSubFeederMotors implements ActionListener, WindowListener
      * Método para calcular conductor.
      */
     public void calculate_conductor(){
-        caliberPhaseFound = MethodsForCalculationsGlobal1.calculateCaliberDishwasherAndCrusher(
+        caliberPhaseFound = MethodsForCalculationsGlobal.calculateCaliberDishwasherAndCrusher(
             viewSubFeederMotors.getIntensity().getIntensity(),
             (Material)viewSubFeederMotors.getCmbMaterial().getSelectedItem(), 
             (Temperature)viewSubFeederMotors.getCmbTemperature().getSelectedItem());  
 
-        calibersHearthFound = MethodsForCalculationsGlobal1.calculate_caliberHearth_dishwasherAndCrusher(viewSubFeederMotors.getIntensity().getIntensity());
+        calibersHearthFound = MethodsForCalculationsGlobal.calculate_caliberHearth_dishwasherAndCrusher(viewSubFeederMotors.getIntensity().getIntensity());
         
-        breakerPhaseFound = MethodsForCalculationsGlobal1.find_braker_motors(viewSubFeederMotors.getBreaker().getCapacity());
+        breakerPhaseFound = MethodsForCalculationsGlobal.find_braker_motors(viewSubFeederMotors.getBreaker().getCapacity());
         
         caliberPipeline = MethodsForCalculationsIluminariaPowerPoint.calculate_pipeline(
                             caliberPhaseFound.getCaliber(), 
@@ -133,14 +133,14 @@ public class ControllerSubFeederMotors implements ActionListener, WindowListener
             MessagesStructure.Warning(MessagesStructure.format(200, messages.getProperty(Messages.CALIBER_NO_FOUND), MessagesStructure.justify));
         } else {
             if (((Material)viewSubFeederMotors.getCmbMaterial().getSelectedItem()).getName().equals(TypeMaterials.COOPER.getMaterial())){                
-                viewSubFeederMotors.getLblCaliberPhase().setText(MethodsForCalculationsGlobal1.number_of_calibers((Phase)viewSubFeederMotors.getCmbPhases().getSelectedItem(), TypeCalibers.PHASE) + " #" + caliberPhaseFound.getCaliber().getName() + " Cu " + MethodsForCalculationsGlobal1.typeCaliber(typeCaliber,(Temperature)viewSubFeederMotors.getCmbTemperature().getSelectedItem()) + " " + MethodsForCalculationsGlobal1.number_of_brakers((Phase)viewSubFeederMotors.getCmbPhases().getSelectedItem(), breakerPhaseFound.getCapacity()));
+                viewSubFeederMotors.getLblCaliberPhase().setText(MethodsForCalculationsGlobal.number_of_calibers((Phase)viewSubFeederMotors.getCmbPhases().getSelectedItem(), TypeCalibers.PHASE) + " #" + caliberPhaseFound.getCaliber().getName() + " Cu " + MethodsForCalculationsGlobal.typeCaliber(typeCaliber,(Temperature)viewSubFeederMotors.getCmbTemperature().getSelectedItem()) + " " + MethodsForCalculationsGlobal.number_of_brakers((Phase)viewSubFeederMotors.getCmbPhases().getSelectedItem(), breakerPhaseFound.getCapacity()));
             } else if (((Material)viewSubFeederMotors.getCmbMaterial().getSelectedItem()).getName().equals(TypeMaterials.ALUMINIUM.getMaterial())) {
-                viewSubFeederMotors.getLblCaliberPhase().setText(MethodsForCalculationsGlobal1.number_of_calibers((Phase)viewSubFeederMotors.getCmbPhases().getSelectedItem(), TypeCalibers.PHASE) + " #" + caliberPhaseFound.getCaliber().getName() + " Al " + MethodsForCalculationsGlobal1.typeCaliber(typeCaliber,(Temperature)viewSubFeederMotors.getCmbTemperature().getSelectedItem()) + " " + MethodsForCalculationsGlobal1.number_of_brakers((Phase)viewSubFeederMotors.getCmbPhases().getSelectedItem(), breakerPhaseFound.getCapacity()));
+                viewSubFeederMotors.getLblCaliberPhase().setText(MethodsForCalculationsGlobal.number_of_calibers((Phase)viewSubFeederMotors.getCmbPhases().getSelectedItem(), TypeCalibers.PHASE) + " #" + caliberPhaseFound.getCaliber().getName() + " Al " + MethodsForCalculationsGlobal.typeCaliber(typeCaliber,(Temperature)viewSubFeederMotors.getCmbTemperature().getSelectedItem()) + " " + MethodsForCalculationsGlobal.number_of_brakers((Phase)viewSubFeederMotors.getCmbPhases().getSelectedItem(), breakerPhaseFound.getCapacity()));
             }
             if (calibersHearthFound == null){
                 viewSubFeederMotors.getLblCaliberEarth().setText("No aplica");
             } else {
-                viewSubFeederMotors.getLblCaliberEarth().setText("1 Cable " + calibersHearthFound.getCaliber().getName() + " " + MethodsForCalculationsGlobal1.typeCaliber(typeCaliber,(Temperature)viewSubFeederMotors.getCmbTemperature().getSelectedItem()));
+                viewSubFeederMotors.getLblCaliberEarth().setText("1 Cable " + calibersHearthFound.getCaliber().getName() + " " + MethodsForCalculationsGlobal.typeCaliber(typeCaliber,(Temperature)viewSubFeederMotors.getCmbTemperature().getSelectedItem()));
             }
         }          
     }//Fin del método

@@ -38,7 +38,7 @@ import com.electrical_installations.model.service.ServiceResistanceReactance;
  * @version 1
  * @since 2015-09-02
  */
-public class MethodsForCalculationsGlobal1 {
+public class MethodsForCalculationsGlobal {
     
     //Objetos, variables y constantes.         
     private static final double squareRootOfN = 3;            

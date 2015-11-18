@@ -591,7 +591,7 @@ public class ControllerArea implements ActionListener, KeyListener, WindowListen
                        MessagesStructure.Warning(MessagesStructure.format(200, messages.getProperty(Messages.RUSH_NO_FOUND), MessagesStructure.justify));
                        viewArea.getrBtnGroundSubFeeder().requestFocus();
                     } else{        
-                        caliberFoundSubFeeder = MethodsForCalculationsGlobal1.calculateCaliberForSubFeeder(
+                        caliberFoundSubFeeder = MethodsForCalculationsGlobal.calculateCaliberForSubFeeder(
                                 potencyTotal,
                                 (Voltage)viewArea.getCmbVoltageSubFeeder().getSelectedItem(), 
                                 (Material)viewArea.getCmbMaterialSubFeeder().getSelectedItem(), 
@@ -599,7 +599,7 @@ public class ControllerArea implements ActionListener, KeyListener, WindowListen
                                 Double.valueOf(viewArea.getJspPowerSubFeeder().getValue().toString()), 
                                 viewArea.getCmbPhasesSubFeeder().getSelectedIndex());  
 
-                        caliberFoundSubFeederNeutral = MethodsForCalculationsGlobal1.calculateCaliberForSubFeeder(
+                        caliberFoundSubFeederNeutral = MethodsForCalculationsGlobal.calculateCaliberForSubFeeder(
                                 potencyTotalNeutral,
                                 (Voltage)viewArea.getCmbVoltageSubFeeder().getSelectedItem(), 
                                 (Material)viewArea.getCmbMaterialSubFeeder().getSelectedItem(), 
@@ -621,7 +621,7 @@ public class ControllerArea implements ActionListener, KeyListener, WindowListen
                                 null, 
                                 caliberFoundSubFeeder.getCaliber()));
                         
-                        breakerFoundSubFeeder = MethodsForCalculationsGlobal1.find_breaker_subfeeder(
+                        breakerFoundSubFeeder = MethodsForCalculationsGlobal.find_breaker_subfeeder(
                                 potencyTotal,
                                 (Voltage)viewArea.getCmbVoltageSubFeeder().getSelectedItem(), 
                                 (Material)viewArea.getCmbMaterialSubFeeder().getSelectedItem(), 
@@ -635,11 +635,11 @@ public class ControllerArea implements ActionListener, KeyListener, WindowListen
                             viewArea.getCmbCalibersSubFeeder().setSelectedItem(caliberFoundSubFeeder.getCaliber());
                             viewArea.getCmbCalibersSubFeederNeutral().setSelectedItem(caliberFoundSubFeederNeutral.getCaliber());                    
                             if (((Material)viewArea.getCmbMaterialSubFeeder().getSelectedItem()).getName().equals(TypeMaterials.COOPER.getMaterial())){                
-                                viewArea.getLblCaliberSubFeeder().setText(MethodsForCalculationsGlobal1.number_of_calibers((Phase)viewArea.getCmbPhasesSubFeeder().getSelectedItem(), TypeCalibers.PHASE) + " #" + caliberFoundSubFeeder.getCaliber().getName() + " Cu " + MethodsForCalculationsGlobal1.typeCaliber(typeCaliberSubFeeder,(Temperature)viewArea.getCmbTemperatureSubFeeder().getSelectedItem()) + " " + MethodsForCalculationsGlobal1.number_of_brakers((Phase)viewArea.getCmbPhasesSubFeeder().getSelectedItem(), breakerFoundSubFeeder.getCapacity()));
-                                viewArea.getLblCaliberNeutral().setText("1 Cable" + " #" + caliberFoundSubFeederNeutral.getCaliber().getName() + " Cu " + MethodsForCalculationsGlobal1.typeCaliber(typeCaliberSubFeeder,(Temperature)viewArea.getCmbTemperatureSubFeeder().getSelectedItem()));
+                                viewArea.getLblCaliberSubFeeder().setText(MethodsForCalculationsGlobal.number_of_calibers((Phase)viewArea.getCmbPhasesSubFeeder().getSelectedItem(), TypeCalibers.PHASE) + " #" + caliberFoundSubFeeder.getCaliber().getName() + " Cu " + MethodsForCalculationsGlobal.typeCaliber(typeCaliberSubFeeder,(Temperature)viewArea.getCmbTemperatureSubFeeder().getSelectedItem()) + " " + MethodsForCalculationsGlobal.number_of_brakers((Phase)viewArea.getCmbPhasesSubFeeder().getSelectedItem(), breakerFoundSubFeeder.getCapacity()));
+                                viewArea.getLblCaliberNeutral().setText("1 Cable" + " #" + caliberFoundSubFeederNeutral.getCaliber().getName() + " Cu " + MethodsForCalculationsGlobal.typeCaliber(typeCaliberSubFeeder,(Temperature)viewArea.getCmbTemperatureSubFeeder().getSelectedItem()));
                             } else if (((Material)viewArea.getCmbMaterialSubFeeder().getSelectedItem()).getName().equals(TypeMaterials.ALUMINIUM.getMaterial())) {
-                                viewArea.getLblCaliberSubFeeder().setText(MethodsForCalculationsGlobal1.number_of_calibers((Phase)viewArea.getCmbPhasesSubFeeder().getSelectedItem(), TypeCalibers.PHASE) + " #" + caliberFoundSubFeeder.getCaliber().getName() + " Al " + MethodsForCalculationsGlobal1.typeCaliber(typeCaliberSubFeeder,(Temperature)viewArea.getCmbTemperatureSubFeeder().getSelectedItem()) + " " + MethodsForCalculationsGlobal1.number_of_brakers((Phase)viewArea.getCmbPhasesSubFeeder().getSelectedItem(), breakerFoundSubFeeder.getCapacity()));
-                                viewArea.getLblCaliberNeutral().setText("1 Cable" + " #" + caliberFoundSubFeederNeutral.getCaliber().getName() + " Al " + MethodsForCalculationsGlobal1.typeCaliber(typeCaliberSubFeeder,(Temperature)viewArea.getCmbTemperatureSubFeeder().getSelectedItem()));
+                                viewArea.getLblCaliberSubFeeder().setText(MethodsForCalculationsGlobal.number_of_calibers((Phase)viewArea.getCmbPhasesSubFeeder().getSelectedItem(), TypeCalibers.PHASE) + " #" + caliberFoundSubFeeder.getCaliber().getName() + " Al " + MethodsForCalculationsGlobal.typeCaliber(typeCaliberSubFeeder,(Temperature)viewArea.getCmbTemperatureSubFeeder().getSelectedItem()) + " " + MethodsForCalculationsGlobal.number_of_brakers((Phase)viewArea.getCmbPhasesSubFeeder().getSelectedItem(), breakerFoundSubFeeder.getCapacity()));
+                                viewArea.getLblCaliberNeutral().setText("1 Cable" + " #" + caliberFoundSubFeederNeutral.getCaliber().getName() + " Al " + MethodsForCalculationsGlobal.typeCaliber(typeCaliberSubFeeder,(Temperature)viewArea.getCmbTemperatureSubFeeder().getSelectedItem()));
                             }
                             viewArea.getBtnCalculateBreakdownSubFeeder().doClick();                           
                         }          
@@ -668,12 +668,12 @@ public class ControllerArea implements ActionListener, KeyListener, WindowListen
                     (Caliber)viewArea.getCmbCalibersPowerPoint().getSelectedItem(), 
                     (Duct)viewArea.getCmbDuctPowerPoint().getSelectedItem());
             case SUB_FEEDER:                
-                return  MethodsForCalculationsGlobal1.calculate_reactance(
+                return  MethodsForCalculationsGlobal.calculate_reactance(
                     (Material)viewArea.getCmbMaterialSubFeeder().getSelectedItem(),
                     (Caliber)viewArea.getCmbCalibersSubFeeder().getSelectedItem(), 
                     (Duct)viewArea.getCmbDuctSubFeeder().getSelectedItem());
             case NEUTRAL:
-                return  MethodsForCalculationsGlobal1.calculate_reactance(
+                return  MethodsForCalculationsGlobal.calculate_reactance(
                     (Material)viewArea.getCmbMaterialSubFeeder().getSelectedItem(),
                     (Caliber)viewArea.getCmbCalibersSubFeederNeutral().getSelectedItem(), 
                     (Duct)viewArea.getCmbDuctSubFeeder().getSelectedItem());
@@ -699,12 +699,12 @@ public class ControllerArea implements ActionListener, KeyListener, WindowListen
                     (Caliber)viewArea.getCmbCalibersPowerPoint().getSelectedItem(), 
                     (Duct)viewArea.getCmbDuctPowerPoint().getSelectedItem());
             case SUB_FEEDER:                
-                return  MethodsForCalculationsGlobal1.calculate_resistance(
+                return  MethodsForCalculationsGlobal.calculate_resistance(
                     (Material)viewArea.getCmbMaterialSubFeeder().getSelectedItem(),
                     (Caliber)viewArea.getCmbCalibersSubFeeder().getSelectedItem(), 
                     (Duct)viewArea.getCmbDuctSubFeeder().getSelectedItem());
             case NEUTRAL:
-                return  MethodsForCalculationsGlobal1.calculate_resistance(
+                return  MethodsForCalculationsGlobal.calculate_resistance(
                     (Material)viewArea.getCmbMaterialSubFeeder().getSelectedItem(),
                     (Caliber)viewArea.getCmbCalibersSubFeederNeutral().getSelectedItem(), 
                     (Duct)viewArea.getCmbDuctSubFeeder().getSelectedItem());
@@ -824,12 +824,12 @@ public class ControllerArea implements ActionListener, KeyListener, WindowListen
                 if (caliberFoundSubFeeder == null){
                     MessagesStructure.Warning(MessagesStructure.format(200, messages.getProperty(Messages.AREA_CAPACITY_INTENSITY_NO_FOUND), MessagesStructure.justify));
                 } else {
-                    if (MethodsForCalculationsGlobal1.validate_caliber((Caliber)viewArea.getCmbCalibersSubFeeder().getSelectedItem()) 
-                            && MethodsForCalculationsGlobal1.validate_caliber((Caliber)viewArea.getCmbCalibersSubFeederNeutral().getSelectedItem())){   
+                    if (MethodsForCalculationsGlobal.validate_caliber((Caliber)viewArea.getCmbCalibersSubFeeder().getSelectedItem()) 
+                            && MethodsForCalculationsGlobal.validate_caliber((Caliber)viewArea.getCmbCalibersSubFeederNeutral().getSelectedItem())){   
                         if (resistance != null){           
                             resistance = calculate_resistance(typeOfBranchCircuitInArea);
                             reactance  = calculate_reactance(typeOfBranchCircuitInArea);  
-                            breakdownVoltage = MethodsForCalculationsGlobal1.breakdownVoltage(
+                            breakdownVoltage = MethodsForCalculationsGlobal.breakdownVoltage(
                                     potencyTotal,                                      
                                     Double.valueOf(viewArea.getJspLengthSubFeeder().getValue().toString()), 
                                     ((Voltage)viewArea.getCmbVoltageSubFeeder().getSelectedItem()).getVoltage(), 
@@ -847,7 +847,7 @@ public class ControllerArea implements ActionListener, KeyListener, WindowListen
                                     null, 
                                     caliberSelectedSubFeeder));
 
-                            breakerFoundSubFeeder = MethodsForCalculationsGlobal1.find_breaker_dryer(
+                            breakerFoundSubFeeder = MethodsForCalculationsGlobal.find_breaker_dryer(
                                     potencyTotal,
                                     (Voltage)viewArea.getCmbVoltageSubFeeder().getSelectedItem(), 
                                     (Material)viewArea.getCmbMaterialSubFeeder().getSelectedItem(), 
@@ -857,7 +857,7 @@ public class ControllerArea implements ActionListener, KeyListener, WindowListen
                             
                             resistance = calculate_resistance(TypeOfBranchCircuitInArea.NEUTRAL);
                             reactance  = calculate_reactance(TypeOfBranchCircuitInArea.NEUTRAL);  
-                            breakdownVoltage = MethodsForCalculationsGlobal1.breakdownVoltage(
+                            breakdownVoltage = MethodsForCalculationsGlobal.breakdownVoltage(
                                     potencyTotalNeutral,  
                                     Double.valueOf(viewArea.getJspLengthSubFeeder().getValue().toString()), 
                                     ((Voltage)viewArea.getCmbVoltageSubFeeder().getSelectedItem()).getVoltage(), 
@@ -876,11 +876,11 @@ public class ControllerArea implements ActionListener, KeyListener, WindowListen
                                     viewArea.getCmbPipelineSubFeeder().getSelectedItem().toString());
                             
                             if (((Material)viewArea.getCmbMaterialSubFeeder().getSelectedItem()).getName().equals(TypeMaterials.COOPER.getMaterial())){                
-                                caliberUseSubFeeder = String.valueOf(MethodsForCalculationsGlobal1.number_of_calibers((Phase)viewArea.getCmbPhasesSubFeeder().getSelectedItem(), TypeCalibers.PHASE) + " #" + caliberSelectedSubFeeder.getName() + " Cu " + MethodsForCalculationsGlobal1.typeCaliber(typeCaliberSubFeeder,(Temperature)viewArea.getCmbTemperatureSubFeeder().getSelectedItem()) + " " + MethodsForCalculationsGlobal1.number_of_brakers((Phase)viewArea.getCmbPhasesSubFeeder().getSelectedItem(), breakerFoundSubFeeder.getCapacity()));
-                                caliberUseSubFeederNeutral = String.valueOf("1 Cable" + " #" + caliberSelectedSubFeederNeutral.getName() + " Cu " + MethodsForCalculationsGlobal1.typeCaliber(typeCaliberSubFeeder,(Temperature)viewArea.getCmbTemperatureSubFeeder().getSelectedItem()));
+                                caliberUseSubFeeder = String.valueOf(MethodsForCalculationsGlobal.number_of_calibers((Phase)viewArea.getCmbPhasesSubFeeder().getSelectedItem(), TypeCalibers.PHASE) + " #" + caliberSelectedSubFeeder.getName() + " Cu " + MethodsForCalculationsGlobal.typeCaliber(typeCaliberSubFeeder,(Temperature)viewArea.getCmbTemperatureSubFeeder().getSelectedItem()) + " " + MethodsForCalculationsGlobal.number_of_brakers((Phase)viewArea.getCmbPhasesSubFeeder().getSelectedItem(), breakerFoundSubFeeder.getCapacity()));
+                                caliberUseSubFeederNeutral = String.valueOf("1 Cable" + " #" + caliberSelectedSubFeederNeutral.getName() + " Cu " + MethodsForCalculationsGlobal.typeCaliber(typeCaliberSubFeeder,(Temperature)viewArea.getCmbTemperatureSubFeeder().getSelectedItem()));
                             } else if (((Material)viewArea.getCmbMaterialSubFeeder().getSelectedItem()).getName().equals(TypeMaterials.ALUMINIUM.getMaterial())) {
-                                caliberUseSubFeeder = String.valueOf(MethodsForCalculationsGlobal1.number_of_calibers((Phase)viewArea.getCmbPhasesSubFeeder().getSelectedItem(), TypeCalibers.PHASE) + " #" + caliberSelectedSubFeeder.getName() + " Al " + MethodsForCalculationsGlobal1.typeCaliber(typeCaliberSubFeeder,(Temperature)viewArea.getCmbTemperatureSubFeeder().getSelectedItem()) + " " + MethodsForCalculationsGlobal1.number_of_brakers((Phase)viewArea.getCmbPhasesSubFeeder().getSelectedItem(), breakerFoundSubFeeder.getCapacity()));
-                                caliberUseSubFeederNeutral = String.valueOf("1 Cable" + " #" + caliberSelectedSubFeederNeutral.getName() + " Al " + MethodsForCalculationsGlobal1.typeCaliber(typeCaliberSubFeeder,(Temperature)viewArea.getCmbTemperatureSubFeeder().getSelectedItem()));
+                                caliberUseSubFeeder = String.valueOf(MethodsForCalculationsGlobal.number_of_calibers((Phase)viewArea.getCmbPhasesSubFeeder().getSelectedItem(), TypeCalibers.PHASE) + " #" + caliberSelectedSubFeeder.getName() + " Al " + MethodsForCalculationsGlobal.typeCaliber(typeCaliberSubFeeder,(Temperature)viewArea.getCmbTemperatureSubFeeder().getSelectedItem()) + " " + MethodsForCalculationsGlobal.number_of_brakers((Phase)viewArea.getCmbPhasesSubFeeder().getSelectedItem(), breakerFoundSubFeeder.getCapacity()));
+                                caliberUseSubFeederNeutral = String.valueOf("1 Cable" + " #" + caliberSelectedSubFeederNeutral.getName() + " Al " + MethodsForCalculationsGlobal.typeCaliber(typeCaliberSubFeeder,(Temperature)viewArea.getCmbTemperatureSubFeeder().getSelectedItem()));
                             }
                         }
                     }

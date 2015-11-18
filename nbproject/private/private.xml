@@ -11,15 +11,6 @@
         </file>
     </editor-bookmarks>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group>
-            <file>file:/C:/Users/Ing.%20Richard%20David/Desktop/ELECTRICAL_INSTALLATIONS/src/com/electrical_installations/model/dao/ChargesInAreasDAO.java</file>
-            <file>file:/C:/Users/Ing.%20Richard%20David/Desktop/ELECTRICAL_INSTALLATIONS/src/com/electrical_installations/model/service/ServiceArea.java</file>
-            <file>file:/C:/Users/Ing.%20Richard%20David/Desktop/ELECTRICAL_INSTALLATIONS/src/com/electrical_installations/model/implementation/ChargesInAreasImplDAO.java</file>
-            <file>file:/C:/Users/Ing.%20Richard%20David/Desktop/ELECTRICAL_INSTALLATIONS/src/com/electrical_installations/controller/ControllerProjectData.java</file>
-            <file>file:/C:/Users/Ing.%20Richard%20David/Desktop/ELECTRICAL_INSTALLATIONS/src/com/electrical_installations/controller/ControllerCharge.java</file>
-            <file>file:/C:/Users/Ing.%20Richard%20David/Desktop/ELECTRICAL_INSTALLATIONS/src/com/electrical_installations/model/service/ServiceChargesInAreas.java</file>
-            <file>file:/C:/Users/Ing.%20Richard%20David/Desktop/ELECTRICAL_INSTALLATIONS/src/com/electrical_installations/model/query/ChargesInAreasQueries.java</file>
-            <file>file:/C:/Users/Ing.%20Richard%20David/Desktop/ELECTRICAL_INSTALLATIONS/src/com/electrical_installations/model/implementation/AreaImplDAO.java</file>
-        </group>
+        <group/>
     </open-files>
 </project-private>
