@@ -31,6 +31,9 @@ import com.electrical_installations.model.service.ServiceArea;
 import com.electrical_installations.model.service.ServiceBreaker;
 import com.electrical_installations.model.service.ServiceCalibersHearth;
 import com.electrical_installations.model.service.ServiceResistanceReactance;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Vector;
 
 /**
  * Clase que contiene los métodos necesarios para realizar cálculos de la lógica de negocio.
@@ -333,6 +336,359 @@ public class MethodsForCalculationsGlobal {
      */
     public static double getPotencyHorsePower(double horsePower){
         return Methods.round(horsePower * constantHorsePower, 5);
-    }//;Fin del Método
+    }//Fin del Método
+    
+    /**
+     * Método para calcular la demanda de potencia y neutro para cocinas eléctricas.
+     * @param quantity
+     * @return Retorna un arreglo con la potencia total y neutral.
+     */
+    public static List<Double> calculateDemandForElectricKitchen(int quantity) {
+        List<Double> data = new ArrayList<>();
+        switch (quantity) {
+            case 1:
+                data.add(Double.valueOf(8 * 1000));
+                data.add((8 * 1000) * 0.7);
+                return data;
+            case 2:
+                data.add(Double.valueOf(11 * 1000));
+                data.add((11 * 1000) * 0.7);
+                return data;
+            case 3:
+                data.add(Double.valueOf(14 * 1000));
+                data.add((14 * 1000) * 0.7);
+                return data;
+            case 4:
+                data.add(Double.valueOf(17 * 1000));
+                data.add((17 * 1000) * 0.7);
+                return data;
+            case 5:
+                data.add(Double.valueOf(20 * 1000));
+                data.add((20 * 1000) * 0.7);
+                return data;
+            case 6:
+                data.add(Double.valueOf(21 * 1000));
+                data.add((21 * 1000) * 0.7);
+                return data;
+            case 7: 
+                data.add(Double.valueOf(22 * 1000));
+                data.add((22 * 1000) * 0.7);
+                return data;
+            case 8:
+                data.add(Double.valueOf(23 * 1000));
+                data.add((23 * 1000) * 0.7);
+                return data;
+            case 9:
+                data.add(Double.valueOf(24 * 1000));
+                data.add((24 * 1000) * 0.7);
+                return data;
+            case 10:
+                data.add(Double.valueOf(25 * 1000));
+                data.add((25 * 1000) * 0.7);
+                return data;
+            case 11:
+                data.add(Double.valueOf(26 * 1000));
+                data.add((26 * 1000) * 0.7);
+                return data;
+            case 12:
+                data.add(Double.valueOf(27 * 1000));
+                data.add((27 * 1000) * 0.7);
+                return data;
+            case 13:
+                data.add(Double.valueOf(28 * 1000));
+                data.add((28 * 1000) * 0.7);
+                return data;
+            case 14:
+                data.add(Double.valueOf(29 * 1000));
+                data.add((29 * 1000) * 0.7);
+                return data;
+            case 15:
+                data.add(Double.valueOf(30 * 1000));
+                data.add((30 * 1000) * 0.7);
+                return data;
+            case 16:
+                data.add(Double.valueOf(31 * 1000));
+                data.add((31 * 1000) * 0.7);
+                return data;
+            case 17:
+                data.add(Double.valueOf(32 * 1000));
+                data.add((32 * 1000) * 0.7);
+                return data;
+            case 18:
+                data.add(Double.valueOf(33 * 1000));
+                data.add((33 * 1000) * 0.7);
+                return data;
+            case 19:
+                data.add(Double.valueOf(34 * 1000));
+                data.add((34 * 1000) * 0.7);
+                return data;
+            case 20:
+                data.add(Double.valueOf(35 * 1000));
+                data.add((35 * 1000) * 0.7);
+                return data;
+            case 21:
+                data.add(Double.valueOf(36 * 1000));
+                data.add((36 * 1000) * 0.7);
+                return data;
+            case 22:
+                data.add(Double.valueOf(37 * 1000));
+                data.add((37 * 1000) * 0.7);
+                return data;
+            case 23:
+                data.add(Double.valueOf(38 * 1000));
+                data.add((38 * 1000) * 0.7);
+                return data;
+            case 24:
+                data.add(Double.valueOf(39 * 1000));
+                data.add((39 * 1000) * 0.7);
+                return data;
+            case 25:
+                data.add(Double.valueOf(40 * 1000));
+                data.add((40 * 1000) * 0.7);
+                return data;
+            default:
+                return data;
+        }        
+    }//Fin del método.  
+    
+    /**
+     * Método para calcular la demanda de potencia y neutro secadoras.
+     * @param quantity
+     * @param potency
+     * @return Retorna un arreglo con la potencia total y neutral.
+     */
+    public static List<Double> calculateDemandForDryer(int quantity, double potency) {
+        List<Double> data = new ArrayList<>();
+        double percentage = 0;
+        switch (quantity) {
+            case 1:
+                data.add(1 * potency);
+                data.add((1 * potency) * 0.7);
+                return data;
+            case 2:
+                data.add(2 * potency);
+                data.add((2 * potency) * 0.7);
+                return data;
+            case 3:
+                data.add(3 * potency);
+                data.add((3 * potency) * 0.7);
+                return data;
+            case 4:
+                data.add(4 * potency);
+                data.add((4 * potency) * 0.7);
+                return data;
+            case 5:
+                data.add((5 * potency) * 0.85);
+                data.add((5 * potency) * 0.7);
+                return data;
+            case 6:
+                data.add((6 * potency) * 0.75);
+                data.add((6 * potency) * 0.7);
+                return data;
+            case 7: 
+                data.add((7 * potency) * 0.65);
+                data.add((7 * potency) * 0.7);
+                return data;
+            case 8:
+                data.add((8 * potency) * 0.6);
+                data.add((8 * potency) * 0.7);
+                return data;
+            case 9:
+                data.add((9 * potency) * 0.55);
+                data.add((9 * potency) * 0.7);
+                return data;
+            case 10:
+                data.add((10 * potency) * 0.5);
+                data.add((10 * potency) * 0.7);
+                return data;
+            case 11:
+                data.add((11 * potency) * 0.47);
+                data.add((11 * potency) * 0.7);
+                return data;
+            case 12:
+                percentage = 47 - (quantity - 11);
+                data.add((quantity * potency) * percentage);
+                data.add((quantity * potency) * 0.7);
+                return data;
+            case 13:
+                percentage = 47 - (quantity - 11);
+                data.add((quantity * potency) * percentage);
+                data.add((quantity * potency) * 0.7);
+                return data;
+            case 14:
+                percentage = 47 - (quantity - 11);
+                data.add((quantity * potency) * percentage);
+                data.add((quantity * potency) * 0.7);
+                return data;
+            case 15:
+                percentage = 47 - (quantity - 11);
+                data.add((quantity * potency) * percentage);
+                data.add((quantity * potency) * 0.7);
+                return data;
+            case 16:
+                percentage = 47 - (quantity - 11);
+                data.add((quantity * potency) * percentage);
+                data.add((quantity * potency) * 0.7);
+                return data;
+            case 17:
+                percentage = 47 - (quantity - 11);
+                data.add((quantity * potency) * percentage);
+                data.add((quantity * potency) * 0.7);
+                return data;
+            case 18:
+                percentage = 47 - (quantity - 11);
+                data.add((quantity * potency) * percentage);
+                data.add((quantity * potency) * 0.7);
+                return data;
+            case 19:
+                percentage = 47 - (quantity - 11);
+                data.add((quantity * potency) * percentage);
+                data.add((quantity * potency) * 0.7);
+                return data;
+            case 20:
+                percentage = 47 - (quantity - 11);
+                data.add((quantity * potency) * percentage);
+                data.add((quantity * potency) * 0.7);
+                return data;
+            case 21:
+                percentage = 47 - (quantity - 11);
+                data.add((quantity * potency) * percentage);
+                data.add((quantity * potency) * 0.7);
+                return data;
+            case 22:
+                percentage = 47 - (quantity - 11);
+                data.add((quantity * potency) * percentage);
+                data.add((quantity * potency) * 0.7);
+                return data;
+            case 23:
+                data.add((23 * potency) * 0.33);
+                data.add((23 * potency) * 0.7);
+                return data;
+            case 24:
+                percentage = 33 - (0.5 * (quantity - 23));
+                data.add((quantity * potency) * percentage);
+                data.add((quantity * potency) * 0.7);
+                return data;
+            case 25:
+                percentage = 33 - (0.5 * (quantity - 23));
+                data.add((quantity * potency) * percentage);
+                data.add((quantity * potency) * 0.7);
+                return data;
+            case 26:
+                percentage = 33 - (0.5 * (quantity - 23));
+                data.add((quantity * potency) * percentage);
+                data.add((quantity * potency) * 0.7);
+                return data;
+            case 27:
+                percentage = 33 - (0.5 * (quantity - 23));
+                data.add((quantity * potency) * percentage);
+                data.add((quantity * potency) * 0.7);
+                return data;
+            case 28:
+                percentage = 33 - (0.5 * (quantity - 23));
+                data.add((quantity * potency) * percentage);
+                data.add((quantity * potency) * 0.7);
+                return data;
+            case 29:
+                percentage = 33 - (0.5 * (quantity - 23));
+                data.add((quantity * potency) * percentage);
+                data.add((quantity * potency) * 0.7);
+                return data;
+            case 30:
+                percentage = 33 - (0.5 * (quantity - 23));
+                data.add((quantity * potency) * percentage);
+                data.add((quantity * potency) * 0.7);
+                return data;
+            case 31:
+                percentage = 33 - (0.5 * (quantity - 23));
+                data.add((quantity * potency) * percentage);
+                data.add((quantity * potency) * 0.7);
+                return data;
+            case 32:
+                percentage = 33 - (0.5 * (quantity - 23));
+                data.add((quantity * potency) * percentage);
+                data.add((quantity * potency) * 0.7);
+                return data;
+            case 33:
+                percentage = 33 - (0.5 * (quantity - 23));
+                data.add((quantity * potency) * percentage);
+                data.add((quantity * potency) * 0.7);
+                return data;
+            case 34:
+                percentage = 33 - (0.5 * (quantity - 23));
+                data.add((quantity * potency) * percentage);
+                data.add((quantity * potency) * 0.7);
+                return data;
+            case 35:
+                percentage = 33 - (0.5 * (quantity - 23));
+                data.add((quantity * potency) * percentage);
+                data.add((quantity * potency) * 0.7);
+                return data;
+            case 36:
+                percentage = 33 - (0.5 * (quantity - 23));
+                data.add((quantity * potency) * percentage);
+                data.add((quantity * potency) * 0.7);
+                return data;
+            case 37:
+                percentage = 33 - (0.5 * (quantity - 23));
+                data.add((quantity * potency) * percentage);
+                data.add((quantity * potency) * 0.7);
+                return data;
+            case 38:
+                percentage = 33 - (0.5 * (quantity - 23));
+                data.add((quantity * potency) * percentage);
+                data.add((quantity * potency) * 0.7);
+                return data;
+            case 39:
+                percentage = 33 - (0.5 * (quantity - 23));
+                data.add((quantity * potency) * percentage);
+                data.add((quantity * potency) * 0.7);
+                return data;
+            case 40:
+                percentage = 33 - (0.5 * (quantity - 23));
+                data.add((quantity * potency) * percentage);
+                data.add((quantity * potency) * 0.7);
+                return data;
+            case 41:
+                percentage = 33 - (0.5 * (quantity - 23));
+                data.add((quantity * potency) * percentage);
+                data.add((quantity * potency) * 0.7);
+                return data;
+            case 42:
+                percentage = 33 - (0.5 * (quantity - 23));
+                data.add((quantity * potency) * percentage);
+                data.add((quantity * potency) * 0.7);
+                return data;
+            case 43:
+                data.add((quantity * potency) * 0.23);
+                data.add((quantity * potency) * 0.7);
+                return data;
+            default:
+                return data;
+        }
+    }//Fin del método.
+    
+    /**
+     * Método para calcular la demanda de potencia para motores.
+     * @param squareRoot 
+     * @param voltage 
+     * @param total_current 
+     * @return Retorna la demanda en potencia para motores.
+     */
+    public static double calculateDemandForMotors(double squareRoot, int voltage, double total_current) {
+        return (Math.sqrt(squareRoot) * voltage) * total_current;
+    }//Fin del método.
+    
+    /**
+     * Método para calcular la demanda de potencia para iluminaria y toma corriente.
+     * @param total_potency 
+     * @return Retorna la demanda en potencia para iluminaria y toma corriente.
+     */
+    public static double calculateDemandForIluminariaPowerPoint(double total_potency) {
+        total_potency = total_potency - 3000;
+        total_potency = total_potency - 117000;
+        total_potency = (total_potency * 0.25) + 3000 + (117000 * 0.35);
+        return total_potency;
+    }//Fin del método.
     
 }
