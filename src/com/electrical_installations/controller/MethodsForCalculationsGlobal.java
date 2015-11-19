@@ -23,12 +23,14 @@ import com.electrical_installations.model.enums.TypeBrandsCalibers;
 import com.electrical_installations.model.enums.TypeCalibers;
 import com.electrical_installations.model.enums.TypeMaterials;
 import com.electrical_installations.model.enums.TypeNumbersCalibers;
+import com.electrical_installations.model.enums.TypeOccupancyRate;
 import com.electrical_installations.model.enums.TypeResistancesAndReactances;
 import com.electrical_installations.model.enums.TypeRush;
 import com.electrical_installations.model.enums.TypePhases;
 import com.electrical_installations.model.enums.TypeTemperature;
 import com.electrical_installations.model.service.ServiceArea;
 import com.electrical_installations.model.service.ServiceBreaker;
+import com.electrical_installations.model.service.ServiceCaliber;
 import com.electrical_installations.model.service.ServiceCalibersHearth;
 import com.electrical_installations.model.service.ServiceResistanceReactance;
 import java.util.ArrayList;
@@ -74,6 +76,20 @@ public class MethodsForCalculationsGlobal {
      */
     public static Calibers calculateCaliberForSubFeeder(double potency,Voltage voltage,Material material,Temperature temperature, double powerFactor, int phase){
         return ServiceArea.find_caliber_iluminaria_power_point(new Calibers(0,material, temperature, new Intensity(0, null, intensity(potency, voltage.getVoltage(), powerFactor, phase)),null), roominessToCalculateCalibres);
+    }//Fin del método
+    
+    /**
+     * Método para calcular Calibre para el alimentador principal.
+     * @param potency
+     * @param voltage
+     * @param material
+     * @param temperature
+     * @param powerFactor
+     * @param phase
+     * @return Retorna un calibre
+     */
+    public static Calibers calculateCaliberForMainFeeder(double potency,Voltage voltage,Material material,Temperature temperature, double powerFactor, int phase){
+        return ServiceArea.find_caliber_iluminaria_power_point(new Calibers(0,material, temperature, new Intensity(0, null,  calculateIntesityFinalMainFeeder(intensity(potency, voltage.getVoltage(), powerFactor, phase),475)),null), 1);
     }//Fin del método
        
     /**
@@ -230,9 +246,7 @@ public class MethodsForCalculationsGlobal {
      */
     public static Breaker find_breaker_dryer(double potency,Voltage voltage,Material material,double powerFactor,int phase, Intensity intensityDesign){
         return ServiceBreaker.find_breaker_by_capacity(new Breaker(0, (((potency * roominessToCalculateCalibresDishwasherCrusherAndDryer)/voltage.getVoltage()) + intensityDesign.getIntensity()) / 2));
-    }//Fin del métdodo.
-    
-    
+    }//Fin del método. 
       
     /**
      * Método para calcular el Interruptor a utilizar Secadoras
@@ -460,6 +474,7 @@ public class MethodsForCalculationsGlobal {
     public static List<Double> calculateDemandForDryer(int quantity, double potency) {
         List<Double> data = new ArrayList<>();
         double percentage = 0;
+        double result = 0;
         switch (quantity) {
             case 1:
                 data.add(1 * potency);
@@ -479,191 +494,228 @@ public class MethodsForCalculationsGlobal {
                 return data;
             case 5:
                 data.add((5 * potency) * 0.85);
-                data.add((5 * potency) * 0.7);
+                result = (5 * potency) * 0.85;
+                data.add(result * 0.7);
                 return data;
             case 6:
                 data.add((6 * potency) * 0.75);
-                data.add((6 * potency) * 0.7);
+                result = (6 * potency) * 0.75;
+                data.add(result * 0.7);
                 return data;
             case 7: 
                 data.add((7 * potency) * 0.65);
-                data.add((7 * potency) * 0.7);
+                result = (7 * potency) * 0.65;
+                data.add(result * 0.7);
                 return data;
             case 8:
                 data.add((8 * potency) * 0.6);
-                data.add((8 * potency) * 0.7);
+                result = (8 * potency) * 0.6;
+                data.add(result * 0.7);
                 return data;
             case 9:
                 data.add((9 * potency) * 0.55);
-                data.add((9 * potency) * 0.7);
+                result = (9 * potency) * 0.55;
+                data.add(result * 0.7);
                 return data;
             case 10:
                 data.add((10 * potency) * 0.5);
-                data.add((10 * potency) * 0.7);
+                result = (10 * potency) * 0.5;
+                data.add(result * 0.7);
                 return data;
             case 11:
                 data.add((11 * potency) * 0.47);
-                data.add((11 * potency) * 0.7);
+                result = (11 * potency) * 0.47;
+                data.add(result * 0.7);
                 return data;
             case 12:
                 percentage = 47 - (quantity - 11);
                 data.add((quantity * potency) * percentage);
-                data.add((quantity * potency) * 0.7);
+                result = (quantity * potency) * percentage;
+                data.add(result * 0.7);
                 return data;
             case 13:
                 percentage = 47 - (quantity - 11);
                 data.add((quantity * potency) * percentage);
-                data.add((quantity * potency) * 0.7);
+                result = (quantity * potency) * percentage;
+                data.add(result * 0.7);
                 return data;
             case 14:
                 percentage = 47 - (quantity - 11);
                 data.add((quantity * potency) * percentage);
-                data.add((quantity * potency) * 0.7);
+                result = (quantity * potency) * percentage;
+                data.add(result * 0.7);
                 return data;
             case 15:
                 percentage = 47 - (quantity - 11);
                 data.add((quantity * potency) * percentage);
-                data.add((quantity * potency) * 0.7);
+                result = (quantity * potency) * percentage;
+                data.add(result * 0.7);
                 return data;
             case 16:
                 percentage = 47 - (quantity - 11);
                 data.add((quantity * potency) * percentage);
-                data.add((quantity * potency) * 0.7);
+                result = (quantity * potency) * percentage;
+                data.add(result * 0.7);
                 return data;
             case 17:
                 percentage = 47 - (quantity - 11);
                 data.add((quantity * potency) * percentage);
-                data.add((quantity * potency) * 0.7);
+                result = (quantity * potency) * percentage;
+                data.add(result * 0.7);
                 return data;
             case 18:
                 percentage = 47 - (quantity - 11);
                 data.add((quantity * potency) * percentage);
-                data.add((quantity * potency) * 0.7);
+                result = (quantity * potency) * percentage;
+                data.add(result * 0.7);
                 return data;
             case 19:
                 percentage = 47 - (quantity - 11);
                 data.add((quantity * potency) * percentage);
-                data.add((quantity * potency) * 0.7);
+                result = (quantity * potency) * percentage;
+                data.add(result * 0.7);
                 return data;
             case 20:
                 percentage = 47 - (quantity - 11);
                 data.add((quantity * potency) * percentage);
-                data.add((quantity * potency) * 0.7);
+                result = (quantity * potency) * percentage;
+                data.add(result * 0.7);
                 return data;
             case 21:
                 percentage = 47 - (quantity - 11);
                 data.add((quantity * potency) * percentage);
-                data.add((quantity * potency) * 0.7);
+                result = (quantity * potency) * percentage;
+                data.add(result * 0.7);
                 return data;
             case 22:
                 percentage = 47 - (quantity - 11);
                 data.add((quantity * potency) * percentage);
-                data.add((quantity * potency) * 0.7);
+                result = (quantity * potency) * percentage;
+                data.add(result * 0.7);
                 return data;
             case 23:
                 data.add((23 * potency) * 0.33);
-                data.add((23 * potency) * 0.7);
+                result = (23 * potency) * 0.33;
+                data.add(result * 0.7);
                 return data;
             case 24:
                 percentage = 33 - (0.5 * (quantity - 23));
                 data.add((quantity * potency) * percentage);
-                data.add((quantity * potency) * 0.7);
+                result = (quantity * potency) * percentage;
+                data.add(result * 0.7);
                 return data;
             case 25:
                 percentage = 33 - (0.5 * (quantity - 23));
                 data.add((quantity * potency) * percentage);
-                data.add((quantity * potency) * 0.7);
+                result = (quantity * potency) * percentage;
+                data.add(result * 0.7);
                 return data;
             case 26:
                 percentage = 33 - (0.5 * (quantity - 23));
                 data.add((quantity * potency) * percentage);
-                data.add((quantity * potency) * 0.7);
+                result = (quantity * potency) * percentage;
+                data.add(result * 0.7);
                 return data;
             case 27:
                 percentage = 33 - (0.5 * (quantity - 23));
                 data.add((quantity * potency) * percentage);
-                data.add((quantity * potency) * 0.7);
+                result = (quantity * potency) * percentage;
+                data.add(result  * 0.7);
                 return data;
             case 28:
                 percentage = 33 - (0.5 * (quantity - 23));
                 data.add((quantity * potency) * percentage);
-                data.add((quantity * potency) * 0.7);
+                result = (quantity * potency) * percentage;
+                data.add(result * 0.7);
                 return data;
             case 29:
                 percentage = 33 - (0.5 * (quantity - 23));
                 data.add((quantity * potency) * percentage);
-                data.add((quantity * potency) * 0.7);
+                result = (quantity * potency) * percentage;
+                data.add(result * 0.7);
                 return data;
             case 30:
                 percentage = 33 - (0.5 * (quantity - 23));
                 data.add((quantity * potency) * percentage);
-                data.add((quantity * potency) * 0.7);
+                result = (quantity * potency) * percentage;
+                data.add(result * 0.7);
                 return data;
             case 31:
                 percentage = 33 - (0.5 * (quantity - 23));
                 data.add((quantity * potency) * percentage);
-                data.add((quantity * potency) * 0.7);
+                result = (quantity * potency) * percentage;
+                data.add(result * 0.7);
                 return data;
             case 32:
                 percentage = 33 - (0.5 * (quantity - 23));
                 data.add((quantity * potency) * percentage);
-                data.add((quantity * potency) * 0.7);
+                result = (quantity * potency) * percentage;
+                data.add(result * 0.7);
                 return data;
             case 33:
                 percentage = 33 - (0.5 * (quantity - 23));
                 data.add((quantity * potency) * percentage);
-                data.add((quantity * potency) * 0.7);
+                result = (quantity * potency) * percentage;
+                data.add(result * 0.7);
                 return data;
             case 34:
                 percentage = 33 - (0.5 * (quantity - 23));
                 data.add((quantity * potency) * percentage);
-                data.add((quantity * potency) * 0.7);
+                result = (quantity * potency) * percentage;
+                data.add(result * 0.7);
                 return data;
             case 35:
                 percentage = 33 - (0.5 * (quantity - 23));
                 data.add((quantity * potency) * percentage);
-                data.add((quantity * potency) * 0.7);
+                result = (quantity * potency) * percentage;
+                data.add(result * 0.7);
                 return data;
             case 36:
                 percentage = 33 - (0.5 * (quantity - 23));
                 data.add((quantity * potency) * percentage);
-                data.add((quantity * potency) * 0.7);
+                result = (quantity * potency) * percentage;
+                data.add(result * 0.7);
                 return data;
             case 37:
                 percentage = 33 - (0.5 * (quantity - 23));
                 data.add((quantity * potency) * percentage);
-                data.add((quantity * potency) * 0.7);
+                result = (quantity * potency) * percentage;
+                data.add(result * 0.7);
                 return data;
             case 38:
                 percentage = 33 - (0.5 * (quantity - 23));
                 data.add((quantity * potency) * percentage);
-                data.add((quantity * potency) * 0.7);
+                result = (quantity * potency) * percentage;
+                data.add(result * 0.7);
                 return data;
             case 39:
                 percentage = 33 - (0.5 * (quantity - 23));
                 data.add((quantity * potency) * percentage);
-                data.add((quantity * potency) * 0.7);
+                result = (quantity * potency) * percentage;
+                data.add(result * 0.7);
                 return data;
             case 40:
                 percentage = 33 - (0.5 * (quantity - 23));
                 data.add((quantity * potency) * percentage);
-                data.add((quantity * potency) * 0.7);
+                result = (quantity * potency) * percentage;
+                data.add(result * 0.7);
                 return data;
             case 41:
                 percentage = 33 - (0.5 * (quantity - 23));
                 data.add((quantity * potency) * percentage);
-                data.add((quantity * potency) * 0.7);
+                result = (quantity * potency) * percentage;
+                data.add(result * 0.7);
                 return data;
             case 42:
                 percentage = 33 - (0.5 * (quantity - 23));
                 data.add((quantity * potency) * percentage);
-                data.add((quantity * potency) * 0.7);
-                return data;
-            case 43:
-                data.add((quantity * potency) * 0.23);
-                data.add((quantity * potency) * 0.7);
+                result = (quantity * potency) * percentage;
+                data.add(result * 0.7);
                 return data;
             default:
+                data.add((quantity * potency) * 0.23);
+                result = (quantity * potency) * 0.23;
+                data.add(result * 0.7);
                 return data;
         }
     }//Fin del método.
@@ -685,10 +737,85 @@ public class MethodsForCalculationsGlobal {
      * @return Retorna la demanda en potencia para iluminaria y toma corriente.
      */
     public static double calculateDemandForIluminariaPowerPoint(double total_potency) {
-        total_potency = total_potency - 3000;
-        total_potency = total_potency - 117000;
-        total_potency = (total_potency * 0.25) + 3000 + (117000 * 0.35);
+        if (total_potency >= 120000) {
+            total_potency = total_potency - 3000;
+            total_potency = total_potency - 117000;
+            total_potency = (total_potency * 0.25) + 3000 + (117000 * 0.35);
+        } 
         return total_potency;
     }//Fin del método.
+       
+    /**
+     * Cálcula el número de conductores por fase.
+     * @param intensity
+     * @param limit
+     * @return Retorna el número de conductores por fase.
+     */
+    public static int calculateNumberConductorForPhase(double intensity, int limit){        
+        int iterations = 1;
+        while ((intensity / iterations) > limit){
+            iterations++;
+        }        
+        return iterations;        
+    }//Fin del método.
+    
+    /**
+     * Método para calcular la intensidad final para alimentador principal.
+     * @param intensity
+     * @param limit
+     * @return Retorn la intensidad final para el alimentador principal.
+     */
+    public static double calculateIntesityFinalMainFeeder(double intensity, int limit){        
+        int branchCircuit = 1;
+        while ((intensity / branchCircuit) > limit){
+            branchCircuit++;
+        }        
+        return Methods.round((intensity / branchCircuit),5);        
+    }//Fin del Método
+    
+    /**
+     * Método para calcular tubería.
+     * @param caliberPhase
+     * @param caliberNeutral
+     * @param caliberHeart
+     * @param phase
+     * @param materialPipeline
+     * @return Retorna la tubería seleccionada.
+     */
+    public static String calculate_pipeline(Caliber caliberPhase, Caliber caliberNeutral, Caliber caliberHeart,Phase phase, String materialPipeline) {
+        double total_area = 0;
+        int number_calibers = 0;
+        if (phase.getName().equalsIgnoreCase(TypePhases.SINGLE_PHASE_TWO_THREAD.getPhase())) {
+            number_calibers = 1;
+        } else if (phase.getName().equalsIgnoreCase(TypePhases.SINGLE_PHASE_THREE_THREAD.getPhase())) {
+            number_calibers = 2;
+        } else if (phase.getName().equalsIgnoreCase(TypePhases.PHASE_FOUR_THREAD.getPhase())) {
+            number_calibers = 3;
+        }
+        if (caliberNeutral == null) {
+            total_area = (ServiceCaliber.find_area(caliberPhase) * number_calibers) + (caliberHeart == null ? 0 : ServiceCaliber.find_area(caliberHeart)); 
+            number_calibers = number_calibers + (caliberHeart == null ? 0 : 1);           
+        } else {        
+            total_area = (ServiceCaliber.find_area(caliberPhase) * number_calibers) + ServiceCaliber.find_area(caliberNeutral) + (caliberHeart == null ? 0 : ServiceCaliber.find_area(caliberHeart)); 
+            number_calibers = number_calibers + 1 + (caliberHeart == null ? 0 : 1);           
+        }        
+        if (number_calibers > 2) {
+            total_area = total_area / TypeOccupancyRate.FORTY.getPercentage();
+            return "1 Φ " + (ServiceCaliber.find_pipeline(new Caliber(0, total_area), TypeOccupancyRate.FORTY)).getSize() + "\" " + materialPipeline; 
+        } else {
+            total_area = total_area / TypeOccupancyRate.THIRTY_ONE_PERCENT.getPercentage();
+            return "1 Φ " + (ServiceCaliber.find_pipeline(new Caliber(0, total_area), TypeOccupancyRate.THIRTY_ONE_PERCENT)).getSize() + "\" " + materialPipeline;
+        }
+    }//Fin del Método.
+          
+    /**
+     * Método para calcular el Interruptor a utilizar en el alimentador principal.
+     * @param intensity
+     * @param intensityCalculate
+     * @return Retorna el interruptor seleccionado
+     */
+    public static Breaker find_breaker_main_feeder(double intensity, Intensity intensityCalculate){
+        return ServiceBreaker.find_breaker_by_capacity(new Breaker(0, (intensity + intensityCalculate.getIntensity()) / 2));
+    }//Fin del método. 
     
 }

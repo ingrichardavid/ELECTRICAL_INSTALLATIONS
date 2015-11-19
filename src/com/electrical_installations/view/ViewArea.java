@@ -34,7 +34,7 @@ public final class ViewArea extends javax.swing.JDialog {
     private List<AreaIluminariaPowerPoint> areaIluminariaPowerPoints;
     private AreaIluminariaPowerPoint areaIluminariaPowerPointsIluminaria, areaIluminariaPowerPointsPowerPoint, areaSubFeeder, areaSubFeederNeutral;
     private Area area;
-    private double potencyOld;
+    private double potencyOld, netPotency;
     private boolean modify;
     
     /**
@@ -216,6 +216,9 @@ public final class ViewArea extends javax.swing.JDialog {
         this.setPotencyOld(MethodsForCalculationsIluminariaPowerPoint.potencyInIluminariaAndPowerPoint(
             MethodsForCalculationsIluminariaPowerPoint.potencyInIluminaria(Double.valueOf(this.getJspArea().getValue().toString())),
             MethodsForCalculationsIluminariaPowerPoint.potencyInPowerPoint(Integer.valueOf(this.getTxtQuantityPowerPoint().getValue().toString()))));
+        this.setNetPotency(
+            MethodsForCalculationsIluminariaPowerPoint.potencyInIluminaria(Double.valueOf(this.getJspArea().getValue().toString())) +
+            MethodsForCalculationsIluminariaPowerPoint.potencyInPowerPoint(Integer.valueOf(this.getTxtQuantityPowerPoint().getValue().toString())));
         this.lblPotencyTotalSubFeeder.setText(String.valueOf(area.getPotency_total()) + " W");
         this.lblPotencyNeutralSubFeeder.setText(String.valueOf(area.getNeutral()) + " W");        
         this.btnCalculateCurrentCapacityIluminaria.doClick();
@@ -246,6 +249,14 @@ public final class ViewArea extends javax.swing.JDialog {
     }//Fin del método
     
     //Getters y Setters
+
+    public double getNetPotency() {
+        return netPotency;
+    }
+
+    public void setNetPotency(double netPotency) {
+        this.netPotency = netPotency;
+    }
 
     public JComboBox getCmbPipelineIuminaria() {
         return cmbPipelineIuminaria;

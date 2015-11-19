@@ -7,9 +7,8 @@ package com.electrical_installations.controller;
  
 import com.electrical_installations.configuration.Messages;
 import com.electrical_installations.configuration.MessagesStructure; 
-import com.electrical_installations.model.entity.masters.Phase;
+import com.electrical_installations.global.method.Methods;
 import com.electrical_installations.model.entity.masters.Voltage;
-import com.electrical_installations.model.enums.TypePhases;
 import com.electrical_installations.model.service.ServiceVoltage; 
 import com.electrical_installations.view.ViewCalculateIntensityMotors;
 import com.electrical_installations.view.ViewMainFeeder;
@@ -37,10 +36,9 @@ public class ControllerCalculateIntensityMotors implements ActionListener, Windo
     //Objectos, variables y constantes
     private final ViewCalculateIntensityMotors viewCalculateIntensityMotors; 
     private List<Voltage> voltagesFound;
- 
- 
+    private ViewMainFeeder viewMainFeeder; 
     private static final Messages messages = Messages.getInstance();
-
+    
     /**
      * Contructor de la clase, recibe un objeto ViewMainFeeder  
      * @param viewCalculateIntensityMotors
@@ -49,6 +47,24 @@ public class ControllerCalculateIntensityMotors implements ActionListener, Windo
         this.viewCalculateIntensityMotors = viewCalculateIntensityMotors; 
     }//Fin del constructor 
  
+    
+    /**
+     * Método para llamar a la vista ViewMainFeeder
+     */
+    private void newMainFeeder(){ 
+        viewMainFeeder = new ViewMainFeeder(null, true); 
+        double potency_total = 0;
+        System.out.println(Methods.round(MethodsForCalculationsGlobal.calculateDemandForMotors(Double.valueOf(viewCalculateIntensityMotors.getJspRaiz().getValue().toString()),((Voltage)viewCalculateIntensityMotors.getCmbVoltage().getSelectedItem()).getVoltage(), viewCalculateIntensityMotors.getValor_motors()), 5));
+        potency_total = viewCalculateIntensityMotors.getPotency_total() + MethodsForCalculationsGlobal.calculateDemandForMotors(Double.valueOf(viewCalculateIntensityMotors.getJspRaiz().getValue().toString()),((Voltage)viewCalculateIntensityMotors.getCmbVoltage().getSelectedItem()).getVoltage(), viewCalculateIntensityMotors.getValor_motors());
+        viewMainFeeder.setPotency_total(Methods.round(potency_total, 5));
+        viewMainFeeder.setNeutral_total(viewCalculateIntensityMotors.getNeutral_total() + Methods.round(MethodsForCalculationsGlobal.calculateDemandForMotors(Double.valueOf(viewCalculateIntensityMotors.getJspRaiz().getValue().toString()),((Voltage)viewCalculateIntensityMotors.getCmbVoltage().getSelectedItem()).getVoltage(), viewCalculateIntensityMotors.getValor_motors()), 5));
+        viewMainFeeder.getLblPotencyMainFeeder().setText(String.valueOf(Methods.round(potency_total, 5)));
+        viewMainFeeder.getLblPotencyNeutral().setText(String.valueOf(viewCalculateIntensityMotors.getNeutral_total()));
+        viewMainFeeder.setProject(viewCalculateIntensityMotors.getProject());
+        viewCalculateIntensityMotors.dispose();
+        viewMainFeeder.setVisible(true); 
+    }//fin del método
+    
     /**
      * Método para llenar los combos con Voltages.
      */
@@ -73,7 +89,7 @@ public class ControllerCalculateIntensityMotors implements ActionListener, Windo
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource().equals(viewCalculateIntensityMotors.getBtnAdd())) {  
-            
+            newMainFeeder();
         } else if (e.getSource().equals(viewCalculateIntensityMotors.getBtnClose())) {
             viewCalculateIntensityMotors.dispose();
         } 

@@ -15,8 +15,6 @@ import com.electrical_installations.model.entity.User;
 import com.electrical_installations.model.service.ServiceProject;
 import com.electrical_installations.model.service.ServiceTypeOfInstallation;
 import com.electrical_installations.view.Session;
-import com.electrical_installations.view.ViewCalculateIntensityMotors;
-import com.electrical_installations.view.ViewMainFeeder;
 import com.electrical_installations.view.ViewProject;
 import com.electrical_installations.view.ViewProyectData;
 import com.electrical_installations.view.ViewUser;

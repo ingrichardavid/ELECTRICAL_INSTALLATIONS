@@ -8,6 +8,7 @@ package com.electrical_installations.model.dao;
 import com.electrical_installations.model.DataBaseConnection;
 import com.electrical_installations.model.entity.ChargesInAreas;
 import com.electrical_installations.model.entity.Area;
+import com.electrical_installations.model.entity.masters.Voltage;
 import java.util.List;
 /**
  * Intefaz para el acoplamiento de la Entidad Cargas en Áreas
@@ -21,14 +22,16 @@ public interface ChargesInAreasDAO {
      * Insertar carga en área.
      * @param chargesInAreas
      * @param area
+     * @param voltage
      * @return Retorna true en caso de que los datos se hayan insertado con éxito.
      */
-    public boolean insert_charge_in_area(ChargesInAreas chargesInAreas, Area area);
+    public boolean insert_charge_in_area(ChargesInAreas chargesInAreas, Area area, Voltage voltage);
   
     /**
      * Eliminar carga de un área.
      * @param chargesInAreas
      * @param area
+     * @param voltage
      * @return Retorna true en caso de que los datos se hayan insertado con éxito.
      */
     public boolean delete_charge_in_area(ChargesInAreas chargesInAreas, Area area);

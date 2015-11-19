@@ -76,7 +76,8 @@ public class MainFeederQueries {
                                                             "     TIPO_CARGA.\"nombre\" AS TIPO_CARGA_nombre, \n" +
                                                             "     ALIMENTADOR_PRINCIPAL.\"potencia\" AS ALIMENTADOR_PRINCIPAL_potencia,\n" +
                                                             "     ALIMENTADOR_PRINCIPAL.\"intensidad\" AS ALIMENTADOR_PRINCIPAL_intensidad,      \n" +
-                                                            "     ALIMENTADOR_PRINCIPAL.\"cantidad\" AS ALIMENTADOR_PRINCIPAL_cantidad\n" +
+                                                            "     ALIMENTADOR_PRINCIPAL.\"cantidad\" AS ALIMENTADOR_PRINCIPAL_cantidad,\n" +
+                                                            "     ALIMENTADOR_PRINCIPAL.\"neutro\" AS ALIMENTADOR_PRINCIPAL_neutro\n" +
                                                             " \n" +
                                                             "FROM\n" +
                                                             "     \"maestros\".\"TIPO_CARGA\" TIPO_CARGA INNER JOIN \"negocio\".\"ALIMENTADOR_PRINCIPAL\" ALIMENTADOR_PRINCIPAL ON TIPO_CARGA.\"codigo\" = ALIMENTADOR_PRINCIPAL.\"tipo_carga_codigo\"\n" +
@@ -84,7 +85,7 @@ public class MainFeederQueries {
                                                             "     ALIMENTADOR_PRINCIPAL.\"proyecto_codigo\" = ?\n" +
                                                             " AND ALIMENTADOR_PRINCIPAL.\"proyecto_tipo\" = ?"; 
     /**
-     * Mostrar todos los alimentadores principales filtrados por nombres
+     * Mostrar todos los alimentadores principales filtrados por nombres.
      *
      */
     public static final String SELECT_ALL_MAIN_FEEDER_FILTER_BY_NAME = "SELECT\n" +
@@ -94,11 +95,27 @@ public class MainFeederQueries {
                                                                         "	TIPO_CARGA.\"nombre\" AS TIPO_CARGA_nombre, \n" +
                                                                         "	ALIMENTADOR_PRINCIPAL.\"potencia\" AS ALIMENTADOR_PRINCIPAL_potencia,\n" +
                                                                         "	ALIMENTADOR_PRINCIPAL.\"intensidad\" AS ALIMENTADOR_PRINCIPAL_intensidad, \n" +
-                                                                        "	ALIMENTADOR_PRINCIPAL.\"cantidad\" AS ALIMENTADOR_PRINCIPAL_cantidad\n" +
+                                                                        "	ALIMENTADOR_PRINCIPAL.\"cantidad\" AS ALIMENTADOR_PRINCIPAL_cantidad,\n" +
+                                                                        "	ALIMENTADOR_PRINCIPAL.\"neutro\" AS ALIMENTADOR_PRINCIPAL_neutro\n" + 
                                                                         "FROM\n" +
                                                                         "	\"maestros\".\"TIPO_CARGA\" TIPO_CARGA INNER JOIN \"negocio\".\"ALIMENTADOR_PRINCIPAL\" ALIMENTADOR_PRINCIPAL ON TIPO_CARGA.\"codigo\" = ALIMENTADOR_PRINCIPAL.\"tipo_carga_codigo\"\n" +
                                                                         "WHERE\n" +
                                                                         "	LOWER(CONCAT(TIPO_CARGA.\"nombre\",' ',ALIMENTADOR_PRINCIPAL.\"potencia\",' ',ALIMENTADOR_PRINCIPAL.\"intensidad\",' ',ALIMENTADOR_PRINCIPAL.\"cantidad\")) LIKE LOWER(?) \n" +
                                                                         "	AND ALIMENTADOR_PRINCIPAL.\"proyecto_codigo\" = ?\n" +
                                                                         "	AND ALIMENTADOR_PRINCIPAL.\"proyecto_tipo\" =  ?";
+   
+    
+    /**
+     * Muestra la suma de la intensidad de motores en instalación y circuito de iluminación.
+     */
+    public static final String SELECT_SUM_INTENSITY = "SELECT SUM(total) AS intensidad\n" +
+                                                        "FROM(\n" +
+                                                        "SELECT SUM(intensidad_total) AS total\n" +
+                                                        "FROM negocio.\"CIRCUITO_DE_ILUMINACION\"\n" +
+                                                        "WHERE proyecto_codigo = ? AND proyecto_tipo_instalacion = ?\n" +
+                                                        "UNION \n" +
+                                                        "SELECT  SUM(intensidad) AS total\n" +
+                                                        "FROM negocio.\"MOTORES_EN_INSTALACION\" \n" +
+                                                        "WHERE proyecto_codigo = ?\n" +
+                                                        "AND proyecto_tipo_instalacion = ?) AS S;";
 }

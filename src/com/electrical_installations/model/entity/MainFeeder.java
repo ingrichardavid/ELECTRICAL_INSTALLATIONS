@@ -20,7 +20,7 @@ public class MainFeeder {
     private double potency;   
     private double intensity;
     private int quantity; 
-
+    private double potency_neutral;
     
     /**
      * Constructor para insertar, modificar, eliminar y selecionar Alimentadores Principales.
@@ -29,18 +29,27 @@ public class MainFeeder {
      * @param potency
      * @param intensity
      * @param quantity 
+     * @param potency_neutral 
      */
-    public MainFeeder(Project project, Charge charge, double potency, double intensity, int quantity) {
+    public MainFeeder(Project project, Charge charge, double potency, double intensity, int quantity, double potency_neutral) {
         this.project = project;
         this.charge = charge;
         this.potency = potency;
         this.intensity = intensity;
         this.quantity = quantity;
+        this.potency_neutral = potency_neutral;
     }//Fin del Constructor
       
-
-    
     //Getters y Setters
+
+    public double getPotency_neutral() {
+        return potency_neutral;
+    }
+
+    public void setPotency_neutral(double potency_neutral) {
+        this.potency_neutral = potency_neutral;
+    }
+    
     public Project getProject() {
         return project;
     }

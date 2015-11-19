@@ -200,10 +200,11 @@ public class AreaImplDAO implements AreaDAO{
     /**
      * Método para modificar un Área
      * @param area
+     * @param potency
      * @return Retorna true en caso de que el procedimiento sea exitoso
      */
     @Override
-    public boolean update(Area area, List<AreaIluminariaPowerPoint> areaIluminariaPowerPoints) {
+    public boolean update(Area area, List<AreaIluminariaPowerPoint> areaIluminariaPowerPoints, List<Double> powers) {
         boolean status = false;
         try {
             connection.getConexion().setAutoCommit(false);            
@@ -246,8 +247,8 @@ public class AreaImplDAO implements AreaDAO{
                     System.out.println(area.getPotency_iluminaria_powerPoint_new());
                     preparedStatement.close();
                     preparedStatement = connection.getConexion().prepareStatement(MainFeederQueries.UPDATE_MAIN_FEEDER_TYPE_CHARGE_ILUMIARIA_POWER_POINT);
-                    preparedStatement.setDouble(1, area.getPotency_iluminaria_powerPoint_old());
-                    preparedStatement.setDouble(2, area.getPotency_iluminaria_powerPoint_new());
+                    preparedStatement.setDouble(1, powers.get(0));
+                    preparedStatement.setDouble(2, powers.get(1));
                     preparedStatement.setInt(3, 0);
                     preparedStatement.setDouble(4, 0); 
                     preparedStatement.setInt(5, area.getProject().getCode());

@@ -18,9 +18,9 @@ public class ChargesInAreasQueries {
      */
     public static final String INSERT_CHARGE_IN_AREA =  "INSERT INTO negocio.\"CARGAS_EN_AREAS\"(\n" +
                                                         "            codigo_carga, codigo_area, potencia, cantidad, calibre_fase, \n" +
-                                                        "            calibre_neutro, calibre_tierra, fase_codigo, tuberia, tuberia_material)\n" +
+                                                        "            calibre_neutro, calibre_tierra, fase_codigo, tuberia, tuberia_material, cantidad_en_voltaje)\n" +
                                                         "    VALUES (?, ?, ?, ?, ?, \n" +
-                                                        "            ?, ?, ?, ?, ?);"; 
+                                                        "            ?, ?, ?, ?, ?, ?);"; 
     /**
      * Modificar un área luego de haber insertado una carga.
      */
@@ -111,15 +111,15 @@ public class ChargesInAreasQueries {
      */
     public static final String INSERT_MAIN_FEEDER_TYPE_CHARGE =  "INSERT INTO negocio.\"ALIMENTADOR_PRINCIPAL\"(\n" +
                                                                  "            proyecto_codigo, proyecto_tipo, tipo_carga_codigo, potencia, \n" +
-                                                                 "            cantidad, intensidad)\n" +
+                                                                 "            cantidad, intensidad, neutro)\n" +
                                                                  "    VALUES (?, ?, ?, ?, \n" +
-                                                                 "            ?, ?);"; 
+                                                                 "            ?, ?, ?);"; 
     
      /**
      * Modificar tipo de carga en la entidad alimentador principal.
      */
     public static final String UPDATE_MAIN_FEEDER_TYPE_CHARGE = "UPDATE negocio.\"ALIMENTADOR_PRINCIPAL\"\n" +
-                                                                "SET potencia= potencia + ?, cantidad= cantidad + ?, intensidad= intensidad + ?\n" +
+                                                                "SET potencia= potencia + ?, cantidad= cantidad + ?, intensidad= intensidad + ?, neutro = neutro + ?\n" +
                                                                 "WHERE proyecto_codigo=? AND proyecto_tipo=? AND tipo_carga_codigo=?;";
     /**
      * Validar existencia de tipo de carga en la entidad alimentador principal.
@@ -134,7 +134,7 @@ public class ChargesInAreasQueries {
      * Modificar tipo de carga en entidad alimentador principal una vez eliminada una carga de un área.
      */
     public static final String DELETE_CHARGE_UPDATE_MAIN_FEEDER_TYPE_CHARGE = "UPDATE negocio.\"ALIMENTADOR_PRINCIPAL\"\n" +
-                                                                "SET potencia= potencia - ?, cantidad= cantidad - ?, intensidad= intensidad - ?\n" +
+                                                                "SET potencia= potencia - ?, cantidad= cantidad - ?, intensidad= intensidad - ?, neutro = neutro - ?\n" +
                                                                 "WHERE proyecto_codigo=? AND proyecto_tipo=? AND tipo_carga_codigo=?;";
     
     /**
@@ -160,5 +160,15 @@ public class ChargesInAreasQueries {
                                                     "	negocio.\"CARGAS_EN_AREAS\" AS ca\n" +
                                                     "WHERE\n" +
                                                     "	ca.codigo_area = ?;";
+ 
+    /**
+     * Consultar el voltaje de una carga en un área determinadad.
+     */
+    public static final String CONSULT_VOLTAGE = "SELECT cantidad_en_voltaje\n" +
+                                                "  FROM negocio.\"CARGAS_EN_AREAS\"\n" +
+                                                "WHERE\n" +
+                                                "	codigo_carga = ?\n" +
+                                                "AND \n" +
+                                                "	codigo_area = ?;";
     
 }

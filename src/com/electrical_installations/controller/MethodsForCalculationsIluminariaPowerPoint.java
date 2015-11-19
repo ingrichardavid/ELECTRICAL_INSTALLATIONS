@@ -19,7 +19,6 @@ import com.electrical_installations.model.entity.masters.ResistanceReactance;
 import com.electrical_installations.model.entity.masters.Temperature;
 import com.electrical_installations.model.entity.masters.Voltage;
 import com.electrical_installations.model.enums.TypeBrandsCalibers;
-import com.electrical_installations.model.enums.TypeCalibers;
 import com.electrical_installations.model.enums.TypeMaterials;
 import com.electrical_installations.model.enums.TypeNumbersCalibers;
 import com.electrical_installations.model.enums.TypeOccupancyRate;

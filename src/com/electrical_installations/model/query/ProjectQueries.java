@@ -151,4 +151,29 @@ public class ProjectQueries {
                                                                     "AND \n" +
                                                                     "	tipo_de_instalacion_codigo = ?;";
     
+    /**
+     * Consulta para insertar conductores y tuberías del alimentador pricipal.
+     */
+    public static final String INSERT_CONDUCTORS_MAIN_FEEDER = "INSERT INTO negocio.\"CONDUCTORES_TUBERIAS_ALIMENTADOR_PRINCIPAL\"(\n" +
+                                "            proyecto_codigo, proyecto_tipo, fase, neutro, tierra, tuberia_fase, \n" +
+                                "            tuberia_neutro, conductor_fase, conductor_neutro)\n" +
+                                "    VALUES (?, ?, ?, ?, ?, ?, \n" +
+                                "            ?, ?, ?);";
+    
+    /**
+     * Consulta para modificar conductores y tuberías del alimentador pricipal.
+     */
+    public static final String UPDATE_CONDUCTORS_MAIN_FEEDER = "UPDATE negocio.\"CONDUCTORES_TUBERIAS_ALIMENTADOR_PRINCIPAL\"\n" +
+                                "   SET fase=?, neutro=?, tierra=?, \n" +
+                                "       tuberia_fase=?, tuberia_neutro=?, conductor_fase=?, conductor_neutro=?\n" +
+                                " WHERE proyecto_codigo=? AND proyecto_tipo=?;";
+ 
+    /**
+     * Consulta para validar la existencia de conductores y tuberías para el alimentador pricipal.
+     */
+    public static final String VALIDATE_EXIST_CONDUCTORS_MAIN_FEEDER = "SELECT proyecto_codigo\n" +
+                                "  FROM negocio.\"CONDUCTORES_TUBERIAS_ALIMENTADOR_PRINCIPAL\"\n" +
+                                "WHERE\n" +
+                                "	proyecto_codigo = ? AND proyecto_tipo = ?;";
+    
 }

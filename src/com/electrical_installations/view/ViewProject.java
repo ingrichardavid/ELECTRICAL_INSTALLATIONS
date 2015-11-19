@@ -7,7 +7,6 @@ package com.electrical_installations.view;
 
 import com.electrical_installations.controller.ControllerProject;
 import com.electrical_installations.global.method.Methods;
-import com.electrical_installations.model.entity.TypeOfInstallation;
 import java.awt.Font;
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
@@ -351,7 +350,6 @@ public class ViewProject extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(800, 500));
-        setPreferredSize(new java.awt.Dimension(800, 500));
         getContentPane().setLayout(new javax.swing.OverlayLayout(getContentPane()));
 
         java.awt.GridBagLayout jPanel1Layout = new java.awt.GridBagLayout();

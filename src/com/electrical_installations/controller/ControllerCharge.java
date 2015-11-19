@@ -694,8 +694,7 @@ public class ControllerCharge implements ActionListener, WindowListener , KeyLis
                                 caliberSelectedNeutral, 
                                 calibersHearthFound.getCaliber(), 
                                 (Phase)viewVoltageInCharge.getCmbPhases().getSelectedItem(), 
-                                materialPipeline);
-                        
+                                materialPipeline);                        
                     }
                 }  
             }            
@@ -764,12 +763,12 @@ public class ControllerCharge implements ActionListener, WindowListener , KeyLis
                                 caliberHearth,
                                 (Phase)viewVoltageInCharge.getCmbPhases().getSelectedItem(),
                                 caliberPipeline,
-                                materialPipeline),area)){ 
+                                materialPipeline),area,(Voltage)viewVoltageInCharge.getCmbVoltage().getSelectedItem())){ 
                     viewVoltageInCharge.dispose();
                 }             
             }
         }
-    }
+    }//Fin del método.
     
     @Override
     public void actionPerformed(ActionEvent e) {

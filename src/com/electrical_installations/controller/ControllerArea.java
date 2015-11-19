@@ -243,6 +243,12 @@ public class ControllerArea implements ActionListener, KeyListener, WindowListen
      */
     private void modify_area() {        
         if (validate_fields()) {
+            List<Double> powers = new ArrayList<>();
+            System.out.println(viewArea.getNetPotency());
+            System.out.println(viewArea.getArea().getQuantity());
+            powers.add(viewArea.getArea().getQuantity() * viewArea.getNetPotency());
+            powers.add((MethodsForCalculationsIluminariaPowerPoint.potencyInIluminaria(Double.valueOf(viewArea.getJspArea().getValue().toString())) +
+                            MethodsForCalculationsIluminariaPowerPoint.potencyInPowerPoint(Integer.valueOf(viewArea.getTxtQuantityPowerPoint().getValue().toString()))) * viewArea.getArea().getQuantity());
             if (ServiceArea.update(new Area(
                     viewArea.getArea().getCode(), 
                     viewArea.getTxtName().getText(), 
@@ -265,7 +271,7 @@ public class ControllerArea implements ActionListener, KeyListener, WindowListen
                     viewArea.getPotencyOld() * viewArea.getArea().getQuantity(),
                     MethodsForCalculationsIluminariaPowerPoint.potencyInIluminariaAndPowerPoint(
                             MethodsForCalculationsIluminariaPowerPoint.potencyInIluminaria(Double.valueOf(viewArea.getJspArea().getValue().toString())),
-                            MethodsForCalculationsIluminariaPowerPoint.potencyInPowerPoint(Integer.valueOf(viewArea.getTxtQuantityPowerPoint().getValue().toString()))) * viewArea.getArea().getQuantity()),fill_area_iluminaria_powerPoint())){            
+                            MethodsForCalculationsIluminariaPowerPoint.potencyInPowerPoint(Integer.valueOf(viewArea.getTxtQuantityPowerPoint().getValue().toString()))) * viewArea.getArea().getQuantity()),fill_area_iluminaria_powerPoint(),powers)){            
                 viewArea.setModify(true);
                 viewArea.dispose();
             }

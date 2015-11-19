@@ -58,9 +58,10 @@ public class ServiceArea {
      * Servio para la modificación de áreas, recibe un objeto Area.
      * @param area
      * @param areaIluminariaPowerPoints
+     * @param powers
      * @return Retorna true si el proceso de modificación a finalizado con exito
      */
-    public static boolean update(Area area, List<AreaIluminariaPowerPoint> areaIluminariaPowerPoints){
+    public static boolean update(Area area, List<AreaIluminariaPowerPoint> areaIluminariaPowerPoints, List<Double> powers){
         Area areaFound = areaImplDAO.validate_name(area);
         if (MessagesStructure.ConfirmationMessage(MessagesStructure.format(200, messages.getProperty(Messages.CONFIRM), MessagesStructure.justify)) == 0){  
             if (areaImplDAO.validate_existence(area) == 0){
@@ -71,7 +72,7 @@ public class ServiceArea {
                     MessagesStructure.Warning(MessagesStructure.format(200, messages.getProperty(Messages.AREA_NAME_EXISTS), MessagesStructure.justify));
                     return false;
                 } else {
-                    if (areaImplDAO.update(area, areaIluminariaPowerPoints)){
+                    if (areaImplDAO.update(area, areaIluminariaPowerPoints,powers)){
                         return true;
                     } else {
                         MessagesStructure.ErrorMessage(MessagesStructure.format(200, messages.getProperty(Messages.OPERATION_ERROR), MessagesStructure.justify));

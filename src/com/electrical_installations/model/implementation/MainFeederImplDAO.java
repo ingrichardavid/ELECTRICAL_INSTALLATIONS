@@ -17,6 +17,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Clase que encapsula la capa Modelo para acceder a los datos de Alimentador Principal, implementa la interfaz AreaDAO
@@ -32,6 +34,7 @@ public class MainFeederImplDAO implements MainFeederDAO{
     private PreparedStatement preparedStatement;
     private ResultSet result; 
     private List<MainFeeder> mainFeederFound; 
+    private List<MainFeeder> mainFeederIntensity; 
 
     /**
      * Constructor de la clase, es privado para cumplir con el patrón Singlenton.
@@ -78,7 +81,8 @@ public class MainFeederImplDAO implements MainFeederDAO{
                         new Charge(result.getInt(3), result.getString(4)),
                         result.getDouble(5),
                         result.getDouble(6),
-                        result.getInt(7)));
+                        result.getInt(7),
+                        result.getDouble(8)));
        
                     
             }
@@ -111,7 +115,8 @@ public class MainFeederImplDAO implements MainFeederDAO{
                         new Charge(result.getInt(3), result.getString(4)),
                         result.getDouble(5),
                         result.getDouble(6),
-                        result.getInt(7)));
+                        result.getInt(7),
+                        result.getDouble(8)));
        
                     
             }
@@ -122,6 +127,33 @@ public class MainFeederImplDAO implements MainFeederDAO{
         }
         return mainFeederFound;
      }//Fin del Método
+
+    
+    /**
+     * Método para encontrar la intensidad de entre la suma de la tabla motores en instalación y circuito de iluminación.
+     * @param mainFeeder
+     * @return Retorna una intensidad
+     */
+    @Override
+    public double find_Intensity(MainFeeder mainFeeder) {
+         double intensity  = 0;
+        try {
+            preparedStatement = connection.getConexion().prepareStatement(MainFeederQueries.SELECT_SUM_INTENSITY);
+            preparedStatement.setInt(1, mainFeeder.getProject().getCode());
+            preparedStatement.setInt(2, mainFeeder.getProject().getTypeOfInstallation().getCode());
+            preparedStatement.setInt(3, mainFeeder.getProject().getCode());
+            preparedStatement.setInt(4, mainFeeder.getProject().getTypeOfInstallation().getCode());
+            result = preparedStatement.executeQuery();
+            while(result.next()){
+                  intensity = result.getDouble(1);
+            } 
+        } catch (SQLException ex) {
+            Logger.getLogger(MainFeederImplDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            connection.closeConnection();
+        }
+        return intensity;
+     }
     
     
     

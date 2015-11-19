@@ -8,6 +8,7 @@ package com.electrical_installations.model.service;
 import com.electrical_installations.configuration.Messages;
 import com.electrical_installations.model.entity.Area;
 import com.electrical_installations.model.entity.ChargesInAreas;
+import com.electrical_installations.model.entity.masters.Voltage;
 import com.electrical_installations.model.implementation.ChargesInAreasImplDAO;
 import java.util.List;
 
@@ -33,10 +34,11 @@ public class ServiceChargesInAreas {
      * Servicio para la creación de cargas en áreas, recibe un objeto ChargesInAreas.
      * @param chargesInAreas 
      * @param area 
+     * @param voltage 
      * @return Retorna true si el proceso de registro a finalizado con exito 
      */
-    public static boolean create_charge_in_area(ChargesInAreas chargesInAreas, Area area){
-        return chargesInAreasImplDAO.insert_charge_in_area(chargesInAreas, area);  
+    public static boolean create_charge_in_area(ChargesInAreas chargesInAreas, Area area, Voltage voltage){
+        return chargesInAreasImplDAO.insert_charge_in_area(chargesInAreas, area, voltage);  
     }//Fin del servicio
            
     /**

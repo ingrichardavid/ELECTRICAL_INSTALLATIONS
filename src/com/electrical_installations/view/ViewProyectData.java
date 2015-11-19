@@ -61,7 +61,10 @@ public class ViewProyectData extends javax.swing.JDialog {
         tblInstallationMainFeeder.getColumnModel().getColumn(2).setMaxWidth(0);
         tblInstallationMainFeeder.getColumnModel().getColumn(2).setMinWidth(0);
         tblInstallationMainFeeder.getColumnModel().getColumn(2).setPreferredWidth(0);  
-        int[] anchos2 = {0, 0, 0, 100, 20, 20, 20};
+        tblInstallationMainFeeder.getColumnModel().getColumn(7).setMaxWidth(0);
+        tblInstallationMainFeeder.getColumnModel().getColumn(7).setMinWidth(0);
+        tblInstallationMainFeeder.getColumnModel().getColumn(7).setPreferredWidth(0);  
+        int[] anchos2 = {0, 0, 0, 100, 20, 20, 20,0};
         for (int i = 0; i < tblInstallationMainFeeder.getColumnCount(); i++) {
             tblInstallationMainFeeder.getColumnModel().getColumn(i).setPreferredWidth(anchos2[i]);
         }
@@ -404,8 +407,6 @@ public class ViewProyectData extends javax.swing.JDialog {
         jSeparator3 = new javax.swing.JPopupMenu.Separator();
         btnDelete = new javax.swing.JMenuItem();
         subMenuMotors = new javax.swing.JPopupMenu();
-        btnDeleteInstallationMotor = new javax.swing.JMenuItem();
-        jSeparator4 = new javax.swing.JPopupMenu.Separator();
         btnLightingCircuit = new javax.swing.JMenuItem();
         jSeparator2 = new javax.swing.JPopupMenu.Separator();
         btnSubAlimentador = new javax.swing.JMenuItem();
@@ -415,6 +416,8 @@ public class ViewProyectData extends javax.swing.JDialog {
         btnDeleteChargesInAreas = new javax.swing.JMenuItem();
         subMenuMainFeeder = new javax.swing.JPopupMenu();
         btnCalculateMainFeeder = new javax.swing.JMenuItem();
+        subMenuMotosDelete = new javax.swing.JPopupMenu();
+        btnDeleteInstallationMotor = new javax.swing.JMenuItem();
         jPanel1 = new javax.swing.JPanel();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel2 = new javax.swing.JPanel();
@@ -479,12 +482,6 @@ public class ViewProyectData extends javax.swing.JDialog {
         btnDelete.setText("Eliminar");
         subMenu.add(btnDelete);
 
-        btnDeleteInstallationMotor.setFont(new java.awt.Font("DejaVu Sans", 1, 14)); // NOI18N
-        btnDeleteInstallationMotor.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/electrical_installations/resource/image/eliminar.png"))); // NOI18N
-        btnDeleteInstallationMotor.setText("Eliminar");
-        subMenuMotors.add(btnDeleteInstallationMotor);
-        subMenuMotors.add(jSeparator4);
-
         btnLightingCircuit.setFont(new java.awt.Font("DejaVu Sans", 1, 14)); // NOI18N
         btnLightingCircuit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/electrical_installations/resource/image/Iluminaria.png"))); // NOI18N
         btnLightingCircuit.setText("Circuito de Iluminación");
@@ -510,6 +507,11 @@ public class ViewProyectData extends javax.swing.JDialog {
         btnCalculateMainFeeder.setFont(new java.awt.Font("DejaVu Sans", 1, 14)); // NOI18N
         btnCalculateMainFeeder.setText("Calcular Alimentador Principal");
         subMenuMainFeeder.add(btnCalculateMainFeeder);
+
+        btnDeleteInstallationMotor.setFont(new java.awt.Font("DejaVu Sans", 1, 14)); // NOI18N
+        btnDeleteInstallationMotor.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/electrical_installations/resource/image/eliminar.png"))); // NOI18N
+        btnDeleteInstallationMotor.setText("Eliminar");
+        subMenuMotosDelete.add(btnDeleteInstallationMotor);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(900, 600));
@@ -894,7 +896,7 @@ public class ViewProyectData extends javax.swing.JDialog {
                 return canEdit [columnIndex];
             }
         });
-        tblInstallationEngines.setComponentPopupMenu(subMenuMotors);
+        tblInstallationEngines.setComponentPopupMenu(subMenuMotosDelete);
         tblInstallationEngines.getTableHeader().setReorderingAllowed(false);
         jScrollPane1.setViewportView(tblInstallationEngines);
 
@@ -910,6 +912,7 @@ public class ViewProyectData extends javax.swing.JDialog {
         btnAddInstallationEngines.setFont(new java.awt.Font("DejaVu Sans", 1, 14)); // NOI18N
         btnAddInstallationEngines.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/electrical_installations/resource/image/agregar.png"))); // NOI18N
         btnAddInstallationEngines.setText("Agregar");
+        btnAddInstallationEngines.setComponentPopupMenu(subMenuMotors);
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
@@ -970,14 +973,14 @@ public class ViewProyectData extends javax.swing.JDialog {
 
             },
             new String [] {
-                "Proyecto Codigo", "Proyecto Tipo", "Tipo Carga Codigo", "Carga", "Potencia", "Intensidad", "Cantidad"
+                "Proyecto Codigo", "Proyecto Tipo", "Tipo Carga Codigo", "Carga", "Potencia", "Intensidad", "Cantidad", "Neutro"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.String.class, java.lang.Double.class, java.lang.Double.class, java.lang.Integer.class
+                java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.String.class, java.lang.Double.class, java.lang.Double.class, java.lang.Integer.class, java.lang.Double.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false
+                false, false, false, false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -1093,7 +1096,6 @@ public class ViewProyectData extends javax.swing.JDialog {
     private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JPopupMenu.Separator jSeparator2;
     private javax.swing.JPopupMenu.Separator jSeparator3;
-    private javax.swing.JPopupMenu.Separator jSeparator4;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTabbedPane jTabbedPane2;
     private javax.swing.JLabel lblAmperage;
@@ -1106,6 +1108,7 @@ public class ViewProyectData extends javax.swing.JDialog {
     private javax.swing.JPopupMenu subMenuChargesInAreas;
     private javax.swing.JPopupMenu subMenuMainFeeder;
     private javax.swing.JPopupMenu subMenuMotors;
+    private javax.swing.JPopupMenu subMenuMotosDelete;
     private javax.swing.JTable tblArea;
     private javax.swing.JTable tblAreasCharges;
     private javax.swing.JTable tblInstallationEngines;

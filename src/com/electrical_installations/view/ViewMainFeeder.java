@@ -6,6 +6,7 @@
 package com.electrical_installations.view;
 
 import com.electrical_installations.controller.ControllerMainFeeder;
+import com.electrical_installations.model.entity.Project;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
@@ -21,6 +22,9 @@ import javax.swing.JSpinner;
 public class ViewMainFeeder extends javax.swing.JDialog {
     
     private final ControllerMainFeeder controllerMainFeeder;
+    private double potency_total;
+    private double neutral_total;
+    private Project project;
 
     /**
      * Creates new form ViewMainFeeder
@@ -30,7 +34,6 @@ public class ViewMainFeeder extends javax.swing.JDialog {
     public ViewMainFeeder(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
-         
         
         controllerMainFeeder = new ControllerMainFeeder(this);
         controllerMainFeeder.fill_combos_phases();
@@ -39,23 +42,46 @@ public class ViewMainFeeder extends javax.swing.JDialog {
         controllerMainFeeder.fill_combos_calibers();
         controllerMainFeeder.fill_combos_ducts();
         controllerMainFeeder.fill_combos_materials();
-        
-        
+                
         this.btnAdd.addActionListener(controllerMainFeeder);
         this.btnClose.addActionListener(controllerMainFeeder);
         this.btnCalculateCurrentCapacity.addActionListener(controllerMainFeeder);
         this.btnCalculateBreakdown.addActionListener(controllerMainFeeder);
         this.cmbPhases.addActionListener(controllerMainFeeder);
+        this.rBtnAir.addChangeListener(controllerMainFeeder);
+        this.rBtnGround.addChangeListener(controllerMainFeeder);
         this.addWindowListener(controllerMainFeeder);
         
         this.setLocationRelativeTo(null);
+        
+    }
+        
+    //Getters y Setters
+
+    public Project getProject() {
+        return project;
+    }
+
+    public void setProject(Project project) {
+        this.project = project;
     }
     
+    public double getPotency_total() {    
+        return potency_total;
+    }
+
+    public void setPotency_total(double potency_total) {
+        this.potency_total = potency_total;
+    }
+
+    public double getNeutral_total() {
+        return neutral_total;
+    } 
     
-    
-    
-    //Getters y Setters
-    
+    public void setNeutral_total(double neutral_total) {
+        this.neutral_total = neutral_total;
+    }
+
     public JButton getBtnAdd() {
         return btnAdd;
     }
@@ -128,11 +154,11 @@ public class ViewMainFeeder extends javax.swing.JDialog {
         this.cmbPhases = cmbPhases;
     }
 
-    public JComboBox<String> getCmbPipeline() {
+    public JComboBox getCmbPipeline() {
         return cmbPipeline;
     }
 
-    public void setCmbPipeline(JComboBox<String> cmbPipeline) {
+    public void setCmbPipeline(JComboBox cmbPipeline) {
         this.cmbPipeline = cmbPipeline;
     }
 
@@ -260,6 +286,7 @@ public class ViewMainFeeder extends javax.swing.JDialog {
     private void initComponents() {
         java.awt.GridBagConstraints gridBagConstraints;
 
+        buttonGroup1 = new javax.swing.ButtonGroup();
         p1 = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
@@ -420,6 +447,7 @@ public class ViewMainFeeder extends javax.swing.JDialog {
 
         pa.setLayout(new java.awt.GridBagLayout());
 
+        buttonGroup1.add(rBtnAir);
         rBtnAir.setFont(new java.awt.Font("DejaVu Sans", 0, 12)); // NOI18N
         rBtnAir.setText("Aérea");
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -427,6 +455,7 @@ public class ViewMainFeeder extends javax.swing.JDialog {
         gridBagConstraints.gridy = 0;
         pa.add(rBtnAir, gridBagConstraints);
 
+        buttonGroup1.add(rBtnGround);
         rBtnGround.setFont(new java.awt.Font("DejaVu Sans", 0, 12)); // NOI18N
         rBtnGround.setText("Subterránea");
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -834,6 +863,7 @@ public class ViewMainFeeder extends javax.swing.JDialog {
     private javax.swing.JButton btnCalculateBreakdown;
     private javax.swing.JButton btnCalculateCurrentCapacity;
     private javax.swing.JButton btnClose;
+    private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JComboBox cmbCaliber;
     private javax.swing.JComboBox cmbCalibersNeutral;
     private javax.swing.JComboBox cmbDuct;

@@ -7,6 +7,7 @@ package com.electrical_installations.model.service;
 
 import com.electrical_installations.configuration.Messages;
 import com.electrical_installations.model.entity.MainFeeder;
+import com.electrical_installations.model.entity.masters.Intensity;
 import com.electrical_installations.model.implementation.MainFeederImplDAO;
 import java.util.List;
 
@@ -46,5 +47,13 @@ public class ServiceMainFeeder {
     public static List<MainFeeder> find_mainFeeder_filter_by_name(MainFeeder mainFeeder) {
         return mainFeederImplDAO.find_main_feeder_filter_by_name(mainFeeder);
     }//Fin del Servicio.
-  
+    
+    /**
+     * 
+     * @param mainFeeder
+     * @return 
+     */
+    public static double find_intensity(MainFeeder mainFeeder){
+        return mainFeederImplDAO.find_Intensity(mainFeeder); 
+    } 
 }

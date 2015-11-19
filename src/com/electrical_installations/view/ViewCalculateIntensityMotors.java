@@ -6,6 +6,7 @@
 package com.electrical_installations.view;
 
 import com.electrical_installations.controller.ControllerCalculateIntensityMotors;
+import com.electrical_installations.model.entity.Project;
 import javax.swing.JButton;
 import javax.swing.JComboBox; 
 import javax.swing.JSpinner;
@@ -20,6 +21,10 @@ import javax.swing.JSpinner;
 public class ViewCalculateIntensityMotors extends javax.swing.JDialog {
 
     private final ControllerCalculateIntensityMotors controller;
+    private double potency_total;
+    private double neutral_total;
+    private double valor_motors;
+    private Project project;            
     
     /**
      * Creates new form ViewCalculateIntensityMotors
@@ -38,8 +43,39 @@ public class ViewCalculateIntensityMotors extends javax.swing.JDialog {
         this.addWindowListener(controller);
         this.setLocationRelativeTo(null);
     }
-
+    
     //Getters y Setters
+
+    public Project getProject() {
+        return project;
+    }
+
+    public void setProject(Project project) {
+        this.project = project;
+    }
+        public double getPotency_total() {
+        return potency_total;
+    }
+
+    public void setPotency_total(double potency_total) {
+        this.potency_total = potency_total;
+    }
+
+    public double getNeutral_total() {
+        return neutral_total;
+    }
+
+    public void setNeutral_total(double neutral_total) {
+        this.neutral_total = neutral_total;
+    }
+
+    public double getValor_motors() {
+        return valor_motors;
+    }
+
+    public void setValor_motors(double valor_motors) {
+        this.valor_motors = valor_motors;
+    } 
     
     public JButton getBtnAdd() {
         return btnAdd;
@@ -95,6 +131,7 @@ public class ViewCalculateIntensityMotors extends javax.swing.JDialog {
         btnClose = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Calcular Potencia de Motores");
         setMinimumSize(new java.awt.Dimension(380, 115));
         setPreferredSize(new java.awt.Dimension(380, 115));
         setResizable(false);
@@ -134,7 +171,6 @@ public class ViewCalculateIntensityMotors extends javax.swing.JDialog {
         jPanel1.add(jLabel2, gridBagConstraints);
 
         cmbVoltage.setFont(new java.awt.Font("DejaVu Sans", 0, 12)); // NOI18N
-        cmbVoltage.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         cmbVoltage.setMinimumSize(new java.awt.Dimension(120, 21));
         cmbVoltage.setPreferredSize(new java.awt.Dimension(120, 21));
         gridBagConstraints = new java.awt.GridBagConstraints();

@@ -33,9 +33,10 @@ public interface AreaDAO {
      * Modificar datos básicos de una Área
      * @param area
      * @param areaIluminariaPowerPoints
+     * @param powers
      * @return Retorna un valor booleano
      */
-    public boolean update(Area area, List<AreaIluminariaPowerPoint> areaIluminariaPowerPoints);
+    public boolean update(Area area, List<AreaIluminariaPowerPoint> areaIluminariaPowerPoints, List<Double> powers);
 
     /**
      * Validar nombre de usuario

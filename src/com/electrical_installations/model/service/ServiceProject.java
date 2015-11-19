@@ -8,6 +8,7 @@ package com.electrical_installations.model.service;
 import com.electrical_installations.configuration.Messages;
 import com.electrical_installations.configuration.MessagesStructure;
 import com.electrical_installations.global.method.Methods;
+import com.electrical_installations.model.entity.ConductorsMainFeeder;
 import com.electrical_installations.model.entity.Project;
 import com.electrical_installations.model.entity.User;
 import com.electrical_installations.model.implementation.ProjectImplDAO;
@@ -161,12 +162,25 @@ public class ServiceProject {
      * @return Retorna true si el proceso de modificación a finalizado con exito
      */
     public static boolean update_project_phase_earth(Project project){
+        
+    if (MessagesStructure.ConfirmationMessage(MessagesStructure.format(200, messages.getProperty(Messages.CONFIRM), MessagesStructure.justify)) == 0){        
         if (projectImplDAO.update_project_phase_earth_motor(project)){            
             return true;
         } else {
             MessagesStructure.ErrorMessage(MessagesStructure.format(200, messages.getProperty(Messages.OPERATION_ERROR), MessagesStructure.justify));
             return false;
         }
+    }
+        return false;
     }//Fin del servicio
             
+    /**
+     * Servicio para crear o modificar los conductores y tuberías del alimentador principal.
+     * @param conductorsMainFeeder
+     * @return Retorna true si todo estuvo bien.
+     */
+    public static boolean insert_update_conductors_main_feeder(ConductorsMainFeeder conductorsMainFeeder) {
+        return projectImplDAO.insert_update_conductors_main_feeder(conductorsMainFeeder);
+    }//Fin del servicio.
+    
 }

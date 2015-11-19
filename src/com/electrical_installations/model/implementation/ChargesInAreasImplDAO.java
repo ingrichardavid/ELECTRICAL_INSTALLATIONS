@@ -13,6 +13,7 @@ import com.electrical_installations.model.entity.Charge;
 import com.electrical_installations.model.entity.ChargesInAreas;
 import com.electrical_installations.model.entity.TypeCharges;
 import com.electrical_installations.model.entity.masters.Phase;
+import com.electrical_installations.model.entity.masters.Voltage;
 import com.electrical_installations.model.enums.TypeSubTypeCharge;
 import com.electrical_installations.model.query.ChargesInAreasQueries;
 import java.sql.PreparedStatement;
@@ -68,9 +69,8 @@ public class ChargesInAreasImplDAO implements ChargesInAreasDAO{
      * @return Retorna true si la operación tiene éxito
      */
     @Override
-    public boolean insert_charge_in_area(ChargesInAreas chargesInAreas, Area area) {
+    public boolean insert_charge_in_area(ChargesInAreas chargesInAreas, Area area, Voltage voltage) {
         try {      
-            System.out.println(area.getQuantity());
             connection.getConexion().setAutoCommit(false);
             preparedStatement = connection.getConexion().prepareStatement(ChargesInAreasQueries.INSERT_CHARGE_IN_AREA);
             preparedStatement.setInt(1, chargesInAreas.getCharge().getCode());
@@ -83,6 +83,7 @@ public class ChargesInAreasImplDAO implements ChargesInAreasDAO{
             preparedStatement.setInt(8, chargesInAreas.getPhase().getCode());
             preparedStatement.setString(9, chargesInAreas.getPipeline());
             preparedStatement.setString(10, chargesInAreas.getMaterialPipeline());
+            preparedStatement.setDouble(11, voltage.getVoltage());
             if (preparedStatement.executeUpdate() > 0){
                 preparedStatement.close();
                 preparedStatement = connection.getConexion().prepareStatement(ChargesInAreasQueries.UPDATE_AREA_AFTER_INSERT_CHARGE);
@@ -107,18 +108,21 @@ public class ChargesInAreasImplDAO implements ChargesInAreasDAO{
                             preparedStatement.setDouble(1, (chargesInAreas.getArea().getPotency_total() * chargesInAreas.getQuantity()) * area.getQuantity());
                             preparedStatement.setInt(2, 0);
                             preparedStatement.setDouble(3, 0); 
+                            preparedStatement.setDouble(4, voltage.getVoltage() >= 200 ? 0 : (chargesInAreas.getArea().getPotency_total() * chargesInAreas.getQuantity()) * area.getQuantity());
                         } else if (chargesInAreas.getCharge().getTypeCharges().getType().equalsIgnoreCase(TypeSubTypeCharge.QUANTITY.getSubTypeCharge())){
                             preparedStatement.setDouble(1, 0);
                             preparedStatement.setInt(2, (int)chargesInAreas.getArea().getPotency_total() * area.getQuantity());
                             preparedStatement.setDouble(3, 0); 
+                            preparedStatement.setDouble(4, 0);
                         } else {                            
                             preparedStatement.setDouble(1, 0);
                             preparedStatement.setInt(2, 0);
-                            preparedStatement.setDouble(3, 1); 
+                            preparedStatement.setDouble(3, 0); 
+                            preparedStatement.setDouble(4, 0);
                         }
-                        preparedStatement.setInt(4, chargesInAreas.getArea().getProject().getCode());
-                        preparedStatement.setInt(5, chargesInAreas.getArea().getProject().getTypeOfInstallation().getCode());
-                        preparedStatement.setInt(6, chargesInAreas.getCharge().getTypeCharges().getCode());
+                        preparedStatement.setInt(5, chargesInAreas.getArea().getProject().getCode());
+                        preparedStatement.setInt(6, chargesInAreas.getArea().getProject().getTypeOfInstallation().getCode());
+                        preparedStatement.setInt(7, chargesInAreas.getCharge().getTypeCharges().getCode());
                         if (preparedStatement.executeUpdate() > 0){
                             connection.getConexion().commit();
                             return true;
@@ -136,14 +140,17 @@ public class ChargesInAreasImplDAO implements ChargesInAreasDAO{
                             preparedStatement.setDouble(4, (chargesInAreas.getArea().getPotency_total() * chargesInAreas.getQuantity()) * area.getQuantity());
                             preparedStatement.setInt(5, 0);
                             preparedStatement.setDouble(6, 0); 
+                            preparedStatement.setDouble(7, voltage.getVoltage() >= 200 ? 0 : (chargesInAreas.getArea().getPotency_total() * chargesInAreas.getQuantity()) * area.getQuantity()); 
                         } else if (chargesInAreas.getCharge().getTypeCharges().getType().equalsIgnoreCase(TypeSubTypeCharge.QUANTITY.getSubTypeCharge())){
                             preparedStatement.setDouble(4, 0);
                             preparedStatement.setInt(5, (int)chargesInAreas.getArea().getPotency_total() * area.getQuantity());
                             preparedStatement.setDouble(6, 0); 
+                            preparedStatement.setDouble(7, 0);
                         } else {                            
                             preparedStatement.setDouble(4, 0);
                             preparedStatement.setInt(5, 0);
-                            preparedStatement.setDouble(6, 1); 
+                            preparedStatement.setDouble(6, 0); 
+                            preparedStatement.setDouble(7, 0); 
                         } 
                         if (preparedStatement.executeUpdate() > 0){
                             connection.getConexion().commit();
@@ -231,25 +238,35 @@ public class ChargesInAreasImplDAO implements ChargesInAreasDAO{
      */
     @Override
     public boolean delete_charge_main_feeder(ChargesInAreas chargesInAreas, Area area, DataBaseConnection dataBaseConnection) {        
+        double voltage = 0;
         try {
+            preparedStatement = dataBaseConnection.getConexion().prepareStatement(ChargesInAreasQueries.CONSULT_VOLTAGE);
+            preparedStatement.setInt(1, chargesInAreas.getCharge().getCode());
+            preparedStatement.setInt(2, area.getCode());
+            result = preparedStatement.executeQuery();
+            while(result.next()) {
+                voltage = result.getDouble(1);
+            }
             preparedStatement = dataBaseConnection.getConexion().prepareStatement(ChargesInAreasQueries.DELETE_CHARGE_UPDATE_MAIN_FEEDER_TYPE_CHARGE);
             if (chargesInAreas.getCharge().getTypeCharges().getType().equalsIgnoreCase(TypeSubTypeCharge.POTENCY.getSubTypeCharge())){
                 preparedStatement.setDouble(1, chargesInAreas.getPotency());
                 preparedStatement.setInt(2, 0);
-                preparedStatement.setDouble(3, 0); 
-                
+                preparedStatement.setDouble(3, 0);
+                preparedStatement.setDouble(4, voltage >= 200 ? 0 : (chargesInAreas.getArea().getPotency_total() * chargesInAreas.getQuantity()) * area.getQuantity()); 
             } else if (chargesInAreas.getCharge().getTypeCharges().getType().equalsIgnoreCase(TypeSubTypeCharge.QUANTITY.getSubTypeCharge())){
                 preparedStatement.setDouble(1, 0);
                 preparedStatement.setInt(2, (int)chargesInAreas.getPotency() * area.getQuantity());
-                preparedStatement.setDouble(3, 0); 
+                preparedStatement.setDouble(3, 0);
+                preparedStatement.setDouble(4, 0);  
             } else {                      
                 preparedStatement.setDouble(1, 0);
                 preparedStatement.setInt(2, 0);
-                preparedStatement.setDouble(3, chargesInAreas.getPotency()); 
+                preparedStatement.setDouble(3, 0);
+                preparedStatement.setDouble(4, 0);  
             }
-            preparedStatement.setInt(4, area.getProject().getCode());
-            preparedStatement.setInt(5, area.getProject().getTypeOfInstallation().getCode());
-            preparedStatement.setInt(6, chargesInAreas.getCharge().getTypeCharges().getCode());    
+            preparedStatement.setInt(5, area.getProject().getCode());
+            preparedStatement.setInt(6, area.getProject().getTypeOfInstallation().getCode());
+            preparedStatement.setInt(7, chargesInAreas.getCharge().getTypeCharges().getCode());    
  
             if (preparedStatement.executeUpdate() > 0){
                 preparedStatement.close();

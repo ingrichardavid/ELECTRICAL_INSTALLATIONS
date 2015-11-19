@@ -31,9 +31,12 @@ public interface MainFeederDAO {
      */
     public List<MainFeeder> find_main_feeder_filter_by_name(MainFeeder mainFeeder);
     
- 
-        
-    
-    
+    /**
+     * Se obtiene la suma de la intensidad de la suma de la tabla circuito de iluminación más motores en instalación.
+     * @param mainFeeder   
+     * @return    
+     */
+    public double  find_Intensity(MainFeeder mainFeeder);
+         
 }
 

@@ -8,6 +8,7 @@ package com.electrical_installations.controller;
 import com.electrical_installations.configuration.Messages;
 import com.electrical_installations.configuration.MessagesStructure;
 import com.electrical_installations.model.entity.Charge;
+import com.electrical_installations.model.entity.ConductorsMainFeeder;
 import com.electrical_installations.model.entity.masters.Breaker;
 import com.electrical_installations.model.entity.masters.Caliber;
 import com.electrical_installations.model.entity.masters.Calibers;
@@ -22,13 +23,15 @@ import com.electrical_installations.model.entity.masters.Phase;
 import com.electrical_installations.model.entity.masters.ResistanceReactance;
 import com.electrical_installations.model.entity.masters.Temperature;
 import com.electrical_installations.model.entity.masters.Voltage;
+import com.electrical_installations.model.enums.TypeMaterials;
+import com.electrical_installations.model.enums.TypeOfBranchCircuitInArea;
 import com.electrical_installations.model.enums.TypePhases;
 import com.electrical_installations.model.enums.TypeRush;
 import com.electrical_installations.model.service.ServiceCaliber;
 import com.electrical_installations.model.service.ServiceDuct;
 import com.electrical_installations.model.service.ServiceMaterial;
-import com.electrical_installations.model.service.ServicePercentageSinglePhaseMotors;
 import com.electrical_installations.model.service.ServicePhase;
+import com.electrical_installations.model.service.ServiceProject;
 import com.electrical_installations.model.service.ServiceTemperature;
 import com.electrical_installations.model.service.ServiceVoltage; 
 import com.electrical_installations.view.ViewMainFeeder;
@@ -73,13 +76,14 @@ public class ControllerMainFeeder implements ActionListener, WindowListener , Ke
     private double breakdownVoltage;
     private Caliber caliberSelected, caliberSelectedNeutral;
     private String caliberUsePhase;
-    private String materialPipeline, caliberPipeline;
+    private String materialPipeline, caliberPipeline, caliberPipelineNeutral;
     private CalibersHearth calibersHearthFound;
     private HorsesPowers horsesPowersFound;
     private String caliberPhase, caliberNeutral, caliberHearth;
     private double potency;
     private Intensity intensityDesignFound;
     private static final Messages messages = Messages.getInstance();
+    private int conductorForPhase, conductorForNeutral;
 
     /**
      * Contructor de la clase, recibe un objeto ViewMainFeeder 
@@ -91,7 +95,6 @@ public class ControllerMainFeeder implements ActionListener, WindowListener , Ke
         this.intensityDesignFound = null;
         this.potency = 0;
     }//Fin del constructor 
-
       
     /**
      * Método para llenar los combos con temperaturas.
@@ -203,14 +206,252 @@ public class ControllerMainFeeder implements ActionListener, WindowListener , Ke
         }       
     }//Fin del método
     
+    /**
+     * Método para calcular el conductor.
+     */
+    private void calculate_conductor() {        
+        if (!viewMainFeeder.getrBtnAir().isSelected() && !viewMainFeeder.getrBtnGround().isSelected()){
+            MessagesStructure.Warning(MessagesStructure.format(200, messages.getProperty(Messages.RUSH_NO_FOUND), MessagesStructure.justify));
+            viewMainFeeder.getrBtnGround().requestFocus();
+        } else {
+            caliberPhaseFound = MethodsForCalculationsGlobal.calculateCaliberForMainFeeder(
+                    viewMainFeeder.getPotency_total(), 
+                    (Voltage)viewMainFeeder.getCmbVoltage().getSelectedItem(), 
+                    (Material)viewMainFeeder.getCmbMaterial().getSelectedItem(), 
+                    (Temperature)viewMainFeeder.getCmbTemperature().getSelectedItem(), 
+                    Double.valueOf(viewMainFeeder.getJspPowerFactor().getValue().toString()), 
+                    2);
+
+            caliberNeutralFound = MethodsForCalculationsGlobal.calculateCaliberForMainFeeder(
+                    viewMainFeeder.getNeutral_total(), 
+                    (Voltage)viewMainFeeder.getCmbVoltage().getSelectedItem(), 
+                    (Material)viewMainFeeder.getCmbMaterial().getSelectedItem(), 
+                    (Temperature)viewMainFeeder.getCmbTemperature().getSelectedItem(), 
+                    Double.valueOf(viewMainFeeder.getJspPowerFactor().getValue().toString()), 
+                    2);
+            
+            conductorForPhase = MethodsForCalculationsGlobal.calculateNumberConductorForPhase(
+                    MethodsForCalculationsGlobal.intensity(
+                            viewMainFeeder.getPotency_total(), 
+                            ((Voltage)viewMainFeeder.getCmbVoltage().getSelectedItem()).getVoltage(), 
+                            Double.valueOf(viewMainFeeder.getJspPowerFactor().getValue().toString()), 
+                            2), 
+                    475);
+                    
+            conductorForNeutral = MethodsForCalculationsGlobal.calculateNumberConductorForPhase(
+                    MethodsForCalculationsGlobal.intensity(
+                            viewMainFeeder.getNeutral_total(), 
+                            ((Voltage)viewMainFeeder.getCmbVoltage().getSelectedItem()).getVoltage(), 
+                            Double.valueOf(viewMainFeeder.getJspPowerFactor().getValue().toString()), 
+                            2), 
+                    475);
+            
+            caliberPipeline = MethodsForCalculationsGlobal.calculate_pipeline(
+            caliberPhaseFound.getCaliber(), 
+            null, 
+            null, 
+            (Phase)viewMainFeeder.getCmbPhases().getSelectedItem(), 
+            viewMainFeeder.getCmbPipeline().getSelectedItem().toString());
+            
+            caliberPipelineNeutral = MethodsForCalculationsGlobal.calculate_pipeline(
+            caliberNeutralFound.getCaliber(), 
+            null, 
+            null, 
+            new Phase(0, TypePhases.SINGLE_PHASE_TWO_THREAD.getPhase()), 
+            viewMainFeeder.getCmbPipeline().getSelectedItem().toString());
+            
+            intensityDesignFound = MethodsForCalculationsIluminariaPowerPoint.calculate_instensity_design(new Calibers(
+                        0, 
+                        (Material)viewMainFeeder.getCmbMaterial().getSelectedItem(), 
+                        (Temperature)viewMainFeeder.getCmbTemperature().getSelectedItem(), 
+                        null, 
+                        caliberPhaseFound.getCaliber()));
+                              
+            breakerPhaseFound = MethodsForCalculationsGlobal.find_breaker_main_feeder(
+                    conductorForPhase * intensityDesignFound.getIntensity(),
+                    new Intensity(0, null, MethodsForCalculationsGlobal.intensity(
+                            viewMainFeeder.getPotency_total(), 
+                            ((Voltage)viewMainFeeder.getCmbVoltage().getSelectedItem()).getVoltage(), 
+                            Double.valueOf(viewMainFeeder.getJspPowerFactor().getValue().toString()), 
+                            2)));  
+            
+            calibersHearthFound = MethodsForCalculationsGlobal.calculate_calibersHearth(
+            viewMainFeeder.getPotency_total(), 
+            (Voltage)viewMainFeeder.getCmbVoltage().getSelectedItem(), 
+            Double.valueOf(viewMainFeeder.getJspPowerFactor().getValue().toString()), 
+            2);
+            
+            if (caliberPhaseFound == null){
+                MessagesStructure.Warning(MessagesStructure.format(200, messages.getProperty(Messages.CALIBER_NO_FOUND), MessagesStructure.justify));
+            } else {
+                viewMainFeeder.getCmbCaliber().setSelectedItem(caliberPhaseFound.getCaliber());
+                viewMainFeeder.getCmbCalibersNeutral().setSelectedItem(caliberNeutralFound.getCaliber());
+                if (((Material)viewMainFeeder.getCmbMaterial().getSelectedItem()).getName().equals(TypeMaterials.COOPER.getMaterial())){                
+                    viewMainFeeder.getLblCaliberPhase().setText("3 Cables" + " #" + caliberPhaseFound.getCaliber().getName() + " Cu " + MethodsForCalculationsGlobal.typeCaliber(typeCaliber,(Temperature)viewMainFeeder.getCmbTemperature().getSelectedItem()) + " " + "3x" + breakerPhaseFound.getCapacity());
+                    viewMainFeeder.getLblCaliberNeutral().setText("2 Cables" + " #" + caliberNeutralFound.getCaliber().getName() + " Cu " + MethodsForCalculationsGlobal.typeCaliber(typeCaliber,(Temperature)viewMainFeeder.getCmbTemperature().getSelectedItem()));
+                } else if (((Material)viewMainFeeder.getCmbMaterial().getSelectedItem()).getName().equals(TypeMaterials.ALUMINIUM.getMaterial())) {
+                    viewMainFeeder.getLblCaliberPhase().setText("3 Cables" + " #" + caliberPhaseFound.getCaliber().getName() + " Al " + MethodsForCalculationsGlobal.typeCaliber(typeCaliber,(Temperature)viewMainFeeder.getCmbTemperature().getSelectedItem()) + " " + "3x" + breakerPhaseFound.getCapacity());
+                    viewMainFeeder.getLblCaliberNeutral().setText("2 Cables" + " #" + caliberNeutralFound.getCaliber().getName() + " Al " + MethodsForCalculationsGlobal.typeCaliber(typeCaliber,(Temperature)viewMainFeeder.getCmbTemperature().getSelectedItem()));
+                }
+                if (calibersHearthFound == null){
+                    viewMainFeeder.getLblCaliberEarth().setText("No aplica");
+                } else {
+                    viewMainFeeder.getLblCaliberEarth().setText("1 Cable " + calibersHearthFound.getCaliber().getName() + " " + MethodsForCalculationsGlobal.typeCaliber(typeCaliber,(Temperature)viewMainFeeder.getCmbTemperature().getSelectedItem()));
+                }
+                viewMainFeeder.getBtnCalculateBreakdown().doClick(); 
+            }               
+        }
+    }//Fin del método.
+        
+    /**
+     * Método para calcular reactancia
+     * @return Retorna un objeto ResistanceReactance que almacena el valor de la reactancia.
+     */
+    private ResistanceReactance calculate_reactance(TypeOfBranchCircuitInArea typeOfBranchCircuitInArea){   
+        if (typeOfBranchCircuitInArea == TypeOfBranchCircuitInArea.NEUTRAL){
+            return  MethodsForCalculationsGlobal.calculate_reactance(
+                (Material)viewMainFeeder.getCmbMaterial().getSelectedItem(),
+                (Caliber)viewMainFeeder.getCmbCalibersNeutral().getSelectedItem(), 
+                (Duct)viewMainFeeder.getCmbDuct().getSelectedItem());  
+        } else {
+            return  MethodsForCalculationsGlobal.calculate_reactance(
+                (Material)viewMainFeeder.getCmbMaterial().getSelectedItem(),
+                (Caliber)viewMainFeeder.getCmbCaliber().getSelectedItem(), 
+                (Duct)viewMainFeeder.getCmbDuct().getSelectedItem());        
+        }             
+    }//Fin del método
+        
+    /**
+     * Método para calcular resistencia
+     * @return Retorna un objeto ResistanceReactance que almacena el valor de la resistencia.
+     */
+    private ResistanceReactance calculate_resistance(TypeOfBranchCircuitInArea typeOfBranchCircuitInArea){
+        if (typeOfBranchCircuitInArea == TypeOfBranchCircuitInArea.NEUTRAL){
+            return MethodsForCalculationsGlobal.calculate_resistance(
+                (Material)viewMainFeeder.getCmbMaterial().getSelectedItem(),
+                (Caliber)viewMainFeeder.getCmbCalibersNeutral().getSelectedItem(), 
+                (Duct)viewMainFeeder.getCmbDuct().getSelectedItem());
+        } else {
+            return MethodsForCalculationsGlobal.calculate_resistance(
+                (Material)viewMainFeeder.getCmbMaterial().getSelectedItem(),
+                (Caliber)viewMainFeeder.getCmbCaliber().getSelectedItem(), 
+                (Duct)viewMainFeeder.getCmbDuct().getSelectedItem());            
+        }
+    }//Fin del método
+
+    //Método para probar los conductores por caída de voltaje.
+    private void calculate_breakDownVoltage() {
+        if (caliberPhaseFound == null || caliberNeutralFound == null || calibersHearthFound == null){
+            MessagesStructure.Warning(MessagesStructure.format(200, messages.getProperty(Messages.AREA_CAPACITY_INTENSITY_NO_FOUND), MessagesStructure.justify));
+        } else {
+            if (MethodsForCalculationsGlobal.validate_caliber((Caliber)viewMainFeeder.getCmbCaliber().getSelectedItem())
+                    && MethodsForCalculationsGlobal.validate_caliber((Caliber)viewMainFeeder.getCmbCalibersNeutral().getSelectedItem())){       
+                resistance = calculate_resistance(TypeOfBranchCircuitInArea.ILUMINARIA);
+                reactance  = calculate_reactance(TypeOfBranchCircuitInArea.ILUMINARIA);
+                if (resistance != null){     
+                    breakdownVoltage = MethodsForCalculationsGlobal.breakdownVoltage(
+                            viewMainFeeder.getPotency_total(),  
+                            Double.valueOf(viewMainFeeder.getJspLength().getValue().toString()), 
+                            ((Voltage)viewMainFeeder.getCmbVoltage().getSelectedItem()).getVoltage(), 
+                            reactance.getValue().getValour(), 
+                            Double.valueOf(viewMainFeeder.getJspPowerFactor().getValue().toString()), 
+                            resistance.getValue().getValour(), 
+                            Double.valueOf(viewMainFeeder.getJspAngle().getValue().toString()));   
+                    viewMainFeeder.getLblBreakdownVoltage().setText(String.valueOf(breakdownVoltage) + " %"); 
+                    caliberSelected = (Caliber)viewMainFeeder.getCmbCaliber().getSelectedItem(); 
+                       
+                    intensityDesignFound = MethodsForCalculationsIluminariaPowerPoint.calculate_instensity_design(new Calibers(
+                                0, 
+                                (Material)viewMainFeeder.getCmbMaterial().getSelectedItem(), 
+                                (Temperature)viewMainFeeder.getCmbTemperature().getSelectedItem(), 
+                                null, 
+                                caliberSelected));
+                    
+                    breakerPhasePersistFound = MethodsForCalculationsGlobal.find_breaker_main_feeder(
+                    conductorForPhase * intensityDesignFound.getIntensity(),
+                    new Intensity(0, null, MethodsForCalculationsGlobal.intensity(
+                            viewMainFeeder.getPotency_total(), 
+                            ((Voltage)viewMainFeeder.getCmbVoltage().getSelectedItem()).getVoltage(), 
+                            Double.valueOf(viewMainFeeder.getJspPowerFactor().getValue().toString()), 
+                            2)));
+                                                                             
+                    resistance = calculate_resistance(TypeOfBranchCircuitInArea.NEUTRAL);
+                    reactance  = calculate_reactance(TypeOfBranchCircuitInArea.NEUTRAL);
+                    if (resistance != null){                
+                        breakdownVoltage = MethodsForCalculationsGlobal.breakdownVoltage(
+                                viewMainFeeder.getNeutral_total(),  
+                                Double.valueOf(viewMainFeeder.getJspLength().getValue().toString()), 
+                                ((Voltage)viewMainFeeder.getCmbVoltage().getSelectedItem()).getVoltage(), 
+                                reactance.getValue().getValour(), 
+                                Double.valueOf(viewMainFeeder.getJspPowerFactor().getValue().toString()), 
+                                resistance.getValue().getValour(), 
+                                Double.valueOf(viewMainFeeder.getJspAngle().getValue().toString()));  
+                        viewMainFeeder.getLblBreakdownVoltageNeutral().setText(String.valueOf(breakdownVoltage) + " %");                     
+                        caliberSelectedNeutral = (Caliber)viewMainFeeder.getCmbCalibersNeutral().getSelectedItem(); 
+                        caliberPhase = viewMainFeeder.getLblCaliberPhase().getText();
+                        caliberPhase = caliberPhase.replace(
+                                "#" + caliberPhaseFound.getCaliber().getName(), 
+                                "#" + caliberSelected.getName());
+                        caliberPhase = caliberPhase.replace(
+                                "3x" + breakerPhaseFound.getCapacity(),
+                                "3x" + breakerPhasePersistFound.getCapacity());
+                        caliberNeutral = viewMainFeeder.getLblCaliberNeutral().getText();
+                        caliberNeutral = caliberNeutral.replace(
+                                "#" + caliberNeutralFound.getCaliber().getName(), 
+                                "#" + caliberSelectedNeutral.getName());
+                        caliberHearth = viewMainFeeder.getLblCaliberEarth().getText();
+            
+                        caliberPipeline = MethodsForCalculationsGlobal.calculate_pipeline(
+                        caliberSelected, 
+                        null, 
+                        null, 
+                        (Phase)viewMainFeeder.getCmbPhases().getSelectedItem(), 
+                        viewMainFeeder.getCmbPipeline().getSelectedItem().toString());
+
+                        caliberPipelineNeutral = MethodsForCalculationsGlobal.calculate_pipeline(
+                        caliberSelectedNeutral, 
+                        null, 
+                        null, 
+                        new Phase(0, TypePhases.SINGLE_PHASE_TWO_THREAD.getPhase()), 
+                        viewMainFeeder.getCmbPipeline().getSelectedItem().toString());
+                        
+                    }
+                }  
+            }            
+        }
+    }//Fin del método.
+    
+        /**
+     * Método para registrar carga dentro de un área.
+     */
+    private void loadRegister(){
+        if (caliberPhaseFound == null || caliberNeutralFound == null || calibersHearthFound == null){    
+            MessagesStructure.Warning(MessagesStructure.format(200, messages.getProperty(Messages.AREA_CAPACITY_INTENSITY_NO_FOUND), MessagesStructure.justify));
+        } else {
+            if (ServiceProject.insert_update_conductors_main_feeder(new ConductorsMainFeeder(
+                    viewMainFeeder.getProject(), 
+                    caliberPhase, 
+                    caliberNeutral, 
+                    caliberHearth, 
+                    caliberPipeline, 
+                    caliberPipelineNeutral, 
+                    conductorForPhase, 
+                    conductorForNeutral))) {
+                viewMainFeeder.dispose();
+            }             
+        }
+    }
+    
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource().equals(viewMainFeeder.getBtnAdd())) {  
-            
+            loadRegister();
         } else if (e.getSource().equals(viewMainFeeder.getBtnClose())) {
             viewMainFeeder.dispose();
         } else if (e.getSource().equals(viewMainFeeder.getBtnCalculateCurrentCapacity())){ 
+            this.calculate_conductor();
         } else if (e.getSource().equals(viewMainFeeder.getBtnCalculateBreakdown())){ 
+            this.calculate_breakDownVoltage();
         } else if (e.getSource().equals(viewMainFeeder.getCmbPhases())) {
             this.fill_combos_voltages();
         }

@@ -149,7 +149,7 @@ public class ControllerSubFeederMotors implements ActionListener, WindowListener
      *  
      */
     public void update_project(){
-        System.out.print(viewSubFeederMotors.getIntensity().getIntensity());
+        
         if (ServiceProject.update_project_phase_earth(new Project(
                 viewSubFeederMotors.getProject().getCode(),
                 new TypeOfInstallation(viewSubFeederMotors.getProject().getTypeOfInstallation().getCode(),null),

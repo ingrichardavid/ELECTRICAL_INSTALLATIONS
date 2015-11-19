@@ -31,10 +31,10 @@ import com.electrical_installations.model.service.ServiceMainFeeder;
 import com.electrical_installations.view.ViewAddMotor;
 import com.electrical_installations.view.ViewAddMotorToInstallation;
 import com.electrical_installations.view.ViewArea;
+import com.electrical_installations.view.ViewCalculateIntensityMotors;
 import com.electrical_installations.view.ViewProyectData;
 import com.electrical_installations.view.ViewCharge;
 import com.electrical_installations.view.ViewLightingCircuit;
-import com.electrical_installations.view.ViewMainFeeder;
 import com.electrical_installations.view.ViewSubFeederMotors;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -61,20 +61,21 @@ public class ControllerProjectData implements ActionListener, WindowListener, Ke
     private ViewArea viewArea;
     private ViewCharge viewCharge;
     private ViewLightingCircuit viewLightingCircuit;
-    private ViewAddMotorToInstallation viewAddElevatorToInstallation;
-    private ViewMainFeeder viewMainFeeder;
+    private ViewAddMotorToInstallation viewAddElevatorToInstallation; 
     private ViewSubFeederMotors viewSubFeederMotors;
+    private ViewCalculateIntensityMotors viewCalculateIntensityMotors;
     private ViewAddMotor  viewAddMotor;
     private Area area;
     private List<Charge> charges;
     private List<Area> areas;
-    private List<MainFeeder> mainFeeder;
+    private List<MainFeeder> mainFeeder,mainFeederIntensity;
     private List<InstallationMotors> installationMotors;
     private List<LightingCircuit> lightingCircuits;
     private List<ChargesInAreas> chargesInAreas;
     private char character;
-    private final double potencyTotalRoominess = 0.35;
-        
+    private final double potencyTotalRoominess = 0.35;  
+    double sum_intensity_motor;
+    
     /**
      * Constructor de la clase, recibe un objeto ViewProjectDatau
      * @param viewProjectData 
@@ -84,13 +85,46 @@ public class ControllerProjectData implements ActionListener, WindowListener, Ke
     }//Fin del constructor 
     
     /**
-     * Método para llamar a la vista ViewMainFeeder
-     */
-    private void newMainFeeder(){
-        viewMainFeeder = new ViewMainFeeder(null, true);
-        
-        viewMainFeeder.setVisible(true);
-    }//fin del método
+     * 
+     */ 
+    public void newViewCalculateIntensityMotors(){
+        viewCalculateIntensityMotors = new ViewCalculateIntensityMotors(null, true);
+        List<Double> calculateDemandForDryer = null;
+        List<Double> calculateDemandForElectricKitchen = null; 
+        double calculateDemandForIluminariaPowerPoint = 0; 
+        double valor_motors = 0;
+        double potency = 0;
+        double neutral = 0;
+        int rows = viewProjectData.getTblInstallationMainFeeder().getRowCount(); 
+        try {                   
+            for (int i = 0; i < rows; i++) {    
+                if (Integer.valueOf(viewProjectData.getTblInstallationMainFeeder().getValueAt(i, 2).toString()) == 11) {                    
+                    calculateDemandForDryer = MethodsForCalculationsGlobal.calculateDemandForDryer(Integer.valueOf(viewProjectData.getTblInstallationMainFeeder().getValueAt(i, 6).toString()), 5000);
+                } else if (Integer.valueOf(viewProjectData.getTblInstallationMainFeeder().getValueAt(i, 2).toString()) == 3) {                    
+                    calculateDemandForElectricKitchen = MethodsForCalculationsGlobal.calculateDemandForElectricKitchen(Integer.valueOf(viewProjectData.getTblInstallationMainFeeder().getValueAt(i, 6).toString()));                   
+                } else if(Integer.valueOf(viewProjectData.getTblInstallationMainFeeder().getValueAt(i, 2).toString()) == 12){
+                    calculateDemandForIluminariaPowerPoint = MethodsForCalculationsGlobal.calculateDemandForIluminariaPowerPoint(Double.valueOf(viewProjectData.getTblInstallationMainFeeder().getValueAt(i, 4).toString()));
+                } else if(Integer.valueOf(viewProjectData.getTblInstallationMainFeeder().getValueAt(i, 2).toString()) == 7){
+                    valor_motors = (Double.valueOf(viewProjectData.getTblInstallationMainFeeder().getValueAt(i, 5).toString()));
+                } else{
+                    potency += (Double.valueOf(viewProjectData.getTblInstallationMainFeeder().getValueAt(i, 4).toString()));
+                    neutral += (Double.valueOf(viewProjectData.getTblInstallationMainFeeder().getValueAt(i, 7).toString()));
+                } 
+            }
+            double potency_total = (calculateDemandForDryer == null ? 0 : calculateDemandForDryer.get(0)) + (calculateDemandForElectricKitchen == null ? 0 : calculateDemandForElectricKitchen.get(0)) + calculateDemandForIluminariaPowerPoint + potency;
+            double neutral_total = (calculateDemandForDryer == null ? 0 : calculateDemandForDryer.get(1)) + (calculateDemandForElectricKitchen == null ? 0 : calculateDemandForElectricKitchen.get(1)) + calculateDemandForIluminariaPowerPoint + neutral;
+            viewCalculateIntensityMotors.setPotency_total(potency_total);
+            viewCalculateIntensityMotors.setNeutral_total(neutral_total);
+            viewCalculateIntensityMotors.setValor_motors(valor_motors); 
+        } catch (ArrayIndexOutOfBoundsException e) {
+            MessagesStructure.Warning(MessagesStructure.format(200, messages.getProperty(Messages.NOT_SELECT_ROW), MessagesStructure.justify));
+            viewProjectData.getTblInstallationMainFeeder().requestFocus();            
+        }
+        viewCalculateIntensityMotors.setProject(new Project(viewProjectData.getProjectCode(), new TypeOfInstallation(viewProjectData.getType_installation_code(), null), 0));
+        viewCalculateIntensityMotors.setVisible(true);
+    }
+    
+ 
     
     /**
      * Método para llamar a la vista ViewLightingCircuit
@@ -98,8 +132,10 @@ public class ControllerProjectData implements ActionListener, WindowListener, Ke
     private void newViewLightingCircuit(){
         viewLightingCircuit = new ViewLightingCircuit(null, true);
         viewLightingCircuit.setProject(new Project(viewProjectData.getProjectCode(), new TypeOfInstallation(viewProjectData.getType_installation_code(), null), 0));
-        viewLightingCircuit.setVisible(true);
+        viewLightingCircuit.setVisible(true); 
         this.fill_installation_motors();
+        Methods.removeRows(viewProjectData.getTblInstallationMainFeeder());
+        this.fill_main_feeder();
     }//fin del Método 
     
     
@@ -118,7 +154,9 @@ public class ControllerProjectData implements ActionListener, WindowListener, Ke
                 0, 
                 null));
         viewAddMotor.setVisible(true);
-        this.fill_installation_motors();
+        this.fill_installation_motors(); 
+        Methods.removeRows(viewProjectData.getTblInstallationMainFeeder());
+        this.fill_main_feeder();
     }
      
     /**
@@ -220,7 +258,7 @@ public class ControllerProjectData implements ActionListener, WindowListener, Ke
                 ((DefaultTableModel) viewProjectData.getTblInstallationEngines().getModel()).addRow(data);
             }   
             for (LightingCircuit lightingCircuit: lightingCircuits) {
-                Object[] data = {lightingCircuit.getCode(),lightingCircuit.getDescription(),TypePhase.THREE_PHASE.getPhase(),null,lightingCircuit.getIntensity_total(),null,null};   
+                Object[] data = {lightingCircuit.getCode(),lightingCircuit.getDescription(),TypePhase.THREE_PHASE.getPhase(),null,lightingCircuit.getIntensity_total(),null,null,0};   
                 ((DefaultTableModel) viewProjectData.getTblInstallationEngines().getModel()).addRow(data);
             }
         }
@@ -277,7 +315,7 @@ public class ControllerProjectData implements ActionListener, WindowListener, Ke
                 ((DefaultTableModel) viewProjectData.getTblInstallationEngines().getModel()).addRow(data);
             }   
             for (LightingCircuit lightingCircuit: lightingCircuits) {
-                Object[] data = {lightingCircuit.getCode(),lightingCircuit.getDescription(),TypePhase.THREE_PHASE.getPhase(),null,lightingCircuit.getIntensity_total(),null,null};   
+                Object[] data = {lightingCircuit.getCode(),lightingCircuit.getDescription(),TypePhase.THREE_PHASE.getPhase(),null,lightingCircuit.getIntensity_total(),null,null,0};   
                 ((DefaultTableModel) viewProjectData.getTblInstallationEngines().getModel()).addRow(data);
             }
         } else if(installationMotors != null ){
@@ -287,7 +325,7 @@ public class ControllerProjectData implements ActionListener, WindowListener, Ke
             }
         }else if(lightingCircuits != null){
             for (LightingCircuit lightingCircuit: lightingCircuits) {
-                Object[] data = {lightingCircuit.getCode(),lightingCircuit.getDescription(),TypePhase.THREE_PHASE.getPhase(),null,lightingCircuit.getIntensity_total(),null,null};   
+                Object[] data = {lightingCircuit.getCode(),lightingCircuit.getDescription(),TypePhase.THREE_PHASE.getPhase(),null,lightingCircuit.getIntensity_total(),null,null,0};   
                 ((DefaultTableModel) viewProjectData.getTblInstallationEngines().getModel()).addRow(data);
             }
         }
@@ -307,10 +345,8 @@ public class ControllerProjectData implements ActionListener, WindowListener, Ke
             }
         }
     }//Fin del método
-    
-    
- 
-     /**
+   
+    /**
      * Método para llenar tabla Alimentador principal.
      */
     public void fill_main_feeder(){
@@ -319,18 +355,34 @@ public class ControllerProjectData implements ActionListener, WindowListener, Ke
                 null,
                 0,
                 0,
+                0,
                 0));
-      
+        
+          
+        sum_intensity_motor = ServiceMainFeeder.find_intensity(new MainFeeder(
+                new Project(viewProjectData.getProjectCode(), new TypeOfInstallation(viewProjectData.getType_installation_code(), null), 0),
+                null,
+                0,
+                0,
+                0,
+                0));  
+        
         if (mainFeeder != null){            
             Methods.removeRows(viewProjectData.getTblInstallationMainFeeder());  
             for (MainFeeder main_feeder_data : mainFeeder) {
-                Object[] data = {main_feeder_data.getProject().getCode(),main_feeder_data.getProject().getTypeOfInstallation().getCode(),main_feeder_data.getCharge().getCode(),main_feeder_data.getCharge().getName(),Methods.round(main_feeder_data.getPotency(), 5),Methods.round(main_feeder_data.getIntensity(), 5),main_feeder_data.getQuantity()};
+                Object[] data = {main_feeder_data.getProject().getCode(),main_feeder_data.getProject().getTypeOfInstallation().getCode(),main_feeder_data.getCharge().getCode(),main_feeder_data.getCharge().getName(),Methods.round(main_feeder_data.getPotency(), 5),Methods.round(main_feeder_data.getIntensity(), 5),main_feeder_data.getQuantity(),main_feeder_data.getPotency_neutral()};
                 ((DefaultTableModel) viewProjectData.getTblInstallationMainFeeder().getModel()).addRow(data); 
-            } 
+            }  
         }
+         
+        if (sum_intensity_motor != 0) {      
+            Object[] data = {viewProjectData.getProjectCode(),viewProjectData.getType_installation_code(),7,"Motor",0,Methods.round(sum_intensity_motor, 5),0,0};
+                ((DefaultTableModel) viewProjectData.getTblInstallationMainFeeder().getModel()).addRow(data); 
+            }
+        
     }//Fin del método 
     
-         /**
+     /**
      * Método para llenar tabla Alimentador principal filtrado por nombre.
      * @param name
      */
@@ -340,14 +392,19 @@ public class ControllerProjectData implements ActionListener, WindowListener, Ke
                 new Charge(0, name),
                 0,
                 0,
+                0,
                 0));
       
         if (mainFeeder != null){            
             Methods.removeRows(viewProjectData.getTblInstallationMainFeeder());  
             for (MainFeeder main_feeder_data : mainFeeder) {
-                Object[] data = {main_feeder_data.getProject().getCode(),main_feeder_data.getProject().getTypeOfInstallation().getCode(),main_feeder_data.getCharge().getCode(),main_feeder_data.getCharge().getName(),Methods.round(main_feeder_data.getPotency(), 5),Methods.round(main_feeder_data.getIntensity(), 5),main_feeder_data.getQuantity()};
+                Object[] data = {main_feeder_data.getProject().getCode(),main_feeder_data.getProject().getTypeOfInstallation().getCode(),main_feeder_data.getCharge().getCode(),main_feeder_data.getCharge().getName(),Methods.round(main_feeder_data.getPotency(), 5),Methods.round(main_feeder_data.getIntensity(), 5),main_feeder_data.getQuantity(),main_feeder_data.getPotency_neutral()};
                 ((DefaultTableModel) viewProjectData.getTblInstallationMainFeeder().getModel()).addRow(data); 
             } 
+         if (sum_intensity_motor != 0) {      
+            Object[] data = {viewProjectData.getProjectCode(),viewProjectData.getType_installation_code(),7,"Motor",0,Methods.round(sum_intensity_motor, 5),0,0};
+                ((DefaultTableModel) viewProjectData.getTblInstallationMainFeeder().getModel()).addRow(data); 
+            }
         }
     }//Fin del método 
     
@@ -391,6 +448,8 @@ public class ControllerProjectData implements ActionListener, WindowListener, Ke
             this.fill_areas();
             viewProjectData.getTblArea().setRowSelectionInterval(row, row); 
             this.fill_table_charges_in_areas();
+            Methods.removeRows(viewProjectData.getTblInstallationMainFeeder());
+            this.fill_main_feeder();
         } catch (ArrayIndexOutOfBoundsException e) {
             MessagesStructure.Warning(MessagesStructure.format(200, messages.getProperty(Messages.NOT_SELECT_ROW), MessagesStructure.justify));
             viewProjectData.getTblArea().requestFocus();
@@ -406,7 +465,9 @@ public class ControllerProjectData implements ActionListener, WindowListener, Ke
         viewArea.visible_buttons(false, true, true);
         viewArea.setVisible(true);
         Methods.removeRows(viewProjectData.getTblAreasCharges());
-        this.fill_areas();      
+        this.fill_areas(); 
+        Methods.removeRows(viewProjectData.getTblInstallationMainFeeder());
+        this.fill_main_feeder();
     }//Fin del método
     
     /**
@@ -435,6 +496,8 @@ public class ControllerProjectData implements ActionListener, WindowListener, Ke
                 this.fill_areas();
                 viewProjectData.getTblArea().setRowSelectionInterval(row, row);
                 this.fill_table_charges_in_areas(); 
+                Methods.removeRows(viewProjectData.getTblInstallationMainFeeder());
+                 this.fill_main_feeder();
             }
         } catch (ArrayIndexOutOfBoundsException e) {
             MessagesStructure.Warning(MessagesStructure.format(200, messages.getProperty(Messages.NOT_SELECT_ROW), MessagesStructure.justify));
@@ -462,6 +525,8 @@ public class ControllerProjectData implements ActionListener, WindowListener, Ke
                     0))){                
                 Methods.removeRows(viewProjectData.getTblAreasCharges());
                 this.fill_areas();
+                Methods.removeRows(viewProjectData.getTblInstallationMainFeeder());
+                 this.fill_main_feeder();
             }            
         } catch (ArrayIndexOutOfBoundsException e) {
             MessagesStructure.Warning(MessagesStructure.format(200, messages.getProperty(Messages.NOT_SELECT_ROW), MessagesStructure.justify));
@@ -528,8 +593,10 @@ public class ControllerProjectData implements ActionListener, WindowListener, Ke
             Methods.removeRows(viewProjectData.getTblAreasCharges());
             this.fill_areas(); 
             viewProjectData.getTblArea().setRowSelectionInterval(row_area, row_area); 
-            this.fill_table_charges_in_areas();           
-        } catch (Exception e) {
+            this.fill_table_charges_in_areas();   
+            Methods.removeRows(viewProjectData.getTblInstallationMainFeeder());
+            this.fill_main_feeder();
+        } catch (ArrayIndexOutOfBoundsException e) {
             MessagesStructure.Warning(MessagesStructure.format(200, messages.getProperty(Messages.NOT_SELECT_ROW), MessagesStructure.justify));
             viewProjectData.getTblAreasCharges().requestFocus();            
         }
@@ -551,7 +618,6 @@ public class ControllerProjectData implements ActionListener, WindowListener, Ke
                             null, 
                             0))){
                     }
-                    System.out.println("ewqewqewqewq");
                 } else {
                     if (ServiceInstallationMotors.delete_motor(new InstallationMotors(
                         Integer.valueOf(viewProjectData.getTblInstallationEngines().getValueAt(rows[i], 0).toString()), 
@@ -568,6 +634,8 @@ public class ControllerProjectData implements ActionListener, WindowListener, Ke
             }                            
             Methods.removeRows(viewProjectData.getTblInstallationEngines());            
             this.fill_installation_motors();
+            Methods.removeRows(viewProjectData.getTblInstallationMainFeeder());
+            this.fill_main_feeder(); 
         } catch (ArrayIndexOutOfBoundsException e) {
             MessagesStructure.Warning(MessagesStructure.format(200, messages.getProperty(Messages.NOT_SELECT_ROW), MessagesStructure.justify));
             viewProjectData.getTblInstallationEngines().requestFocus();            
@@ -678,7 +746,7 @@ public class ControllerProjectData implements ActionListener, WindowListener, Ke
             viewProjectData.dispose();
         } 
         else if (e.getSource().equals(viewProjectData.getBtnAddCharge())){          
-            add_charge();
+            add_charge(); 
         }
         else if (e.getSource().equals(viewProjectData.getBtnDeleteChargesInAreas())){
             remove_charges_in_areas();
@@ -691,7 +759,7 @@ public class ControllerProjectData implements ActionListener, WindowListener, Ke
         } else if(e.getSource().equals(viewProjectData.getBtnLightingCircuit())){
             newViewLightingCircuit();
         } else if(e.getSource().equals(viewProjectData.getBtnCalculateMainFeeder())){
-            newMainFeeder();
+            newViewCalculateIntensityMotors();
         }
     }
 
@@ -764,9 +832,10 @@ public class ControllerProjectData implements ActionListener, WindowListener, Ke
             this.fill_table_charges_in_area(viewProjectData.getTxtFindAreasCharge().getText());
         }  else if (e.getSource().equals(viewProjectData.getTxtFindInstallationEngines())){
             this.fill_installation_motors_filter_name();
-        } else if(e.getSource().equals(viewProjectData.getTxtFindMainFeeder())){
+        } else if(e.getSource().equals(viewProjectData.getTxtFindMainFeeder())){  
              this.fill_main_feeder_filter_by_name(viewProjectData.getTxtFindMainFeeder().getText()); 
-        }
+            
+        }  
     }
 
     @Override

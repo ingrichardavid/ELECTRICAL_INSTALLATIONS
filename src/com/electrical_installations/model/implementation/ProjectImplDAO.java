@@ -7,6 +7,7 @@ package com.electrical_installations.model.implementation;
 
 import com.electrical_installations.model.DataBaseConnection;
 import com.electrical_installations.model.dao.ProjectDAO;
+import com.electrical_installations.model.entity.ConductorsMainFeeder;
 import com.electrical_installations.model.entity.Project;
 import com.electrical_installations.model.entity.TypeOfInstallation;
 import com.electrical_installations.model.entity.User;
@@ -263,7 +264,7 @@ public class ProjectImplDAO implements ProjectDAO{
         }
         return projectFound;
     }//Fin del Método  
-
+    
     @Override
     public boolean update_project_phase_earth_motor(Project project) {
         try {
@@ -308,5 +309,54 @@ public class ProjectImplDAO implements ProjectDAO{
         }
         return false;
     }//fin del metodo
+
+    /**
+     * Método para insertar y modificar datos sobre la entidad conductores y tuberías del alimentador principal.
+     * @param conductorsMainFeeder
+     * @return Retorna true si el procedimiento fue exitoso.
+     */
+    @Override
+    public boolean insert_update_conductors_main_feeder(ConductorsMainFeeder conductorsMainFeeder) {
+        int code = 0;
+        try {
+            preparedStatement = connection.getConexion().prepareStatement(ProjectQueries.VALIDATE_EXIST_CONDUCTORS_MAIN_FEEDER);
+            preparedStatement.setInt(1, conductorsMainFeeder.getProject().getCode());
+            preparedStatement.setInt(2, conductorsMainFeeder.getProject().getTypeOfInstallation().getCode());
+            result = preparedStatement.executeQuery();
+            while (result.next()) {
+                code = result.getInt(1);
+            }
+            if (code > 0) {
+                preparedStatement = connection.getConexion().prepareStatement(ProjectQueries.UPDATE_CONDUCTORS_MAIN_FEEDER);
+                preparedStatement.setString(1, conductorsMainFeeder.getPhase());
+                preparedStatement.setString(2, conductorsMainFeeder.getNeutral());
+                preparedStatement.setString(3, conductorsMainFeeder.getHearth());
+                preparedStatement.setString(4, conductorsMainFeeder.getPipelinePhase());
+                preparedStatement.setString(5, conductorsMainFeeder.getPipelineNeutral());
+                preparedStatement.setInt(6, conductorsMainFeeder.getConductorPhase());
+                preparedStatement.setInt(7, conductorsMainFeeder.getConductorNeutral());
+                preparedStatement.setInt(8, conductorsMainFeeder.getProject().getCode());
+                preparedStatement.setInt(9, conductorsMainFeeder.getProject().getTypeOfInstallation().getCode());
+                if (preparedStatement.executeUpdate() > 0) return true; 
+            } else {            
+                preparedStatement = connection.getConexion().prepareStatement(ProjectQueries.INSERT_CONDUCTORS_MAIN_FEEDER);
+                preparedStatement.setInt(1, conductorsMainFeeder.getProject().getCode());
+                preparedStatement.setInt(2, conductorsMainFeeder.getProject().getTypeOfInstallation().getCode());
+                preparedStatement.setString(3, conductorsMainFeeder.getPhase());
+                preparedStatement.setString(4, conductorsMainFeeder.getNeutral());
+                preparedStatement.setString(5, conductorsMainFeeder.getHearth());
+                preparedStatement.setString(6, conductorsMainFeeder.getPipelinePhase());
+                preparedStatement.setString(7, conductorsMainFeeder.getPipelineNeutral());
+                preparedStatement.setInt(8, conductorsMainFeeder.getConductorPhase());
+                preparedStatement.setInt(9, conductorsMainFeeder.getConductorNeutral());
+                if (preparedStatement.executeUpdate() > 0) return true;   
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            connection.closeConnection();
+        }
+        return false;
+    }//Fin del método.
     
 }

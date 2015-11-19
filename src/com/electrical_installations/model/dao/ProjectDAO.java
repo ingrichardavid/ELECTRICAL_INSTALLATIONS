@@ -5,6 +5,7 @@
  */
 package com.electrical_installations.model.dao;
 
+import com.electrical_installations.model.entity.ConductorsMainFeeder;
 import com.electrical_installations.model.entity.Project;
 import com.electrical_installations.model.entity.User;
 import java.util.List;
@@ -87,4 +88,11 @@ public interface ProjectDAO {
      */
     public boolean update_project_phase_earth_motor(Project project);
         
+    /**
+     * Método para insertar y modificar datos sobre la entidad conductores y tuberías del alimentador principal.
+     * @param conductorsMainFeeder
+     * @return Retorna true si el procedimiento fue exitoso.
+     */
+    public boolean insert_update_conductors_main_feeder(ConductorsMainFeeder conductorsMainFeeder);
+    
 }
