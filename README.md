@@ -6,7 +6,7 @@ Proyecto para el cálculo de conductores y breakers para instalaciones eléctric
 - Netbeans 8.1 ó superior.
 - PostgreSQL 9.1 ó superior.
 
-#Líbrerias en Netbeans
+#Librerías en Netbeans
 - EdisoncorSx-0.07.
 - Jcalendar-1.3.3.
 - Substance4.3
