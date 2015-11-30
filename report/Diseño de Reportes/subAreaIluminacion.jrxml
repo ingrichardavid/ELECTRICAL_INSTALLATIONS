@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="subAreaIluminacion" language="groovy" pageWidth="752" pageHeight="612" orientation="Landscape" columnWidth="752" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="a5f9c3b5-36c2-4fc5-bfa8-812c64ea93e5">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="area_code" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT
+     AREA_ILUMINARIA_TOMA_CORRIENTES."codigo" AS AREA_ILUMINARIA_TOMA_CORRIENTES_codigo,
+     AREA_ILUMINARIA_TOMA_CORRIENTES."tipo" AS AREA_ILUMINARIA_TOMA_CORRIENTES_tipo,
+     AREA_ILUMINARIA_TOMA_CORRIENTES."calibre_a_usar" AS AREA_ILUMINARIA_TOMA_CORRIENTES_calibre_a_usar,
+     AREA_ILUMINARIA_TOMA_CORRIENTES."circuito_ramal" AS AREA_ILUMINARIA_TOMA_CORRIENTES_circuito_ramal,
+     AREA_ILUMINARIA_TOMA_CORRIENTES."tuberia" AS AREA_ILUMINARIA_TOMA_CORRIENTES_tuberia
+FROM
+     "negocio"."AREA_ILUMINARIA_TOMA_CORRIENTES" AREA_ILUMINARIA_TOMA_CORRIENTES
+WHERE
+     AREA_ILUMINARIA_TOMA_CORRIENTES."area_codigo" = $P{area_code}]]>
+	</queryString>
+	<field name="area_iluminaria_toma_corrientes_codigo" class="java.lang.Integer"/>
+	<field name="area_iluminaria_toma_corrientes_tipo" class="java.lang.String"/>
+	<field name="area_iluminaria_toma_corrientes_calibre_a_usar" class="java.lang.String"/>
+	<field name="area_iluminaria_toma_corrientes_circuito_ramal" class="java.lang.Integer"/>
+	<field name="area_iluminaria_toma_corrientes_tuberia" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="22" splitType="Stretch">
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="0" width="752" height="20" backcolor="#CCCCFF" uuid="67544253-9647-4e80-b15d-7e38e3c3bdc1"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Iluminaria - Toma Corriente - Sub-Alimentador - Neutro]]></text>
+			</staticText>
+		</band>
+	</title>
+	<columnHeader>
+		<band height="19">
+			<staticText>
+				<reportElement x="0" y="2" width="193" height="14" uuid="96072ff9-6874-4159-9070-067627fdf554"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Tipo]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="193" y="2" width="213" height="14" uuid="53644bdb-ceb3-4715-a729-90b71dbf915d"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Fase]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="406" y="2" width="177" height="14" uuid="49328516-ddd2-4474-9875-30428309540f"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Cicuito Ramal]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="583" y="2" width="169" height="14" uuid="bd614973-fc80-4196-9425-5a03afeb495e"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Tubería]]></text>
+			</staticText>
+			<line>
+				<reportElement x="0" y="17" width="752" height="1" uuid="1ddfa2db-8410-4ee4-a5dc-bee9ef6e7950"/>
+			</line>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="18" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="3" width="193" height="13" uuid="09abd76d-b742-45e3-89e4-4b17da27bea6"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[($F{area_iluminaria_toma_corrientes_tipo} == "I" ? "Iluminaria" :
+ $F{area_iluminaria_toma_corrientes_tipo} == "T" ? "Toma corriente" :
+ $F{area_iluminaria_toma_corrientes_tipo} == "A" ? "Sub-Alimentador" :
+ $F{area_iluminaria_toma_corrientes_tipo} == "N" ? "Neutro" : "")
+
+]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="193" y="3" width="213" height="13" uuid="8dd6b592-03a4-461d-ab8b-d29bc097efe0"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{area_iluminaria_toma_corrientes_calibre_a_usar}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="406" y="3" width="177" height="13" uuid="c4d3b709-5469-482d-aa7d-6bd9735490c7"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{area_iluminaria_toma_corrientes_circuito_ramal}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="583" y="3" width="169" height="13" uuid="0fd4bd0e-ba93-4172-be5c-709432acee95"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{area_iluminaria_toma_corrientes_tuberia}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="0" y="16" width="752" height="1" uuid="aa2e6ed8-f762-4a47-84e2-0ced385b2efd"/>
+			</line>
+		</band>
+	</detail>
+</jasperReport>

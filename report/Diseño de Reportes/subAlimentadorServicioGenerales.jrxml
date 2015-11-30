@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="subAlimentadorServicioGenerales" language="groovy" pageWidth="752" pageHeight="612" orientation="Landscape" whenNoDataType="AllSectionsNoDetail" columnWidth="752" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="06c1320d-9bdd-4d69-89cd-7c8c4f59b1aa">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="project_code" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="project_code_type" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT
+     PROYECTO."fase_motor" AS PROYECTO_fase_motor,
+     PROYECTO."tierra_motor" AS PROYECTO_tierra_motor,
+     PROYECTO."tuberia_motor" AS PROYECTO_tuberia_motor
+FROM
+     "negocio"."PROYECTO" PROYECTO
+WHERE
+     PROYECTO."codigo" = $P{project_code}
+ AND PROYECTO."tipo_de_instalacion_codigo" = $P{project_code_type}]]>
+	</queryString>
+	<field name="proyecto_fase_motor" class="java.lang.String"/>
+	<field name="proyecto_tierra_motor" class="java.lang.String"/>
+	<field name="proyecto_tuberia_motor" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="21">
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="0" width="752" height="20" backcolor="#CCCCFF" uuid="742b53c7-caab-4892-a4eb-99056e574086"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Sub-Alimentador de Servicio Generales]]></text>
+			</staticText>
+		</band>
+	</title>
+	<columnHeader>
+		<band height="17" splitType="Stretch">
+			<staticText>
+				<reportElement x="6" y="1" width="296" height="14" uuid="80845356-e268-4f5a-8c37-3477e892fbd6"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Fase]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="302" y="2" width="229" height="14" uuid="aa42ee74-4504-443e-92b5-9ba8c019b736"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Tierra]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="531" y="2" width="215" height="14" uuid="eb09d86e-6bc8-4c0d-bb1f-7676cad14c9d"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Tubería]]></text>
+			</staticText>
+			<line>
+				<reportElement x="0" y="16" width="752" height="1" uuid="286773f2-8fc1-4f66-aa6c-1ed887cd51c5"/>
+			</line>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="16" splitType="Stretch">
+			<textField isBlankWhenNull="true">
+				<reportElement x="6" y="0" width="296" height="13" uuid="c0127980-05d5-4a69-8b2d-ac95869e38e0"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{proyecto_fase_motor}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="302" y="1" width="229" height="13" uuid="f85f2eab-ac44-42fd-b796-aad18f95fbcd"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{proyecto_tierra_motor}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="531" y="1" width="215" height="13" uuid="52068fab-2b67-4a19-9afa-cbcc6ac94198"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{proyecto_tuberia_motor}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="0" y="15" width="752" height="1" uuid="22549d19-e329-4466-a529-59780ff71e34"/>
+			</line>
+		</band>
+	</detail>
+</jasperReport>

@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Reporte" language="groovy" pageWidth="792" pageHeight="612" orientation="Landscape" columnWidth="752" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="5f9f3573-693c-4f72-b416-3f9a294e3120">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="project_code" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="project_code_type" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["C:\\Program Files\\ELECTRICAL_INSTALLATIONS\\report\\"]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT
+     CONCAT_WS(' ',USUARIO."nombre",USUARIO."apellido") AS usuario,
+     PROYECTO."nombre" AS PROYECTO_nombre,
+     PROYECTO."codigo" AS PROYECTO_codigo,
+     PROYECTO."tipo_de_instalacion_codigo" AS PROYECTO_tipo_de_instalacion_codigo,
+     USUARIO."nombre_usuario" AS USUARIO_nombre_usuario,
+     TIPO_DE_INSTALACION."nombre" AS TIPO_DE_INSTALACION_nombre
+FROM
+     "negocio"."USUARIO" USUARIO INNER JOIN "negocio"."PROYECTO" PROYECTO ON USUARIO."nacionalidad" = PROYECTO."usuario_nacionalidad"
+     AND USUARIO."cedula" = PROYECTO."usuario_cedula"
+     INNER JOIN "maestros"."TIPO_DE_INSTALACION" TIPO_DE_INSTALACION ON PROYECTO."tipo_de_instalacion_codigo" = TIPO_DE_INSTALACION."codigo"
+WHERE
+     PROYECTO."codigo" = $P{project_code}
+ AND PROYECTO."tipo_de_instalacion_codigo" = $P{project_code_type}]]>
+	</queryString>
+	<field name="usuario" class="java.lang.String"/>
+	<field name="proyecto_nombre" class="java.lang.String"/>
+	<field name="proyecto_codigo" class="java.lang.Integer"/>
+	<field name="proyecto_tipo_de_instalacion_codigo" class="java.lang.Integer"/>
+	<field name="usuario_nombre_usuario" class="java.lang.String"/>
+	<field name="tipo_de_instalacion_nombre" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="77" splitType="Stretch">
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="0" width="752" height="20" backcolor="#CCCCFF" uuid="b994f889-6c59-4c3e-9b08-4f12bc31d045"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[INSTALACIONES ELECTRICAS]]></text>
+			</staticText>
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement x="543" y="38" width="209" height="20" uuid="8371cfc5-0122-4f3b-bfb6-56671fe3b553"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="22" width="48" height="15" uuid="b313c4ce-6df2-44ab-b565-90be233d893f"/>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Proyecto:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="38" width="48" height="16" uuid="8e08c1a3-4809-4f74-a189-28e8ed77bf37"/>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Tipo:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="55" width="48" height="16" uuid="f57973a2-0fb4-43a1-a8d5-6764889ebb8f"/>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Usuario:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="48" y="22" width="383" height="15" uuid="c25e0e0c-e0e1-43ba-a50a-ae149c2ecda3"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{proyecto_nombre}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="48" y="38" width="383" height="16" uuid="9553e4c8-eb04-49e5-a255-40d8d7b80877"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{tipo_de_instalacion_nombre}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="48" y="55" width="383" height="16" uuid="ca72ab2d-2034-4f57-ad15-8d09cc1f876f"/>
+				<textElement verticalAlignment="Middle">
+					<font isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{usuario}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<detail>
+		<band height="16" splitType="Stretch">
+			<subreport>
+				<reportElement x="0" y="0" width="752" height="15" uuid="64653c44-5e78-423a-98f7-866e234bd6ef"/>
+				<subreportParameter name="project_code">
+					<subreportParameterExpression><![CDATA[$P{project_code}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="project_code_type">
+					<subreportParameterExpression><![CDATA[$P{project_code_type}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "subConductAlimentadoresPrincipales.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+		<band height="16">
+			<subreport>
+				<reportElement x="0" y="0" width="752" height="15" uuid="e14cc518-b64d-4c63-b484-a4124f737aca"/>
+				<subreportParameter name="project_code">
+					<subreportParameterExpression><![CDATA[$P{project_code}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="project_code_type">
+					<subreportParameterExpression><![CDATA[$P{project_code_type}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "subAlimentadorServicioGenerales.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+		<band height="16">
+			<subreport>
+				<reportElement x="0" y="0" width="752" height="15" uuid="eaeb156a-1746-4066-bc24-60112e03384c"/>
+				<subreportParameter name="project_code">
+					<subreportParameterExpression><![CDATA[$P{project_code}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="project_code_type">
+					<subreportParameterExpression><![CDATA[$P{project_code_type}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "subCircuitoAlimentacion.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+		<band height="16">
+			<subreport>
+				<reportElement x="0" y="0" width="752" height="15" uuid="2f25f746-a886-4586-8a7c-ae6fad98008f"/>
+				<subreportParameter name="project_code">
+					<subreportParameterExpression><![CDATA[$P{project_code}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="project_code_type">
+					<subreportParameterExpression><![CDATA[$P{project_code_type}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "subMotoresAlimentacion.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+		<band height="16">
+			<subreport>
+				<reportElement x="0" y="0" width="752" height="15" uuid="f0cdf232-6003-47c8-943f-43ac31134aed"/>
+				<subreportParameter name="project_code">
+					<subreportParameterExpression><![CDATA[$P{project_code}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="project_code_type">
+					<subreportParameterExpression><![CDATA[$P{project_code_type}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="SUBREPORT_DIR"/>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "area.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="27">
+			<textField>
+				<reportElement x="302" y="11" width="64" height="14" uuid="919ef300-a688-4aab-8f1d-f9e5d7e90568"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Página "+$V{PAGE_NUMBER}+" de"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="366" y="11" width="40" height="14" uuid="df242665-2d84-4134-a7c3-e4fdcf2ffc3f"/>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+</jasperReport>

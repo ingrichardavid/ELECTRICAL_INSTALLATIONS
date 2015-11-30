@@ -111,6 +111,10 @@ public class ControllerProjectData implements ActionListener, WindowListener, Ke
                     neutral += (Double.valueOf(viewProjectData.getTblInstallationMainFeeder().getValueAt(i, 7).toString()));
                 } 
             }
+            System.out.println("NEUTRO: " + neutral);
+            System.out.println("Secadora: " + calculateDemandForDryer);
+            System.out.println("Cocina: " + calculateDemandForElectricKitchen);
+            System.out.println("Iluminaria...= " + calculateDemandForIluminariaPowerPoint);
             double potency_total = (calculateDemandForDryer == null ? 0 : calculateDemandForDryer.get(0)) + (calculateDemandForElectricKitchen == null ? 0 : calculateDemandForElectricKitchen.get(0)) + calculateDemandForIluminariaPowerPoint + potency;
             double neutral_total = (calculateDemandForDryer == null ? 0 : calculateDemandForDryer.get(1)) + (calculateDemandForElectricKitchen == null ? 0 : calculateDemandForElectricKitchen.get(1)) + calculateDemandForIluminariaPowerPoint + neutral;
             viewCalculateIntensityMotors.setPotency_total(potency_total);
@@ -541,61 +545,115 @@ public class ControllerProjectData implements ActionListener, WindowListener, Ke
         int row_area = viewProjectData.getTblArea().getSelectedRow();
         double potency_total = Double.valueOf(viewProjectData.getTblArea().getValueAt(row_area, 2).toString());
         double neutral = Double.valueOf(viewProjectData.getTblArea().getValueAt(row_area, 3).toString());
-        int[] rows = viewProjectData.getTblAreasCharges().getSelectedRows(); 
-        try {       
-            for (int i = 0; i < rows.length; i++) {    
-                if (Integer.valueOf(viewProjectData.getTblAreasCharges().getValueAt(rows[i], 5).toString()) == 1){
-                   potency_total = potency_total - ((Integer.valueOf(viewProjectData.getTblAreasCharges().getValueAt(rows[i], 3).toString())) * (Double.valueOf(viewProjectData.getTblAreasCharges().getValueAt(rows[i], 4).toString())));
-                   neutral = neutral - ((Integer.valueOf(viewProjectData.getTblAreasCharges().getValueAt(rows[i], 3).toString())) * (Double.valueOf(viewProjectData.getTblAreasCharges().getValueAt(rows[i], 4).toString())));
-                } else {
-                   potency_total = potency_total - ((Integer.valueOf(viewProjectData.getTblAreasCharges().getValueAt(rows[i], 3).toString())) * (Double.valueOf(viewProjectData.getTblAreasCharges().getValueAt(rows[i], 4).toString())));
-                   neutral = (Integer.valueOf(viewProjectData.getTblAreasCharges().getValueAt(rows[i], 6).toString()) == 3) || 
-                           (Integer.valueOf(viewProjectData.getTblAreasCharges().getValueAt(rows[i], 6).toString()) == 11) ? 
-                           neutral - ((Integer.valueOf(viewProjectData.getTblAreasCharges().getValueAt(rows[i], 3).toString())) * (Double.valueOf(viewProjectData.getTblAreasCharges().getValueAt(rows[i], 4).toString()) * 0.7)) :
-                           neutral - 0;                    
-                }          
-                Area area_to_modify = new Area(
-                            Integer.valueOf(viewProjectData.getTblArea().getValueAt(row_area, 0).toString()), 
-                            viewProjectData.getTblArea().getValueAt(row_area, 1).toString(), 
-                            new Project(viewProjectData.getProjectCode(), null, new TypeOfInstallation(viewProjectData.getType_installation_code(), null), null, 0, null), 
-                            potency_total, 
-                            neutral, 
-                            Integer.valueOf(viewProjectData.getTblArea().getValueAt(row_area, 4).toString()));
-                double quantityPotencyIntensity = 0;
-                if (viewProjectData.getTblAreasCharges().getValueAt(rows[i], 7).toString().equalsIgnoreCase(TypeSubTypeCharge.POTENCY.getSubTypeCharge())){
-                    quantityPotencyIntensity = (Integer.valueOf(viewProjectData.getTblAreasCharges().getValueAt(rows[i], 3).toString()) * 
-                                        Double.valueOf(viewProjectData.getTblAreasCharges().getValueAt(rows[i], 4).toString())) * Integer.valueOf(viewProjectData.getTblArea().getValueAt(row_area, 4).toString());                         
-                } else if (viewProjectData.getTblAreasCharges().getValueAt(rows[i], 7).toString().equalsIgnoreCase(TypeSubTypeCharge.QUANTITY.getSubTypeCharge())) {
-                    quantityPotencyIntensity = Double.valueOf(viewProjectData.getTblAreasCharges().getValueAt(rows[i], 3).toString());
-                } else {
-                    quantityPotencyIntensity = (Integer.valueOf(viewProjectData.getTblAreasCharges().getValueAt(rows[i], 3).toString()) * 
-                                        Double.valueOf(viewProjectData.getTblAreasCharges().getValueAt(rows[i], 4).toString())) * Integer.valueOf(viewProjectData.getTblArea().getValueAt(row_area, 4).toString());
-                }
-                ServiceChargesInAreas.delete_charge_in_area(new ChargesInAreas(
-                        new Charge(Integer.valueOf(viewProjectData.getTblAreasCharges().getValueAt(rows[i], 1).toString()), 
-                                null, 
-                                0,
-                                true,
-                                false,
-                                false,
-                                new TypeCharges(Integer.valueOf(viewProjectData.getTblAreasCharges().getValueAt(rows[i], 6).toString()), null, viewProjectData.getTblAreasCharges().getValueAt(rows[i], 7).toString())), 
-                        new Area(Integer.parseInt(viewProjectData.getTblAreasCharges().getValueAt(rows[i], 0).toString())), 
-                        quantityPotencyIntensity,
-                        0, 
-                        null, 
-                        null, 
-                        null, 
-                        null,
-                        null,
-                        null),
-                        area_to_modify);                
+        int[] rows = viewProjectData.getTblAreasCharges().getSelectedRows();
+        int row_charge = viewProjectData.getTblAreasCharges().getSelectedRow();
+        try {      
+            if (Integer.valueOf(viewProjectData.getTblAreasCharges().getValueAt(row_charge, 5).toString()) == 1){
+                   potency_total = potency_total - ((Integer.valueOf(viewProjectData.getTblAreasCharges().getValueAt(row_charge, 3).toString())) * (Double.valueOf(viewProjectData.getTblAreasCharges().getValueAt(row_charge, 4).toString())));
+                   neutral = neutral - ((Integer.valueOf(viewProjectData.getTblAreasCharges().getValueAt(row_charge, 3).toString())) * (Double.valueOf(viewProjectData.getTblAreasCharges().getValueAt(row_charge, 4).toString())));
+            } else {
+               potency_total = potency_total - ((Integer.valueOf(viewProjectData.getTblAreasCharges().getValueAt(row_charge, 3).toString())) * (Double.valueOf(viewProjectData.getTblAreasCharges().getValueAt(row_charge, 4).toString())));
+               neutral = (Integer.valueOf(viewProjectData.getTblAreasCharges().getValueAt(row_charge, 6).toString()) == 3) || 
+                       (Integer.valueOf(viewProjectData.getTblAreasCharges().getValueAt(row_charge, 6).toString()) == 11) ? 
+                       neutral - ((Integer.valueOf(viewProjectData.getTblAreasCharges().getValueAt(row_charge, 3).toString())) * (Double.valueOf(viewProjectData.getTblAreasCharges().getValueAt(row_charge, 4).toString()) * 0.7)) :
+                       neutral - 0;                    
+            }          
+            Area area_to_modify = new Area(
+                        Integer.valueOf(viewProjectData.getTblArea().getValueAt(row_area, 0).toString()), 
+                        viewProjectData.getTblArea().getValueAt(row_area, 1).toString(), 
+                        new Project(viewProjectData.getProjectCode(), null, new TypeOfInstallation(viewProjectData.getType_installation_code(), null), null, 0, null), 
+                        potency_total, 
+                        neutral, 
+                        Integer.valueOf(viewProjectData.getTblArea().getValueAt(row_area, 4).toString()));
+            double quantityPotencyIntensity = 0;
+            if (viewProjectData.getTblAreasCharges().getValueAt(row_charge, 7).toString().equalsIgnoreCase(TypeSubTypeCharge.POTENCY.getSubTypeCharge())){
+                quantityPotencyIntensity = (Integer.valueOf(viewProjectData.getTblAreasCharges().getValueAt(row_charge, 3).toString()) * 
+                                    Double.valueOf(viewProjectData.getTblAreasCharges().getValueAt(row_charge, 4).toString())) * Integer.valueOf(viewProjectData.getTblArea().getValueAt(row_area, 4).toString());                         
+            } else if (viewProjectData.getTblAreasCharges().getValueAt(row_charge, 7).toString().equalsIgnoreCase(TypeSubTypeCharge.QUANTITY.getSubTypeCharge())) {
+                quantityPotencyIntensity = Double.valueOf(viewProjectData.getTblAreasCharges().getValueAt(row_charge, 3).toString());
+            } else {
+                quantityPotencyIntensity = (Integer.valueOf(viewProjectData.getTblAreasCharges().getValueAt(row_charge, 3).toString()) * 
+                                    Double.valueOf(viewProjectData.getTblAreasCharges().getValueAt(row_charge, 4).toString())) * Integer.valueOf(viewProjectData.getTblArea().getValueAt(row_area, 4).toString());
             }
-            Methods.removeRows(viewProjectData.getTblAreasCharges());
-            this.fill_areas(); 
-            viewProjectData.getTblArea().setRowSelectionInterval(row_area, row_area); 
-            this.fill_table_charges_in_areas();   
-            Methods.removeRows(viewProjectData.getTblInstallationMainFeeder());
-            this.fill_main_feeder();
+            System.out.println(quantityPotencyIntensity);
+            ServiceChargesInAreas.delete_charge_in_area(new ChargesInAreas(
+                    new Charge(Integer.valueOf(viewProjectData.getTblAreasCharges().getValueAt(row_charge, 1).toString()), 
+                            null, 
+                            0,
+                            true,
+                            false,
+                            false,
+                            new TypeCharges(Integer.valueOf(viewProjectData.getTblAreasCharges().getValueAt(row_charge, 6).toString()), null, viewProjectData.getTblAreasCharges().getValueAt(row_charge, 7).toString())), 
+                    new Area(Integer.parseInt(viewProjectData.getTblAreasCharges().getValueAt(row_charge, 0).toString())), 
+                    quantityPotencyIntensity,
+                    0, 
+                    null, 
+                    null, 
+                    null, 
+                    null,
+                    null,
+                    null),
+                    area_to_modify);       
+                Methods.removeRows(viewProjectData.getTblAreasCharges());
+                this.fill_areas(); 
+                viewProjectData.getTblArea().setRowSelectionInterval(row_area, row_area);
+                this.fill_table_charges_in_areas(); 
+                Methods.removeRows(viewProjectData.getTblInstallationMainFeeder());   
+                this.fill_main_feeder();
+                
+//            for (int i = 0; i < rows.length; i++) {    
+//                if (Integer.valueOf(viewProjectData.getTblAreasCharges().getValueAt(rows[i], 5).toString()) == 1){
+//                   potency_total = potency_total - ((Integer.valueOf(viewProjectData.getTblAreasCharges().getValueAt(rows[i], 3).toString())) * (Double.valueOf(viewProjectData.getTblAreasCharges().getValueAt(rows[i], 4).toString())));
+//                   neutral = neutral - ((Integer.valueOf(viewProjectData.getTblAreasCharges().getValueAt(rows[i], 3).toString())) * (Double.valueOf(viewProjectData.getTblAreasCharges().getValueAt(rows[i], 4).toString())));
+//                } else {
+//                   potency_total = potency_total - ((Integer.valueOf(viewProjectData.getTblAreasCharges().getValueAt(rows[i], 3).toString())) * (Double.valueOf(viewProjectData.getTblAreasCharges().getValueAt(rows[i], 4).toString())));
+//                   neutral = (Integer.valueOf(viewProjectData.getTblAreasCharges().getValueAt(rows[i], 6).toString()) == 3) || 
+//                           (Integer.valueOf(viewProjectData.getTblAreasCharges().getValueAt(rows[i], 6).toString()) == 11) ? 
+//                           neutral - ((Integer.valueOf(viewProjectData.getTblAreasCharges().getValueAt(rows[i], 3).toString())) * (Double.valueOf(viewProjectData.getTblAreasCharges().getValueAt(rows[i], 4).toString()) * 0.7)) :
+//                           neutral - 0;                    
+//                }          
+//                Area area_to_modify = new Area(
+//                            Integer.valueOf(viewProjectData.getTblArea().getValueAt(row_area, 0).toString()), 
+//                            viewProjectData.getTblArea().getValueAt(row_area, 1).toString(), 
+//                            new Project(viewProjectData.getProjectCode(), null, new TypeOfInstallation(viewProjectData.getType_installation_code(), null), null, 0, null), 
+//                            potency_total, 
+//                            neutral, 
+//                            Integer.valueOf(viewProjectData.getTblArea().getValueAt(row_area, 4).toString()));
+//                double quantityPotencyIntensity = 0;
+//                if (viewProjectData.getTblAreasCharges().getValueAt(rows[i], 7).toString().equalsIgnoreCase(TypeSubTypeCharge.POTENCY.getSubTypeCharge())){
+//                    quantityPotencyIntensity = (Integer.valueOf(viewProjectData.getTblAreasCharges().getValueAt(rows[i], 3).toString()) * 
+//                                        Double.valueOf(viewProjectData.getTblAreasCharges().getValueAt(rows[i], 4).toString())) * Integer.valueOf(viewProjectData.getTblArea().getValueAt(row_area, 4).toString());                         
+//                } else if (viewProjectData.getTblAreasCharges().getValueAt(rows[i], 7).toString().equalsIgnoreCase(TypeSubTypeCharge.QUANTITY.getSubTypeCharge())) {
+//                    quantityPotencyIntensity = Double.valueOf(viewProjectData.getTblAreasCharges().getValueAt(rows[i], 3).toString());
+//                } else {
+//                    quantityPotencyIntensity = (Integer.valueOf(viewProjectData.getTblAreasCharges().getValueAt(rows[i], 3).toString()) * 
+//                                        Double.valueOf(viewProjectData.getTblAreasCharges().getValueAt(rows[i], 4).toString())) * Integer.valueOf(viewProjectData.getTblArea().getValueAt(row_area, 4).toString());
+//                }
+//                ServiceChargesInAreas.delete_charge_in_area(new ChargesInAreas(
+//                        new Charge(Integer.valueOf(viewProjectData.getTblAreasCharges().getValueAt(rows[i], 1).toString()), 
+//                                null, 
+//                                0,
+//                                true,
+//                                false,
+//                                false,
+//                                new TypeCharges(Integer.valueOf(viewProjectData.getTblAreasCharges().getValueAt(rows[i], 6).toString()), null, viewProjectData.getTblAreasCharges().getValueAt(rows[i], 7).toString())), 
+//                        new Area(Integer.parseInt(viewProjectData.getTblAreasCharges().getValueAt(rows[i], 0).toString())), 
+//                        quantityPotencyIntensity,
+//                        0, 
+//                        null, 
+//                        null, 
+//                        null, 
+//                        null,
+//                        null,
+//                        null),
+//                        area_to_modify);                
+//            }   
+//            Methods.removeRows(viewProjectData.getTblAreasCharges());
+//            this.fill_areas(); 
+//            viewProjectData.getTblArea().setRowSelectionInterval(row_area, row_area);
+//            this.fill_table_charges_in_areas(); 
+//            Methods.removeRows(viewProjectData.getTblInstallationMainFeeder());   
+//            this.fill_main_feeder();
         } catch (ArrayIndexOutOfBoundsException e) {
             MessagesStructure.Warning(MessagesStructure.format(200, messages.getProperty(Messages.NOT_SELECT_ROW), MessagesStructure.justify));
             viewProjectData.getTblAreasCharges().requestFocus();            

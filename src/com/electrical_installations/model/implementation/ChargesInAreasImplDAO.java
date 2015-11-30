@@ -188,19 +188,36 @@ public class ChargesInAreasImplDAO implements ChargesInAreasDAO{
      */
     @Override
     public boolean delete_charge_in_area(ChargesInAreas chargesInAreas, Area area) {
+        double voltage = 0;
         try {
             connection.getConexion().setAutoCommit(false);
+            preparedStatement = connection.getConexion().prepareStatement(ChargesInAreasQueries.CONSULT_VOLTAGE);
+            System.out.println("CODIGO CARGA: " + chargesInAreas.getCharge().getCode());
+            System.out.println("CODIGO AREA:" + area.getCode());
+            preparedStatement.setInt(1, chargesInAreas.getCharge().getCode());
+            preparedStatement.setInt(2, area.getCode());
+            result = preparedStatement.executeQuery();
+            while(result.next()) {
+                voltage = result.getDouble(1);
+            }
+            preparedStatement.close();
             preparedStatement = connection.getConexion().prepareStatement(ChargesInAreasQueries.DELETE_CHARGE_IN_AREA);
+            System.out.println("CODIGO CARGA: " + chargesInAreas.getCharge().getCode());
+            System.out.println("CODIGO AREA: " + chargesInAreas.getArea().getCode());
             preparedStatement.setInt(1, chargesInAreas.getCharge().getCode());
             preparedStatement.setInt(2, chargesInAreas.getArea().getCode());
             if (preparedStatement.executeUpdate() > 0){
                 preparedStatement.close();
                 preparedStatement = connection.getConexion().prepareStatement(ChargesInAreasQueries.UPDATE_AREA_AFTER_DELETE_CHARGE);
+                
+            System.out.println("POTENCIA TOTAL: " + area.getPotency_total());
+            System.out.println("POTENCIA NEUTRAL: " + area.getNeutral());
+            System.out.println("CODIGO AREA: " + area.getCode());
                 preparedStatement.setDouble(1, area.getPotency_total());
                 preparedStatement.setDouble(2, area.getNeutral());
                 preparedStatement.setInt(3, area.getCode());
                 if (preparedStatement.executeUpdate() > 0){
-                    if (delete_charge_main_feeder(chargesInAreas, area, connection)){                    
+                    if (delete_charge_main_feeder(chargesInAreas, area, connection, voltage)){                    
                         connection.getConexion().commit();
                         return true;
                     } else {                    
@@ -216,8 +233,12 @@ public class ChargesInAreasImplDAO implements ChargesInAreasDAO{
                 return false;
             }  
         } catch (SQLException e) {
-            e.printStackTrace();
-            return false;
+            try {
+                e.printStackTrace();
+                connection.getConexion().rollback();
+            } catch (SQLException ex) {
+                Logger.getLogger(ChargesInAreasImplDAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
         } finally {
             try {
                 connection.getConexion().setAutoCommit(true);
@@ -227,6 +248,7 @@ public class ChargesInAreasImplDAO implements ChargesInAreasDAO{
             }
             connection.closeConnection();
         }
+        return false;
     }//Fin del método
             
     /**
@@ -237,58 +259,69 @@ public class ChargesInAreasImplDAO implements ChargesInAreasDAO{
      * @return 
      */
     @Override
-    public boolean delete_charge_main_feeder(ChargesInAreas chargesInAreas, Area area, DataBaseConnection dataBaseConnection) {        
-        double voltage = 0;
+    public boolean delete_charge_main_feeder(ChargesInAreas chargesInAreas, Area area, DataBaseConnection dataBaseConnection, double voltage) {        
+        int code_project = 0;
         try {
-            preparedStatement = dataBaseConnection.getConexion().prepareStatement(ChargesInAreasQueries.CONSULT_VOLTAGE);
-            preparedStatement.setInt(1, chargesInAreas.getCharge().getCode());
-            preparedStatement.setInt(2, area.getCode());
-            result = preparedStatement.executeQuery();
-            while(result.next()) {
-                voltage = result.getDouble(1);
-            }
+            System.out.println("VOLTAJE: "+ voltage);
+            preparedStatement.close();
             preparedStatement = dataBaseConnection.getConexion().prepareStatement(ChargesInAreasQueries.DELETE_CHARGE_UPDATE_MAIN_FEEDER_TYPE_CHARGE);
             if (chargesInAreas.getCharge().getTypeCharges().getType().equalsIgnoreCase(TypeSubTypeCharge.POTENCY.getSubTypeCharge())){
+                System.out.println("POTENCIA TOTAL: "+ chargesInAreas.getPotency());
                 preparedStatement.setDouble(1, chargesInAreas.getPotency());
                 preparedStatement.setInt(2, 0);
                 preparedStatement.setDouble(3, 0);
-                preparedStatement.setDouble(4, voltage >= 200 ? 0 : (chargesInAreas.getArea().getPotency_total() * chargesInAreas.getQuantity()) * area.getQuantity()); 
+                System.out.println("NEUTRO: " + (voltage >= 200 ? 0 : chargesInAreas.getPotency()));
+                preparedStatement.setDouble(4, voltage >= 200 ? 0 : chargesInAreas.getPotency()); 
             } else if (chargesInAreas.getCharge().getTypeCharges().getType().equalsIgnoreCase(TypeSubTypeCharge.QUANTITY.getSubTypeCharge())){
                 preparedStatement.setDouble(1, 0);
-                preparedStatement.setInt(2, (int)chargesInAreas.getPotency() * area.getQuantity());
+                System.out.println("CARGA: " + (int)chargesInAreas.getPotency());
+                System.out.println("CANTIDAD: " + ((int)chargesInAreas.getPotency()) * area.getQuantity());
+                preparedStatement.setInt(2, ((int)chargesInAreas.getPotency()) * area.getQuantity());
                 preparedStatement.setDouble(3, 0);
                 preparedStatement.setDouble(4, 0);  
-            } else {                      
+            } else {                     
+                System.out.println("ERRORRRR");
                 preparedStatement.setDouble(1, 0);
                 preparedStatement.setInt(2, 0);
                 preparedStatement.setDouble(3, 0);
                 preparedStatement.setDouble(4, 0);  
             }
+            System.out.println("PROYECTO CODIGO: " + area.getProject().getCode());
+            System.out.println("PROYECTO TIPO: " + area.getProject().getTypeOfInstallation().getCode());
+            System.out.println("TIPO CARGA: " + chargesInAreas.getCharge().getTypeCharges().getCode());
             preparedStatement.setInt(5, area.getProject().getCode());
             preparedStatement.setInt(6, area.getProject().getTypeOfInstallation().getCode());
             preparedStatement.setInt(7, chargesInAreas.getCharge().getTypeCharges().getCode());    
- 
             if (preparedStatement.executeUpdate() > 0){
                 preparedStatement.close();
                 preparedStatement = dataBaseConnection.getConexion().prepareStatement(ChargesInAreasQueries.VALIDATE_MAIN_FEEDER_I_P_C);
+                System.out.println("CODIGO PROYECTO: " + area.getProject().getCode());
+                System.out.println("CODIGO INSTALACION: " + area.getProject().getTypeOfInstallation().getCode());
+                System.out.println("CODIGO TIPO CARGA: " + chargesInAreas.getCharge().getTypeCharges().getCode());
                 preparedStatement.setInt(1, area.getProject().getCode());
                 preparedStatement.setInt(2, area.getProject().getTypeOfInstallation().getCode());
                 preparedStatement.setInt(3, chargesInAreas.getCharge().getTypeCharges().getCode()); 
                 result = preparedStatement.executeQuery();
-                int code_project = 0;
                 while (result.next()){
                     code_project = result.getInt(1);
+                    System.out.println(result.getInt(2));
                 }
+                System.out.println(code_project);
                 if (code_project > 0){
                     preparedStatement.close();  
                     preparedStatement = dataBaseConnection.getConexion().prepareStatement(ChargesInAreasQueries.DELETE_CHARGE_MAIN_FEEDER);
+                    System.out.println("CODIGO PROYECTO: " + area.getProject().getCode());
+                    System.out.println("CODIGO INSTALACION: " + area.getProject().getTypeOfInstallation().getCode());
+                    System.out.println("CODIGO TIPO CARGA: " + chargesInAreas.getCharge().getTypeCharges().getCode());
                     preparedStatement.setInt(1, area.getProject().getCode());
                     preparedStatement.setInt(2, area.getProject().getTypeOfInstallation().getCode());
                     preparedStatement.setInt(3, chargesInAreas.getCharge().getTypeCharges().getCode());
                     return preparedStatement.executeUpdate() > 0;
-                } else {
+                } else {    
                     return true;
                 }
+            } else {                
+                return false;
             }
         } catch (SQLException ex) {
             ex.printStackTrace();

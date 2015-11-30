@@ -59,7 +59,7 @@ public class ControllerLogin implements ActionListener, WindowListener, KeyListe
             MessagesStructure.Warning(MessagesStructure.format(200, messages.getProperty(Messages.EMPTY_USERNAME), MessagesStructure.justify));
             viewLogin.getTxtUserName().requestFocus();
             return false;
-        } else if (viewLogin.getTxtPassword().getText().equals("")){
+        } else if (String.valueOf(viewLogin.getTxtPassword().getPassword()).equals("")){
             MessagesStructure.Warning(MessagesStructure.format(200, messages.getProperty(Messages.EMPTY_PASSWORD), MessagesStructure.justify));
             viewLogin.getTxtPassword().requestFocus();
             return false;
@@ -74,7 +74,7 @@ public class ControllerLogin implements ActionListener, WindowListener, KeyListe
      */
     public void login(){
         if (validate_fields()){
-            user = ServiceUser.login(new User(viewLogin.getTxtUserName().getText(),viewLogin.getTxtPassword().getText()));
+            user = ServiceUser.login(new User(viewLogin.getTxtUserName().getText(),String.valueOf(viewLogin.getTxtPassword().getPassword())));
             if (user != null){ 
                 session.session_data(user);
                 this.viewLogin.setVisible(false);                     
@@ -145,7 +145,7 @@ public class ControllerLogin implements ActionListener, WindowListener, KeyListe
                 login();
             } 
         } else if (e.getSource().equals(viewLogin.getTxtPassword())) {
-            if (viewLogin.getTxtPassword().getText().length() == 20) {
+            if (String.valueOf(viewLogin.getTxtPassword().getPassword()).length() == 20) {
                 viewLogin.getToolkit().beep();
                 e.consume();                
             } else if (character == (char) KeyEvent.VK_ENTER) {

@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Area" language="groovy" pageWidth="752" pageHeight="612" orientation="Landscape" columnWidth="752" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="ed004093-18ba-4947-bd97-5b641ba29422">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="project_code" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="project_code_type" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<parameterDescription><![CDATA[]]></parameterDescription>
+		<defaultValueExpression><![CDATA["C:\\Program Files\\ELECTRICAL_INSTALLATIONS\\report\\"]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT
+     AREA."codigo" AS AREA_codigo,
+     AREA."nombre" AS AREA_nombre
+FROM
+     "negocio"."AREA" AREA
+WHERE
+     AREA."proyecto_codigo" = $P{project_code}
+ AND AREA."proyecto_tipo_instalacion" = $P{project_code_type}]]>
+	</queryString>
+	<field name="area_codigo" class="java.lang.Integer"/>
+	<field name="area_nombre" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="21" splitType="Stretch">
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="0" width="752" height="20" backcolor="#CCCCFF" uuid="65f7101c-fee5-4429-b2b1-531abe598005"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Área]]></text>
+			</staticText>
+		</band>
+	</title>
+	<detail>
+		<band height="34" splitType="Stretch">
+			<staticText>
+				<reportElement x="5" y="3" width="46" height="15" uuid="27f6289c-870c-454f-ac2c-79be41239601"/>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Nombre:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="51" y="3" width="701" height="15" uuid="5deb75a1-c1bd-4062-88d9-63775f427c4d"/>
+				<textElement verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{area_nombre}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="0" y="0" width="752" height="1" uuid="584a56f1-0e16-4faa-a859-a3d5b0b44bb3"/>
+			</line>
+			<subreport>
+				<reportElement x="0" y="18" width="752" height="15" uuid="53070ee0-049c-4c1f-9c12-77f374cb0a04"/>
+				<subreportParameter name="area_code">
+					<subreportParameterExpression><![CDATA[$F{area_codigo}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "subAreaIluminacion.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+		<band height="16">
+			<subreport>
+				<reportElement x="0" y="0" width="752" height="15" uuid="d51f5255-7dd3-44f5-a9aa-3eb20017595e"/>
+				<subreportParameter name="area_code">
+					<subreportParameterExpression><![CDATA[$F{area_codigo}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "subCargaEnArea.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</detail>
+</jasperReport>

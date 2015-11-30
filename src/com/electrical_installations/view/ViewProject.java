@@ -72,6 +72,7 @@ public class ViewProject extends javax.swing.JFrame {
         txtFind.addKeyListener(controllerProject);
         tblData.addMouseListener(controllerProject);
         cmbFilter.addItemListener(controllerProject);
+        btnReporte.addActionListener(controllerProject);
         this.addWindowListener(controllerProject);
 
         this.txtName.requestFocus();
@@ -89,7 +90,6 @@ public class ViewProject extends javax.swing.JFrame {
         this.code = 0;
         this.txtName.setText(null);
         this.txtName.requestFocus();
-        this.lblPowerTotal.setText("0");
         this.txtFind.setText(null);
         this.lblCurrentDate.setText(Methods.get_date());
         this.cmbType.setSelectedIndex(0);
@@ -129,7 +129,15 @@ public class ViewProject extends javax.swing.JFrame {
     }//Fin del método
 
     //Getters y Setters
-   
+
+    public JMenuItem getBtnReporte() {
+        return btnReporte;
+    }
+
+    public void setBtnReporte(JMenuItem btnReporte) {
+        this.btnReporte = btnReporte;
+    }
+    
     public int getCode() {
         return code;
     }
@@ -243,14 +251,6 @@ public class ViewProject extends javax.swing.JFrame {
         this.lblCurrentDate = lblCurrentDate;
     }
 
-    public JLabel getLblPowerTotal() {
-        return lblPowerTotal;
-    }
-
-    public void setLblPowerTotal(JLabel lblPowerTotal) {
-        this.lblPowerTotal = lblPowerTotal;
-    }
-
     public JTabbedPane getTabbedPane() {
         return tabbedPane;
     }
@@ -305,6 +305,8 @@ public class ViewProject extends javax.swing.JFrame {
         btnOpen = new javax.swing.JMenuItem();
         jSeparator1 = new javax.swing.JPopupMenu.Separator();
         btnDelete = new javax.swing.JMenuItem();
+        jSeparator2 = new javax.swing.JPopupMenu.Separator();
+        btnReporte = new javax.swing.JMenuItem();
         btnGroupStatus = new javax.swing.ButtonGroup();
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
@@ -316,11 +318,9 @@ public class ViewProject extends javax.swing.JFrame {
         tb1 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
         txtName = new javax.swing.JTextField();
         jPanel5 = new javax.swing.JPanel();
         cmbType = new javax.swing.JComboBox();
-        lblPowerTotal = new javax.swing.JLabel();
         btnFind = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
         lblCurrentDate = new javax.swing.JLabel();
@@ -347,8 +347,15 @@ public class ViewProject extends javax.swing.JFrame {
         btnDelete.setText("Eliminar");
         btnDelete.setToolTipText("");
         subMenu.add(btnDelete);
+        subMenu.add(jSeparator2);
+
+        btnReporte.setFont(new java.awt.Font("DejaVu Sans", 1, 14)); // NOI18N
+        btnReporte.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/electrical_installations/resource/image/report.png"))); // NOI18N
+        btnReporte.setText("Hoja de Cálculo");
+        subMenu.add(btnReporte);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("ELECTRICAL_INSTALLATIONS");
         setMinimumSize(new java.awt.Dimension(800, 500));
         getContentPane().setLayout(new javax.swing.OverlayLayout(getContentPane()));
 
@@ -454,15 +461,6 @@ public class ViewProject extends javax.swing.JFrame {
         gridBagConstraints.insets = new java.awt.Insets(0, 5, 6, 0);
         tb1.add(jLabel4, gridBagConstraints);
 
-        jLabel7.setFont(new java.awt.Font("DejaVu Sans", 1, 14)); // NOI18N
-        jLabel7.setText("Potencia Total:");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 6;
-        gridBagConstraints.gridy = 2;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
-        gridBagConstraints.insets = new java.awt.Insets(0, 0, 6, 0);
-        tb1.add(jLabel7, gridBagConstraints);
-
         txtName.setFont(new java.awt.Font("DejaVu Sans", 0, 14)); // NOI18N
         txtName.setDisabledTextColor(new java.awt.Color(0, 0, 0));
         txtName.setMinimumSize(new java.awt.Dimension(200, 23));
@@ -490,19 +488,6 @@ public class ViewProject extends javax.swing.JFrame {
         gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
         gridBagConstraints.insets = new java.awt.Insets(0, 0, 2, 0);
         tb1.add(jPanel5, gridBagConstraints);
-
-        lblPowerTotal.setFont(new java.awt.Font("DejaVu Sans", 1, 14)); // NOI18N
-        lblPowerTotal.setForeground(new java.awt.Color(0, 0, 102));
-        lblPowerTotal.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        lblPowerTotal.setText("0");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 8;
-        gridBagConstraints.gridy = 2;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
-        gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(0, 0, 6, 5);
-        tb1.add(lblPowerTotal, gridBagConstraints);
 
         btnFind.setFont(new java.awt.Font("DejaVu Sans", 1, 14)); // NOI18N
         btnFind.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/electrical_installations/resource/image/buscar.png"))); // NOI18N
@@ -722,6 +707,7 @@ public class ViewProject extends javax.swing.JFrame {
     private javax.swing.JButton btnModify;
     private javax.swing.JMenuItem btnOpen;
     private javax.swing.JButton btnRegister;
+    private javax.swing.JMenuItem btnReporte;
     private javax.swing.JButton btnUser;
     private javax.swing.JComboBox cmbFilter;
     private javax.swing.JComboBox cmbType;
@@ -730,7 +716,6 @@ public class ViewProject extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
@@ -740,8 +725,8 @@ public class ViewProject extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel7;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JPopupMenu.Separator jSeparator1;
+    private javax.swing.JPopupMenu.Separator jSeparator2;
     private javax.swing.JLabel lblCurrentDate;
-    private javax.swing.JLabel lblPowerTotal;
     private javax.swing.JPopupMenu subMenu;
     private javax.swing.JTabbedPane tabbedPane;
     private javax.swing.JPanel tb1;

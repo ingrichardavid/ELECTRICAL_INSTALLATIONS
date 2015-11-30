@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="subCircuitoAlimentacion" language="groovy" pageWidth="752" pageHeight="612" orientation="Landscape" columnWidth="752" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="edc2aff9-a258-43a1-989e-e599a9a6fc85">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="project_code" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="project_code_type" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT
+     CIRCUITO_DE_ILUMINACION."calibre_fase_neutro" AS CIRCUITO_DE_ILUMINACION_calibre_fase_neutro,
+     CIRCUITO_DE_ILUMINACION."tuberia" AS CIRCUITO_DE_ILUMINACION_tuberia,
+     CIRCUITO_DE_ILUMINACION."descripcion" AS CIRCUITO_DE_ILUMINACION_descripcion
+FROM
+     "negocio"."CIRCUITO_DE_ILUMINACION" CIRCUITO_DE_ILUMINACION
+WHERE
+     CIRCUITO_DE_ILUMINACION."proyecto_codigo" = $P{project_code}
+ AND CIRCUITO_DE_ILUMINACION."proyecto_tipo_instalacion" = $P{project_code_type}]]>
+	</queryString>
+	<field name="circuito_de_iluminacion_calibre_fase_neutro" class="java.lang.String"/>
+	<field name="circuito_de_iluminacion_tuberia" class="java.lang.String"/>
+	<field name="circuito_de_iluminacion_descripcion" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="21" splitType="Stretch">
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="0" width="752" height="20" backcolor="#CCCCFF" uuid="e94fe842-2956-41fb-9448-eaa0314ef666"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Circuito de Iluminación]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="21" splitType="Stretch">
+			<staticText>
+				<reportElement x="315" y="2" width="230" height="14" uuid="60ccd5a2-ce4c-42cf-ac13-a7510935ad06"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Calibre Fase]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="545" y="2" width="204" height="14" uuid="6a99d929-a23e-4dbc-9fa1-1260eb31b301"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Tubería]]></text>
+			</staticText>
+			<line>
+				<reportElement x="0" y="20" width="752" height="1" uuid="96b47b35-c0dc-46f9-b2e8-2f96c9c8f1d0"/>
+			</line>
+			<staticText>
+				<reportElement x="0" y="2" width="315" height="14" uuid="03a34021-e06b-4761-ba32-dfd6dbfa49d5"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Descripción]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<detail>
+		<band height="14" splitType="Stretch">
+			<textField>
+				<reportElement x="545" y="0" width="204" height="14" uuid="d79588a4-ddd0-4a07-bd10-94a09ad7b1dc"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{circuito_de_iluminacion_tuberia}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="0" width="315" height="14" uuid="0f5ffd70-d4f8-4841-b779-e823ae21d21d"/>
+				<textElement textAlignment="Center">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{circuito_de_iluminacion_descripcion}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="315" y="0" width="230" height="14" uuid="a72d9f7b-c7e5-4507-89e1-df1001ed423c"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{circuito_de_iluminacion_calibre_fase_neutro}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

@@ -134,7 +134,7 @@ public class ChargesInAreasQueries {
      * Modificar tipo de carga en entidad alimentador principal una vez eliminada una carga de un área.
      */
     public static final String DELETE_CHARGE_UPDATE_MAIN_FEEDER_TYPE_CHARGE = "UPDATE negocio.\"ALIMENTADOR_PRINCIPAL\"\n" +
-                                                                "SET potencia= potencia - ?, cantidad= cantidad - ?, intensidad= intensidad - ?, neutro = neutro - ?\n" +
+                                                                "SET potencia= potencia - ?, cantidad = cantidad - ?, intensidad= intensidad - ?, neutro = neutro - ?\n" +
                                                                 "WHERE proyecto_codigo=? AND proyecto_tipo=? AND tipo_carga_codigo=?;";
     
     /**
@@ -146,7 +146,7 @@ public class ChargesInAreasQueries {
     /**
      * Validate si Intensidad, Potencia o Cantidad es igual a 0.
      */
-    public static final String VALIDATE_MAIN_FEEDER_I_P_C ="SELECT proyecto_codigo\n" +
+    public static final String VALIDATE_MAIN_FEEDER_I_P_C ="SELECT proyecto_codigo,cantidad,intensidad,potencia\n" +
                                                          "FROM negocio.\"ALIMENTADOR_PRINCIPAL\"\n" +
                                                          "WHERE proyecto_codigo=? AND proyecto_tipo=? AND tipo_carga_codigo=? \n" +
                                                          "AND cantidad = 0 AND intensidad = 0 AND potencia = 0;";

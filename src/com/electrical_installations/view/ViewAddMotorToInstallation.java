@@ -721,6 +721,7 @@ public class ViewAddMotorToInstallation extends javax.swing.JDialog {
         gridBagConstraints.insets = new java.awt.Insets(10, 12, 0, 0);
         jPanel4.add(jspQuantity, gridBagConstraints);
 
+        jLabel18.setFont(new java.awt.Font("DejaVu Sans", 1, 12)); // NOI18N
         jLabel18.setText("Tubería:");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
@@ -728,6 +729,7 @@ public class ViewAddMotorToInstallation extends javax.swing.JDialog {
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         jPanel4.add(jLabel18, gridBagConstraints);
 
+        cmbPipeline.setFont(new java.awt.Font("DejaVu Sans", 0, 12)); // NOI18N
         cmbPipeline.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "EMT", "PVC" }));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 3;

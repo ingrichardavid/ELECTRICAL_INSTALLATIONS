@@ -41,9 +41,10 @@ public interface ChargesInAreasDAO {
      * @param chargesInAreas
      * @param area
      * @param dataBaseConnection
+     * @param voltage
      * @return 
      */
-    public boolean delete_charge_main_feeder(ChargesInAreas chargesInAreas, Area area, DataBaseConnection dataBaseConnection);
+    public boolean delete_charge_main_feeder(ChargesInAreas chargesInAreas, Area area, DataBaseConnection dataBaseConnection, double voltage);
     
     /**
      * Consultar todas las cargas asociadas a un área.

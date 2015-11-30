@@ -235,8 +235,9 @@ public class ViewSubFeederMotors extends javax.swing.JDialog {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Calcular Sub-Alimentador");
-        setMinimumSize(new java.awt.Dimension(600, 197));
-        setPreferredSize(new java.awt.Dimension(600, 197));
+        setMinimumSize(new java.awt.Dimension(620, 197));
+        setPreferredSize(new java.awt.Dimension(620, 197));
+        setResizable(false);
         getContentPane().setLayout(new javax.swing.OverlayLayout(getContentPane()));
 
         jPanel1.setLayout(new java.awt.GridBagLayout());
@@ -292,7 +293,7 @@ public class ViewSubFeederMotors extends javax.swing.JDialog {
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 4;
         gridBagConstraints.gridy = 0;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.insets = new java.awt.Insets(0, 15, 0, 0);
         jPanel4.add(jLabel3, gridBagConstraints);
 
@@ -303,7 +304,7 @@ public class ViewSubFeederMotors extends javax.swing.JDialog {
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 4;
         gridBagConstraints.gridy = 2;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.insets = new java.awt.Insets(0, 15, 0, 0);
         jPanel4.add(jLabel6, gridBagConstraints);
 
@@ -356,7 +357,7 @@ public class ViewSubFeederMotors extends javax.swing.JDialog {
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 4;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 5);
         jPanel4.add(jLabel15, gridBagConstraints);
 
@@ -398,10 +399,9 @@ public class ViewSubFeederMotors extends javax.swing.JDialog {
         jPanel4.add(jLabel17, gridBagConstraints);
 
         lblCaliberPhase.setFont(new java.awt.Font("DejaVu Sans", 0, 12)); // NOI18N
-        lblCaliberPhase.setText("ki");
-        lblCaliberPhase.setMaximumSize(new java.awt.Dimension(200, 23));
-        lblCaliberPhase.setMinimumSize(new java.awt.Dimension(200, 23));
-        lblCaliberPhase.setPreferredSize(new java.awt.Dimension(200, 23));
+        lblCaliberPhase.setMaximumSize(new java.awt.Dimension(230, 23));
+        lblCaliberPhase.setMinimumSize(new java.awt.Dimension(230, 23));
+        lblCaliberPhase.setPreferredSize(new java.awt.Dimension(230, 23));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 6;
@@ -419,7 +419,7 @@ public class ViewSubFeederMotors extends javax.swing.JDialog {
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 5);
         jPanel4.add(lblHP, gridBagConstraints);
 
@@ -430,22 +430,21 @@ public class ViewSubFeederMotors extends javax.swing.JDialog {
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 4;
         gridBagConstraints.gridy = 6;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.insets = new java.awt.Insets(0, 15, 0, 0);
         jPanel4.add(jLabel2, gridBagConstraints);
 
         lblCaliberEarth.setFont(new java.awt.Font("DejaVu Sans", 0, 12)); // NOI18N
         lblCaliberEarth.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        lblCaliberEarth.setText("jLabel1");
         lblCaliberEarth.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        lblCaliberEarth.setMaximumSize(new java.awt.Dimension(150, 23));
-        lblCaliberEarth.setMinimumSize(new java.awt.Dimension(150, 23));
+        lblCaliberEarth.setMaximumSize(new java.awt.Dimension(200, 23));
+        lblCaliberEarth.setMinimumSize(new java.awt.Dimension(200, 23));
         lblCaliberEarth.setPreferredSize(new java.awt.Dimension(150, 23));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 6;
         gridBagConstraints.gridy = 6;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_END;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
         jPanel4.add(lblCaliberEarth, gridBagConstraints);
 
         lblIntensity.setFont(new java.awt.Font("DejaVu Sans", 0, 12)); // NOI18N
@@ -455,7 +454,7 @@ public class ViewSubFeederMotors extends javax.swing.JDialog {
         gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 0;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 0);
         jPanel4.add(lblIntensity, gridBagConstraints);
 
@@ -469,7 +468,7 @@ public class ViewSubFeederMotors extends javax.swing.JDialog {
         gridBagConstraints.gridx = 6;
         gridBagConstraints.gridy = 0;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_END;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
         jPanel4.add(lblBreakers, gridBagConstraints);
 
         jLabel1.setFont(new java.awt.Font("DejaVu Sans", 1, 12)); // NOI18N
@@ -477,7 +476,7 @@ public class ViewSubFeederMotors extends javax.swing.JDialog {
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 4;
         gridBagConstraints.gridy = 4;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.insets = new java.awt.Insets(0, 15, 0, 0);
         jPanel4.add(jLabel1, gridBagConstraints);
 
@@ -493,6 +492,7 @@ public class ViewSubFeederMotors extends javax.swing.JDialog {
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.insets = new java.awt.Insets(5, 5, 0, 5);

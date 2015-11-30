@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="subCargaEnArea" language="groovy" pageWidth="752" pageHeight="612" orientation="Landscape" columnWidth="752" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="5081b891-4db9-4e18-bf28-e4de0f1f97a0">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="area_code" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT
+     CARGAS_EN_AREAS."calibre_neutro" AS CARGAS_EN_AREAS_calibre_neutro,
+     CARGAS_EN_AREAS."calibre_tierra" AS CARGAS_EN_AREAS_calibre_tierra,
+     CARGAS_EN_AREAS."tuberia" AS CARGAS_EN_AREAS_tuberia,
+     CARGAS_EN_AREAS."calibre_fase" AS CARGAS_EN_AREAS_calibre_fase,
+     CONCAT_WS(' ',CARGA."nombre",
+     ENERGIA."cantidad",
+     UNIDAD."nombre") AS descripcion
+FROM
+     "maestros"."CARGA" CARGA INNER JOIN "negocio"."CARGAS_EN_AREAS" CARGAS_EN_AREAS ON CARGA."codigo" = CARGAS_EN_AREAS."codigo_carga"
+     INNER JOIN "maestros"."ENERGIA" ENERGIA ON CARGA."energia_codigo" = ENERGIA."codigo"
+     INNER JOIN "maestros"."UNIDAD" UNIDAD ON ENERGIA."unidad_codigo" = UNIDAD."codigo"
+WHERE
+     CARGAS_EN_AREAS."codigo_area" = $P{area_code}]]>
+	</queryString>
+	<field name="cargas_en_areas_calibre_neutro" class="java.lang.String"/>
+	<field name="cargas_en_areas_calibre_tierra" class="java.lang.String"/>
+	<field name="cargas_en_areas_tuberia" class="java.lang.String"/>
+	<field name="cargas_en_areas_calibre_fase" class="java.lang.String"/>
+	<field name="descripcion" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="21" splitType="Stretch">
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="0" width="752" height="20" backcolor="#CCCCFF" uuid="9941ac80-2a4c-4050-bf51-e05d5e56bd62"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Carga en Área]]></text>
+			</staticText>
+		</band>
+	</title>
+	<columnHeader>
+		<band height="19" splitType="Stretch">
+			<staticText>
+				<reportElement x="611" y="2" width="141" height="14" uuid="c3910ff1-1cf6-464d-8462-b52c553d5c5a"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Tubería]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="471" y="2" width="140" height="14" uuid="6acd28b0-8d49-4c49-8c2f-cc94b88280e0"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Tierra]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="334" y="2" width="137" height="14" uuid="bccfc898-b07c-4c44-afe5-c1fd41abcba9"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Neutro]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="2" width="191" height="14" uuid="14efa9c7-0a31-45a8-91dc-d6b17fa1b113"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Descripción]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="191" y="2" width="143" height="14" uuid="771a28a0-33ea-4a44-93d1-c1e3e5614e08"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Fase]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="16" splitType="Stretch">
+			<textField>
+				<reportElement x="334" y="3" width="137" height="12" uuid="9f1a7c1c-49cd-42bf-8194-8d638d6f6222"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cargas_en_areas_calibre_neutro}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="471" y="3" width="140" height="12" uuid="278fee8c-6cac-44df-b760-e23c46f581ab"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cargas_en_areas_calibre_tierra}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="611" y="3" width="143" height="12" uuid="cc38baae-6ad7-49ba-903a-2d28b1b0b4ef"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cargas_en_areas_tuberia}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="191" y="3" width="143" height="12" uuid="ef99a56d-a1db-4ef3-a4d9-b86b78e8c516"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cargas_en_areas_calibre_fase}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="0" y="0" width="744" height="1" uuid="6386fea9-ba34-4e25-8815-78c568847abc"/>
+			</line>
+			<textField>
+				<reportElement x="0" y="3" width="191" height="12" uuid="a50c1dd2-8bfd-4b6b-b1e7-ddc2d395d732"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{descripcion}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

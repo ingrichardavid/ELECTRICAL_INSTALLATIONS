@@ -312,7 +312,7 @@ public class ViewMainFeeder extends javax.swing.JDialog {
         lblCaliberNeutral = new javax.swing.JLabel();
         lblCaliberEarth = new javax.swing.JLabel();
         jLabel18 = new javax.swing.JLabel();
-        cmbPipeline = new javax.swing.JComboBox<>();
+        cmbPipeline = new javax.swing.JComboBox<String>();
         jLabel11 = new javax.swing.JLabel();
         lblPotencyMainFeeder = new javax.swing.JLabel();
         jLabel20 = new javax.swing.JLabel();
@@ -341,7 +341,9 @@ public class ViewMainFeeder extends javax.swing.JDialog {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Alimentador Principal");
+        setMinimumSize(new java.awt.Dimension(605, 470));
         setModal(true);
+        setPreferredSize(new java.awt.Dimension(605, 470));
         setResizable(false);
         getContentPane().setLayout(new java.awt.GridBagLayout());
 
@@ -501,6 +503,9 @@ public class ViewMainFeeder extends javax.swing.JDialog {
         jPanel4.add(jLabel17, gridBagConstraints);
 
         lblCaliberPhase.setFont(new java.awt.Font("DejaVu Sans", 0, 12)); // NOI18N
+        lblCaliberPhase.setMaximumSize(new java.awt.Dimension(180, 15));
+        lblCaliberPhase.setMinimumSize(new java.awt.Dimension(180, 15));
+        lblCaliberPhase.setPreferredSize(new java.awt.Dimension(180, 15));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 5;
@@ -539,8 +544,9 @@ public class ViewMainFeeder extends javax.swing.JDialog {
         jPanel4.add(jLabel2, gridBagConstraints);
 
         lblCaliberNeutral.setFont(new java.awt.Font("DejaVu Sans", 0, 12)); // NOI18N
-        lblCaliberNeutral.setMinimumSize(new java.awt.Dimension(140, 15));
-        lblCaliberNeutral.setPreferredSize(new java.awt.Dimension(140, 15));
+        lblCaliberNeutral.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        lblCaliberNeutral.setMinimumSize(new java.awt.Dimension(180, 15));
+        lblCaliberNeutral.setPreferredSize(new java.awt.Dimension(180, 15));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 3;
         gridBagConstraints.gridy = 5;
@@ -549,6 +555,9 @@ public class ViewMainFeeder extends javax.swing.JDialog {
         jPanel4.add(lblCaliberNeutral, gridBagConstraints);
 
         lblCaliberEarth.setFont(new java.awt.Font("DejaVu Sans", 0, 12)); // NOI18N
+        lblCaliberEarth.setMaximumSize(new java.awt.Dimension(180, 15));
+        lblCaliberEarth.setMinimumSize(new java.awt.Dimension(180, 15));
+        lblCaliberEarth.setPreferredSize(new java.awt.Dimension(180, 15));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 6;
@@ -566,7 +575,7 @@ public class ViewMainFeeder extends javax.swing.JDialog {
         jPanel4.add(jLabel18, gridBagConstraints);
 
         cmbPipeline.setFont(new java.awt.Font("DejaVu Sans", 0, 12)); // NOI18N
-        cmbPipeline.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "EMT", "PVC" }));
+        cmbPipeline.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "EMT", "PVC" }));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 3;
         gridBagConstraints.gridy = 6;
@@ -707,6 +716,9 @@ public class ViewMainFeeder extends javax.swing.JDialog {
 
         lblBreakdownVoltage.setFont(new java.awt.Font("DejaVu Sans", 0, 12)); // NOI18N
         lblBreakdownVoltage.setText("0,0 %");
+        lblBreakdownVoltage.setMaximumSize(new java.awt.Dimension(180, 15));
+        lblBreakdownVoltage.setMinimumSize(new java.awt.Dimension(180, 15));
+        lblBreakdownVoltage.setPreferredSize(new java.awt.Dimension(180, 15));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 6;
@@ -775,10 +787,11 @@ public class ViewMainFeeder extends javax.swing.JDialog {
         jPanel8.add(jLabel10, gridBagConstraints);
 
         lblBreakdownVoltageNeutral.setFont(new java.awt.Font("DejaVu Sans", 0, 12)); // NOI18N
+        lblBreakdownVoltageNeutral.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lblBreakdownVoltageNeutral.setText("0,0 %");
-        lblBreakdownVoltageNeutral.setMaximumSize(new java.awt.Dimension(140, 15));
-        lblBreakdownVoltageNeutral.setMinimumSize(new java.awt.Dimension(140, 15));
-        lblBreakdownVoltageNeutral.setPreferredSize(new java.awt.Dimension(140, 15));
+        lblBreakdownVoltageNeutral.setMaximumSize(new java.awt.Dimension(180, 15));
+        lblBreakdownVoltageNeutral.setMinimumSize(new java.awt.Dimension(180, 15));
+        lblBreakdownVoltageNeutral.setPreferredSize(new java.awt.Dimension(180, 15));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 6;
         gridBagConstraints.gridy = 6;

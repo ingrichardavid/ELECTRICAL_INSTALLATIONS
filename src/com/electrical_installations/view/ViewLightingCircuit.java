@@ -306,7 +306,7 @@ public final class ViewLightingCircuit extends javax.swing.JDialog {
         jLabel58 = new javax.swing.JLabel();
         lblBranchCircuitLightingCircuit = new javax.swing.JLabel();
         jLabel59 = new javax.swing.JLabel();
-        cmbPipelineLightingCircuit = new javax.swing.JComboBox<String>();
+        cmbPipelineLightingCircuit = new javax.swing.JComboBox<>();
         jPanel15 = new javax.swing.JPanel();
         jLabel60 = new javax.swing.JLabel();
         cmbCalibersLightingCircuit = new javax.swing.JComboBox();
@@ -623,7 +623,7 @@ public final class ViewLightingCircuit extends javax.swing.JDialog {
         jPanel13.add(jLabel59, gridBagConstraints);
 
         cmbPipelineLightingCircuit.setFont(new java.awt.Font("DejaVu Sans", 0, 12)); // NOI18N
-        cmbPipelineLightingCircuit.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "EMT", "PVC" }));
+        cmbPipelineLightingCircuit.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "EMT", "PVC" }));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 6;
         gridBagConstraints.gridy = 8;

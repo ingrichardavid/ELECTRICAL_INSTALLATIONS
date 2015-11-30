@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="subMotoresAlimentacion" language="groovy" pageWidth="752" pageHeight="612" orientation="Landscape" columnWidth="752" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="991c91f0-458b-4afa-9809-49b2a94bc507">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="project_code" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="project_code_type" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT
+     MOTORES_EN_INSTALACION."calibre_fase" AS MOTORES_EN_INSTALACION_calibre_fase,
+     MOTORES_EN_INSTALACION."calibre_neutro" AS MOTORES_EN_INSTALACION_calibre_neutro,
+     MOTORES_EN_INSTALACION."calibre_tierra" AS MOTORES_EN_INSTALACION_calibre_tierra,
+     MOTORES_EN_INSTALACION."tuberia" AS MOTORES_EN_INSTALACION_tuberia,
+     MOTORES_EN_INSTALACION."descripcion" AS MOTORES_EN_INSTALACION_descripcion
+FROM
+     "negocio"."MOTORES_EN_INSTALACION" MOTORES_EN_INSTALACION
+WHERE
+     MOTORES_EN_INSTALACION."proyecto_codigo" = $P{project_code}
+ AND MOTORES_EN_INSTALACION."proyecto_tipo_instalacion" = $P{project_code_type}]]>
+	</queryString>
+	<field name="motores_en_instalacion_calibre_fase" class="java.lang.String"/>
+	<field name="motores_en_instalacion_calibre_neutro" class="java.lang.String"/>
+	<field name="motores_en_instalacion_calibre_tierra" class="java.lang.String"/>
+	<field name="motores_en_instalacion_tuberia" class="java.lang.String"/>
+	<field name="motores_en_instalacion_descripcion" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="19" splitType="Stretch">
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="-1" width="752" height="20" backcolor="#CCCCFF" uuid="accfb695-8d6d-4cc2-a14e-be0a90e27a06"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Motores en Instalación]]></text>
+			</staticText>
+		</band>
+	</title>
+	<columnHeader>
+		<band height="19" splitType="Stretch">
+			<staticText>
+				<reportElement x="528" y="2" width="100" height="13" uuid="3569b774-32d7-4e72-99f0-c4adbe4e385e"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Calibre Tierra]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="628" y="0" width="120" height="14" uuid="876679f9-a4eb-4458-88a3-5dacb741d4af"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Tubería]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="2" width="238" height="13" uuid="ef1ad8f7-3f39-41ed-8560-f6075f0b0677"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Descripción]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="238" y="2" width="190" height="13" uuid="441c9695-021e-4a76-a748-eecadeedb5b9"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Calibre Fase]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="410" y="2" width="118" height="13" uuid="d0068e0b-4311-406b-9c46-401628322d82"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Calibre Neutro]]></text>
+			</staticText>
+			<line>
+				<reportElement x="0" y="14" width="752" height="1" uuid="4d91fb67-a42a-4c1c-9bc8-fa9408a0ff59"/>
+			</line>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="17" splitType="Stretch">
+			<textField>
+				<reportElement x="238" y="0" width="190" height="14" uuid="35d6e92a-c59f-4b4b-aebe-473e458091a4"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{motores_en_instalacion_calibre_fase}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="428" y="1" width="100" height="14" uuid="7d78449a-a4fd-46a6-bc32-e25c5098f424"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{motores_en_instalacion_calibre_neutro}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="528" y="0" width="100" height="14" uuid="f462cd3e-6c25-46cc-8431-7e42e7c30306"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{motores_en_instalacion_calibre_tierra}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="628" y="0" width="120" height="14" uuid="f7f71193-f730-456f-a416-2d12e327512a"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{motores_en_instalacion_tuberia}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="0" width="238" height="14" uuid="abd3c601-34da-4dea-ad6c-d53276a38a7f"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{motores_en_instalacion_descripcion}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="0" y="15" width="752" height="1" uuid="179a26c1-5883-4522-97e0-0257f82914bb"/>
+			</line>
+		</band>
+	</detail>
+</jasperReport>

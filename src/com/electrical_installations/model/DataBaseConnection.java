@@ -34,11 +34,41 @@ public class DataBaseConnection {
             try {
                 connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/instalaciones_electricas","postgres","12345");
             } catch (SQLException ex) {    
-                MessagesStructure.ErrorMessage(MessagesStructure.format(200, messages.getProperty(Messages.CONNECTION_ERROR), MessagesStructure.justify));
+                String message = "<html>" + "                                 <body>"
+                    + "                                     <div width='290px' align='justify'>"
+                    + "                                         <h3 align='center'>"
+                    + "                                             <strong><u>ERROR DE CONEXIÓN</u></strong>"
+                    + "                                         </h3><br>"
+                    + "                                         <p>No se puede iniciar el Sistema debido alguna de las siguientes causas:</p>"
+                    + "                                          <ul>"
+                    + "                                             <li>El Sistema Manejador de Base de Datos PostgreSQL(9.4) no se encuentra instalado o en ejecución.</li>"
+                    + "                                             <li>El usuario postgres ha sido eliminado.</li>"
+                    + "                                             <li>La clave del usuario postgres ha sido modificada.</li>"
+                    + "                                             <li>La Base de Datos ha sido eliminada.</li>"
+                    + "                                         </ul>"
+                    + "                                         " + "                                     </div>"
+                    + "                                 </body>" + "                             </html>";
+                if (ex.getSQLState().equalsIgnoreCase("3D000")) {
+                    
+                } else {
+                    MessagesStructure.ErrorMessage(MessagesStructure.format(290, message, MessagesStructure.justify));
+                }
                 System.exit(0);
             }
         } catch (ClassNotFoundException ex) {
-            MessagesStructure.ErrorMessage(MessagesStructure.format(200, messages.getProperty(Messages.ERROR_CONNECTOR), MessagesStructure.justify));
+            String message = "<html>" + "                                 <body>"
+                + "                                     <div width='290px' align='justify'>"
+                + "                                         <h3 align='center'>"
+                + "                                             <strong><u>ERROR DE CONEXIÓN</u></strong>"
+                + "                                         </h3><br>"
+                + "                                         <p>No se puede iniciar el Sistema debido alguna de las siguientes causas:</p>"
+                + "                                          <ul>"
+                + "                                             <li>La versión del Manejador de Base de datos PostgreSQL no es la 9.4.</li>"
+                + "                                             <li>El conector JDBC ha sido eliminado.</li>"
+                + "                                         </ul>"
+                + "                                         " + "                                     </div>"
+                + "                                 </body>" + "                             </html>";
+            MessagesStructure.ErrorMessage(MessagesStructure.format(290, message, MessagesStructure.justify));
             System.exit(0);
         }
     }//Fin del Constructor

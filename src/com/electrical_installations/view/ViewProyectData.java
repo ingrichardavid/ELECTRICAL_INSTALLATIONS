@@ -101,6 +101,8 @@ public class ViewProyectData extends javax.swing.JDialog {
             tblInstallationEngines.getColumnModel().getColumn(i).setPreferredWidth(anchos5[i]);
         }
         
+        lblPowerTotal.setVisible(false);
+        
         controllerProjectData = new ControllerProjectData(this);
         
         this.btnCalculateMainFeeder.addActionListener(controllerProjectData);
@@ -408,8 +410,6 @@ public class ViewProyectData extends javax.swing.JDialog {
         btnDelete = new javax.swing.JMenuItem();
         subMenuMotors = new javax.swing.JPopupMenu();
         btnLightingCircuit = new javax.swing.JMenuItem();
-        jSeparator2 = new javax.swing.JPopupMenu.Separator();
-        btnSubAlimentador = new javax.swing.JMenuItem();
         subMenuCharges = new javax.swing.JPopupMenu();
         btnAddCharges = new javax.swing.JMenuItem();
         subMenuChargesInAreas = new javax.swing.JPopupMenu();
@@ -417,6 +417,8 @@ public class ViewProyectData extends javax.swing.JDialog {
         subMenuMainFeeder = new javax.swing.JPopupMenu();
         btnCalculateMainFeeder = new javax.swing.JMenuItem();
         subMenuMotosDelete = new javax.swing.JPopupMenu();
+        btnSubAlimentador = new javax.swing.JMenuItem();
+        jSeparator2 = new javax.swing.JPopupMenu.Separator();
         btnDeleteInstallationMotor = new javax.swing.JMenuItem();
         jPanel1 = new javax.swing.JPanel();
         jTabbedPane1 = new javax.swing.JTabbedPane();
@@ -487,12 +489,6 @@ public class ViewProyectData extends javax.swing.JDialog {
         btnLightingCircuit.setText("Circuito de Iluminación");
         btnLightingCircuit.setToolTipText("");
         subMenuMotors.add(btnLightingCircuit);
-        subMenuMotors.add(jSeparator2);
-
-        btnSubAlimentador.setFont(new java.awt.Font("DejaVu Sans", 1, 14)); // NOI18N
-        btnSubAlimentador.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/electrical_installations/resource/image/subAlimentador.png"))); // NOI18N
-        btnSubAlimentador.setText("Sub-Alimentador");
-        subMenuMotors.add(btnSubAlimentador);
 
         btnAddCharges.setFont(new java.awt.Font("DejaVu Sans", 1, 14)); // NOI18N
         btnAddCharges.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/electrical_installations/resource/image/agregar.png"))); // NOI18N
@@ -505,8 +501,15 @@ public class ViewProyectData extends javax.swing.JDialog {
         subMenuChargesInAreas.add(btnDeleteChargesInAreas);
 
         btnCalculateMainFeeder.setFont(new java.awt.Font("DejaVu Sans", 1, 14)); // NOI18N
-        btnCalculateMainFeeder.setText("Calcular Alimentador Principal");
+        btnCalculateMainFeeder.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/electrical_installations/resource/image/battery.png"))); // NOI18N
+        btnCalculateMainFeeder.setText("Alimentador Principal");
         subMenuMainFeeder.add(btnCalculateMainFeeder);
+
+        btnSubAlimentador.setFont(new java.awt.Font("DejaVu Sans", 1, 14)); // NOI18N
+        btnSubAlimentador.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/electrical_installations/resource/image/subAlimentador.png"))); // NOI18N
+        btnSubAlimentador.setText("Sub-Alimentador");
+        subMenuMotosDelete.add(btnSubAlimentador);
+        subMenuMotosDelete.add(jSeparator2);
 
         btnDeleteInstallationMotor.setFont(new java.awt.Font("DejaVu Sans", 1, 14)); // NOI18N
         btnDeleteInstallationMotor.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/electrical_installations/resource/image/eliminar.png"))); // NOI18N
@@ -566,7 +569,6 @@ public class ViewProyectData extends javax.swing.JDialog {
         jPanel2.add(lblType, gridBagConstraints);
 
         jLabel7.setFont(new java.awt.Font("DejaVu Sans", 1, 12)); // NOI18N
-        jLabel7.setText("Potencia Total:");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 4;
         gridBagConstraints.gridy = 2;

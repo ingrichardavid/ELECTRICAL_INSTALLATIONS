@@ -12,6 +12,7 @@ import com.electrical_installations.global.method.Methods;
 import com.electrical_installations.model.entity.Project;
 import com.electrical_installations.model.entity.TypeOfInstallation;
 import com.electrical_installations.model.entity.User;
+import com.electrical_installations.model.implementation.ReportImplDAO;
 import com.electrical_installations.model.service.ServiceProject;
 import com.electrical_installations.model.service.ServiceTypeOfInstallation;
 import com.electrical_installations.view.Session;
@@ -47,6 +48,7 @@ public class ControllerProject implements ActionListener, KeyListener, ChangeLis
     private ViewProyectData viewProjectData;
     private static final Messages messages = Messages.getInstance();
     private static final Session session = Session.getInstance();
+    private static final ReportImplDAO reportImplDAO = ReportImplDAO.GetInstance();
     private List<TypeOfInstallation> typeOfInstallations;
     private char character;
     private Project project;
@@ -93,7 +95,6 @@ public class ControllerProject implements ActionListener, KeyListener, ChangeLis
         viewProject.getTxtName().setText(project.getName());
         viewProject.getCmbType().setSelectedItem(project.getTypeOfInstallation());
         viewProject.getLblCurrentDate().setText(project.getRegistration_date());
-        viewProject.getLblPowerTotal().setText(String.valueOf(project.getPowerTotal()));
         viewProject.getTxtName().requestFocus();
     }//Fin del método
     
@@ -171,7 +172,7 @@ public class ControllerProject implements ActionListener, KeyListener, ChangeLis
             if (ServiceProject.create_project(new Project(new User(session.getNationality(), session.getDni()),
                     new TypeOfInstallation(typeOfInstallation.getCode(),typeOfInstallation.getName()), 
                     viewProject.getTxtName().getText(),
-                    Integer.valueOf(viewProject.getLblPowerTotal().getText())))){
+                    0))){
                 this.clean_all();
             }
         }
@@ -187,11 +188,11 @@ public class ControllerProject implements ActionListener, KeyListener, ChangeLis
                 if (ServiceProject.validate_project_name_for_a_user(new Project(viewProject.getCode(),new User(session.getNationality(), session.getDni()),
                         new TypeOfInstallation(typeOfInstallation.getCode(),typeOfInstallation.getName()), 
                         viewProject.getTxtName().getText(),
-                        Integer.valueOf(viewProject.getLblPowerTotal().getText()),null))){
+                        0,null))){
                     if (ServiceProject.update(new Project(viewProject.getCode(),new User(session.getNationality(), session.getDni()),
                             new TypeOfInstallation(typeOfInstallation.getCode(),typeOfInstallation.getName()), 
                             viewProject.getTxtName().getText(),
-                            Integer.valueOf(viewProject.getLblPowerTotal().getText()),null))){
+                            0,null))){
                         this.clean_all();
                     }
                 } else {
@@ -288,7 +289,10 @@ public class ControllerProject implements ActionListener, KeyListener, ChangeLis
             open_project_data();
         } else if (e.getSource().equals(viewProject.getBtnDelete())){
             remove_user();
-        } 
+        } else if (e.getSource().equals(viewProject.getBtnReporte())) {
+            int row = viewProject.getTblData().getSelectedRow();
+            reportImplDAO.report(new Project(Integer.valueOf(viewProject.getTblData().getValueAt(row, 0).toString()), new TypeOfInstallation(Integer.valueOf(viewProject.getTblData().getValueAt(row, 2).toString()), null), 0));
+        }
     }
 
     @Override
