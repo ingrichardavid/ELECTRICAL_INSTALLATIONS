@@ -1,6 +1,11 @@
 #DESCRIPCIÓN
 Proyecto para el cálculo de conductores y breakers para instalaciones eléctricas en instalaciones de tipo: Viviendas Unifamiliares.
 
+En el diseño del proyecto se hizo uso de los patrones de diseño:
+- DAO (Data Access Object).
+- MVC (Model View Controller).
+- Singlenton.
+
 #SOFTWARE
 - Lenguaje de Programación: JAVA.
 - JDK 7 ó superior.
